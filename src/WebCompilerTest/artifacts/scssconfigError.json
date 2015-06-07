@@ -1,0 +1,9 @@
+﻿[
+	{
+		"outputFile": "scss/error.css",
+		"inputFile": "scss/error.scss",
+		"minify": true,
+		"includeInProject": true,
+		"sourceMap": false
+	}
+]

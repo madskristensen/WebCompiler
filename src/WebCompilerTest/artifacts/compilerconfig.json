@@ -1,0 +1,8 @@
+﻿[
+	{
+		"outputFile": "less/test.css",
+		"inputFile": "less/test.less",
+		"minify": true,
+		"includeInProject": true
+	}
+]

@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <Extern href="stdidcmd.h"/>
+    <Extern href="vsshlids.h"/>
+    <Include href="KnownImageIds.vsct"/>
+
+    <Commands package="guidBundlerPackage">
+        <Groups>
+            <Group guid="guidBundlerCmdSet" id="MyMenuGroup" priority="0x0200">
+                <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ITEMNODE"/>
+            </Group>
+        </Groups>
+        
+        <!-- See all available images for ImageCatalogGuid at http://glyphlist.azurewebsites.net/knownmonikers/ -->
+        <Buttons>
+            <Button guid="guidBundlerCmdSet" id="CreateConfigFile" priority="0x0100" type="Button">
+                <Parent guid="guidBundlerCmdSet" id="MyMenuGroup" />
+                <Icon guid="ImageCatalogGuid" id="Compile" />
+                <CommandFlag>IconIsMoniker</CommandFlag>
+                <CommandFlag>DynamicVisibility</CommandFlag>
+                <CommandFlag>DynamicItemStart</CommandFlag>
+                <Strings>
+                    <ButtonText>Compile file...</ButtonText>
+                </Strings>
+            </Button>
+            <Button guid="guidBundlerCmdSet" id="RecompileConfigFile" priority="0x0200" type="Button">
+                <Parent guid="guidBundlerCmdSet" id="MyMenuGroup" />
+                <Icon guid="ImageCatalogGuid" id="RunUpdate" />
+                <CommandFlag>IconIsMoniker</CommandFlag>
+                <CommandFlag>DynamicVisibility</CommandFlag>
+                <CommandFlag>DynamicItemStart</CommandFlag>
+                <Strings>
+                    <ButtonText>Re-compile all files</ButtonText>
+                </Strings>
+            </Button>
+        </Buttons>
+    </Commands>
+
+    <CommandPlacements>
+        <CommandPlacement guid="guidBundlerCmdSet" id="MyMenuGroup" priority="0x0200">
+            <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_WEBITEMNODE"/>
+        </CommandPlacement>
+    </CommandPlacements>
+
+    <Symbols>
+        <!-- This is the package guid. -->
+        <GuidSymbol name="guidBundlerPackage" value="{6e1b31b9-e1c1-4697-9b0a-e638eece7765}" />
+
+        <!-- This is the guid used to group the menu commands together -->
+        <GuidSymbol name="guidBundlerCmdSet" value="{92a030a3-2493-40f9-b24b-34fdfffafb7d}">
+            <IDSymbol name="MyMenuGroup" value="0x1020" />
+            <IDSymbol name="CreateConfigFile" value="0x0100" />
+            <IDSymbol name="RecompileConfigFile" value="0x0200" />
+        </GuidSymbol>
+    </Symbols>
+</CommandTable>
