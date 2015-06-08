@@ -26,7 +26,7 @@
             </Button>
             <Button guid="guidBundlerCmdSet" id="RecompileConfigFile" priority="0x0200" type="Button">
                 <Parent guid="guidBundlerCmdSet" id="MyMenuGroup" />
-                <Icon guid="ImageCatalogGuid" id="RunUpdate" />
+                <Icon guid="ImageCatalogGuid" id="Compile" />
                 <CommandFlag>IconIsMoniker</CommandFlag>
                 <CommandFlag>DynamicVisibility</CommandFlag>
                 <CommandFlag>DynamicItemStart</CommandFlag>
