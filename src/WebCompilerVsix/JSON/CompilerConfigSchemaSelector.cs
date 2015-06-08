@@ -12,7 +12,7 @@ namespace WebCompilerVsix.JSON
     [Export(typeof(IJSONSchemaSelector))]
     class CompilerConfigSchemaSelector : IJSONSchemaSelector
     {
-        public event EventHandler AvailableSchemasChanged;
+        public event EventHandler AvailableSchemasChanged { add { } remove { } }
 
         public Task<IEnumerable<string>> GetAvailableSchemasAsync()
         {
@@ -25,7 +25,7 @@ namespace WebCompilerVsix.JSON
 
             if (!fileName.Equals(FileHelpers.FILENAME, StringComparison.OrdinalIgnoreCase))
                 return null;
-            
+
             string assembly = Assembly.GetExecutingAssembly().Location;
             string folder = Path.GetDirectoryName(assembly);
             return Path.Combine(folder, "json\\compilerconfig-schema.json");
