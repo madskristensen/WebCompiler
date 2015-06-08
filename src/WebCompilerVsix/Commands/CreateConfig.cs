@@ -82,8 +82,7 @@ namespace WebCompilerVsix.Commands
             WebCompilerPackage._dte.ItemOperations.OpenFile(jsonFile);
             ProjectHelpers.AddFileToProject(item.ContainingProject, jsonFile, "None");
 
-            var result = CompilerService.Processor.Process(jsonFile);
-            ErrorListService.ProcessCompilerResults(result);
+            CompilerService.Process(jsonFile);            
         }
         
         private static Config CreateBundleFile(string inputfile,string outputFile)

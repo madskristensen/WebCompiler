@@ -29,6 +29,16 @@ run all the configured compilers.
 Any time a `.less` or `.scss` file is modified within Visual Studio,
 the compiler runs automatically to produces the compiled output file.
 
+The same is true when saving the `compilerconfig.json` file where
+all configured files will be compiled.
+
+### Error list
+
+When a compiler error occurs, the error list in Visual Studio
+will show the error and its exact location in the source file.
+
+![Error List](art/errorlist.png)
+
 ### Source maps
 
 Source maps are supported for `.scss` files only for now, but the

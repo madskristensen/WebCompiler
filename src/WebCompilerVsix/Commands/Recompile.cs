@@ -61,8 +61,7 @@ namespace WebCompilerVsix.Commands
             var file = ProjectHelpers.GetSelectedItemPaths().ElementAt(0);
             var item = ProjectHelpers.GetSelectedItems().ElementAt(0);
 
-            var result = CompilerService.Processor.Process(file);
-            ErrorListService.ProcessCompilerResults(result);
+            CompilerService.Process(file);
         }
     }
 }

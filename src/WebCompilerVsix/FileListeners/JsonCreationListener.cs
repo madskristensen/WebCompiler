@@ -55,11 +55,7 @@ namespace WebCompilerVsix.Listeners
         {
             if (e.FileActionType == FileActionTypes.ContentSavedToDisk)
             {
-                ThreadPool.QueueUserWorkItem((o) =>
-                {
-                    var result = CompilerService.Processor.Process(e.FilePath);
-                    ErrorListService.ProcessCompilerResults(result);
-                });
+                CompilerService.Process(e.FilePath);
             }
         }
     }

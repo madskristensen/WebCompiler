@@ -1,5 +1,7 @@
 ﻿using WebCompiler;
 using EnvDTE80;
+using System.Collections.Generic;
+using System.Threading;
 
 namespace WebCompilerVsix
 {
@@ -13,7 +15,7 @@ namespace WebCompilerVsix
             _dte = WebCompilerPackage._dte;
         }
 
-        public static ConfigFileProcessor Processor
+        private static ConfigFileProcessor Processor
         {
             get
             {
@@ -31,6 +33,24 @@ namespace WebCompilerVsix
 
                 return _processor;
             }
+        }
+
+        public static void Process(string fileName)
+        {
+            ThreadPool.QueueUserWorkItem((o) =>
+            {
+                var result = Processor.Process(fileName);
+                ErrorListService.ProcessCompilerResults(result);
+            });
+        }
+
+        public static void SourceFileChanged(string configFile, string sourceFile)
+        {
+            ThreadPool.QueueUserWorkItem((o) =>
+            {
+                var result = Processor.SourceFileChanged(configFile, sourceFile);
+                ErrorListService.ProcessCompilerResults(result);
+            });
         }
         
         private static void AfterProcess(object sender, CompileFileEventArgs e)

@@ -52,24 +52,18 @@ namespace WebCompilerVsix.Listeners
         {
             if (e.FileActionType == FileActionTypes.ContentSavedToDisk)
             {
-                ThreadPool.QueueUserWorkItem((o) =>
+                var item = WebCompilerPackage._dte.Solution.FindProjectItem(e.FilePath);
+
+                if (item != null && item.ContainingProject != null)
                 {
-                    var item = WebCompilerPackage._dte.Solution.FindProjectItem(e.FilePath);
+                    string folder = ProjectHelpers.GetRootFolder(item.ContainingProject);
+                    string jsonFile = Path.Combine(folder, FileHelpers.FILENAME);
 
-                    if (item != null && item.ContainingProject != null)
+                    if (File.Exists(jsonFile))
                     {
-                        string folder = ProjectHelpers.GetRootFolder(item.ContainingProject);
-                        string jsonFile = Path.Combine(folder, FileHelpers.FILENAME);
-
-                        if (File.Exists(jsonFile))
-                        {
-
-                            var result = CompilerService.Processor.SourceFileChanged(jsonFile, e.FilePath);
-                            ErrorListService.ProcessCompilerResults(result);
-
-                        }
+                        CompilerService.SourceFileChanged(jsonFile, e.FilePath);
                     }
-                });
+                }
             }
         }
     }
