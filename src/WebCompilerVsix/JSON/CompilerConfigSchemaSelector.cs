@@ -10,7 +10,7 @@ using Microsoft.JSON.Core.Schema;
 namespace WebCompilerVsix.JSON
 {
     [Export(typeof(IJSONSchemaSelector))]
-    class BundleConfigSchemaSelector : IJSONSchemaSelector
+    class CompilerConfigSchemaSelector : IJSONSchemaSelector
     {
         public event EventHandler AvailableSchemasChanged;
 
