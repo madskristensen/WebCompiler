@@ -1,7 +1,6 @@
-﻿using WebCompiler;
+﻿using System.Threading;
 using EnvDTE80;
-using System.Collections.Generic;
-using System.Threading;
+using WebCompiler;
 
 namespace WebCompilerVsix
 {
