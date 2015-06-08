@@ -23,22 +23,28 @@ namespace WebCompiler
             return list;
         }
 
+        /// <summary>
+        /// Compiles all bundles with the same input file extension as the specified sourceFile
+        /// </summary>
         public IEnumerable<CompilerResult> SourceFileChanged(string configFile, string sourceFile)
         {
             string folder = Path.GetDirectoryName(configFile);
+            string extension = Path.GetExtension(sourceFile);
             List<CompilerResult> list = new List<CompilerResult>();
-
-            var configs = IsFileConfigured(configFile, sourceFile);
+            var configs = ConfigHandler.GetConfigs(configFile);
 
             foreach (Config config in configs)
             {
-                string input = Path.Combine(folder, config.InputFile.Replace("/", "\\"));
-                list.Add(ProcessConfig(folder, config));
+                if (Path.GetExtension(config.InputFile).Equals(extension, StringComparison.OrdinalIgnoreCase))
+                    list.Add(ProcessConfig(folder, config));
             }
 
             return list;
         }
 
+        /// <summary>
+        /// Returns a collection of Config objects that all contain the specified sourceFile
+        /// </summary>
         public static IEnumerable<Config> IsFileConfigured(string configFile, string sourceFile)
         {
             var configs = ConfigHandler.GetConfigs(configFile);
