@@ -27,8 +27,16 @@ namespace WebCompilerTest
         [TestMethod, TestCategory("LESS")]
         public void CompileLess()
         {
-            var result = _processor.Process("../../artifacts/compilerconfig.json");
+            var result = _processor.Process("../../artifacts/lessconfig.json");
             Assert.IsTrue(File.Exists("../../artifacts/less/test.css"));
+        }
+
+        [TestMethod, TestCategory("LESS")]
+        public void CompileLessWithError()
+        {
+            var result = _processor.Process("../../artifacts/lessconfigerror.json");
+            Assert.IsTrue(result.Count() == 1);
+            Assert.IsTrue(result.ElementAt(0).HasErrors);
         }
     }
 }

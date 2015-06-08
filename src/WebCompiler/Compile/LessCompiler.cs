@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using dotless.Core;
 
 namespace WebCompiler
@@ -16,28 +17,43 @@ namespace WebCompiler
             var engine = new LessEngine();
             engine.CurrentDirectory = info.Directory.FullName;
 
-            string css = engine.TransformToCss(content, info.FullName);
-
             CompilerResult result = new CompilerResult
             {
                 FileName = info.FullName,
                 OriginalContent = content,
-                CompiledContent = css,
             };
 
-            if (engine.LastTransformationError != null)
+            try
+            {
+                string css = engine.TransformToCss(content, info.FullName);
+                result.CompiledContent = css;
+
+                if (engine.LastTransformationError != null)
+                {
+                    CompilerError error = new CompilerError
+                    {
+                        FileName = info.FullName,
+                        Message = engine.LastTransformationError.Message.Trim(),
+                        LineNumber = engine.LastTransformationError.ErrorLocation.LineNumber,
+                        ColumnNumber = engine.LastTransformationError.ErrorLocation.Position
+                    };
+
+                    result.Errors.Add(error);
+                }
+            }
+            catch (Exception ex)
             {
                 CompilerError error = new CompilerError
                 {
                     FileName = info.FullName,
-                    Message = engine.LastTransformationError.Message.Trim(),
-                    LineNumber = engine.LastTransformationError.ErrorLocation.LineNumber,
-                    ColumnNumber = engine.LastTransformationError.ErrorLocation.Position
+                    Message = ex.Message,
+                    LineNumber = 0,
+                    ColumnNumber = 0,
                 };
 
                 result.Errors.Add(error);
             }
-            
+
             return result;
         }
     }

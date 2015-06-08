@@ -60,9 +60,10 @@
     <None Include="artifacts\coffee\error.coffee" />
     <None Include="artifacts\coffee\test.coffee" />
     <None Include="artifacts\coffeeconfig.json" />
+    <None Include="artifacts\lessconfigError.json" />
     <None Include="artifacts\scssconfigError.json" />
     <None Include="artifacts\scssconfig.json" />
-    <None Include="artifacts\compilerconfig.json" />
+    <None Include="artifacts\lessconfig.json" />
     <None Include="artifacts\scss\error.scss" />
     <None Include="artifacts\scss\test.scss" />
     <None Include="artifacts\scss\variables.scss" />

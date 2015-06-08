@@ -1,0 +1,8 @@
+﻿[
+	{
+		"outputFile": "less/error.css",
+		"inputFile": "less/error.less",
+		"minify": true,
+		"includeInProject": true
+	}
+]
