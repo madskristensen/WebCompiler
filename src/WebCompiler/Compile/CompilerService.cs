@@ -4,6 +4,9 @@ using System.IO;
 
 namespace WebCompiler
 {
+    /// <summary>
+    /// A service for working with the compilers.
+    /// </summary>
     public static class CompilerService
     {
         private static readonly string[] _allowed = new[] { ".LESS", ".SCSS", ".COFFEE" };

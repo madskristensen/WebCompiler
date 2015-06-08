@@ -54,7 +54,8 @@ namespace WebCompilerVsix
             if (item != null && item.ContainingProject != null)
                 AddHierarchyItem(task, item.ContainingProject);
 
-            task.Navigate += (s, e) => {
+            task.Navigate += (s, e) =>
+            {
                 provider.Navigate(task, new Guid(EnvDTE.Constants.vsViewKindPrimary));
 
                 if (task.Column > 0)
@@ -66,7 +67,7 @@ namespace WebCompilerVsix
 
             return task;
         }
-        
+
         const uint DISP_E_MEMBERNOTFOUND = 0x80020003;
 
         public static void AddHierarchyItem(ErrorTask task, EnvDTE.Project project)

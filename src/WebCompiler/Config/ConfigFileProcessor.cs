@@ -5,6 +5,9 @@ using System.Text;
 
 namespace WebCompiler
 {
+    /// <summary>
+    /// The main class for compiling based on configuration files.
+    /// </summary>
     public class ConfigFileProcessor
     {
         /// <summary>
@@ -105,7 +108,7 @@ namespace WebCompiler
             return result;
         }
 
-        protected void OnBeforeProcess(Config bundle, string baseFolder)
+        private void OnBeforeProcess(Config bundle, string baseFolder)
         {
             if (BeforeProcess != null)
             {
@@ -113,7 +116,7 @@ namespace WebCompiler
             }
         }
 
-        protected void OnAfterProcess(Config bundle, string baseFolder)
+        private void OnAfterProcess(Config bundle, string baseFolder)
         {
             if (AfterProcess != null)
             {
@@ -121,7 +124,7 @@ namespace WebCompiler
             }
         }
 
-        protected void OnBeforeWritingSourceMap(string file, string mapFile)
+        private void OnBeforeWritingSourceMap(string file, string mapFile)
         {
             if (BeforeWritingSourceMap != null)
             {
@@ -129,7 +132,7 @@ namespace WebCompiler
             }
         }
 
-        protected void OnAfterWritingSourceMap(string file, string mapFile)
+        private void OnAfterWritingSourceMap(string file, string mapFile)
         {
             if (AfterWritingSourceMap != null)
             {
@@ -137,10 +140,24 @@ namespace WebCompiler
             }
         }
 
+        /// <summary>
+        /// Fires before the compiler writes the output to disk.
+        /// </summary>
         public event EventHandler<CompileFileEventArgs> BeforeProcess;
+
+        /// <summary>
+        /// Fires after the compiler writes the output to disk.
+        /// </summary>
         public event EventHandler<CompileFileEventArgs> AfterProcess;
 
+        /// <summary>
+        /// Fires before the compiler writes a source map file to disk.
+        /// </summary>
         public event EventHandler<SourceMapEventArgs> BeforeWritingSourceMap;
+
+        /// <summary>
+        /// Fires after the compiler writes a source map file to disk.
+        /// </summary>
         public event EventHandler<SourceMapEventArgs> AfterWritingSourceMap;
     }
 }

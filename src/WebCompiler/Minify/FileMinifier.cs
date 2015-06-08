@@ -8,9 +8,12 @@ using Microsoft.Ajax.Utilities;
 
 namespace WebCompiler
 {
+    /// <summary>
+    /// Used by the compilers to minify the output files.
+    /// </summary>
     public class FileMinifier
     {
-        public static MinificationResult MinifyFile(string file, bool produceSourceMap)
+        internal static MinificationResult MinifyFile(string file, bool produceSourceMap)
         {
             string extension = Path.GetExtension(file).ToUpperInvariant();
 
@@ -62,7 +65,7 @@ namespace WebCompiler
                 CommentMode = CssComment.Hacks
             };
 
-            var minifier = new Microsoft.Ajax.Utilities.Minifier();
+            var minifier = new Minifier();
 
             string result = minifier.MinifyStyleSheet(content, settings);
 
@@ -78,14 +81,13 @@ namespace WebCompiler
             return new MinificationResult(result, null);
         }
 
-
-        public static string GetMinFileName(string file)
+        private static string GetMinFileName(string file)
         {
             string ext = Path.GetExtension(file);
             return file.Substring(0, file.LastIndexOf(ext)) + ".min" + ext;
         }
 
-        protected static void OnBeforeWritingMinFile(string file, string minFile)
+        private static void OnBeforeWritingMinFile(string file, string minFile)
         {
             if (BeforeWritingMinFile != null)
             {
@@ -93,7 +95,7 @@ namespace WebCompiler
             }
         }
 
-        protected static void OnAfterWritingMinFile(string file, string minFile)
+        private static void OnAfterWritingMinFile(string file, string minFile)
         {
             if (AfterWritingMinFile != null)
             {
@@ -101,7 +103,14 @@ namespace WebCompiler
             }
         }
 
+        /// <summary>
+        /// Fires before the minified file is written to disk.
+        /// </summary>
         public static event EventHandler<MinifyFileEventArgs> BeforeWritingMinFile;
+
+        /// <summary>
+        /// /// Fires after the minified file is written to disk.
+        /// </summary>
         public static event EventHandler<MinifyFileEventArgs> AfterWritingMinFile;
     }
 }
