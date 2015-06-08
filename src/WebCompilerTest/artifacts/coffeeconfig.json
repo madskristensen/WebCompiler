@@ -1,0 +1,8 @@
+﻿[
+	{
+		"outputFile": "coffee/test.js",
+		"inputFile": "coffee/test.coffee",
+		"minify": true,
+		"includeInProject": true
+	}
+]

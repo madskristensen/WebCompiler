@@ -21,17 +21,18 @@ namespace WebCompilerTest
         public void Cleanup()
         {
             File.Delete("../../artifacts/scss/test.css");
+            File.Delete("../../artifacts/scss/test.min.css");
         }
 
         [TestMethod, TestCategory("SCSS")]
-        public void ConfigFileProcessor()
+        public void CompileScss()
         {
             var result = _processor.Process("../../artifacts/scssconfig.json");
             Assert.IsTrue(File.Exists("../../artifacts/scss/test.css"));
         }
 
         [TestMethod, TestCategory("SCSS")]
-        public void ConfigFileProcessorError()
+        public void CompileScssError()
         {
             var result = _processor.Process("../../artifacts/scssconfigError.json");
             Assert.IsTrue(result.Count() == 1);

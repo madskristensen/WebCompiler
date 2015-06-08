@@ -21,10 +21,11 @@ namespace WebCompilerTest
         public void Cleanup()
         {
             File.Delete("../../artifacts/less/test.css");
+            File.Delete("../../artifacts/less/test.min.css");
         }
 
         [TestMethod, TestCategory("LESS")]
-        public void ConfigFileProcessor()
+        public void CompileLess()
         {
             var result = _processor.Process("../../artifacts/compilerconfig.json");
             Assert.IsTrue(File.Exists("../../artifacts/less/test.css"));

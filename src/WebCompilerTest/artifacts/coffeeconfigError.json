@@ -1,0 +1,8 @@
+﻿[
+	{
+		"outputFile": "coffee/error.js",
+		"inputFile": "coffee/error.coffee",
+		"minify": true,
+		"includeInProject": true
+	}
+]

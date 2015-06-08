@@ -63,7 +63,6 @@ namespace WebCompilerVsix
                 return;
 
             ProjectHelpers.AddFileToProject(item.ContainingProject, e.Config.GetAbsoluteOutputFile());
-            _dte.StatusBar.Text = "Compiler configuration updated";
         }
 
         private static void AfterWritingSourceMap(object sender, SourceMapEventArgs e)

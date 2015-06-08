@@ -6,7 +6,7 @@ namespace WebCompiler
 {
     public static class CompilerService
     {
-        private static readonly string[] _allowed = new[] { ".LESS", ".SCSS" };
+        private static readonly string[] _allowed = new[] { ".LESS", ".SCSS", ".COFFEE" };
 
         public static bool IsSupported(string inputFile)
         {
@@ -28,6 +28,10 @@ namespace WebCompiler
 
                 case ".SCSS":
                     compiler = new SassCompiler();
+                    break;
+
+                case ".COFFEE":
+                    compiler = new CoffeeScriptCompiler();
                     break;
             }
             

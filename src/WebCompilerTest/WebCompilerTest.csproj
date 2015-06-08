@@ -50,11 +50,16 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="CoffeeScriptTest.cs" />
     <Compile Include="ScssTest.cs" />
     <Compile Include="LessTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="artifacts\coffeeconfigError.json" />
+    <None Include="artifacts\coffee\error.coffee" />
+    <None Include="artifacts\coffee\test.coffee" />
+    <None Include="artifacts\coffeeconfig.json" />
     <None Include="artifacts\scssconfigError.json" />
     <None Include="artifacts\scssconfig.json" />
     <None Include="artifacts\compilerconfig.json" />

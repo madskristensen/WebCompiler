@@ -1,6 +1,7 @@
 ## Web Compiler
 
-A Visual Studio extension that compiles LESS and Sass files.
+A Visual Studio extension that compiles LESS, Sass and CoffeeScript
+files.
 
 [![Build status](https://ci.appveyor.com/api/projects/status/kyk8vpst641r2n0r?svg=true)](https://ci.appveyor.com/project/madskristensen/webcompiler)
 
@@ -11,7 +12,7 @@ or get the
 
 ### Getting started
 
-Right-click and `.less` or `.scss` file in Solution Explorer to
+Right-click and `.less`, `.scss` or `.coffee` file in Solution Explorer to
 setup compilation.
 
 ![Compile file](art/contextmenu-compile.png)
@@ -26,7 +27,7 @@ run all the configured compilers.
 
 ### Compile on save
 
-Any time a `.less` or `.scss` file is modified within Visual Studio,
+Any time a `.less`, `.scss` or `.coffee` file is modified within Visual Studio,
 the compiler runs automatically to produces the compiled output file.
 
 The same is true when saving the `compilerconfig.json` file where

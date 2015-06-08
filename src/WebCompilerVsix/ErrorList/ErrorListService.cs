@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows.Threading;
 using WebCompiler;
 
@@ -20,6 +21,7 @@ namespace WebCompilerVsix
                     else
                     {
                         ErrorList.CleanErrors(result.FileName);
+                        WebCompilerPackage._dte.StatusBar.Text = $"{Path.GetFileName(result.FileName)} compiled";
                     }
                 }
             }), DispatcherPriority.ApplicationIdle, null);
