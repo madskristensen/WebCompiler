@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.IO;
 using System.Linq;
@@ -31,12 +32,31 @@ namespace WebCompilerVsix.Commands
             }
         }
 
+        private List<Config> _reCompileConfigs = new List<Config>();
+
         private void BeforeQueryStatus(object sender, EventArgs e)
         {
+            _reCompileConfigs.Clear();
             var button = (OleMenuCommand)sender;
-            var file = ProjectHelpers.GetSelectedItemPaths().ElementAt(0);
+            var sourceFile = ProjectHelpers.GetSelectedItemPaths().ElementAt(0);
 
-            button.Visible = WebCompiler.CompilerService.IsSupported(file);
+            button.Visible = WebCompiler.CompilerService.IsSupported(sourceFile);
+
+            var item = ProjectHelpers.GetSelectedItems().ElementAt(0);
+
+            if (item == null || item.ContainingProject == null)
+                return;
+
+            string folder = ProjectHelpers.GetRootFolder(item.ContainingProject);
+            string configFile = Path.Combine(folder, FileHelpers.FILENAME);
+
+            var configs = ConfigFileProcessor.IsFileConfigured(configFile, sourceFile);
+
+            if (configs.Any())
+            {
+                button.Text = "Re-compile file";
+                _reCompileConfigs.AddRange(configs);
+            }
         }
 
         public static CreateConfig Instance
@@ -66,26 +86,36 @@ namespace WebCompilerVsix.Commands
                 return;
 
             string folder = ProjectHelpers.GetRootFolder(item.ContainingProject);
-            string jsonFile = Path.Combine(folder, FileHelpers.FILENAME);
-            string file = ProjectHelpers.GetSelectedItemPaths().Select(f => MakeRelative(jsonFile, f)).ElementAt(0);
-            string outputFile = GetOutputFileName(folder, Path.GetFileName(file));
-            string relativeOutputFile = MakeRelative(jsonFile, outputFile);
+            string configFile = Path.Combine(folder, FileHelpers.FILENAME);
+            string relativeFile = MakeRelative(configFile, ProjectHelpers.GetSelectedItemPaths().First());
+
+            // Recompile if already configured
+            if (_reCompileConfigs.Any())
+            {
+                string absoluteFile = Path.Combine(folder, relativeFile).Replace("/", "\\");
+                CompilerService.SourceFileChanged(configFile, absoluteFile);
+                return;
+            }
+
+            // Create new config
+            string outputFile = GetOutputFileName(folder, Path.GetFileName(relativeFile));
+            string relativeOutputFile = MakeRelative(configFile, outputFile);
 
             if (string.IsNullOrEmpty(outputFile))
                 return;
 
-            Config bundle = CreateBundleFile(file, relativeOutputFile);
-            
+            Config bundle = CreateBundleFile(relativeFile, relativeOutputFile);
+
             ConfigHandler handler = new ConfigHandler();
-            handler.AddConfig(jsonFile, bundle);
+            handler.AddConfig(configFile, bundle);
 
-            WebCompilerPackage._dte.ItemOperations.OpenFile(jsonFile);
-            ProjectHelpers.AddFileToProject(item.ContainingProject, jsonFile, "None");
+            WebCompilerPackage._dte.ItemOperations.OpenFile(configFile);
+            ProjectHelpers.AddFileToProject(item.ContainingProject, configFile, "None");
 
-            CompilerService.Process(jsonFile);            
+            CompilerService.Process(configFile);
         }
-        
-        private static Config CreateBundleFile(string inputfile,string outputFile)
+
+        private static Config CreateBundleFile(string inputfile, string outputFile)
         {
             return new Config
             {

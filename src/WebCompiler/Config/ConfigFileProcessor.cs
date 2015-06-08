@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace WebCompiler
@@ -24,16 +25,32 @@ namespace WebCompiler
 
         public IEnumerable<CompilerResult> SourceFileChanged(string configFile, string sourceFile)
         {
-            var configs = ConfigHandler.GetConfigs(configFile);
             string folder = Path.GetDirectoryName(configFile);
             List<CompilerResult> list = new List<CompilerResult>();
+
+            var configs = IsFileConfigured(configFile, sourceFile);
+
+            foreach (Config config in configs)
+            {
+                string input = Path.Combine(folder, config.InputFile.Replace("/", "\\"));
+                list.Add(ProcessConfig(folder, config));
+            }
+
+            return list;
+        }
+
+        public static IEnumerable<Config> IsFileConfigured(string configFile, string sourceFile)
+        {
+            var configs = ConfigHandler.GetConfigs(configFile);
+            string folder = Path.GetDirectoryName(configFile);
+            List<Config> list = new List<Config>();
 
             foreach (Config config in configs)
             {
                 string input = Path.Combine(folder, config.InputFile.Replace("/", "\\"));
 
                 if (input.Equals(sourceFile, StringComparison.OrdinalIgnoreCase))
-                    list.Add(ProcessConfig(folder, config));
+                    list.Add(config);
             }
 
             return list;

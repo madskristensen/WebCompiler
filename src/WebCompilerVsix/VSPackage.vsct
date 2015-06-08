@@ -20,6 +20,7 @@
                 <CommandFlag>IconIsMoniker</CommandFlag>
                 <CommandFlag>DynamicVisibility</CommandFlag>
                 <CommandFlag>DynamicItemStart</CommandFlag>
+                <CommandFlag>TextChanges</CommandFlag>
                 <Strings>
                     <ButtonText>Compile file...</ButtonText>
                 </Strings>
