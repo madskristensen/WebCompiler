@@ -17,7 +17,7 @@ setup compilation.
 
 ![Compile file](art/contextmenu-compile.png)
 
-A file called `.compilerconfig.json` is created in the root of the
+A file called `compilerconfig.json` is created in the root of the
 project. This file let's you modify the behavior of the compiler.
 
 Right-clicking the `compilerconfig.json` file let's you easily
