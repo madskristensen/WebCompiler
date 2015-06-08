@@ -4,7 +4,7 @@ using CoffeeSharp;
 
 namespace WebCompiler
 {
-    public class CoffeeScriptCompiler : ICompiler
+    internal class CoffeeScriptCompiler : ICompiler
     {
         private static CoffeeScriptEngine _engine = new CoffeeScriptEngine();
 
@@ -25,7 +25,7 @@ namespace WebCompiler
             };
 
             try
-            {   
+            {
                 string compilerResult = _engine.Compile(content, filename: info.FullName);
 
                 result.CompiledContent = compilerResult;

@@ -4,7 +4,7 @@ using dotless.Core;
 
 namespace WebCompiler
 {
-    public class LessCompiler : ICompiler
+    class LessCompiler : ICompiler
     {
         public CompilerResult Compile(Config config)
         {

@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 
 namespace WebCompiler
 {
     public class ConfigFileProcessor
     {
-        public IEnumerable<CompilerResult> Process(string fileName)
+        /// <summary>
+        /// Parses a compiler config file and runs the configured compilers.
+        /// </summary>
+        /// <param name="configFile">The absolute or relative file path to compilerconfig.json</param>
+        /// <returns>A list of compiler results.</returns>
+        public IEnumerable<CompilerResult> Process(string configFile)
         {
-            FileInfo info = new FileInfo(fileName);
-            var configs = ConfigHandler.GetConfigs(fileName);
+            FileInfo info = new FileInfo(configFile);
+            var configs = ConfigHandler.GetConfigs(configFile);
             List<CompilerResult> list = new List<CompilerResult>();
 
             foreach (Config config in configs)
@@ -29,13 +33,15 @@ namespace WebCompiler
         public IEnumerable<CompilerResult> SourceFileChanged(string configFile, string sourceFile)
         {
             string folder = Path.GetDirectoryName(configFile);
-            string extension = Path.GetExtension(sourceFile);
+            string sourceExtension = Path.GetExtension(sourceFile);
             List<CompilerResult> list = new List<CompilerResult>();
             var configs = ConfigHandler.GetConfigs(configFile);
 
             foreach (Config config in configs)
             {
-                if (Path.GetExtension(config.InputFile).Equals(extension, StringComparison.OrdinalIgnoreCase))
+                string inputExtension = Path.GetExtension(config.InputFile);
+
+                if (inputExtension.Equals(sourceExtension, StringComparison.OrdinalIgnoreCase))
                     list.Add(ProcessConfig(folder, config));
             }
 

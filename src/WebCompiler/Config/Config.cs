@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using Newtonsoft.Json;
 
 namespace WebCompiler
@@ -25,7 +24,7 @@ namespace WebCompiler
         public bool SourceMap { get; set; }
 
         internal string Output { get; set; }
-        
+
         public string GetAbsoluteOutputFile()
         {
             string folder = Path.GetDirectoryName(FileName);

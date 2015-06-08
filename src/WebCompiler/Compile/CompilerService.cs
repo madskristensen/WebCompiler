@@ -8,6 +8,11 @@ namespace WebCompiler
     {
         private static readonly string[] _allowed = new[] { ".LESS", ".SCSS", ".COFFEE" };
 
+        /// <summary>
+        /// Test if a file type is supported by the compilers.
+        /// </summary>
+        /// <param name="inputFile"></param>
+        /// <returns>True if the file type can be compiled.</returns>
         public static bool IsSupported(string inputFile)
         {
             string ext = Path.GetExtension(inputFile).ToUpperInvariant();
@@ -15,7 +20,7 @@ namespace WebCompiler
             return _allowed.Contains(ext);
         }
 
-        public static ICompiler GetCompiler(Config config)
+        internal static ICompiler GetCompiler(Config config)
         {
             string ext = Path.GetExtension(config.InputFile).ToUpperInvariant();
             ICompiler compiler = null;
@@ -34,7 +39,7 @@ namespace WebCompiler
                     compiler = new CoffeeScriptCompiler();
                     break;
             }
-            
+
             return compiler;
         }
 

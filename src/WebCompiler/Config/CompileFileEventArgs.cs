@@ -10,8 +10,14 @@ namespace WebCompiler
             BaseFolder = baseFolder;
         }
 
+        /// <summary>
+        /// The Config object used by the compiler.
+        /// </summary>
         public Config Config { get; set; }
-        
+
+        /// <summary>
+        /// The base folder of the current execution.
+        /// </summary>
         public string BaseFolder { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace WebCompiler
 {
-    public interface ICompiler
+    internal interface ICompiler
     {
         CompilerResult Compile(Config config);
     }

@@ -3,7 +3,7 @@ using System.IO;
 
 namespace WebCompiler
 {
-    public class SassCompiler : ICompiler
+    internal class SassCompiler : ICompiler
     {
         public CompilerResult Compile(Config config)
         {
