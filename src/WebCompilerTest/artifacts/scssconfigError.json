@@ -2,7 +2,7 @@
 	{
 		"outputFile": "scss/error.css",
 		"inputFile": "scss/error.scss",
-		"minify": true,
+		"minify": { },
 		"includeInProject": true,
 		"sourceMap": false
 	}

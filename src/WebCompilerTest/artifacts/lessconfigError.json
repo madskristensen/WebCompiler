@@ -2,7 +2,7 @@
 	{
 		"outputFile": "less/error.css",
 		"inputFile": "less/error.less",
-		"minify": true,
+		"minify": { },
 		"includeInProject": true
 	}
 ]

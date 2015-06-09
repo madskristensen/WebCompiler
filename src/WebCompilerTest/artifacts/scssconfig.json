@@ -2,7 +2,7 @@
 	{
 		"outputFile": "scss/test.css",
 		"inputFile": "scss/test.scss",
-		"minify": true,
+		"minify": { },
 		"includeInProject": true
 	}
 ]
