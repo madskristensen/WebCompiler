@@ -24,4 +24,3 @@ deploy:
 - provider: NuGet
   api_key:
     secure: 6xBu/05BWJDPa2PRkxEH3PHU/caLvy2lzf1eWdRBGXwSCTejHtI+6e0V4s2LaVri
-  artifact: src\WebCompiler\**\*.nupkg
