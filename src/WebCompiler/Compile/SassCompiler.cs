@@ -26,7 +26,7 @@ namespace WebCompiler
             try
             {
                 LibSassNet.SassCompiler compiler = new LibSassNet.SassCompiler();
-                var compilerResult = compiler.CompileFile(inputFile, options.OutputStyle, sourceMap, options.IncludeSourceComments, options.Precision);
+                var compilerResult = compiler.CompileFile(inputFile, (LibSassNet.OutputStyle)options.OutputStyle, sourceMap, options.IncludeSourceComments, options.Precision);
                 result.CompiledContent = compilerResult.CSS;
                 result.SourceMap = compilerResult.SourceMap;
             }

@@ -40,10 +40,34 @@ namespace WebCompilerTest
         }
 
         [TestMethod, TestCategory("LESS")]
+        public void CompileLessWithParsingExceptionError()
+        {
+            var result = _processor.Process("../../artifacts/lessconfigParseerror.json");
+            Assert.IsTrue(result.Count() == 1);
+            Assert.IsTrue(result.ElementAt(0).HasErrors);
+            Assert.AreNotEqual(0, result.ElementAt(0).Errors.ElementAt(0).LineNumber, "LineNumber is set when engine.TransformToCss generate a ParsingException");
+            Assert.AreNotEqual(0, result.ElementAt(0).Errors.ElementAt(0).ColumnNumber, "ColumnNumber is set when engine.TransformToCss generate a ParsingException");
+        }
+
+        [TestMethod, TestCategory("LESS")]
         public void CompileLessWithOptions()
         {
             var result = ConfigHandler.GetConfigs("../../artifacts/lessconfig.json");
             Assert.IsTrue(result.First().Options.Count == 2);
+        }
+
+        [TestMethod, TestCategory("LESS")]
+        public void AssociateExtensionSourceFileChangedTest()
+        {
+            var result = _processor.SourceFileChanged("../../artifacts/lessconfig.json", "less/test.less");
+            Assert.AreEqual(1, result.Count<CompilerResult>());
+        }
+
+        [TestMethod, TestCategory("LESS")]
+        public void OtherExtensionTypeSourceFileChangedTest()
+        {
+            var result = _processor.SourceFileChanged("../../artifacts/lessconfig.json", "scss/test.scss");
+            Assert.AreEqual(0, result.Count<CompilerResult>());
         }
     }
 }

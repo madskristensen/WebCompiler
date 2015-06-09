@@ -38,5 +38,19 @@ namespace WebCompilerTest
             Assert.IsTrue(result.Count() == 1);
             Assert.IsTrue(result.ElementAt(0).HasErrors);
         }
+
+        [TestMethod, TestCategory("SCSS")]
+        public void AssociateExtensionSourceFileChangedTest()
+        {
+            var result = _processor.SourceFileChanged("../../artifacts/scssconfig.json", "scss/test.scss");
+            Assert.AreEqual(1, result.Count<CompilerResult>());
+        }
+
+        [TestMethod, TestCategory("SCSS")]
+        public void OtherExtensionTypeSourceFileChangedTest()
+        {
+            var result = _processor.SourceFileChanged("../../artifacts/scssconfig.json", "scss/filewithinvalidextension.less");
+            Assert.AreEqual(0, result.Count<CompilerResult>());
+        }
     }
 }
