@@ -1,0 +1,21 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>BuildWebCompiler</id>
+        <version>1.0.3</version>
+        <title>Web Compiler</title>
+        <authors>Mads Kristensen</authors>
+        <owners>Mads Kristensen</owners>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <projectUrl>https://github.com/madskristensen/WebCompiler</projectUrl>
+        <description>Compiles LESS, Sass and CoffeeScript files</description>
+        <releaseNotes>Initial release.</releaseNotes>
+        <copyright>Copyright 2015</copyright>
+        <tags>LESS, Sass, Scss, CoffeeScript</tags>
+    </metadata>
+
+    <files>
+        <file src="BuildWebCompiler.targets" target="build" />
+        <file src="..\*.dll" target="tools" />
+    </files>
+</package>

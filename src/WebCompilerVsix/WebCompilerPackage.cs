@@ -22,7 +22,6 @@ namespace WebCompilerVsix
         public static DTE2 _dte;
         public static Package Package;
         public static Dispatcher _dispatcher;
-        
 
         protected override void Initialize()
         {
@@ -32,6 +31,7 @@ namespace WebCompilerVsix
 
             CreateConfig.Initialize(this);
             Recompile.Initialize(this);
+            CompileOnBuild.Initialize(this);
 
             base.Initialize();
         }

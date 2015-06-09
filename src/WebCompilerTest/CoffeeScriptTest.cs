@@ -28,7 +28,9 @@ namespace WebCompilerTest
         public void CompileCoffeeScript()
         {
             var result = _processor.Process("../../artifacts/coffeeconfig.json");
-            Assert.IsTrue(File.Exists("../../artifacts/coffee/test.js"));
+            FileInfo info = new FileInfo("../../artifacts/coffee/test.js");
+            Assert.IsTrue(info.Exists);
+            Assert.IsTrue(info.Length > 5);
         }
 
         [TestMethod, TestCategory("CoffeeScript")]

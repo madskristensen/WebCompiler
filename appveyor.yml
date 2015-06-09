@@ -2,11 +2,15 @@ version: 1.0.{build}
 os: Visual Studio 2015 RC
 configuration: Release
 
-install: 
+environment:
+  NuGetApiKey:
+    secure: 6xBu/05BWJDPa2PRkxEH3PHU/caLvy2lzf1eWdRBGXwSCTejHtI+6e0V4s2LaVri
+
+install:
   - set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%"
   - ps: (new-object Net.WebClient).DownloadString("https://raw.github.com/madskristensen/ExtensionScripts/master/AppVeyor/vsix.ps1") | iex
 
-before_build: 
+before_build:
   - ps: Vsix-IncrementVsixVersion | Vsix-UpdateBuildVersion
   #- nuget.exe restore
 
@@ -16,3 +20,6 @@ build_script:
 
 after_test:
   - ps: Vsix-PushArtifacts | Vsix-PublishToGallery
+
+artifacts:
+  - path: src\WebCompiler\*.nupkg

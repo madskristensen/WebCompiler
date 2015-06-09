@@ -20,5 +20,6 @@ namespace WebCompilerVsix
         public const int MyMenuGroup = 0x1020;
         public const int CreateConfigFile = 0x0100;
         public const int RecompileConfigFile = 0x0200;
+        public const int CompileOnBuild = 0x0300;
     }
 }

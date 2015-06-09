@@ -28,7 +28,7 @@ namespace WebCompiler
 
             try
             {
-                string compilerResult = _engine.Eval(content, filename: info.FullName, bare: options.Bare, globals: options.Globals);
+                string compilerResult = _engine.Compile(content, filename: info.FullName, bare: options.Bare, globals: options.Globals);
                 result.CompiledContent = compilerResult;
             }
             catch (Exception ex)

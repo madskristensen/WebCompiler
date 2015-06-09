@@ -60,6 +60,9 @@
       <HintPath>..\..\packages\libsassnet.3.2.4\lib\net40\libsassnet.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Build.Framework" />
+    <Reference Include="Microsoft.Build.Tasks.v4.0" />
+    <Reference Include="Microsoft.Build.Utilities.v4.0" />
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -87,6 +90,7 @@
     <Compile Include="Minify\JavaScriptOptions.cs" />
     <Compile Include="Minify\MinificationResult.cs" />
     <Compile Include="Minify\MinifyFileEventArgs.cs" />
+    <Compile Include="MSBuild\CompilerBuildTask.cs" />
     <Compile Include="SourceMapEventArgs.cs" />
     <Compile Include="Config\CompileFileEventArgs.cs" />
     <Compile Include="Config\ConfigHandler.cs" />
@@ -94,9 +98,18 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="MSBuild\BuildWebCompiler.nuspec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="MSBuild\BuildWebCompiler.targets">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>nuget pack msbuild\BuildWebCompiler.nuspec</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -11,7 +11,7 @@
                 <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ITEMNODE"/>
             </Group>
         </Groups>
-        
+
         <!-- See all available images for ImageCatalogGuid at http://glyphlist.azurewebsites.net/knownmonikers/ -->
         <Buttons>
             <Button guid="guidBundlerCmdSet" id="CreateConfigFile" priority="0x0100" type="Button">
@@ -35,6 +35,14 @@
                     <ButtonText>Re-compile all files</ButtonText>
                 </Strings>
             </Button>
+            <Button guid="guidBundlerCmdSet" id="CompileOnBuild" priority="0x0300" type="Button">
+                <Parent guid="guidBundlerCmdSet" id="MyMenuGroup" />
+                <CommandFlag>DynamicVisibility</CommandFlag>
+                <CommandFlag>DynamicItemStart</CommandFlag>
+                <Strings>
+                    <ButtonText>Enable compile on build...</ButtonText>
+                </Strings>
+            </Button>
         </Buttons>
     </Commands>
 
@@ -53,6 +61,7 @@
             <IDSymbol name="MyMenuGroup" value="0x1020" />
             <IDSymbol name="CreateConfigFile" value="0x0100" />
             <IDSymbol name="RecompileConfigFile" value="0x0200" />
+            <IDSymbol name="CompileOnBuild" value="0x0300" />
         </GuidSymbol>
     </Symbols>
 </CommandTable>
