@@ -38,8 +38,14 @@ namespace WebCompilerVsix
         {
             ThreadPool.QueueUserWorkItem((o) =>
             {
-                var result = Processor.Process(fileName);
-                ErrorListService.ProcessCompilerResults(result);
+                try {
+                    var result = Processor.Process(fileName);
+                    ErrorListService.ProcessCompilerResults(result);
+                }
+                catch
+                {
+
+                }
             });
         }
 
@@ -51,7 +57,7 @@ namespace WebCompilerVsix
                 ErrorListService.ProcessCompilerResults(result);
             });
         }
-        
+
         private static void AfterProcess(object sender, CompileFileEventArgs e)
         {
             if (!e.Config.IncludeInProject)

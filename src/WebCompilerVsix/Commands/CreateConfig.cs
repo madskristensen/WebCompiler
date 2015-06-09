@@ -120,7 +120,6 @@ namespace WebCompilerVsix.Commands
             return new Config
             {
                 IncludeInProject = true,
-                Minify = true,
                 OutputFile = outputFile,
                 InputFile = inputfile
             };

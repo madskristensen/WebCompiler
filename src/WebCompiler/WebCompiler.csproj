@@ -81,6 +81,8 @@
     <Compile Include="Compile\CompilerResult.cs" />
     <Compile Include="Compile\LessCompiler.cs" />
     <Compile Include="Minify\FileMinifier.cs" />
+    <Compile Include="Minify\CssOptions.cs" />
+    <Compile Include="Minify\JavaScriptOptions.cs" />
     <Compile Include="Minify\MinificationResult.cs" />
     <Compile Include="Minify\MinifyFileEventArgs.cs" />
     <Compile Include="SourceMapEventArgs.cs" />

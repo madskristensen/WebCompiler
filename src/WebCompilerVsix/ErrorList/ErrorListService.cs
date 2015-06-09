@@ -12,6 +12,12 @@ namespace WebCompilerVsix
         {
             WebCompilerPackage._dispatcher.BeginInvoke(new Action(() =>
             {
+                if (results == null)
+                {
+                    WebCompilerPackage._dte.StatusBar.Text = "Syntax errors in " + FileHelpers.FILENAME;
+                    return;
+                }
+
                 foreach (CompilerResult result in results)
                 {
                     if (result.HasErrors)

@@ -5,6 +5,18 @@
 	"type": "array",
 
 	"definitions": {
+		"cssOptions": {
+			"type": "object",
+			"properties": {
+				"evalTreatment": {
+					"enum": [ "none", "hacks", "important" ]
+				},
+				"termSemicolons": {
+					"type": "boolean"
+				}
+			}
+		},
+
 		"lessOptions": {
 			"properties": {
 				"inputFile": {
@@ -26,6 +38,9 @@
 							"type": "boolean"
 						}
 					}
+				},
+				"minify": {
+					"$ref": "#/definitions/cssOptions"
 				}
 			}
 		},
@@ -51,6 +66,9 @@
 							"default": 5
 						}
 					}
+				},
+				"minify": {
+					"$ref": "#/definitions/cssOptions"
 				}
 			}
 		},
@@ -67,6 +85,20 @@
 							"type": "boolean"
 						},
 						"globals": {
+							"type": "boolean"
+						}
+					}
+				},
+				"minify": {
+					"type": "object",
+					"properties": {
+						"preserveImportantComments": {
+							"type": "boolean"
+						},
+						"evalTreatment": {
+							"enum": [ "ignore", "makeAllSafe", "makeImmediateSafe" ]
+						},
+						"termSemicolons": {
 							"type": "boolean"
 						}
 					}
@@ -90,9 +122,15 @@
 					"format": "bundle_relativepath"
 				},
 				"minify": {
-					"description": "Set to true to minify the output.",
-					"type": "boolean",
-					"default": true
+					"description": "Specify options for minification of the output file.",
+					"type": "object",
+					"required": [ "enabled" ],
+
+					"properties": {
+						"enabled": {
+							"type": "boolean"
+						}
+					}
 				},
 				"includeInProject": {
 					"description": "Set to true to include the output file in the project. Doesn't work in some Visual Studio project types like ASP.NET 5 applications.",
@@ -104,6 +142,7 @@
 					"type": "boolean"
 				},
 				"options": {
+					"description": "Specify options for the compiler.",
 					"type": "object"
 				}
 			},

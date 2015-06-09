@@ -13,29 +13,31 @@ namespace WebCompiler
     /// </summary>
     public class FileMinifier
     {
-        internal static MinificationResult MinifyFile(string file, bool produceSourceMap)
+        internal static MinificationResult MinifyFile(Config config)
         {
+            string file = config.GetAbsoluteOutputFile();
             string extension = Path.GetExtension(file).ToUpperInvariant();
 
             switch (extension)
             {
                 case ".JS":
-                    return MinifyJavaScript(file);
+                    return MinifyJavaScript(config, file);
 
                 case ".CSS":
-                    return MinifyCss(file);
+                    return MinifyCss(config, file);
             }
 
             return null;
         }
 
-        private static MinificationResult MinifyJavaScript(string file)
+        private static MinificationResult MinifyJavaScript(Config config, string file)
         {
+            JavaScriptOptions options = new JavaScriptOptions(config);
             var settings = new CodeSettings()
             {
-                EvalTreatment = EvalTreatment.Ignore,
-                TermSemicolons = true,
-                PreserveImportantComments = false,
+                EvalTreatment = options.EvalTreatment,
+                TermSemicolons = options.TermSemicolons,
+                PreserveImportantComments = options.PreserveImportantComments
             };
 
             var minifier = new Minifier();
@@ -56,13 +58,16 @@ namespace WebCompiler
             return new MinificationResult(result, null);
         }
 
-        private static MinificationResult MinifyCss(string file)
+        private static MinificationResult MinifyCss(Config config, string file)
         {
             string content = File.ReadAllText(file);
 
+            CssOptions options = new CssOptions(config);
+
             var settings = new CssSettings()
             {
-                CommentMode = CssComment.Hacks
+                CommentMode = options.CssComment,
+                TermSemicolons = options.TermSemicolons,
             };
 
             var minifier = new Minifier();

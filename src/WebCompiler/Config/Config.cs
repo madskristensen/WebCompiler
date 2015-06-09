@@ -28,10 +28,10 @@ namespace WebCompiler
         public string InputFile { get; set; }
 
         /// <summary>
-        /// If true it instructs the compiler to create a minified file on disk.
+        /// Settings for the minification.
         /// </summary>
         [JsonProperty("minify")]
-        public bool Minify { get; set; } = true;
+        public Dictionary<string, object> Minify { get; set; } = new Dictionary<string, object> { { "enabled", true } };
 
         /// <summary>
         /// If true it makes Visual Studio include the output file in the project.

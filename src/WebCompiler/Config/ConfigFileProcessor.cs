@@ -17,17 +17,24 @@ namespace WebCompiler
         /// <returns>A list of compiler results.</returns>
         public IEnumerable<CompilerResult> Process(string configFile)
         {
-            FileInfo info = new FileInfo(configFile);
-            var configs = ConfigHandler.GetConfigs(configFile);
-            List<CompilerResult> list = new List<CompilerResult>();
-
-            foreach (Config config in configs)
+            try
             {
-                var result = ProcessConfig(info.Directory.FullName, config);
-                list.Add(result);
-            }
+                FileInfo info = new FileInfo(configFile);
+                var configs = ConfigHandler.GetConfigs(configFile);
+                List<CompilerResult> list = new List<CompilerResult>();
 
-            return list;
+                foreach (Config config in configs)
+                {
+                    var result = ProcessConfig(info.Directory.FullName, config);
+                    list.Add(result);
+                }
+
+                return list;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         /// <summary>
@@ -35,20 +42,27 @@ namespace WebCompiler
         /// </summary>
         public IEnumerable<CompilerResult> SourceFileChanged(string configFile, string sourceFile)
         {
-            string folder = Path.GetDirectoryName(configFile);
-            string sourceExtension = Path.GetExtension(sourceFile);
-            List<CompilerResult> list = new List<CompilerResult>();
-            var configs = ConfigHandler.GetConfigs(configFile);
-
-            foreach (Config config in configs)
+            try
             {
-                string inputExtension = Path.GetExtension(config.InputFile);
+                string folder = Path.GetDirectoryName(configFile);
+                string sourceExtension = Path.GetExtension(sourceFile);
+                List<CompilerResult> list = new List<CompilerResult>();
+                var configs = ConfigHandler.GetConfigs(configFile);
 
-                if (inputExtension.Equals(sourceExtension, StringComparison.OrdinalIgnoreCase))
-                    list.Add(ProcessConfig(folder, config));
+                foreach (Config config in configs)
+                {
+                    string inputExtension = Path.GetExtension(config.InputFile);
+
+                    if (inputExtension.Equals(sourceExtension, StringComparison.OrdinalIgnoreCase))
+                        list.Add(ProcessConfig(folder, config));
+                }
+
+                return list;
             }
-
-            return list;
+            catch
+            {
+                return null;
+            }
         }
 
         /// <summary>
@@ -56,19 +70,26 @@ namespace WebCompiler
         /// </summary>
         public static IEnumerable<Config> IsFileConfigured(string configFile, string sourceFile)
         {
-            var configs = ConfigHandler.GetConfigs(configFile);
-            string folder = Path.GetDirectoryName(configFile);
-            List<Config> list = new List<Config>();
-
-            foreach (Config config in configs)
+            try
             {
-                string input = Path.Combine(folder, config.InputFile.Replace("/", "\\"));
+                var configs = ConfigHandler.GetConfigs(configFile);
+                string folder = Path.GetDirectoryName(configFile);
+                List<Config> list = new List<Config>();
 
-                if (input.Equals(sourceFile, StringComparison.OrdinalIgnoreCase))
-                    list.Add(config);
+                foreach (Config config in configs)
+                {
+                    string input = Path.Combine(folder, config.InputFile.Replace("/", "\\"));
+
+                    if (input.Equals(sourceFile, StringComparison.OrdinalIgnoreCase))
+                        list.Add(config);
+                }
+
+                return list;
             }
-
-            return list;
+            catch
+            {
+                return null;
+            }
         }
 
         private CompilerResult ProcessConfig(string baseFolder, Config config)
@@ -87,9 +108,9 @@ namespace WebCompiler
             File.WriteAllText(outputFile, config.Output, new UTF8Encoding(true));
             OnAfterProcess(config, baseFolder);
 
-            if (config.Minify)
+            if (config.Minify.ContainsKey("enabled") && config.Minify["enabled"].ToString().Equals("true", StringComparison.OrdinalIgnoreCase))
             {
-                var minResult = FileMinifier.MinifyFile(config.GetAbsoluteOutputFile(), config.SourceMap);
+                var minResult = FileMinifier.MinifyFile(config);
             }
 
             if (config.SourceMap)
