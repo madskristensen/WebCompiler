@@ -7,8 +7,6 @@ namespace WebCompiler
     /// </summary>
     public class SassOptions : BaseOptions
     {
-        private string v;
-
         /// <summary>
         /// Create an instance of the Class SassOptions
         /// </summary>
@@ -49,7 +47,7 @@ namespace WebCompiler
         public bool IncludeSourceComments { get; set; }
 
         /// <summary>
-        /// Precision of the 
+        /// Precision
         /// </summary>
         public int Precision { get; set; } = 5;
     }
