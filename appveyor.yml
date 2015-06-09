@@ -22,4 +22,4 @@ after_test:
   - ps: Vsix-PushArtifacts | Vsix-PublishToGallery
 
 artifacts:
-  - path: src\WebCompiler\*.nupkg
+  - path: src\WebCompiler\bin\{configuration}\BuildWebCompiler.nupkg

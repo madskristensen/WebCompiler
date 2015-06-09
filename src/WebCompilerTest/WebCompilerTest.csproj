@@ -87,9 +87,6 @@
       <Name>WebCompiler</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="msbuild\buildtask.build" />
-  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
