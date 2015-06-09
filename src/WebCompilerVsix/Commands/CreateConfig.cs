@@ -57,6 +57,10 @@ namespace WebCompilerVsix.Commands
                 button.Text = "Re-compile file";
                 _reCompileConfigs.AddRange(configs);
             }
+            else
+            {
+                button.Text = "Compile file...";
+            }
         }
 
         public static CreateConfig Instance

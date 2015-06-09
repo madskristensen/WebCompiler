@@ -35,9 +35,9 @@ namespace WebCompilerTest
         public void CompileCoffeeScriptWithError()
         {
             var result = _processor.Process("../../artifacts/coffeeconfigerror.json");
-            var error = result.ElementAt(0).Errors[0];
-            Assert.AreEqual(2, error.LineNumber);
-            Assert.AreEqual("Unexpected '}'", error.Message);
+            var error = result.First().Errors[0];
+            Assert.AreEqual(1, error.LineNumber);
+            Assert.AreEqual("error: unexpected ==", error.Message);
         }
     }
 }

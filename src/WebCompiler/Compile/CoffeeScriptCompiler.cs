@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text.RegularExpressions;
 using CoffeeSharp;
 
 namespace WebCompiler
@@ -7,6 +8,7 @@ namespace WebCompiler
     internal class CoffeeScriptCompiler : ICompiler
     {
         private static CoffeeScriptEngine _engine = new CoffeeScriptEngine();
+        private static Regex _error = new Regex(":(?<line>[0-9]+):(?<column>[0-9]+):(?<message>.+)", RegexOptions.Compiled);
 
         public CompilerResult Compile(Config config)
         {
@@ -28,7 +30,7 @@ namespace WebCompiler
 
             try
             {
-                string compilerResult = _engine.Compile(content, filename: info.FullName, bare: options.Bare, globals: options.Globals);
+                string compilerResult = _engine.Eval(content, filename: info.FullName, bare: options.Bare, globals: options.Globals);
 
                 result.CompiledContent = compilerResult;
             }
@@ -40,17 +42,19 @@ namespace WebCompiler
                     Message = ex.Message.Replace(info.FullName, string.Empty).Trim()
                 };
 
-                if (error.Message.Contains("error on line "))
-                {
-                    int index = error.Message.IndexOf("error on line ") + 14;
-                    int end = error.Message.IndexOf(':', index);
-                    int line = 0;
+                Match match = _error.Match(ex.Message);
 
-                    if (int.TryParse(error.Message.Substring(index, end - index), out line))
-                    {
+                if (match.Success)
+                {
+                    int line;
+                    if (int.TryParse(match.Groups["line"].Value, out line))
                         error.LineNumber = line;
-                        error.Message = error.Message.Substring(end + 1).Trim();
-                    }
+
+                    int column;
+                    if (int.TryParse(match.Groups["column"].Value, out column))
+                        error.ColumnNumber = column;
+
+                    error.Message = match.Groups["message"].Value.Trim();
                 }
 
                 result.Errors.Add(error);
