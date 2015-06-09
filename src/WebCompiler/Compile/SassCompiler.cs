@@ -21,10 +21,12 @@ namespace WebCompiler
                 OriginalContent = content,
             };
 
+            SassOptions options = new SassOptions(config);
+
             try
             {
                 LibSassNet.SassCompiler compiler = new LibSassNet.SassCompiler();
-                var compilerResult = compiler.CompileFile(inputFile, LibSassNet.OutputStyle.Echo, sourceMap, false);
+                var compilerResult = compiler.CompileFile(inputFile, options.OutputStyle, sourceMap, options.IncludeSourceComments, options.Precision);
                 result.CompiledContent = compilerResult.CSS;
                 result.SourceMap = compilerResult.SourceMap;
             }

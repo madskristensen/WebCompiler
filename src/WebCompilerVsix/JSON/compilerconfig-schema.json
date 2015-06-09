@@ -5,7 +5,76 @@
 	"type": "array",
 
 	"definitions": {
-		"bundle": {
+		"lessOptions": {
+			"properties": {
+				"inputFile": {
+					"pattern": "\\.less$"
+				},
+				"options": {
+					"additionalProperties": false,
+					"properties": {
+						"strictMath": {
+							"type": "boolean"
+						},
+						"keepFirstSpecialComment": {
+							"type": "boolean"
+						},
+						"disableColorcCompression": {
+							"type": "boolean"
+						},
+						"disableVariableRedefines": {
+							"type": "boolean"
+						}
+					}
+				}
+			}
+		},
+
+		"sassOptions": {
+			"properties": {
+				"inputFile": {
+					"pattern": "\\.scss$"
+				},
+				"options": {
+					"additionalProperties": false,
+					"properties": {
+						"outputStyle": {
+							"enum": [ "nested", "expanded", "compact", "compressed", "echo" ],
+							"default": "nested"
+						},
+						"includeSourceComments": {
+							"type": "boolean",
+							"default": false
+						},
+						"precision": {
+							"type": "integer",
+							"default": 5
+						}
+					}
+				}
+			}
+		},
+
+		"coffeeScriptOptions": {
+			"properties": {
+				"inputFile": {
+					"pattern": "\\.coffee$"
+				},
+				"options": {
+					"additionalProperties": false,
+					"properties": {
+						"bare": {
+							"type": "boolean"
+						},
+						"globals": {
+							"type": "boolean"
+						}
+					}
+				}
+			}
+		},
+
+		"config": {
 			"required": [ "outputFile", "inputFile" ],
 
 			"properties": {
@@ -33,12 +102,21 @@
 				"sourceMap": {
 					"description": "Set to true to automatically create a .map file. Only works for .scss files.",
 					"type": "boolean"
+				},
+				"options": {
+					"type": "object"
 				}
-			}
+			},
+
+			"oneOf": [
+				{ "$ref": "#/definitions/lessOptions" },
+				{ "$ref": "#/definitions/sassOptions" },
+				{ "$ref": "#/definitions/coffeeScriptOptions" }
+			]
 		}
 	},
 
 	"items": {
-		"$ref": "#/definitions/bundle"
+		"$ref": "#/definitions/config"
 	}
 }

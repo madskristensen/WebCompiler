@@ -38,5 +38,12 @@ namespace WebCompilerTest
             Assert.IsTrue(result.Count() == 1);
             Assert.IsTrue(result.ElementAt(0).HasErrors);
         }
+
+        [TestMethod, TestCategory("LESS")]
+        public void CompileLessWithOptions()
+        {
+            var result = ConfigHandler.GetConfigs("../../artifacts/lessconfig.json");
+            Assert.IsTrue(result.First().Options.Count == 2);
+        }
     }
 }

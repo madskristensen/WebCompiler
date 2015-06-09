@@ -17,6 +17,8 @@ namespace WebCompiler
             var engine = new LessEngine();
             engine.CurrentDirectory = info.Directory.FullName;
 
+            ApplyOptions(config, engine);
+
             CompilerResult result = new CompilerResult
             {
                 FileName = info.FullName,
@@ -55,6 +57,15 @@ namespace WebCompiler
             }
 
             return result;
+        }
+
+        private static void ApplyOptions(Config config, LessEngine engine)
+        {
+            LessOptions options = new LessOptions(config);
+            engine.StrictMath = options.StrictMath;
+            engine.KeepFirstSpecialComment = options.KeepFirstSpecialComment;
+            engine.DisableVariableRedefines = options.DisableVariableRedefines;
+            engine.DisableColorCompression = options.DisableColorCompression;
         }
     }
 }

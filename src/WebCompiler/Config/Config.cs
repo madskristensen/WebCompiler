@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using Newtonsoft.Json;
 
 namespace WebCompiler
@@ -43,6 +44,12 @@ namespace WebCompiler
         /// </summary>
         [JsonProperty("sourceMap")]
         public bool SourceMap { get; set; }
+
+        /// <summary>
+        /// Options specific to each compiler. Based on the inputFile property.
+        /// </summary>
+        [JsonProperty("options")]
+        public Dictionary<string, string> Options { get; set; } = new Dictionary<string, string>();
 
         internal string Output { get; set; }
 

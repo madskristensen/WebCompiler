@@ -24,9 +24,11 @@ namespace WebCompiler
                 OriginalContent = content,
             };
 
+            CoffeeScriptOptions options = new CoffeeScriptOptions(config);
+
             try
             {
-                string compilerResult = _engine.Compile(content, filename: info.FullName);
+                string compilerResult = _engine.Compile(content, filename: info.FullName, bare: options.Bare, globals: options.Globals);
 
                 result.CompiledContent = compilerResult;
             }
