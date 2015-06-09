@@ -1,20 +1,20 @@
 ﻿[
 	{
 		"outputFile": "foo.js",
-		"inputFile":"file1.coffee",
-		"minify": true,
+		"inputFile": "file1.coffee",
+		"minify": { },
 		"includeInProject": true
 	},
 	{
 		"outputFile": "foo.css",
-		"inputFile":"file1.less",
-		"minify": true,
+		"inputFile": "file1.less",
+		"minify": { },
 		"includeInProject": true
 	},
 	{
 		"outputFileName": "foo.css",
-		"inputFile":"file1.scss",
-		"minify": true,
+		"inputFile": "file1.scss",
+		"minify": { },
 		"includeInProject": true
 	}
 ]
