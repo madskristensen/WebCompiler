@@ -19,7 +19,7 @@ namespace WebCompilerVsix.JSON
         {
             get { return true; }
         }
-        
+
         public override IEnumerable<string> GetIssues(JSONDocument doc, string canonicalizedValue)
         {
             if (string.IsNullOrEmpty(doc.DocumentLocation))
@@ -34,8 +34,7 @@ namespace WebCompilerVsix.JSON
             string absolutePath = Path.Combine(folder, canonicalizedValue);
 
             if (!File.Exists(absolutePath) && !Directory.Exists(absolutePath))
-                yield return $"The file or directory '{canonicalizedValue}' does not exist";
-
+                yield return $"The file '{canonicalizedValue}' does not exist";
         }
     }
 }

@@ -18,8 +18,6 @@ namespace WebCompiler
             FileInfo info = new FileInfo(inputFile);
             string content = File.ReadAllText(info.FullName);
 
-            string sourceMap = config.SourceMap ? inputFile + ".map" : null;
-
             CompilerResult result = new CompilerResult
             {
                 FileName = info.FullName,
@@ -31,7 +29,6 @@ namespace WebCompiler
             try
             {
                 string compilerResult = _engine.Eval(content, filename: info.FullName, bare: options.Bare, globals: options.Globals);
-
                 result.CompiledContent = compilerResult;
             }
             catch (Exception ex)

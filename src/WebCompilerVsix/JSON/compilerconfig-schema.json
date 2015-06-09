@@ -23,7 +23,6 @@
 					"pattern": "\\.less$"
 				},
 				"options": {
-					"additionalProperties": false,
 					"properties": {
 						"strictMath": {
 							"type": "boolean"
@@ -51,7 +50,6 @@
 					"pattern": "\\.scss$"
 				},
 				"options": {
-					"additionalProperties": false,
 					"properties": {
 						"outputStyle": {
 							"enum": [ "nested", "expanded", "compact", "compressed", "echo" ],
@@ -69,6 +67,10 @@
 				},
 				"minify": {
 					"$ref": "#/definitions/cssOptions"
+				},
+				"sourceMap": {
+					"description": "Set to true to automatically create a .map file. Only works for .scss files.",
+					"type": "boolean"
 				}
 			}
 		},
@@ -79,7 +81,6 @@
 					"pattern": "\\.coffee$"
 				},
 				"options": {
-					"additionalProperties": false,
 					"properties": {
 						"bare": {
 							"type": "boolean"
@@ -136,10 +137,6 @@
 					"description": "Set to true to include the output file in the project. Doesn't work in some Visual Studio project types like ASP.NET 5 applications.",
 					"type": "boolean",
 					"default": true
-				},
-				"sourceMap": {
-					"description": "Set to true to automatically create a .map file. Only works for .scss files.",
-					"type": "boolean"
 				},
 				"options": {
 					"description": "Specify options for the compiler.",
