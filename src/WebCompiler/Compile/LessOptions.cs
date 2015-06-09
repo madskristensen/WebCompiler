@@ -2,7 +2,7 @@
 
 namespace WebCompiler
 {
-    class LessOptions
+    class LessOptions : BaseOptions
     {
         public LessOptions(Config config)
         {
@@ -10,14 +10,6 @@ namespace WebCompiler
             KeepFirstSpecialComment = GetValue(config, "keepFirstSpecialComment") == "true";
             DisableVariableRedefines = GetValue(config, "disableVariableRedefines") == "true";
             DisableColorCompression = GetValue(config, "disableColorCompression") == "true";
-        }
-
-        internal static string GetValue(Config config, string key)
-        {
-            if (config.Options.ContainsKey(key))
-                return config.Options[key];
-
-            return string.Empty;
         }
 
         public bool StrictMath { get; set; }

@@ -1,11 +1,11 @@
 ﻿namespace WebCompiler
 {
-    class CoffeeScriptOptions
+    class CoffeeScriptOptions : BaseOptions
     {
         public CoffeeScriptOptions(Config config)
         {
-            Bare = LessOptions.GetValue(config, "bare") == "true";
-            Globals = LessOptions.GetValue(config, "globals") == "true";
+            Bare = GetValue(config, "bare") == "true";
+            Globals = GetValue(config, "globals") == "true";
         }
 
         public bool Bare { get; set; }
