@@ -33,6 +33,24 @@ the compiler runs automatically to produces the compiled output file.
 The same is true when saving the `compilerconfig.json` file where
 all configured files will be compiled.
 
+### Compile on build / CI support
+
+In ASP.NET MVC and WebForms projects you can enable compilation as part
+of the build step. Simply right-click the `compilerconfig.json` file to
+enable it.
+
+![Compile on build](art/contextmenu-compileonbuild.png)
+
+Clicking the menu item will prompt you with information about what will
+happen if you click the OK button.
+
+![Compile on build prompt](art/prompt-compileonsave.png)
+
+A NuGet package will be installed into the `packages` folder without adding
+any files to the project itself. thead NuGet package contains an MSBuild
+task that will run the exact same compilers on the `compilerconfig.json`
+file in the root of the project.
+
 ### Error list
 
 When a compiler error occurs, the error list in Visual Studio
@@ -57,16 +75,22 @@ Here's an example of what that file looks like:
   {
     "outputFile": "output/site.css",
     "inputFile": "input/site.less",
-    "minify": true,
+    "minify": {
+        "enabled": true
+    },
     "includeInProject": true,
-    "sourceMap": false
+    "sourceMap": false,
+    "options":{}
   },
   {
     "outputFile": "output/scss.css",
     "inputFile": "input/scss.scss",
-    "minify": true,
+    "minify": {
+        "enabled": true
+    },
     "includeInProject": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "options":{}
   }
 ]
 ```

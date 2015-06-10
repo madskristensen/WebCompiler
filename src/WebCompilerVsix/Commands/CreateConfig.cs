@@ -42,6 +42,9 @@ namespace WebCompilerVsix.Commands
 
             button.Visible = WebCompiler.CompilerService.IsSupported(sourceFile);
 
+            if (!button.Visible)
+                return;
+
             var item = ProjectHelpers.GetSelectedItems().ElementAt(0);
 
             if (item == null || item.ContainingProject == null)
