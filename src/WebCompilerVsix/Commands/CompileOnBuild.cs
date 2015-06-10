@@ -84,7 +84,7 @@ namespace WebCompilerVsix.Commands
                     WebCompilerPackage._dte.StatusBar.Text = @"Installing BuildWebCompiler NuGet package, this may take a minute...";
 
                     var installer = componentModel.GetService<IVsPackageInstaller>();
-                    installer.InstallPackage(null, item.ContainingProject, "BuildWebCompiler", (System.Version)null, false);
+                    installer.InstallPackage(null, item.ContainingProject, "BuildWebCompiler", WebCompilerPackage.Version, false);
 
                     WebCompilerPackage._dte.StatusBar.Text = @"Finished installing the BuildWebCompiler NuGet package";
                 }

@@ -8,7 +8,7 @@ install:
 
 before_build:
   - ps: Vsix-IncrementVsixVersion | Vsix-UpdateBuildVersion
-  - ps: Vsix-IncrementNuspecVersion .\src\WebCompiler\MSBuild\*.nuspec 1.0.5
+  - ps: Vsix-IncrementNuspecVersion .\src\WebCompiler\MSBuild\*.nuspec
   - ps: Vsix-TokenReplacement src\WebCompilerVsix\WebCompilerPackage.cs 'Version = "([0-9\\.]+)"' 'Version = "{version}"'
 
 build_script:
@@ -16,7 +16,7 @@ build_script:
   - msbuild /p:DeployExtension=false /p:ZipPackageCompressionLevel=normal /v:m
 
 after_test:
-  - ps: Vsix-PushArtifacts | Vsix-PublishToGallery
+  - ps: Vsix-PushArtifacts
 
 artifacts:
   - path: src\WebCompiler\**\*.nupkg
@@ -25,3 +25,6 @@ deploy:
 - provider: NuGet
   api_key:
     secure: 6xBu/05BWJDPa2PRkxEH3PHU/caLvy2lzf1eWdRBGXwSCTejHtI+6e0V4s2LaVri
+
+after_deploy:
+  - ps: Vsix-PublishToGallery .\src\WebCompilerVsix\**\*.vsix
