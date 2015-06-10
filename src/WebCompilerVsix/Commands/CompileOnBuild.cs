@@ -2,6 +2,7 @@
 using System.ComponentModel.Design;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 using EnvDTE;
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.Shell;
@@ -75,32 +76,63 @@ namespace WebCompilerVsix.Commands
         {
             var item = ProjectHelpers.GetSelectedItems().First();
 
-            try
+            var componentModel = (IComponentModel)Package.GetGlobalService(typeof(SComponentModel));
+
+            if (!_isInstalled)
             {
-                var componentModel = (IComponentModel)Package.GetGlobalService(typeof(SComponentModel));
+                var question = MessageBox.Show("A NuGet package will be installed to augment the MSBuild process, but no files will be added to the project. Do you want to continue?", "WebCompiler", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                if (!_isInstalled)
+                if (question == DialogResult.No)
+                    return;
+
+                Version version = new Version(WebCompilerPackage.Version);
+                if (version == new Version(1, 0, 4))
+                    version = (Version)null;
+
+                System.Threading.ThreadPool.QueueUserWorkItem((o) =>
                 {
-                    WebCompilerPackage._dte.StatusBar.Text = @"Installing BuildWebCompiler NuGet package, this may take a minute...";
+                    try
+                    {
+                        WebCompilerPackage._dte.StatusBar.Text = @"Installing BuildWebCompiler NuGet package, this may take a minute...";
+                        WebCompilerPackage._dte.StatusBar.Animate(true, vsStatusAnimation.vsStatusAnimationSync);
 
-                    var installer = componentModel.GetService<IVsPackageInstaller>();
-                    installer.InstallPackage(null, item.ContainingProject, "BuildWebCompiler", WebCompilerPackage.Version, false);
+                        var installer = componentModel.GetService<IVsPackageInstaller>();
+                        installer.InstallPackage(null, item.ContainingProject, "BuildWebCompiler", version, false);
 
-                    WebCompilerPackage._dte.StatusBar.Text = @"Finished installing the BuildWebCompiler NuGet package";
-                }
-                else
-                {
-                    WebCompilerPackage._dte.StatusBar.Text = @"Uninstalling BuildWebCompiler NuGet package, this may take a minute...";
-
-                    var uninstaller = componentModel.GetService<IVsPackageUninstaller>();
-                    uninstaller.UninstallPackage(item.ContainingProject, "BuildWebCompiler", false);
-
-                    WebCompilerPackage._dte.StatusBar.Text = @"Finished uninstalling the BuildWebCompiler NuGet package";
-                }
+                        WebCompilerPackage._dte.StatusBar.Text = @"Finished installing the BuildWebCompiler NuGet package";
+                    }
+                    catch
+                    {
+                        WebCompilerPackage._dte.StatusBar.Text = @"Unable to install the BuildWebCompiler NuGet package";
+                    }
+                    finally
+                    {
+                        WebCompilerPackage._dte.StatusBar.Animate(false, vsStatusAnimation.vsStatusAnimationSync);
+                    }
+                });
             }
-            catch (Exception)
+            else
             {
-                WebCompilerPackage._dte.StatusBar.Text = @"Unable to install the BuildWebCompiler NuGet package";
+                System.Threading.ThreadPool.QueueUserWorkItem((o) =>
+                {
+                    try
+                    {
+                        WebCompilerPackage._dte.StatusBar.Text = @"Uninstalling BuildWebCompiler NuGet package, this may take a minute...";
+                        WebCompilerPackage._dte.StatusBar.Animate(true, vsStatusAnimation.vsStatusAnimationSync);
+                        var uninstaller = componentModel.GetService<IVsPackageUninstaller>();
+                        uninstaller.UninstallPackage(item.ContainingProject, "BuildWebCompiler", false);
+
+                        WebCompilerPackage._dte.StatusBar.Text = @"Finished uninstalling the BuildWebCompiler NuGet package";
+                    }
+                    catch
+                    {
+                        WebCompilerPackage._dte.StatusBar.Text = @"Unable to ininstall the BuildWebCompiler NuGet package";
+                    }
+                    finally
+                    {
+                        WebCompilerPackage._dte.StatusBar.Animate(false, vsStatusAnimation.vsStatusAnimationSync);
+                    }
+                });
             }
         }
 
