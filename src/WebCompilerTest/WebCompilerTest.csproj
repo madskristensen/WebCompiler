@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="CoffeeScriptTest.cs" />
     <Compile Include="CompileServiceTest.cs" />
+    <Compile Include="Config\ConfigHandlerTest.cs" />
     <Compile Include="ScssOptionsTest.cs" />
     <Compile Include="ScssTest.cs" />
     <Compile Include="LessTest.cs" />
@@ -62,6 +63,7 @@
     <None Include="artifacts\coffee\error.coffee" />
     <None Include="artifacts\coffee\test.coffee" />
     <None Include="artifacts\coffeeconfig.json" />
+    <None Include="artifacts\config\coffeeconfig.json" />
     <None Include="artifacts\lessconfigParseError.json" />
     <None Include="artifacts\lessconfigError.json" />
     <None Include="artifacts\less\parseerror.less" />
