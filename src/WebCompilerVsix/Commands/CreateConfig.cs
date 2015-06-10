@@ -38,7 +38,7 @@ namespace WebCompilerVsix.Commands
         {
             _reCompileConfigs.Clear();
             var button = (OleMenuCommand)sender;
-            var sourceFile = ProjectHelpers.GetSelectedItemPaths().ElementAt(0);
+            var sourceFile = ProjectHelpers.GetSelectedItemPaths().First();
 
             button.Visible = WebCompiler.CompilerService.IsSupported(sourceFile);
 

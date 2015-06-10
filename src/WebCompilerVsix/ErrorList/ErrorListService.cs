@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Windows.Forms;
 using System.Windows.Threading;
 using WebCompiler;
 
@@ -8,13 +9,17 @@ namespace WebCompilerVsix
 {
     class ErrorListService
     {
-        public static void ProcessCompilerResults(IEnumerable<CompilerResult> results)
+        public static void ProcessCompilerResults(IEnumerable<CompilerResult> results, string configFile)
         {
             WebCompilerPackage._dispatcher.BeginInvoke(new Action(() =>
             {
                 if (results == null)
                 {
-                    WebCompilerPackage._dte.StatusBar.Text = "Syntax errors in " + FileHelpers.FILENAME;
+                    MessageBox.Show($"There is an error in the {FileHelpers.FILENAME} file. This could be due to a change in the format after this extension was updated.", "Web Compiler", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    if (File.Exists(configFile))
+                        WebCompilerPackage._dte.ItemOperations.OpenFile(configFile);
+
                     return;
                 }
 

@@ -13,6 +13,7 @@ namespace WebCompilerVsix.Commands
     internal sealed class CompileOnBuild
     {
         private readonly Package _package;
+        private bool _isInstalled;
 
         private CompileOnBuild(Package package)
         {
@@ -33,16 +34,23 @@ namespace WebCompilerVsix.Commands
             }
         }
 
-        private bool _isInstalled;
-
         private void BeforeQueryStatus(object sender, EventArgs e)
         {
             var button = (OleMenuCommand)sender;
-            var sourceFile = ProjectHelpers.GetSelectedItemPaths().First();
             var item = ProjectHelpers.GetSelectedItems().First();
 
             if (item == null || item.ContainingProject == null)
                 return;
+
+            // Some projects don't have a .csproj file and will therefore not be able to execute the build task.
+            if (item.ContainingProject.Kind.Equals("{E24C65DC-7377-472B-9ABA-BC803B73C61A}", StringComparison.OrdinalIgnoreCase) || // Website Project
+                item.ContainingProject.Kind.Equals("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}", StringComparison.OrdinalIgnoreCase))   // ASP.NET 5
+            {
+                button.Enabled = false;
+                return;
+            }
+
+            var sourceFile = ProjectHelpers.GetSelectedItemPaths().First();
 
             button.Visible = Path.GetFileName(sourceFile).Equals(FileHelpers.FILENAME, StringComparison.OrdinalIgnoreCase);
 
@@ -80,7 +88,7 @@ namespace WebCompilerVsix.Commands
 
             if (!_isInstalled)
             {
-                var question = MessageBox.Show("A NuGet package will be installed to augment the MSBuild process, but no files will be added to the project. Do you want to continue?", "WebCompiler", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                var question = MessageBox.Show("A NuGet package will be installed to augment the MSBuild process, but no files will be added to the project.\rThis may require an internet connection.\r\rDo you want to continue?", "Web Compiler", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (question == DialogResult.No)
                     return;

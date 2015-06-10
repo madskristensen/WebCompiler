@@ -34,12 +34,12 @@ namespace WebCompilerVsix
             }
         }
 
-        public static void Process(string fileName)
+        public static void Process(string conigFile)
         {
             ThreadPool.QueueUserWorkItem((o) =>
             {
-                var result = Processor.Process(fileName);
-                ErrorListService.ProcessCompilerResults(result);
+                var result = Processor.Process(conigFile);
+                ErrorListService.ProcessCompilerResults(result, conigFile);
             });
         }
 
@@ -48,7 +48,7 @@ namespace WebCompilerVsix
             ThreadPool.QueueUserWorkItem((o) =>
             {
                 var result = Processor.SourceFileChanged(configFile, sourceFile);
-                ErrorListService.ProcessCompilerResults(result);
+                ErrorListService.ProcessCompilerResults(result, configFile);
             });
         }
 
