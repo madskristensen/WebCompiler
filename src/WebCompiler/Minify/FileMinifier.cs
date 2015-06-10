@@ -32,21 +32,15 @@ namespace WebCompiler
 
         private static MinificationResult MinifyJavaScript(Config config, string file)
         {
-            JavaScriptOptions options = new JavaScriptOptions(config);
-            var settings = new CodeSettings()
-            {
-                EvalTreatment = options.EvalTreatment,
-                TermSemicolons = options.TermSemicolons,
-                PreserveImportantComments = options.PreserveImportantComments
-            };
-
+            string content = File.ReadAllText(file);
+            var settings = JavaScriptOptions.GetSettings(config);
             var minifier = new Minifier();
 
             string ext = Path.GetExtension(file);
             string minFile = file.Substring(0, file.LastIndexOf(ext)) + ".min" + ext;
             string mapFile = minFile + ".map";
 
-            string result = minifier.MinifyJavaScript(File.ReadAllText(file), settings);
+            string result = minifier.MinifyJavaScript(content, settings);
 
             if (!string.IsNullOrEmpty(result))
             {
@@ -61,15 +55,7 @@ namespace WebCompiler
         private static MinificationResult MinifyCss(Config config, string file)
         {
             string content = File.ReadAllText(file);
-
-            CssOptions options = new CssOptions(config);
-
-            var settings = new CssSettings()
-            {
-                CommentMode = options.CssComment,
-                TermSemicolons = options.TermSemicolons,
-            };
-
+            var settings = CssOptions.GetSettings(config);
             var minifier = new Minifier();
 
             string result = minifier.MinifyStyleSheet(content, settings);

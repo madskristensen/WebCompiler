@@ -4,18 +4,21 @@ namespace WebCompiler
 {
     class CssOptions
     {
-        public CssOptions(Config config)
+        public static CssSettings GetSettings(Config config)
         {
-            TermSemicolons = GetValue(config, "termSemicolons") == "true";
+            CssSettings settings = new CssSettings();
+            settings.TermSemicolons = GetValue(config, "termSemicolons") == "true";
 
             string cssComment = GetValue(config, "cssComment");
 
             if (cssComment == "hacks")
-                CssComment = CssComment.Hacks;
+                settings.CommentMode = CssComment.Hacks;
             else if (cssComment == "important")
-                CssComment = CssComment.Important;
+                settings.CommentMode = CssComment.Important;
             else if (cssComment == "none")
-                CssComment = CssComment.None;
+                settings.CommentMode = CssComment.None;
+
+            return settings;
         }
 
         internal static string GetValue(Config config, string key)
@@ -25,9 +28,5 @@ namespace WebCompiler
 
             return string.Empty;
         }
-
-        public CssComment CssComment { get; set; }
-
-        public bool TermSemicolons { get; set; }
     }
 }

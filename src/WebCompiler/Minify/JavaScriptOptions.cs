@@ -4,19 +4,23 @@ namespace WebCompiler
 {
     class JavaScriptOptions
     {
-        public JavaScriptOptions(Config config)
+        public static CodeSettings GetSettings(Config config)
         {
-            PreserveImportantComments = GetValue(config, "preserveImportantComments") == "true";
-            TermSemicolons = GetValue(config, "termSemicolons") == "true";
+            CodeSettings settings = new CodeSettings();
+
+            settings.PreserveImportantComments = GetValue(config, "preserveImportantComments") == "true";
+            settings.TermSemicolons = GetValue(config, "termSemicolons") == "true";
 
             string evalTreatment = GetValue(config, "evanTreatment");
 
             if (evalTreatment == "ignore")
-                EvalTreatment = EvalTreatment.Ignore;
+                settings.EvalTreatment = EvalTreatment.Ignore;
             else if (evalTreatment == "makeAllSafe")
-                EvalTreatment = EvalTreatment.MakeAllSafe;
+                settings.EvalTreatment = EvalTreatment.MakeAllSafe;
             else if (evalTreatment == "makeImmediateSafe")
-                EvalTreatment = EvalTreatment.MakeImmediateSafe;
+                settings.EvalTreatment = EvalTreatment.MakeImmediateSafe;
+
+            return settings;
         }
 
         internal static string GetValue(Config config, string key)
@@ -26,11 +30,5 @@ namespace WebCompiler
 
             return string.Empty;
         }
-
-        public bool PreserveImportantComments { get; set; }
-
-        public bool TermSemicolons { get; set; }
-
-        public EvalTreatment EvalTreatment { get; set; }
     }
 }
