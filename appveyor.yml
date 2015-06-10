@@ -8,7 +8,8 @@ install:
 
 before_build:
   - ps: Vsix-IncrementVsixVersion | Vsix-UpdateBuildVersion
-  #- nuget.exe restore
+  - ps: Vsix-IncrementNuspecVersion .\src\WebCompiler\MSBuild\*.nuspec 1.0.5
+  - ps: Vsix-TokenReplacement src\WebCompilerVsix\WebCompilerPackage.cs 'Version = "([0-9\\.]+)"' 'Version = "{version}"'
 
 build_script:
   - nuget restore
