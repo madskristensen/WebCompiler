@@ -22,13 +22,16 @@ namespace WebCompilerTest
         {
             File.Delete("../../artifacts/scss/test.css");
             File.Delete("../../artifacts/scss/test.min.css");
+            File.Delete("../../artifacts/scss/test.css.map");
         }
 
         [TestMethod, TestCategory("SCSS")]
         public void CompileScss()
         {
             var result = _processor.Process("../../artifacts/scssconfig.json");
+            var first = result.First();
             Assert.IsTrue(File.Exists("../../artifacts/scss/test.css"));
+            Assert.IsTrue(first.CompiledContent.Contains("/*# sourceMappingURL=test.css.map */"));
         }
 
         [TestMethod, TestCategory("SCSS")]

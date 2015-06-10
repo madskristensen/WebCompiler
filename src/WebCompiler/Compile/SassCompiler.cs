@@ -13,7 +13,7 @@ namespace WebCompiler
             FileInfo info = new FileInfo(inputFile);
             string content = File.ReadAllText(info.FullName);
 
-            string sourceMap = config.SourceMap ? inputFile + ".map" : null;
+            string sourceMap = config.SourceMap ? config.GetAbsoluteOutputFile() + ".map" : null;
 
             CompilerResult result = new CompilerResult
             {
