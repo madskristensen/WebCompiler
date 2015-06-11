@@ -56,12 +56,12 @@ namespace WebCompilerVsix.Listeners
                 if (item != null && item.ContainingProject != null)
                 {
                     string folder = ProjectHelpers.GetRootFolder(item.ContainingProject);
-                    string jsonFile = Path.Combine(folder, FileHelpers.FILENAME);
+                    string configFile = Path.Combine(folder, FileHelpers.FILENAME);
 
-                    if (File.Exists(jsonFile))
-                    {
-                        CompilerService.SourceFileChanged(jsonFile, e.FilePath);
-                    }
+                    ErrorList.CleanErrors(e.FilePath);
+
+                    if (File.Exists(configFile))
+                        CompilerService.SourceFileChanged(configFile, e.FilePath);
                 }
             }
         }
