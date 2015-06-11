@@ -22,12 +22,18 @@ namespace WebCompilerVsix
         public static DTE2 _dte;
         public static Package Package;
         public static Dispatcher _dispatcher;
+        private SolutionEvents _events;
 
         protected override void Initialize()
         {
             _dte = GetService(typeof(DTE)) as DTE2;
             _dispatcher = Dispatcher.CurrentDispatcher;
             Package = this;
+
+            Events2 events = _dte.Events as Events2;
+            _events = events.SolutionEvents;
+            _events.AfterClosing += () => { ErrorList.CleanAllErrors(); };
+            _events.ProjectRemoved += (project) => { ErrorList.CleanAllErrors(); };
 
             CreateConfig.Initialize(this);
             Recompile.Initialize(this);

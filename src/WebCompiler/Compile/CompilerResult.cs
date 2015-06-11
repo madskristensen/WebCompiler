@@ -38,7 +38,6 @@ namespace WebCompiler
         public bool HasErrors
         {
             get { return Errors.Count > 0; }
-
         }
     }
 }

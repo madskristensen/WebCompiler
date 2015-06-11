@@ -36,6 +36,21 @@ namespace WebCompilerVsix
             }
         }
 
+        public static void CleanAllErrors()
+        {
+            foreach (string file in _providers.Keys)
+            {
+                var provider = _providers[file];
+                if (provider != null)
+                {
+                    provider.Tasks.Clear();
+                    provider.Dispose();
+                }
+            }
+
+            _providers.Clear();
+        }
+
         private static ErrorTask CreateTask(CompilerError error, ErrorListProvider provider)
         {
             ErrorTask task = new ErrorTask()
