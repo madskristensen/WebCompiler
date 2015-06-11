@@ -27,7 +27,7 @@ namespace WebCompilerVsix.Commands
             OleMenuCommandService commandService = this.ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
             if (commandService != null)
             {
-                var menuCommandID = new CommandID(GuidList.guidBundlerCmdSet, PackageCommands.CompileOnBuild);
+                var menuCommandID = new CommandID(GuidList.guidCompilerCmdSet, PackageCommands.CompileOnBuild);
                 var menuItem = new OleMenuCommand(EnableCompileOnBuild, menuCommandID);
                 menuItem.BeforeQueryStatus += BeforeQueryStatus;
                 commandService.AddCommand(menuItem);

@@ -22,8 +22,8 @@ namespace WebCompilerVsix.Commands
             OleMenuCommandService commandService = this.ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
             if (commandService != null)
             {
-                var menuCommandID = new CommandID(GuidList.guidBundlerCmdSet, PackageCommands.RecompileConfigFile);
-                var menuItem = new OleMenuCommand(UpdateSelectedBundle, menuCommandID);
+                var menuCommandID = new CommandID(GuidList.guidCompilerCmdSet, PackageCommands.RecompileConfigFile);
+                var menuItem = new OleMenuCommand(UpdateSelectedConfig, menuCommandID);
                 menuItem.BeforeQueryStatus += BeforeQueryStatus;
                 commandService.AddCommand(menuItem);
             }
@@ -56,10 +56,9 @@ namespace WebCompilerVsix.Commands
             Instance = new Recompile(package);
         }
 
-        private void UpdateSelectedBundle(object sender, EventArgs e)
+        private void UpdateSelectedConfig(object sender, EventArgs e)
         {
-            var file = ProjectHelpers.GetSelectedItemPaths().ElementAt(0);
-            var item = ProjectHelpers.GetSelectedItems().ElementAt(0);
+            var file = ProjectHelpers.GetSelectedItemPaths().First();
 
             CompilerService.Process(file);
         }

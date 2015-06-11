@@ -5,17 +5,17 @@
     <Extern href="vsshlids.h"/>
     <Include href="KnownImageIds.vsct"/>
 
-    <Commands package="guidBundlerPackage">
+    <Commands package="guidCompilerPackage">
         <Groups>
-            <Group guid="guidBundlerCmdSet" id="MyMenuGroup" priority="0x0200">
+            <Group guid="guidCompilerCmdSet" id="MyMenuGroup" priority="0x0200">
                 <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ITEMNODE"/>
             </Group>
         </Groups>
 
         <!-- See all available images for ImageCatalogGuid at http://glyphlist.azurewebsites.net/knownmonikers/ -->
         <Buttons>
-            <Button guid="guidBundlerCmdSet" id="CreateConfigFile" priority="0x0100" type="Button">
-                <Parent guid="guidBundlerCmdSet" id="MyMenuGroup" />
+            <Button guid="guidCompilerCmdSet" id="CreateConfigFile" priority="0x0100" type="Button">
+                <Parent guid="guidCompilerCmdSet" id="MyMenuGroup" />
                 <Icon guid="ImageCatalogGuid" id="Compile" />
                 <CommandFlag>IconIsMoniker</CommandFlag>
                 <CommandFlag>DynamicVisibility</CommandFlag>
@@ -25,8 +25,8 @@
                     <ButtonText>Compile file...</ButtonText>
                 </Strings>
             </Button>
-            <Button guid="guidBundlerCmdSet" id="RecompileConfigFile" priority="0x0200" type="Button">
-                <Parent guid="guidBundlerCmdSet" id="MyMenuGroup" />
+            <Button guid="guidCompilerCmdSet" id="RecompileConfigFile" priority="0x0200" type="Button">
+                <Parent guid="guidCompilerCmdSet" id="MyMenuGroup" />
                 <Icon guid="ImageCatalogGuid" id="Compile" />
                 <CommandFlag>IconIsMoniker</CommandFlag>
                 <CommandFlag>DynamicVisibility</CommandFlag>
@@ -35,8 +35,8 @@
                     <ButtonText>Re-compile all files</ButtonText>
                 </Strings>
             </Button>
-            <Button guid="guidBundlerCmdSet" id="CompileOnBuild" priority="0x0300" type="Button">
-                <Parent guid="guidBundlerCmdSet" id="MyMenuGroup" />
+            <Button guid="guidCompilerCmdSet" id="CompileOnBuild" priority="0x0300" type="Button">
+                <Parent guid="guidCompilerCmdSet" id="MyMenuGroup" />
                 <CommandFlag>DynamicVisibility</CommandFlag>
                 <CommandFlag>DynamicItemStart</CommandFlag>
                 <Strings>
@@ -47,17 +47,17 @@
     </Commands>
 
     <CommandPlacements>
-        <CommandPlacement guid="guidBundlerCmdSet" id="MyMenuGroup" priority="0x0200">
+        <CommandPlacement guid="guidCompilerCmdSet" id="MyMenuGroup" priority="0x0200">
             <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_WEBITEMNODE"/>
         </CommandPlacement>
     </CommandPlacements>
 
     <Symbols>
         <!-- This is the package guid. -->
-        <GuidSymbol name="guidBundlerPackage" value="{6e1b31b9-e1c1-4697-9b0a-e638eece7765}" />
+        <GuidSymbol name="guidCompilerPackage" value="{6e1b31b9-e1c1-4697-9b0a-e638eece7765}" />
 
         <!-- This is the guid used to group the menu commands together -->
-        <GuidSymbol name="guidBundlerCmdSet" value="{92a030a3-2493-40f9-b24b-34fdfffafb7d}">
+        <GuidSymbol name="guidCompilerCmdSet" value="{92a030a3-2493-40f9-b24b-34fdfffafb7d}">
             <IDSymbol name="MyMenuGroup" value="0x1020" />
             <IDSymbol name="CreateConfigFile" value="0x0100" />
             <IDSymbol name="RecompileConfigFile" value="0x0200" />

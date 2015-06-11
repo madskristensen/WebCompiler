@@ -25,8 +25,8 @@ namespace WebCompilerVsix.Commands
             OleMenuCommandService commandService = this.ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
             if (commandService != null)
             {
-                var menuCommandID = new CommandID(GuidList.guidBundlerCmdSet, PackageCommands.CreateConfigFile);
-                var menuItem = new OleMenuCommand(AddBundle, menuCommandID);
+                var menuCommandID = new CommandID(GuidList.guidCompilerCmdSet, PackageCommands.CreateConfigFile);
+                var menuItem = new OleMenuCommand(AddConfig, menuCommandID);
                 menuItem.BeforeQueryStatus += BeforeQueryStatus;
                 commandService.AddCommand(menuItem);
             }
@@ -84,7 +84,7 @@ namespace WebCompilerVsix.Commands
             Instance = new CreateConfig(package);
         }
 
-        private void AddBundle(object sender, EventArgs e)
+        private void AddConfig(object sender, EventArgs e)
         {
             var item = ProjectHelpers.GetSelectedItems().ElementAt(0);
 
@@ -110,18 +110,17 @@ namespace WebCompilerVsix.Commands
                 return;
 
             string relativeOutputFile = MakeRelative(configFile, outputFile);
-            Config bundle = CreateBundleFile(relativeFile, relativeOutputFile);
+            Config config = CreateConfigFile(relativeFile, relativeOutputFile);
 
             ConfigHandler handler = new ConfigHandler();
-            handler.AddConfig(configFile, bundle);
+            handler.AddConfig(configFile, config);
 
-            WebCompilerPackage._dte.ItemOperations.OpenFile(configFile);
             ProjectHelpers.AddFileToProject(item.ContainingProject, configFile, "None");
-
+            WebCompilerPackage._dte.ItemOperations.OpenFile(configFile);
             CompilerService.Process(configFile);
         }
 
-        private static Config CreateBundleFile(string inputfile, string outputFile)
+        private static Config CreateConfigFile(string inputfile, string outputFile)
         {
             return new Config
             {

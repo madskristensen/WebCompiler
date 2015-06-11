@@ -38,7 +38,7 @@ namespace WebCompiler
         }
 
         /// <summary>
-        /// Compiles all bundles with the same input file extension as the specified sourceFile
+        /// Compiles all configs with the same input file extension as the specified sourceFile
         /// </summary>
         public IEnumerable<CompilerResult> SourceFileChanged(string configFile, string sourceFile)
         {
@@ -129,19 +129,19 @@ namespace WebCompiler
             return result;
         }
 
-        private void OnBeforeProcess(Config bundle, string baseFolder)
+        private void OnBeforeProcess(Config config, string baseFolder)
         {
             if (BeforeProcess != null)
             {
-                BeforeProcess(this, new CompileFileEventArgs(bundle, baseFolder));
+                BeforeProcess(this, new CompileFileEventArgs(config, baseFolder));
             }
         }
 
-        private void OnAfterProcess(Config bundle, string baseFolder)
+        private void OnAfterProcess(Config config, string baseFolder)
         {
             if (AfterProcess != null)
             {
-                AfterProcess(this, new CompileFileEventArgs(bundle, baseFolder));
+                AfterProcess(this, new CompileFileEventArgs(config, baseFolder));
             }
         }
 

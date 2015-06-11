@@ -12,7 +12,7 @@ namespace WebCompilerVsix.JSON
     {
         public override string FormatName
         {
-            get { return "bundle_relativepath"; }
+            get { return "compiler_relativepath"; }
         }
 
         public override bool HideFormatNameCompletion

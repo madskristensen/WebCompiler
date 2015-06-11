@@ -7,10 +7,10 @@ namespace WebCompilerVsix
     /// </summary>
     internal sealed partial class GuidList
     {
-        public const string guidBundlerPackageString = "6e1b31b9-e1c1-4697-9b0a-e638eece7765";
-        public const string guidBundlerCmdSetString = "92a030a3-2493-40f9-b24b-34fdfffafb7d";
-        public static Guid guidBundlerPackage = new Guid(guidBundlerPackageString);
-        public static Guid guidBundlerCmdSet = new Guid(guidBundlerCmdSetString);
+        public const string guidCompilerPackageString = "6e1b31b9-e1c1-4697-9b0a-e638eece7765";
+        public const string guidCompilerCmdSetString = "92a030a3-2493-40f9-b24b-34fdfffafb7d";
+        public static Guid guidCompilerPackage = new Guid(guidCompilerPackageString);
+        public static Guid guidCompilerCmdSet = new Guid(guidCompilerCmdSetString);
     }
     /// <summary>
     /// Helper class that encapsulates all CommandIDs uses across VS Package.
