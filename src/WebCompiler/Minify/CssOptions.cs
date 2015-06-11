@@ -7,7 +7,7 @@ namespace WebCompiler
         public static CssSettings GetSettings(Config config)
         {
             CssSettings settings = new CssSettings();
-            settings.TermSemicolons = GetValue(config, "termSemicolons") == "true";
+            settings.TermSemicolons = GetValue(config, "termSemicolons") == "True";
 
             string cssComment = GetValue(config, "cssComment");
 
@@ -23,8 +23,8 @@ namespace WebCompiler
 
         internal static string GetValue(Config config, string key)
         {
-            if (config.Options.ContainsKey(key))
-                return config.Options[key];
+            if (config.Minify.ContainsKey(key))
+                return config.Minify[key].ToString();
 
             return string.Empty;
         }

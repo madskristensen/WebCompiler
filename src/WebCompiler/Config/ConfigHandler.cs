@@ -44,7 +44,6 @@ namespace WebCompiler
             var configs = JsonConvert.DeserializeObject<IEnumerable<Config>>(content);
             string folder = Path.GetDirectoryName(file.FullName);
 
-            // Make the output path absolute
             foreach (Config config in configs)
             {
                 config.FileName = fileName;

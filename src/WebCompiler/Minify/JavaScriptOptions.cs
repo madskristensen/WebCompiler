@@ -8,8 +8,8 @@ namespace WebCompiler
         {
             CodeSettings settings = new CodeSettings();
 
-            settings.PreserveImportantComments = GetValue(config, "preserveImportantComments") == "true";
-            settings.TermSemicolons = GetValue(config, "termSemicolons") == "true";
+            settings.PreserveImportantComments = GetValue(config, "preserveImportantComments") == "True";
+            settings.TermSemicolons = GetValue(config, "termSemicolons") == "True";
 
             string evalTreatment = GetValue(config, "evanTreatment");
 
@@ -25,8 +25,8 @@ namespace WebCompiler
 
         internal static string GetValue(Config config, string key)
         {
-            if (config.Options.ContainsKey(key))
-                return config.Options[key];
+            if (config.Minify.ContainsKey(key))
+                return config.Minify[key].ToString();
 
             return string.Empty;
         }
