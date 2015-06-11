@@ -2,19 +2,26 @@
 	{
 		"outputFile": "foo.js",
 		"inputFile": "file1.coffee",
-		"minify": { },
+		"minify": {
+			"enabled": true
+		},
 		"includeInProject": true
 	},
 	{
 		"outputFile": "foo.css",
 		"inputFile": "file1.less",
-		"minify": { },
+		"minify": {
+			"enabled": true
+		},
 		"includeInProject": true
 	},
 	{
-		"outputFileName": "foo.css",
+		"outputFile": "foo.css",
 		"inputFile": "file1.scss",
-		"minify": { },
+		"minify": {
+			"enabled": true,
+			"commentMode": "hacks"
+		},
 		"includeInProject": true
 	}
 ]
