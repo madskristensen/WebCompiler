@@ -50,8 +50,7 @@ namespace WebCompilerVsix.Commands
             if (item == null || item.ContainingProject == null)
                 return;
 
-            string folder = ProjectHelpers.GetRootFolder(item.ContainingProject);
-            string configFile = Path.Combine(folder, FileHelpers.FILENAME);
+            string configFile = FileHelpers.GetConfigFile(item.ContainingProject);
 
             var configs = ConfigFileProcessor.IsFileConfigured(configFile, sourceFile);
 
