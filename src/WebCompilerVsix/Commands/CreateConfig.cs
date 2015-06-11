@@ -92,7 +92,7 @@ namespace WebCompilerVsix.Commands
                 return;
 
             string folder = ProjectHelpers.GetRootFolder(item.ContainingProject);
-            string configFile = Path.Combine(folder, FileHelpers.FILENAME);
+            string configFile = FileHelpers.GetConfigFile(item.ContainingProject);
             string relativeFile = MakeRelative(configFile, ProjectHelpers.GetSelectedItemPaths().First());
 
             // Recompile if already configured
@@ -105,11 +105,11 @@ namespace WebCompilerVsix.Commands
 
             // Create new config
             string outputFile = GetOutputFileName(folder, Path.GetFileName(relativeFile));
-            string relativeOutputFile = MakeRelative(configFile, outputFile);
 
             if (string.IsNullOrEmpty(outputFile))
                 return;
 
+            string relativeOutputFile = MakeRelative(configFile, outputFile);
             Config bundle = CreateBundleFile(relativeFile, relativeOutputFile);
 
             ConfigHandler handler = new ConfigHandler();
@@ -144,7 +144,7 @@ namespace WebCompilerVsix.Commands
             string extension = Path.GetExtension(fileName);
             string ext = "css";
 
-            if (extension == ".coffee" || extension == ".iced")
+            if (extension == ".coffee")
                 ext = "js";
 
             using (SaveFileDialog dialog = new SaveFileDialog())
@@ -152,6 +152,7 @@ namespace WebCompilerVsix.Commands
                 dialog.InitialDirectory = folder;
                 dialog.DefaultExt = ext;
                 dialog.FileName = Path.GetFileNameWithoutExtension(fileName);
+                dialog.Filter = ext.ToUpperInvariant() + " File|*." + ext;
 
                 DialogResult result = dialog.ShowDialog();
 
