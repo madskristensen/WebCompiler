@@ -22,7 +22,7 @@ namespace WebCompiler
         {
             FileInfo configFile = new FileInfo(FileName);
 
-            Log.LogMessage(MessageImportance.High, "WebCompiler: Begin compiling " + configFile.Name);
+            Log.LogMessage(MessageImportance.High, Environment.NewLine + "WebCompiler: Begin compiling " + configFile.Name);
 
             if (!configFile.Exists)
             {

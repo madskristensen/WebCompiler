@@ -39,19 +39,15 @@ namespace WebCompilerVsix.Commands
             var button = (OleMenuCommand)sender;
             var items = ProjectHelpers.GetSelectedItems();
 
+            button.Visible = false;
+
             if (items.Count() != 1)
-            {
-                button.Visible = false;
                 return;
-            }
 
             var item = items.First();
 
             if (item == null || item.ContainingProject == null || item.Properties == null)
-            {
-                button.Visible = false;
                 return;
-            }
 
             var sourceFile = item.Properties.Item("FullPath").Value.ToString();
 
