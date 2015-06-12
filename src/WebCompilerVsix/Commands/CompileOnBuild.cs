@@ -101,7 +101,7 @@ namespace WebCompilerVsix.Commands
 
             if (!_isInstalled)
             {
-                var question = MessageBox.Show("A NuGet package will be installed to augment the MSBuild process, but no files will be added to the project.\rThis may require an internet connection.\r\rDo you want to continue?", "Web Compiler", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                var question = MessageBox.Show("A NuGet package will be installed to augment the MSBuild process, but no files will be added to the project.\rThis may require an internet connection.\r\rDo you want to continue?", Constants.VSIX_NAME, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (question == DialogResult.No)
                     return;
@@ -114,17 +114,17 @@ namespace WebCompilerVsix.Commands
                 {
                     try
                     {
-                        WebCompilerPackage._dte.StatusBar.Text = @"Installing BuildWebCompiler NuGet package, this may take a minute...";
+                        WebCompilerPackage._dte.StatusBar.Text = $"Installing {Constants.NUGET_ID} NuGet package, this may take a minute...";
                         WebCompilerPackage._dte.StatusBar.Animate(true, vsStatusAnimation.vsStatusAnimationSync);
 
                         var installer = componentModel.GetService<IVsPackageInstaller>();
-                        installer.InstallPackage(null, item.ContainingProject, "BuildWebCompiler", version, false);
+                        installer.InstallPackage(null, item.ContainingProject, Constants.NUGET_ID, version, false);
 
-                        WebCompilerPackage._dte.StatusBar.Text = @"Finished installing the BuildWebCompiler NuGet package";
+                        WebCompilerPackage._dte.StatusBar.Text = $"Finished installing the {Constants.NUGET_ID} NuGet package";
                     }
                     catch
                     {
-                        WebCompilerPackage._dte.StatusBar.Text = @"Unable to install the BuildWebCompiler NuGet package";
+                        WebCompilerPackage._dte.StatusBar.Text = $"Unable to install the {Constants.NUGET_ID} NuGet package";
                     }
                     finally
                     {
@@ -138,16 +138,16 @@ namespace WebCompilerVsix.Commands
                 {
                     try
                     {
-                        WebCompilerPackage._dte.StatusBar.Text = @"Uninstalling BuildWebCompiler NuGet package, this may take a minute...";
+                        WebCompilerPackage._dte.StatusBar.Text = $"Uninstalling {Constants.NUGET_ID} NuGet package, this may take a minute...";
                         WebCompilerPackage._dte.StatusBar.Animate(true, vsStatusAnimation.vsStatusAnimationSync);
                         var uninstaller = componentModel.GetService<IVsPackageUninstaller>();
-                        uninstaller.UninstallPackage(item.ContainingProject, "BuildWebCompiler", false);
+                        uninstaller.UninstallPackage(item.ContainingProject, Constants.NUGET_ID, false);
 
-                        WebCompilerPackage._dte.StatusBar.Text = @"Finished uninstalling the BuildWebCompiler NuGet package";
+                        WebCompilerPackage._dte.StatusBar.Text = $"Finished uninstalling the {Constants.NUGET_ID} NuGet package";
                     }
                     catch
                     {
-                        WebCompilerPackage._dte.StatusBar.Text = @"Unable to ininstall the BuildWebCompiler NuGet package";
+                        WebCompilerPackage._dte.StatusBar.Text = $"Unable to ininstall the {Constants.NUGET_ID} NuGet package";
                     }
                     finally
                     {
@@ -162,7 +162,7 @@ namespace WebCompilerVsix.Commands
             var componentModel = (IComponentModel)Package.GetGlobalService(typeof(SComponentModel));
             IVsPackageInstallerServices installerServices = componentModel.GetService<IVsPackageInstallerServices>();
 
-            return installerServices.IsPackageInstalled(project, "BuildWebCompiler");
+            return installerServices.IsPackageInstalled(project, Constants.NUGET_ID);
         }
     }
 }

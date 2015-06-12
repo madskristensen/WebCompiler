@@ -2,11 +2,11 @@
 using System.Runtime.InteropServices;
 using WebCompilerVsix;
 
-[assembly: AssemblyTitle("Web Compiler")]
+[assembly: AssemblyTitle(Constants.VSIX_NAME)]
 [assembly: AssemblyDescription("Compiles LESS, Sass and CoffeeScript files directly within Visual Studio")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Mads Kristensen")]
-[assembly: AssemblyProduct("Web Compiler")]
+[assembly: AssemblyProduct(Constants.VSIX_NAME)]
 [assembly: AssemblyCopyright("Mads Kristensen")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("en-US")]
