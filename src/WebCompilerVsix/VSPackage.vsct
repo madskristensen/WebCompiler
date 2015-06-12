@@ -20,6 +20,7 @@
                 <CommandFlag>IconIsMoniker</CommandFlag>
                 <CommandFlag>DynamicVisibility</CommandFlag>
                 <CommandFlag>TextChanges</CommandFlag>
+                <CommandFlag>DefaultInvisible</CommandFlag>
                 <Strings>
                     <ButtonText>Compile file...</ButtonText>
                 </Strings>
@@ -29,6 +30,7 @@
                 <Icon guid="ImageCatalogGuid" id="EventMissing" />
                 <CommandFlag>IconIsMoniker</CommandFlag>
                 <CommandFlag>DynamicVisibility</CommandFlag>
+                <CommandFlag>DefaultInvisible</CommandFlag>
                 <Strings>
                     <ButtonText>Remove from compilation...</ButtonText>
                 </Strings>
@@ -38,6 +40,7 @@
                 <Icon guid="ImageCatalogGuid" id="Event" />
                 <CommandFlag>IconIsMoniker</CommandFlag>
                 <CommandFlag>DynamicVisibility</CommandFlag>
+                <CommandFlag>DefaultInvisible</CommandFlag>
                 <Strings>
                     <ButtonText>Re-compile all files</ButtonText>
                 </Strings>
@@ -45,6 +48,7 @@
             <Button guid="guidCompilerCmdSet" id="CompileOnBuild" priority="0x0300" type="Button">
                 <Parent guid="guidCompilerCmdSet" id="MyMenuGroup" />
                 <CommandFlag>DynamicVisibility</CommandFlag>
+                <CommandFlag>DefaultInvisible</CommandFlag>
                 <Strings>
                     <ButtonText>Enable compile on build...</ButtonText>
                 </Strings>

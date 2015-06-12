@@ -47,8 +47,11 @@ namespace WebCompilerVsix.Commands
 
             var item = items.First();
 
-            if (item == null || item.ContainingProject == null)
+            if (item == null || item.ContainingProject == null || item.Properties == null)
+            {
+                button.Visible = false;
                 return;
+            }
 
             var sourceFile = item.Properties.Item("FullPath").Value.ToString();
 

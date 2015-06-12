@@ -37,10 +37,13 @@ namespace WebCompilerVsix.Commands
         private void BeforeQueryStatus(object sender, EventArgs e)
         {
             var button = (OleMenuCommand)sender;
-            var item = ProjectHelpers.GetSelectedItems().First();
+            var item = ProjectHelpers.GetSelectedItems().FirstOrDefault();
 
-            if (item == null || item.ContainingProject == null)
+            if (item == null || item.ContainingProject == null || item.Properties == null)
+            {
+                button.Visible = false;
                 return;
+            }
 
             var sourceFile = item.Properties.Item("FullPath").Value.ToString();
             bool isConfigFile = Path.GetFileName(sourceFile).Equals(FileHelpers.FILENAME, StringComparison.OrdinalIgnoreCase);
@@ -89,7 +92,10 @@ namespace WebCompilerVsix.Commands
 
         private void EnableCompileOnBuild(object sender, EventArgs e)
         {
-            var item = ProjectHelpers.GetSelectedItems().First();
+            var item = ProjectHelpers.GetSelectedItems().FirstOrDefault();
+
+            if (item == null)
+                return;
 
             var componentModel = (IComponentModel)Package.GetGlobalService(typeof(SComponentModel));
 

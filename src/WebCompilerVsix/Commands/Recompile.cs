@@ -34,7 +34,7 @@ namespace WebCompilerVsix.Commands
             var button = (OleMenuCommand)sender;
             var files = ProjectHelpers.GetSelectedItemPaths();
 
-            button.Visible = files.Count() == 1 && Path.GetFileName(files.ElementAt(0)) == FileHelpers.FILENAME;
+            button.Visible = files.Count() == 1 && Path.GetFileName(files.FirstOrDefault() ?? "") == FileHelpers.FILENAME;
         }
 
         public static Recompile Instance
@@ -58,9 +58,10 @@ namespace WebCompilerVsix.Commands
 
         private void UpdateSelectedConfig(object sender, EventArgs e)
         {
-            var file = ProjectHelpers.GetSelectedItemPaths().First();
+            var file = ProjectHelpers.GetSelectedItemPaths().FirstOrDefault();
 
-            CompilerService.Process(file);
+            if (string.IsNullOrEmpty(file))
+                CompilerService.Process(file);
         }
     }
 }
