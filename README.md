@@ -15,6 +15,7 @@ or get the
 - Compilation of LESS, Scss and CoffeeScript files
 - Saving a source file triggers re-compilation automatically
 - Specify compiler options for each individual file
+- Error List integration
 - MSBuild support for CI scenarios
 - Minify the compiled output
 - Minification options for each language is customizable
