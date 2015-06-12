@@ -82,7 +82,7 @@ namespace WebCompilerVsix.Commands
 
         private void AddConfig(object sender, EventArgs e)
         {
-            var question = MessageBox.Show($"This will remove the file from {Constants.CONFIG_FILENAME}.\r\rDo you want to continue?", "WebCompiler", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            var question = MessageBox.Show($"This will remove the file from {Constants.CONFIG_FILENAME}.\r\rDo you want to continue?", Constants.VSIX_NAME, MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
 
             if (question == DialogResult.Cancel)
                 return;
