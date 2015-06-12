@@ -9,8 +9,7 @@ namespace WebCompilerVsix
 
         internal static string GetConfigFile(Project project)
         {
-            string folder = ProjectHelpers.GetRootFolder(project);
-            return Path.Combine(folder, FileHelpers.FILENAME);
+            return Path.Combine(project.GetRootFolder(), FileHelpers.FILENAME);
         }
     }
 }

@@ -97,7 +97,7 @@ namespace WebCompilerVsix.Commands
             if (item.ContainingProject == null)
                 return;
 
-            string folder = ProjectHelpers.GetRootFolder(item.ContainingProject);
+            string folder = item.ContainingProject.GetRootFolder();
             string configFile = FileHelpers.GetConfigFile(item.ContainingProject);
             string relativeFile = MakeRelative(configFile, ProjectHelpers.GetSelectedItemPaths().First());
 
@@ -124,7 +124,7 @@ namespace WebCompilerVsix.Commands
             ConfigHandler handler = new ConfigHandler();
             handler.AddConfig(configFile, config);
 
-            ProjectHelpers.AddFileToProject(item.ContainingProject, configFile, "None");
+            item.ContainingProject.AddFileToProject(configFile, "None");
             WebCompilerPackage._dte.StatusBar.Progress(true, "Compiling file", 2, 3);
 
             WebCompilerPackage._dte.ItemOperations.OpenFile(configFile);

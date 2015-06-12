@@ -62,7 +62,7 @@ namespace WebCompilerVsix
             if (item == null || item.ContainingProject == null)
                 return;
 
-            ProjectHelpers.AddFileToProject(item.ContainingProject, e.Config.GetAbsoluteOutputFile());
+            item.ContainingProject.AddFileToProject(e.Config.GetAbsoluteOutputFile());
         }
 
         private static void AfterWritingSourceMap(object sender, SourceMapEventArgs e)
