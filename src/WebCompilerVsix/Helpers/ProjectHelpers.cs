@@ -10,6 +10,11 @@ namespace WebCompilerVsix
     {
         private static DTE2 _dte = WebCompilerPackage._dte;
 
+        public static string GetConfigFile(this Project project)
+        {
+            return Path.Combine(project.GetRootFolder(), Constants.CONFIG_FILENAME);
+        }
+
         public static void CheckFileOutOfSourceControl(string file)
         {
             if (!File.Exists(file) || _dte.Solution.FindProjectItem(file) == null)

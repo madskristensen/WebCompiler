@@ -46,7 +46,7 @@ namespace WebCompilerVsix.Commands
             }
 
             var sourceFile = item.Properties.Item("FullPath").Value.ToString();
-            bool isConfigFile = Path.GetFileName(sourceFile).Equals(FileHelpers.FILENAME, StringComparison.OrdinalIgnoreCase);
+            bool isConfigFile = Path.GetFileName(sourceFile).Equals(Constants.CONFIG_FILENAME, StringComparison.OrdinalIgnoreCase);
 
             if (!isConfigFile)
             {

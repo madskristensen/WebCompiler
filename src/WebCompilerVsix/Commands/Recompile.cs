@@ -34,7 +34,7 @@ namespace WebCompilerVsix.Commands
             var button = (OleMenuCommand)sender;
             var files = ProjectHelpers.GetSelectedItemPaths();
 
-            button.Visible = files.Count() == 1 && Path.GetFileName(files.FirstOrDefault() ?? "") == FileHelpers.FILENAME;
+            button.Visible = files.Count() == 1 && Path.GetFileName(files.FirstOrDefault() ?? "") == Constants.CONFIG_FILENAME;
         }
 
         public static Recompile Instance

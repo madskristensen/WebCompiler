@@ -56,7 +56,7 @@ namespace WebCompilerVsix.Commands
             if (item == null || item.ContainingProject == null)
                 return;
 
-            string configFile = FileHelpers.GetConfigFile(item.ContainingProject);
+            string configFile = item.ContainingProject.GetConfigFile();
 
             var configs = ConfigFileProcessor.IsFileConfigured(configFile, sourceFile);
 
@@ -98,7 +98,7 @@ namespace WebCompilerVsix.Commands
                 return;
 
             string folder = item.ContainingProject.GetRootFolder();
-            string configFile = FileHelpers.GetConfigFile(item.ContainingProject);
+            string configFile = item.ContainingProject.GetConfigFile();
             string relativeFile = MakeRelative(configFile, ProjectHelpers.GetSelectedItemPaths().First());
 
             // Recompile if already configured

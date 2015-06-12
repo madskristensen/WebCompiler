@@ -27,7 +27,7 @@ namespace WebCompilerVsix.JSON
 
             string fileName = Path.GetFileName(doc.DocumentLocation);
 
-            if (!fileName.Equals(FileHelpers.FILENAME, StringComparison.OrdinalIgnoreCase))
+            if (!fileName.Equals(Constants.CONFIG_FILENAME, StringComparison.OrdinalIgnoreCase))
                 yield break;
 
             string folder = Path.GetDirectoryName(doc.DocumentLocation);

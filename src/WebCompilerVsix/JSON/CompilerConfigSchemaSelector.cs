@@ -23,7 +23,7 @@ namespace WebCompilerVsix.JSON
         {
             string fileName = Path.GetFileName(fileLocation);
 
-            if (!fileName.Equals(FileHelpers.FILENAME, StringComparison.OrdinalIgnoreCase))
+            if (!fileName.Equals(Constants.CONFIG_FILENAME, StringComparison.OrdinalIgnoreCase))
                 return null;
 
             string assembly = Assembly.GetExecutingAssembly().Location;

@@ -58,7 +58,7 @@ namespace WebCompilerVsix.Commands
             if (!WebCompiler.CompilerService.IsSupported(sourceFile))
                 return;
 
-            string configFile = FileHelpers.GetConfigFile(item.ContainingProject);
+            string configFile = item.ContainingProject.GetConfigFile();
 
             _configs = ConfigFileProcessor.IsFileConfigured(configFile, sourceFile);
 
@@ -86,7 +86,7 @@ namespace WebCompilerVsix.Commands
 
         private void AddConfig(object sender, EventArgs e)
         {
-            var question = MessageBox.Show($"This will remove the file from {FileHelpers.FILENAME}.\r\rDo you want to continue?", "WebCompiler", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            var question = MessageBox.Show($"This will remove the file from {Constants.CONFIG_FILENAME}.\r\rDo you want to continue?", "WebCompiler", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
 
             if (question == DialogResult.Cancel)
                 return;
@@ -102,7 +102,7 @@ namespace WebCompilerVsix.Commands
             }
             catch
             {
-                WebCompilerPackage._dte.StatusBar.Text = $"Could not update {FileHelpers.FILENAME}. Make sure it's not write-protected or has syntax errors.";
+                WebCompilerPackage._dte.StatusBar.Text = $"Could not update {Constants.CONFIG_FILENAME}. Make sure it's not write-protected or has syntax errors.";
             }
         }
     }

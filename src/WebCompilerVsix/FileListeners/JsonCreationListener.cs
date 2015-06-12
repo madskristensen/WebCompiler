@@ -30,7 +30,7 @@ namespace WebCompilerVsix.Listeners
             {
                 string fileName = Path.GetFileName(_document.FilePath);
 
-                if (fileName.Equals(FileHelpers.FILENAME, StringComparison.OrdinalIgnoreCase))
+                if (fileName.Equals(Constants.CONFIG_FILENAME, StringComparison.OrdinalIgnoreCase))
                 {
                     _document.FileActionOccurred += DocumentSaved;
                 }
