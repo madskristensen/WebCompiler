@@ -92,7 +92,7 @@ namespace WebCompilerVsix.Commands
 
         private void AddConfig(object sender, EventArgs e)
         {
-            var item = ProjectHelpers.GetSelectedItems().ElementAt(0);
+            var item = ProjectHelpers.GetSelectedItems().First();
 
             if (item.ContainingProject == null)
                 return;

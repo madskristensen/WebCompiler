@@ -44,7 +44,7 @@ namespace WebCompilerVsix.Commands
             if (items.Count() != 1)
                 return;
 
-            var item = items.First();
+            var item = items.FirstOrDefault();
 
             if (item == null || item.ContainingProject == null || item.Properties == null)
                 return;
