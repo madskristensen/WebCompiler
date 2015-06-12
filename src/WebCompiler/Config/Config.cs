@@ -61,5 +61,27 @@ namespace WebCompiler
             string folder = Path.GetDirectoryName(FileName);
             return Path.Combine(folder, OutputFile.Replace("/", "\\"));
         }
+
+        /// <summary>
+        /// Determins if the object is equals to the other object.
+        /// </summary>
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            if (obj.GetType() != GetType()) return false;
+            if (obj == this) return true;
+
+            Config other = (Config)obj;
+
+            return GetHashCode() == other.GetHashCode();
+        }
+
+        /// <summary>
+        /// Returns the hash code for this Config
+        /// </summary>
+        public override int GetHashCode()
+        {
+            return OutputFile.GetHashCode();
+        }
     }
 }

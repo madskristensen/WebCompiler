@@ -29,6 +29,22 @@ namespace WebCompiler
         }
 
         /// <summary>
+        /// Removes the specified config from the file.
+        /// </summary>
+        public void RemoveConfig(Config configToRemove)
+        {
+            IEnumerable<Config> configs = GetConfigs(configToRemove.FileName);
+            List<Config> newConfigs = new List<Config>();
+
+            if (configs.Contains(configToRemove))
+            {
+                newConfigs.AddRange(configs.Where(b => !b.Equals(configToRemove)));
+                string content = JsonConvert.SerializeObject(newConfigs, Formatting.Indented);
+                File.WriteAllText(configToRemove.FileName, content);
+            }
+        }
+
+        /// <summary>
         /// Get all the config objects in the specified file.
         /// </summary>
         /// <param name="fileName">A relative or absolute file path to the configuration file.</param>

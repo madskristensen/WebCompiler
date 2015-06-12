@@ -54,7 +54,7 @@ namespace WebCompilerVsix.Commands
 
             var configs = ConfigFileProcessor.IsFileConfigured(configFile, sourceFile);
 
-            if (configs.Any())
+            if (configs != null && configs.Any())
             {
                 button.Text = "Re-compile file";
                 _reCompileConfigs.AddRange(configs);

@@ -16,7 +16,7 @@
         <Buttons>
             <Button guid="guidCompilerCmdSet" id="CreateConfigFile" priority="0x0100" type="Button">
                 <Parent guid="guidCompilerCmdSet" id="MyMenuGroup" />
-                <Icon guid="ImageCatalogGuid" id="Compile" />
+                <Icon guid="ImageCatalogGuid" id="Event" />
                 <CommandFlag>IconIsMoniker</CommandFlag>
                 <CommandFlag>DynamicVisibility</CommandFlag>
                 <CommandFlag>DynamicItemStart</CommandFlag>
@@ -25,9 +25,19 @@
                     <ButtonText>Compile file...</ButtonText>
                 </Strings>
             </Button>
+            <Button guid="guidCompilerCmdSet" id="RemoveConfig" priority="0x0200" type="Button">
+                <Parent guid="guidCompilerCmdSet" id="MyMenuGroup" />
+                <Icon guid="ImageCatalogGuid" id="EventMissing" />
+                <CommandFlag>IconIsMoniker</CommandFlag>
+                <CommandFlag>DynamicVisibility</CommandFlag>
+                <CommandFlag>DynamicItemStart</CommandFlag>
+                <Strings>
+                    <ButtonText>Remove from compilation...</ButtonText>
+                </Strings>
+            </Button>
             <Button guid="guidCompilerCmdSet" id="RecompileConfigFile" priority="0x0200" type="Button">
                 <Parent guid="guidCompilerCmdSet" id="MyMenuGroup" />
-                <Icon guid="ImageCatalogGuid" id="Compile" />
+                <Icon guid="ImageCatalogGuid" id="Event" />
                 <CommandFlag>IconIsMoniker</CommandFlag>
                 <CommandFlag>DynamicVisibility</CommandFlag>
                 <CommandFlag>DynamicItemStart</CommandFlag>
@@ -62,6 +72,7 @@
             <IDSymbol name="CreateConfigFile" value="0x0100" />
             <IDSymbol name="RecompileConfigFile" value="0x0200" />
             <IDSymbol name="CompileOnBuild" value="0x0300" />
+            <IDSymbol name="RemoveConfig" value="0x0400" />
         </GuidSymbol>
     </Symbols>
 </CommandTable>

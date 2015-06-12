@@ -21,5 +21,6 @@ namespace WebCompilerVsix
         public const int CreateConfigFile = 0x0100;
         public const int RecompileConfigFile = 0x0200;
         public const int CompileOnBuild = 0x0300;
+        public const int RemoveConfig = 0x0400;
     }
 }
