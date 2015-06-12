@@ -3,7 +3,7 @@
     <Metadata>
         <Identity Id="148ffa77-d70a-407f-892b-9ee542346862" Version="1.0" Language="en-US" Publisher="Mads Kristensen" />
         <DisplayName>Web Compiler</DisplayName>
-        <Description xml:space="preserve">Compiler for LESS, Sass and CoffeeScript files</Description>
+        <Description xml:space="preserve">The easiest and most powerful way to compile LESS, Scss and CoffeeScript files directly within Visual Studio or through MSBuild.</Description>
         <License>Resources\LICENSE</License>
         <Icon>Resources\icon.png</Icon>
         <PreviewImage>Resources\preview.png</PreviewImage>

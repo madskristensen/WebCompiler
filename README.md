@@ -10,6 +10,16 @@ Download the extension at the
 or get the
 [nightly build](http://vsixgallery.com/extension/148ffa77-d70a-407f-892b-9ee542346862/)
 
+### Features
+
+- Compilation of LESS, Scss and CoffeeScript files
+- Saving a source file triggers re-compilation automatically
+- Specify compiler options for each individual file
+- MSBuild support for CI scenarios
+- Minify the compiled output
+- Minification options for each language is customizable
+- Shows a watermark when opening a generated file
+
 ### Getting started
 
 Right-click and `.less`, `.scss` or `.coffee` file in Solution Explorer to

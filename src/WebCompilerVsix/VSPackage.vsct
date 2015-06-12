@@ -19,7 +19,6 @@
                 <Icon guid="ImageCatalogGuid" id="Event" />
                 <CommandFlag>IconIsMoniker</CommandFlag>
                 <CommandFlag>DynamicVisibility</CommandFlag>
-                <CommandFlag>DynamicItemStart</CommandFlag>
                 <CommandFlag>TextChanges</CommandFlag>
                 <Strings>
                     <ButtonText>Compile file...</ButtonText>
@@ -30,7 +29,6 @@
                 <Icon guid="ImageCatalogGuid" id="EventMissing" />
                 <CommandFlag>IconIsMoniker</CommandFlag>
                 <CommandFlag>DynamicVisibility</CommandFlag>
-                <CommandFlag>DynamicItemStart</CommandFlag>
                 <Strings>
                     <ButtonText>Remove from compilation...</ButtonText>
                 </Strings>
@@ -40,7 +38,6 @@
                 <Icon guid="ImageCatalogGuid" id="Event" />
                 <CommandFlag>IconIsMoniker</CommandFlag>
                 <CommandFlag>DynamicVisibility</CommandFlag>
-                <CommandFlag>DynamicItemStart</CommandFlag>
                 <Strings>
                     <ButtonText>Re-compile all files</ButtonText>
                 </Strings>
@@ -48,7 +45,6 @@
             <Button guid="guidCompilerCmdSet" id="CompileOnBuild" priority="0x0300" type="Button">
                 <Parent guid="guidCompilerCmdSet" id="MyMenuGroup" />
                 <CommandFlag>DynamicVisibility</CommandFlag>
-                <CommandFlag>DynamicItemStart</CommandFlag>
                 <Strings>
                     <ButtonText>Enable compile on build...</ButtonText>
                 </Strings>
@@ -57,7 +53,7 @@
     </Commands>
 
     <CommandPlacements>
-        <CommandPlacement guid="guidCompilerCmdSet" id="MyMenuGroup" priority="0x0200">
+        <CommandPlacement guid="guidCompilerCmdSet" id="MyMenuGroup" priority="0x0100">
             <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_WEBITEMNODE"/>
         </CommandPlacement>
     </CommandPlacements>

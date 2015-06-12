@@ -37,7 +37,15 @@ namespace WebCompilerVsix.Commands
         private void BeforeQueryStatus(object sender, EventArgs e)
         {
             var button = (OleMenuCommand)sender;
-            var item = ProjectHelpers.GetSelectedItems().First();
+            var items = ProjectHelpers.GetSelectedItems();
+
+            if (items.Count() != 1)
+            {
+                button.Visible = false;
+                return;
+            }
+
+            var item = items.First();
 
             if (item == null || item.ContainingProject == null)
                 return;
