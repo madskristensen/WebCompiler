@@ -1,8 +1,6 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using WebCompiler;
+﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using WebCompiler;
 
 namespace WebCompilerTest
 {

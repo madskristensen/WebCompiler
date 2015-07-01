@@ -2,14 +2,22 @@
 
 namespace WebCompiler
 {
-    class CssOptions
+    /// <summary>
+    /// Handle all options for Css Minification
+    /// </summary>
+    public class CssOptions
     {
+        /// <summary>
+        /// Get settings for the minification
+        /// </summary>
+        /// <param name="config"></param>
+        /// <returns>CssSettings based on the config file.</returns>
         public static CssSettings GetSettings(Config config)
         {
             CssSettings settings = new CssSettings();
             settings.TermSemicolons = GetValue(config, "termSemicolons") == "true";
 
-            string cssComment = GetValue(config, "commentMode");
+            string cssComment = GetValue(config, "commentMode").ToLowerInvariant();
 
             if (cssComment == "hacks")
                 settings.CommentMode = CssComment.Hacks;
@@ -20,22 +28,22 @@ namespace WebCompiler
             else if (cssComment == "all")
                 settings.CommentMode = CssComment.All;
 
-            string colorNames = GetValue(config, "colorNames");
+            string colorNames = GetValue(config, "colorNames").ToLowerInvariant();
 
             if (colorNames == "hex")
                 settings.ColorNames = CssColor.Hex;
             else if (colorNames == "major")
                 settings.ColorNames = CssColor.Major;
-            else if (colorNames == "noSwap")
+            else if (colorNames == "noswap")
                 settings.ColorNames = CssColor.NoSwap;
             else if (colorNames == "strict")
                 settings.ColorNames = CssColor.Strict;
 
-            string outputMode = GetValue(config, "outputMode");
+            string outputMode = GetValue(config, "outputMode").ToLowerInvariant ();
 
-            if (outputMode == "multipleLines")
+            if (outputMode == "multiplelines")
                 settings.OutputMode = OutputMode.MultipleLines;
-            else if (outputMode == "singleLine")
+            else if (outputMode == "singleline")
                 settings.OutputMode = OutputMode.SingleLine;
             else if (outputMode == "none")
                 settings.OutputMode = OutputMode.None;

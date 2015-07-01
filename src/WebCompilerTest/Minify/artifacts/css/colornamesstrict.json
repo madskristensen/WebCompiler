@@ -1,0 +1,14 @@
+﻿[
+  {
+    "outputFile": "less/test.css",
+    "inputFile": "less/test.less",
+    "minify": {
+      "colorNames": "strict"
+    },
+    "includeInProject": true,
+    "options": {
+      "foo": 1,
+      "bar": "baz"
+    }
+  }
+]
