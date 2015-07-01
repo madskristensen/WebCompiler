@@ -4,12 +4,14 @@ namespace WebCompiler
 {
     class LessOptions : BaseOptions
     {
+		private const string trueStr = "true";
+
         public LessOptions(Config config)
         {
-            StrictMath = GetValue(config, "strictMath") == "true";
-            KeepFirstSpecialComment = GetValue(config, "keepFirstSpecialComment") == "true";
-            DisableVariableRedefines = GetValue(config, "disableVariableRedefines") == "true";
-            DisableColorCompression = GetValue(config, "disableColorCompression") == "true";
+            StrictMath = GetValue(config, "strictMath").ToLowerInvariant() == trueStr;
+            KeepFirstSpecialComment = GetValue(config, "keepFirstSpecialComment").ToLowerInvariant() == trueStr;
+            DisableVariableRedefines = GetValue(config, "disableVariableRedefines").ToLowerInvariant() == trueStr;
+            DisableColorCompression = GetValue(config, "disableColorCompression").ToLowerInvariant() == trueStr;
         }
 
         public bool StrictMath { get; set; }
