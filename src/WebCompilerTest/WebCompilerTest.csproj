@@ -71,6 +71,8 @@
     <None Include="artifacts\options\scss\scssconfigcompressed.json" />
     <None Include="artifacts\options\scss\scssconfigcompact.json" />
     <None Include="artifacts\options\scss\scssconfigexpanded.json" />
+    <None Include="artifacts\options\scss\scssconfigincludesourcecommentsasstring.json" />
+    <None Include="artifacts\options\scss\scssconfigincludesourcecomments.json" />
     <None Include="artifacts\options\scss\scssconfigprecision.json" />
     <None Include="artifacts\options\scss\scssconfignested.json" />
     <None Include="artifacts\scssconfigError.json" />
@@ -88,6 +90,10 @@
       <Project>{b714b5b9-27c4-443c-9517-fe5c5ef46ea2}</Project>
       <Name>WebCompiler</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Compile\" />
+    <Folder Include="Minify\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
