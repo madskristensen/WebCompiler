@@ -18,10 +18,7 @@ namespace WebCompilerTest.Config
         {
             _handler = new ConfigHandler();
 
-            if (File.Exists(processingConfigFile))
-                File.Delete(processingConfigFile);
-
-            File.Copy(originalConfigFile, processingConfigFile);
+            File.Copy(originalConfigFile, processingConfigFile, true);
         }
 
         [TestCleanup]

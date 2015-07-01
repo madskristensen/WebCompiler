@@ -7,6 +7,8 @@ namespace WebCompiler
     /// </summary>
     public class SassOptions : BaseOptions
     {
+        private const string trueStr = "true";
+
         /// <summary>
         /// Create an instance of the Class SassOptions
         /// </summary>
@@ -29,7 +31,7 @@ namespace WebCompiler
                     OutputStyle = OutputStyle.Echo;
             }
 
-            IncludeSourceComments = GetValue(config, "includeSourceComments") == "true";
+            IncludeSourceComments = GetValue(config, "includeSourceComments").ToLowerInvariant() == trueStr;
 
             int precision = 5;
             if (int.TryParse(GetValue(config, "precision"), out precision))

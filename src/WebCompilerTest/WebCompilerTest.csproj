@@ -35,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AjaxMin, Version=5.14.5506.26196, Culture=neutral, PublicKeyToken=21ef50ce11b5d80f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AjaxMin.5.14.5506.26202\lib\net40\AjaxMin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <Choose>
@@ -50,12 +54,14 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="CoffeeScriptTest.cs" />
-    <Compile Include="CompileServiceTest.cs" />
+    <Compile Include="Compile\CoffeeScriptTest.cs" />
+    <Compile Include="Compile\CompileServiceTest.cs" />
     <Compile Include="Config\ConfigHandlerTest.cs" />
-    <Compile Include="ScssOptionsTest.cs" />
-    <Compile Include="ScssTest.cs" />
-    <Compile Include="LessTest.cs" />
+    <Compile Include="Compile\ScssOptionsTest.cs" />
+    <Compile Include="Compile\ScssTest.cs" />
+    <Compile Include="Compile\LessTest.cs" />
+    <Compile Include="Minify\JavaScriptOptionsTests.cs" />
+    <Compile Include="Minify\CssOptionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -71,6 +77,8 @@
     <None Include="artifacts\options\scss\scssconfigcompressed.json" />
     <None Include="artifacts\options\scss\scssconfigcompact.json" />
     <None Include="artifacts\options\scss\scssconfigexpanded.json" />
+    <None Include="artifacts\options\scss\scssconfigincludesourcecommentsasstring.json" />
+    <None Include="artifacts\options\scss\scssconfigincludesourcecomments.json" />
     <None Include="artifacts\options\scss\scssconfigprecision.json" />
     <None Include="artifacts\options\scss\scssconfignested.json" />
     <None Include="artifacts\scssconfigError.json" />
@@ -82,6 +90,33 @@
     <None Include="artifacts\less\error.less" />
     <None Include="artifacts\less\test.less" />
     <None Include="artifacts\less\variables.less" />
+    <None Include="Minify\artifacts\javascript\evantreatmentmakeallsafeuppercase.json" />
+    <None Include="Minify\artifacts\javascript\evantreatmentmakeimmediatesafe.json" />
+    <None Include="Minify\artifacts\javascript\evantreatmentmakeallsafe.json" />
+    <None Include="Minify\artifacts\javascript\evantreatmentignore.json" />
+    <None Include="Minify\artifacts\javascript\indentsize.json" />
+    <None Include="Minify\artifacts\javascript\outputmodemultiplelines.json" />
+    <None Include="Minify\artifacts\javascript\outputmodemultiplelineslowercase.json" />
+    <None Include="Minify\artifacts\javascript\outputmodemultiplelinesuppercase.json" />
+    <None Include="Minify\artifacts\javascript\outputmodenone.json" />
+    <None Include="Minify\artifacts\javascript\outputmodesingleline.json" />
+    <None Include="Minify\artifacts\css\indentsize.json" />
+    <None Include="Minify\artifacts\css\outputmodemultiplelineslowercase.json" />
+    <None Include="Minify\artifacts\css\outputmodemultiplelinesuppercase.json" />
+    <None Include="Minify\artifacts\css\outputmodesingleline.json" />
+    <None Include="Minify\artifacts\css\outputmodenone.json" />
+    <None Include="Minify\artifacts\css\outputmodemultiplelines.json" />
+    <None Include="Minify\artifacts\css\colornamesstrict.json" />
+    <None Include="Minify\artifacts\css\colornamesnoswap.json" />
+    <None Include="Minify\artifacts\css\colornamesmajor.json" />
+    <None Include="Minify\artifacts\css\colornamesmajoruppercase.json" />
+    <None Include="Minify\artifacts\css\colornameshex.json" />
+    <None Include="Minify\artifacts\css\csscommentall.json" />
+    <None Include="Minify\artifacts\css\csscommentnone.json" />
+    <None Include="Minify\artifacts\css\csscommentimportant.json" />
+    <None Include="Minify\artifacts\css\csscommenthacksuppercase.json" />
+    <None Include="Minify\artifacts\css\csscommenthacks.json" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WebCompiler\WebCompiler.csproj">
@@ -89,6 +124,7 @@
       <Name>WebCompiler</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
