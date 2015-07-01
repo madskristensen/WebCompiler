@@ -56,5 +56,21 @@ namespace WebCompilerTest
             var result = new WebCompiler.SassOptions(configs.ElementAt(0));
             Assert.AreEqual(3, result.Precision);
         }
+
+        [TestMethod, TestCategory("SCSSOptions")]
+        public void IncludeSourceComments()
+        {
+            var configs = ConfigHandler.GetConfigs("../../artifacts/options/scss/scssconfigincludesourcecomments.json");
+            var result = new WebCompiler.SassOptions(configs.ElementAt(0));
+            Assert.IsTrue(result.IncludeSourceComments);
+        }
+
+        [TestMethod, TestCategory("SCSSOptions")]
+        public void IncludeSourceCommentsAsString()
+        {
+            var configs = ConfigHandler.GetConfigs("../../artifacts/options/scss/scssconfigincludesourcecommentsasstring.json");
+            var result = new WebCompiler.SassOptions(configs.ElementAt(0));
+            Assert.IsTrue(result.IncludeSourceComments);
+        }
     }
 }
