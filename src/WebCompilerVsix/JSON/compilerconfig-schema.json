@@ -48,7 +48,7 @@
 				},
 				"options": {
 					"properties": {
-						"disableColorcCompression": {
+						"disableColorCompression": {
 							"description": "LESS only. Disable hexadecimal color compression.",
 							"type": "boolean"
 						},
