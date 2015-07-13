@@ -12,7 +12,12 @@ namespace WebCompilerVsix
 
         public static string GetConfigFile(this Project project)
         {
-            return Path.Combine(project.GetRootFolder(), Constants.CONFIG_FILENAME);
+            string folder = project.GetRootFolder();
+
+            if (string.IsNullOrEmpty(folder))
+                return null;
+
+            return Path.Combine(folder, Constants.CONFIG_FILENAME);
         }
 
         public static void CheckFileOutOfSourceControl(string file)
