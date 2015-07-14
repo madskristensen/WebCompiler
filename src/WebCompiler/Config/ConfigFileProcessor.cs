@@ -17,24 +17,17 @@ namespace WebCompiler
         /// <returns>A list of compiler results.</returns>
         public IEnumerable<CompilerResult> Process(string configFile)
         {
-            try
-            {
-                FileInfo info = new FileInfo(configFile);
-                var configs = ConfigHandler.GetConfigs(configFile);
-                List<CompilerResult> list = new List<CompilerResult>();
+            FileInfo info = new FileInfo(configFile);
+            var configs = ConfigHandler.GetConfigs(configFile);
+            List<CompilerResult> list = new List<CompilerResult>();
 
-                foreach (Config config in configs)
-                {
-                    var result = ProcessConfig(info.Directory.FullName, config);
-                    list.Add(result);
-                }
-
-                return list;
-            }
-            catch
+            foreach (Config config in configs)
             {
-                return null;
+                var result = ProcessConfig(info.Directory.FullName, config);
+                list.Add(result);
             }
+
+            return list;
         }
 
         /// <summary>
@@ -42,27 +35,20 @@ namespace WebCompiler
         /// </summary>
         public IEnumerable<CompilerResult> SourceFileChanged(string configFile, string sourceFile)
         {
-            try
+            string folder = Path.GetDirectoryName(configFile);
+            string sourceExtension = Path.GetExtension(sourceFile);
+            List<CompilerResult> list = new List<CompilerResult>();
+            var configs = ConfigHandler.GetConfigs(configFile);
+
+            foreach (Config config in configs)
             {
-                string folder = Path.GetDirectoryName(configFile);
-                string sourceExtension = Path.GetExtension(sourceFile);
-                List<CompilerResult> list = new List<CompilerResult>();
-                var configs = ConfigHandler.GetConfigs(configFile);
+                string inputExtension = Path.GetExtension(config.InputFile);
 
-                foreach (Config config in configs)
-                {
-                    string inputExtension = Path.GetExtension(config.InputFile);
-
-                    if (inputExtension.Equals(sourceExtension, StringComparison.OrdinalIgnoreCase))
-                        list.Add(ProcessConfig(folder, config));
-                }
-
-                return list;
+                if (inputExtension.Equals(sourceExtension, StringComparison.OrdinalIgnoreCase))
+                    list.Add(ProcessConfig(folder, config));
             }
-            catch
-            {
-                return null;
-            }
+
+            return list;
         }
 
         /// <summary>

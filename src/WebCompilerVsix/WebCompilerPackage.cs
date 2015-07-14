@@ -26,6 +26,8 @@ namespace WebCompilerVsix
 
         protected override void Initialize()
         {
+            Logger.Initialize(this, Constants.VSIX_NAME);
+
             _dte = GetService(typeof(DTE)) as DTE2;
             _dispatcher = Dispatcher.CurrentDispatcher;
             Package = this;

@@ -96,8 +96,9 @@ namespace WebCompilerVsix.Commands
                     handler.RemoveConfig(config);
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                Logger.Log(ex);
                 WebCompilerPackage._dte.StatusBar.Text = $"Could not update {Constants.CONFIG_FILENAME}. Make sure it's not write-protected or has syntax errors.";
             }
         }

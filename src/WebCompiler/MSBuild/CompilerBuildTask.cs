@@ -35,31 +35,32 @@ namespace WebCompiler
             processor.AfterWritingSourceMap += Processor_AfterWritingSourceMap;
             FileMinifier.AfterWritingMinFile += FileMinifier_AfterWritingMinFile;
 
-            var results = processor.Process(configFile.FullName);
-            bool isSuccessful = true;
-
-            if (results == null)
+            try
             {
-                Log.LogError("Syntax error in " + configFile.FullName);
-                return false;
-            }
+                var results = processor.Process(configFile.FullName);
+                bool isSuccessful = true;
 
-            foreach (CompilerResult result in results)
-            {
-                if (result.HasErrors)
+                foreach (CompilerResult result in results)
                 {
-                    isSuccessful = false;
-
-                    foreach (var error in result.Errors)
+                    if (result.HasErrors)
                     {
-                        Log.LogError("WebCompiler", "0", "", error.FileName, error.LineNumber, error.ColumnNumber, error.LineNumber, error.ColumnNumber, error.Message, null); ;
+                        isSuccessful = false;
+
+                        foreach (var error in result.Errors)
+                        {
+                            Log.LogError("WebCompiler", "0", "", error.FileName, error.LineNumber, error.ColumnNumber, error.LineNumber, error.ColumnNumber, error.Message, null); ;
+                        }
                     }
                 }
+
+                Log.LogMessage(MessageImportance.High, "WebCompiler: Done compiling " + configFile.Name);
+                return isSuccessful;
             }
-
-            Log.LogMessage(MessageImportance.High, "WebCompiler: Done compiling " + configFile.Name);
-
-            return isSuccessful;
+            catch (Exception ex)
+            {
+                Log.LogError(ex.Message);
+                return false;
+            }
         }
 
         private void Processor_AfterProcess(object sender, CompileFileEventArgs e)

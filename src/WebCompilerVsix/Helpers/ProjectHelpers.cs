@@ -90,19 +90,22 @@ namespace WebCompilerVsix
 
         public static void AddFileToProject(this Project project, string file, string itemType = null)
         {
-            if (project.Kind == "{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") // ASP.NET 5 projects
+            if (project.Kind.Equals("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}", StringComparison.OrdinalIgnoreCase)) // ASP.NET 5 projects
                 return;
 
             try
             {
                 ProjectItem item = project.ProjectItems.AddFromFile(file);
 
-                if (string.IsNullOrEmpty(itemType))
+                if (string.IsNullOrEmpty(itemType) || project.Kind.Equals("{E24C65DC-7377-472B-9ABA-BC803B73C61A}", StringComparison.OrdinalIgnoreCase)) // Website
                     return;
 
                 item.Properties.Item("ItemType").Value = "None";
             }
-            catch { /* Not all project system support adding files to them through the APIs */ }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
         }
 
         public static void AddNestedFile(string parentFile, string newFile)
@@ -111,7 +114,7 @@ namespace WebCompilerVsix
 
             try
             {
-                if (item == null || item.ContainingProject == null || item.ContainingProject.Kind == "{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}")
+                if (item == null || item.ContainingProject == null || item.ContainingProject.Kind.Equals("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}", StringComparison.OrdinalIgnoreCase))
                     return;
 
                 if (item.ProjectItems == null) // Website project
@@ -119,7 +122,10 @@ namespace WebCompilerVsix
                 else
                     item.ProjectItems.AddFromFile(newFile);
             }
-            catch { /* Some projects don't support nesting. Ignore the error */ }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿using System.Threading;
+﻿using System;
+using System.IO;
+using System.Threading;
+using System.Windows.Forms;
 using EnvDTE80;
 using WebCompiler;
 
@@ -34,12 +37,20 @@ namespace WebCompilerVsix
             }
         }
 
-        public static void Process(string conigFile)
+        public static void Process(string configFile)
         {
             ThreadPool.QueueUserWorkItem((o) =>
             {
-                var result = Processor.Process(conigFile);
-                ErrorListService.ProcessCompilerResults(result, conigFile);
+                try
+                {
+                    var result = Processor.Process(configFile);
+                    ErrorListService.ProcessCompilerResults(result, configFile);
+                }
+                catch (Exception ex)
+                {
+                    Logger.Log(ex);
+                    ShowError(configFile);
+                }
             });
         }
 
@@ -47,9 +58,24 @@ namespace WebCompilerVsix
         {
             ThreadPool.QueueUserWorkItem((o) =>
             {
-                var result = Processor.SourceFileChanged(configFile, sourceFile);
-                ErrorListService.ProcessCompilerResults(result, configFile);
+                try
+                {
+                    var result = Processor.SourceFileChanged(configFile, sourceFile);
+                    ErrorListService.ProcessCompilerResults(result, configFile);
+                }
+                catch (Exception ex)
+                {
+                    Logger.Log(ex);
+                    ShowError(configFile);
+                }
             });
+        }
+        private static void ShowError(string configFile)
+        {
+            MessageBox.Show($"There is an error in the {Constants.CONFIG_FILENAME} file. This could be due to a change in the format after this extension was updated.", Constants.VSIX_NAME, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            if (File.Exists(configFile))
+                WebCompilerPackage._dte.ItemOperations.OpenFile(configFile);
         }
 
         private static void AfterProcess(object sender, CompileFileEventArgs e)

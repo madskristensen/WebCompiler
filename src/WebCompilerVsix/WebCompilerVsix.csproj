@@ -59,6 +59,7 @@
     <Compile Include="Constants.cs" />
     <Compile Include="ErrorList\ErrorList.cs" />
     <Compile Include="ErrorList\ErrorListService.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="WebCompilerPackage.cs" />
     <Compile Include="Helpers\ProjectHelpers.cs" />
     <Compile Include="FileListeners\SourceFileCreationListener.cs" />

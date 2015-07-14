@@ -94,7 +94,8 @@ namespace WebCompilerVsix
                 string extension = Path.GetExtension(fileName.Replace(".map", ""));
                 string normalizedFilePath = fileName.Replace(".map", "").Replace(".min" + extension, extension);
 
-                try {
+                try
+                {
                     var configs = ConfigHandler.GetConfigs(configFile);
 
                     foreach (Config config in configs)
@@ -106,7 +107,10 @@ namespace WebCompilerVsix
                         }
                     }
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    Logger.Log(ex);
+                }
             }
         }
     }

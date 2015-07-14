@@ -13,16 +13,6 @@ namespace WebCompilerVsix
         {
             WebCompilerPackage._dispatcher.BeginInvoke(new Action(() =>
             {
-                if (results == null)
-                {
-                    MessageBox.Show($"There is an error in the {Constants.CONFIG_FILENAME} file. This could be due to a change in the format after this extension was updated.", Constants.VSIX_NAME, MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    if (File.Exists(configFile))
-                        WebCompilerPackage._dte.ItemOperations.OpenFile(configFile);
-
-                    return;
-                }
-
                 foreach (CompilerResult result in results)
                 {
                     if (result.HasErrors)
