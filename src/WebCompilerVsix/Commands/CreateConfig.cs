@@ -111,7 +111,8 @@ namespace WebCompilerVsix.Commands
 
             // Create new config
             WebCompilerPackage._dte.StatusBar.Progress(true, "Compiling file", 0, 3);
-            string outputFile = GetOutputFileName(folder, Path.GetFileName(relativeFile));
+            string inputFile = item.Properties.Item("FullPath").Value.ToString();
+            string outputFile = GetOutputFileName(inputFile, Path.GetFileName(relativeFile));
 
             if (string.IsNullOrEmpty(outputFile))
                 return;
@@ -152,7 +153,7 @@ namespace WebCompilerVsix.Commands
             return baseUri.MakeRelativeUri(fileUri).ToString();
         }
 
-        private static string GetOutputFileName(string folder, string fileName)
+        private static string GetOutputFileName(string inputFile, string fileName)
         {
             string extension = Path.GetExtension(fileName);
             string ext = "css";
@@ -162,7 +163,7 @@ namespace WebCompilerVsix.Commands
 
             using (SaveFileDialog dialog = new SaveFileDialog())
             {
-                dialog.InitialDirectory = folder;
+                dialog.InitialDirectory = Path.GetDirectoryName(inputFile);
                 dialog.DefaultExt = ext;
                 dialog.FileName = Path.GetFileNameWithoutExtension(fileName);
                 dialog.Filter = ext.ToUpperInvariant() + " File|*." + ext;
