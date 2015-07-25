@@ -25,7 +25,7 @@ namespace WebCompilerVsix
                 {
                     _processor = new ConfigFileProcessor();
                     _processor.AfterProcess += AfterProcess;
-                    _processor.BeforeProcess += (s, e) => { ProjectHelpers.CheckFileOutOfSourceControl(e.Config.OutputFile); };
+                    _processor.BeforeProcess += (s, e) => { ProjectHelpers.CheckFileOutOfSourceControl(e.Config.GetAbsoluteOutputFile()); };
                     _processor.AfterWritingSourceMap += AfterWritingSourceMap;
                     _processor.BeforeWritingSourceMap += (s, e) => { ProjectHelpers.CheckFileOutOfSourceControl(e.ResultFile); };
 
