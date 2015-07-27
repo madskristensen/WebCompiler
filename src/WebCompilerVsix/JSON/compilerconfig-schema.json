@@ -1,188 +1,192 @@
 ﻿{
-	"$schema": "http://json-schema.org/draft-04/schema",
-	"description": "Schema for bundleconfig.json files",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "description": "Schema for bundleconfig.json files",
 
-	"type": "array",
+  "type": "array",
 
-	"definitions": {
+  "definitions": {
 
-		"ajaxminBaseSettings": {
-			"properties": {
-				"indentSize": {
-					"description": "For the multi-line output feature, how many spaces to use when indenting a block (see outputMode).",
-					"type": "integer"
-				},
-				"outputMode": {
-					"description": "SingleLine minifies everything to a single line. MultipleLines breaks the minified code into multiple lines for easier reading.",
-					"enum": [ "multipleLines", "singleLine", "none" ]
-				},
-				"termSemicolons": {
-					"description": "Forces all rules to be terminated with semicolons if set to true.",
-					"type": "boolean",
-					"default": false
-				}
-			}
-		},
+    "ajaxminBaseSettings": {
+      "properties": {
+        "indentSize": {
+          "description": "For the multi-line output feature, how many spaces to use when indenting a block (see outputMode).",
+          "type": "integer"
+        },
+        "outputMode": {
+          "description": "SingleLine minifies everything to a single line. MultipleLines breaks the minified code into multiple lines for easier reading.",
+          "enum": [ "multipleLines", "singleLine", "none" ]
+        },
+        "termSemicolons": {
+          "description": "Forces all rules to be terminated with semicolons if set to true.",
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
 
-		"cssOptions": {
-			"type": "object",
-			"properties": {
-				"colorNames": {
-					"description": "CSS only. If no color names are to be used, set this value to 'hex'. If a set of colors recognized by all major browser is okay to use (W3C-strict validation is not required), set this value to 'major'.",
-					"enum": [ "hex", "major", "noSwap", "strict" ],
-					"default": "strict"
-				},
-				"commentMode": {
-					"description": "CSS only. How to treat comments in the code. The default is 'none', which will strip all comments except 'important' comments. 'all' will leave all comments, and 'hacks' will only leave certain known comment-based hacks.",
-					"enum": [ "none", "all", "hacks", "important" ],
-					"default": "none"
-				}
-			},
-			"allOf": [ { "$ref": "#/definitions/ajaxminBaseSettings" } ]
-		},
+    "cssOptions": {
+      "type": "object",
+      "properties": {
+        "colorNames": {
+          "description": "CSS only. If no color names are to be used, set this value to 'hex'. If a set of colors recognized by all major browser is okay to use (W3C-strict validation is not required), set this value to 'major'.",
+          "enum": [ "hex", "major", "noSwap", "strict" ],
+          "default": "strict"
+        },
+        "commentMode": {
+          "description": "CSS only. How to treat comments in the code. The default is 'none', which will strip all comments except 'important' comments. 'all' will leave all comments, and 'hacks' will only leave certain known comment-based hacks.",
+          "enum": [ "none", "all", "hacks", "important" ],
+          "default": "none"
+        }
+      },
+      "allOf": [ { "$ref": "#/definitions/ajaxminBaseSettings" } ]
+    },
 
-		"lessOptions": {
-			"properties": {
-				"inputFile": {
-					"pattern": "\\.less$"
-				},
-				"options": {
-					"properties": {
-						"disableColorCompression": {
-							"description": "LESS only. Disable hexadecimal color compression.",
-							"type": "boolean"
-						},
-						"disableVariableRedefines": {
-							"description": "LESS only. Makes variables behave more like less.js, so the last variable definition is used.",
-							"type": "boolean"
-						},
-						"keepFirstSpecialComment": {
-							"description": "LESS only. Keeps the first comment beginning with /** when minified.",
-							"type": "boolean"
-						},
-						"strictMath": {
-							"description": "LESS only. Without this option on Less will try and process all maths in your CSS.",
-							"type": "boolean"
-						}
-					}
-				},
-				"minify": {
-					"$ref": "#/definitions/cssOptions"
-				}
-			}
-		},
+    "lessOptions": {
+      "properties": {
+        "inputFile": {
+          "pattern": "\\.less$"
+        },
+        "options": {
+          "properties": {
+            "disableColorCompression": {
+              "description": "LESS only. Disable hexadecimal color compression.",
+              "type": "boolean"
+            },
+            "disableVariableRedefines": {
+              "description": "LESS only. Makes variables behave more like less.js, so the last variable definition is used.",
+              "type": "boolean"
+            },
+            "keepFirstSpecialComment": {
+              "description": "LESS only. Keeps the first comment beginning with /** when minified.",
+              "type": "boolean"
+            },
+            "strictMath": {
+              "description": "LESS only. Without this option on Less will try and process all maths in your CSS.",
+              "type": "boolean"
+            }
+          }
+        },
+        "minify": {
+          "$ref": "#/definitions/cssOptions"
+        }
+      }
+    },
 
-		"sassOptions": {
-			"properties": {
-				"inputFile": {
-					"pattern": "\\.scss$"
-				},
-				"options": {
-					"properties": {
-						"includeSourceComments": {
-							"description": "Scss only. Enables additional debugging information in the output file as CSS comments.",
-							"type": "boolean",
-							"default": false
-						},
-						"outputStyle": {
-							"description": "Scss only. Determines the output format of the final CSS style.",
-							"enum": [ "nested", "expanded", "compact", "compressed", "echo" ],
-							"default": "nested"
-						},
-						"precision": {
-							"description": "Used to determine how many digits after the decimal will be allowed. For instance, if you had a decimal number of 1.23456789 and a precision of 5, the result will be 1.23457 in the final CSS.",
-							"type": "integer",
-							"default": 5
-						}
-					}
-				},
-				"minify": {
-					"$ref": "#/definitions/cssOptions"
-				},
-				"sourceMap": {
-					"description": "Set to true to automatically create a .map file. Only works for .scss files.",
-					"type": "boolean"
-				}
-			}
-		},
+    "sassOptions": {
+      "properties": {
+        "inputFile": {
+          "pattern": "\\.scss$"
+        },
+        "options": {
+          "properties": {
+            "includeSourceComments": {
+              "description": "Scss only. Enables additional debugging information in the output file as CSS comments.",
+              "type": "boolean",
+              "default": false
+            },
+            "outputStyle": {
+              "description": "Scss only. Determines the output format of the final CSS style.",
+              "enum": [ "nested", "expanded", "compact", "compressed", "echo" ],
+              "default": "nested"
+            },
+            "precision": {
+              "description": "Used to determine how many digits after the decimal will be allowed. For instance, if you had a decimal number of 1.23456789 and a precision of 5, the result will be 1.23457 in the final CSS.",
+              "type": "integer",
+              "default": 5
+            }
+          }
+        },
+        "minify": {
+          "$ref": "#/definitions/cssOptions"
+        },
+        "sourceMap": {
+          "description": "Set to true to automatically create a .map file. Only works for .scss files.",
+          "type": "boolean"
+        }
+      }
+    },
 
-		"coffeeScriptOptions": {
-			"properties": {
-				"inputFile": {
-					"pattern": "\\.coffee$"
-				},
-				"options": {
-					"properties": {
-						"bare": {
-							"description": "CoffeeScript only. Compile the JavaScript without the top-level function safety wrapper.",
-							"type": "boolean"
-						},
-						"globals": {
-							"type": "boolean"
-						}
-					}
-				},
-				"minify": {
-					"type": "object",
-					"properties": {
-						"evalTreatment": {
-							"description": "JavaScript only.",
-							"enum": [ "ignore", "makeAllSafe", "makeImmediateSafe" ]
-						},
-						"preserveImportantComments": {
-							"description": "JavaScript only.",
-							"type": "boolean"
-						}
-					},
-					"allOf": [ { "$ref": "#/definitions/ajaxminBaseSettings" } ]
-				}
-			}
-		},
+    "coffeeScriptOptions": {
+      "properties": {
+        "inputFile": {
+          "pattern": "\\.coffee$"
+        },
+        "options": {
+          "properties": {
+            "bare": {
+              "description": "CoffeeScript only. Compile the JavaScript without the top-level function safety wrapper.",
+              "type": "boolean"
+            },
+            "globals": {
+              "type": "boolean"
+            }
+          }
+        },
+        "minify": {
+          "type": "object",
+          "properties": {
+            "evalTreatment": {
+              "description": "JavaScript only.",
+              "enum": [ "ignore", "makeAllSafe", "makeImmediateSafe" ]
+            },
+            "preserveImportantComments": {
+              "description": "JavaScript only.",
+              "type": "boolean"
+            }
+          },
+          "allOf": [ { "$ref": "#/definitions/ajaxminBaseSettings" } ]
+        }
+      }
+    },
 
-		"config": {
-			"required": [ "outputFile", "inputFile" ],
+    "config": {
+      "required": [ "outputFile", "inputFile" ],
 
-			"properties": {
-				"includeInProject": {
-					"description": "Set to true to include the output file in the project. Doesn't work in some Visual Studio project types like ASP.NET 5 applications.",
-					"type": "boolean",
-					"default": true
-				},
-				"inputFile": {
-					"description": "One or more relative file names to bundle.",
-					"type": "string",
-					"format": "compiler_relativepath"
-				},
-				"minify": {
-					"description": "Specify options for minification of the output file.",
-					"type": "object",
-					"required": [ "enabled" ],
+      "properties": {
+        "includeInProject": {
+          "description": "Set to true to include the output file in the project. Doesn't work in some Visual Studio project types like ASP.NET 5 applications.",
+          "type": "boolean",
+          "default": true
+        },
+        "inputFile": {
+          "description": "One or more relative file names to bundle.",
+          "type": "string",
+          "format": "compiler_relativepath"
+        },
+        "minify": {
+          "description": "Specify options for minification of the output file.",
+          "type": "object",
+          "required": [ "enabled" ],
 
-					"properties": {
-						"enabled": {
-							"type": "boolean"
-						}
-					}
-				},
-				"options": {
-					"description": "Specify options for the compiler.",
-					"type": "object"
-				},
-				"outputFile": {
-					"description": "The relative path to the desired output file name.",
-					"type": "string",
-					"format": "uri",
-					"minLength": 1
-				}
-			},
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "gzip": {
+              "description": "Produce a .gz file after minification.",
+              "type": "boolean"
+            }
+          }
+        },
+        "options": {
+          "description": "Specify options for the compiler.",
+          "type": "object"
+        },
+        "outputFile": {
+          "description": "The relative path to the desired output file name.",
+          "type": "string",
+          "format": "uri",
+          "minLength": 1
+        }
+      },
 
-			"oneOf": [
-				{ "$ref": "#/definitions/lessOptions" },
-				{ "$ref": "#/definitions/sassOptions" },
-				{ "$ref": "#/definitions/coffeeScriptOptions" }
-			]
-		}
-	},
+      "oneOf": [
+        { "$ref": "#/definitions/lessOptions" },
+        { "$ref": "#/definitions/sassOptions" },
+        { "$ref": "#/definitions/coffeeScriptOptions" }
+      ]
+    }
+  },
 
 	"items": {
 		"$ref": "#/definitions/config"

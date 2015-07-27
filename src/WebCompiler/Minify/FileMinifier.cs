@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.IO.Compression;
 using System.Text;
 using Microsoft.Ajax.Utilities;
 
@@ -44,6 +45,8 @@ namespace WebCompiler
                 OnBeforeWritingMinFile(file, minFile);
                 File.WriteAllText(minFile, result, new UTF8Encoding(true));
                 OnAfterWritingMinFile(file, minFile);
+
+                GzipFile(config, minFile);
             }
 
             return new MinificationResult(result, null);
@@ -64,6 +67,8 @@ namespace WebCompiler
                 OnBeforeWritingMinFile(file, minFile);
                 File.WriteAllText(minFile, result, new UTF8Encoding(true));
                 OnAfterWritingMinFile(file, minFile);
+
+                GzipFile(config, minFile);
             }
 
             return new MinificationResult(result, null);
@@ -73,6 +78,22 @@ namespace WebCompiler
         {
             string ext = Path.GetExtension(file);
             return file.Substring(0, file.LastIndexOf(ext)) + ".min" + ext;
+        }
+
+        private static void GzipFile(Config config, string sourceFile)
+        {
+            if (!config.Minify.ContainsKey("gzip") || !config.Minify["gzip"].ToString().Equals("true", StringComparison.OrdinalIgnoreCase))
+                return;
+
+            var gzipFile = sourceFile + ".gz";
+            OnBeforeWritingGzipFile(sourceFile, gzipFile);
+
+            using (var sourceStream = File.OpenRead(sourceFile))
+            using (var targetStream = File.OpenWrite(gzipFile))
+            using (var gzipStream = new GZipStream(targetStream, CompressionMode.Compress))
+                sourceStream.CopyTo(gzipStream);
+
+            OnAfterWritingGzipFile(sourceFile, gzipFile);
         }
 
         private static void OnBeforeWritingMinFile(string file, string minFile)
@@ -91,6 +112,23 @@ namespace WebCompiler
             }
         }
 
+
+        private static void OnBeforeWritingGzipFile(string minFile, string gzipFile)
+        {
+            if (BeforeWritingGzipFile != null)
+            {
+                BeforeWritingGzipFile(null, new MinifyFileEventArgs(minFile, gzipFile));
+            }
+        }
+
+        private static void OnAfterWritingGzipFile(string minFile, string gzipFile)
+        {
+            if (AfterWritingGzipFile != null)
+            {
+                AfterWritingGzipFile(null, new MinifyFileEventArgs(minFile, gzipFile));
+            }
+        }
+
         /// <summary>
         /// Fires before the minified file is written to disk.
         /// </summary>
@@ -100,5 +138,15 @@ namespace WebCompiler
         /// /// Fires after the minified file is written to disk.
         /// </summary>
         public static event EventHandler<MinifyFileEventArgs> AfterWritingMinFile;
+
+        /// <summary>
+        /// Fires before the .gz file is written to disk
+        /// </summary>
+        public static event EventHandler<MinifyFileEventArgs> BeforeWritingGzipFile;
+
+        /// <summary>
+        /// Fires after the .gz file is written to disk
+        /// </summary>
+        public static event EventHandler<MinifyFileEventArgs> AfterWritingGzipFile;
     }
 }
