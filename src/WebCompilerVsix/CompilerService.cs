@@ -88,7 +88,22 @@ namespace WebCompilerVsix
             if (item == null || item.ContainingProject == null)
                 return;
 
-            item.ContainingProject.AddFileToProject(e.Config.GetAbsoluteOutputFile());
+            string input = e.Config.GetAbsoluteInputFile();
+            string output = e.Config.GetAbsoluteOutputFile();
+
+            string inputWithOutputExtension = Path.ChangeExtension(input, Path.GetExtension(output));
+
+            if (inputWithOutputExtension.Equals(output, StringComparison.OrdinalIgnoreCase))
+            {
+                var inputItem = _dte.Solution.FindProjectItem(input);
+
+                if (inputItem != null)
+                    ProjectHelpers.AddNestedFile(input, output);
+            }
+            else
+            {
+                item.ContainingProject.AddFileToProject(e.Config.GetAbsoluteOutputFile());
+            }
         }
 
         private static void AfterWritingSourceMap(object sender, SourceMapEventArgs e)

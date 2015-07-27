@@ -19,7 +19,7 @@ namespace WebCompilerTest
         [TestCleanup]
         public void Cleanup()
         {
-            //File.Delete("../../artifacts/less/test.css");
+            File.Delete("../../artifacts/less/test.css");
             File.Delete("../../artifacts/less/test.min.css");
         }
 

@@ -54,6 +54,15 @@ namespace WebCompiler
         internal string Output { get; set; }
 
         /// <summary>
+        /// Converts the relative input file to an absolute file path.
+        /// </summary>
+        public string GetAbsoluteInputFile()
+        {
+            string folder = Path.GetDirectoryName(FileName);
+            return Path.Combine(folder, InputFile.Replace("/", "\\"));
+        }
+
+        /// <summary>
         /// Converts the relative output file to an absolute file path.
         /// </summary>
         public string GetAbsoluteOutputFile()
