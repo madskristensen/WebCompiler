@@ -36,16 +36,30 @@ namespace WebCompiler
         public IEnumerable<CompilerResult> SourceFileChanged(string configFile, string sourceFile)
         {
             string folder = Path.GetDirectoryName(configFile);
-            string sourceExtension = Path.GetExtension(sourceFile);
             List<CompilerResult> list = new List<CompilerResult>();
             var configs = ConfigHandler.GetConfigs(configFile);
 
+            // Compile if the file if it's referenced directly in compilerconfig.json
             foreach (Config config in configs)
             {
-                string inputExtension = Path.GetExtension(config.InputFile);
+                string input = Path.Combine(folder, config.InputFile.Replace("/", "\\"));
 
-                if (inputExtension.Equals(sourceExtension, StringComparison.OrdinalIgnoreCase))
+                if (input.Equals(sourceFile, StringComparison.OrdinalIgnoreCase))
                     list.Add(ProcessConfig(folder, config));
+            }
+
+            // If not referenced directly, compile all configs with same file extension
+            if (list.Count == 0)
+            {
+                string sourceExtension = Path.GetExtension(sourceFile);
+
+                foreach (Config config in configs)
+                {
+                    string inputExtension = Path.GetExtension(config.InputFile);
+
+                    if (inputExtension.Equals(sourceExtension, StringComparison.OrdinalIgnoreCase))
+                        list.Add(ProcessConfig(folder, config));
+                }
             }
 
             return list;

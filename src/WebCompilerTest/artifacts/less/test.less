@@ -4,3 +4,14 @@ body {
     background-color: @background;
     animation-name: bounce_loadingProgress;
 }
+
+.class{
+    .height-loop(10px, 10);
+}
+
+.height-loop(@height, @divider) when (@divider > 0) {
+    &.h-@{divider} {
+        height: @height * @divider;
+    }
+    .height-loop(@height, (@divider - 1));
+}
