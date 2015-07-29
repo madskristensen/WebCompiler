@@ -60,7 +60,7 @@ namespace WebCompilerVsix.Commands
         {
             var file = ProjectHelpers.GetSelectedItemPaths().FirstOrDefault();
 
-            if (string.IsNullOrEmpty(file))
+            if (!string.IsNullOrEmpty(file))
                 CompilerService.Process(file);
         }
     }
