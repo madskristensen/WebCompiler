@@ -12,7 +12,7 @@ namespace WebCompiler
     {
         internal const string Version = "1.0.4";
         private static readonly string[] _allowed = new[] { ".LESS", ".SCSS", ".COFFEE" };
-        private static string _path = Path.Combine(Path.GetTempPath(), "WebCompiler");
+        private static readonly string _path = Path.Combine(Path.GetTempPath(), "WebCompiler" + Version);
 
         /// <summary>
         /// Test if a file type is supported by the compilers.
@@ -34,6 +34,7 @@ namespace WebCompiler
             switch (ext)
             {
                 case ".LESS":
+                    Initialize();
                     compiler = new LessCompiler(_path);
                     break;
 
@@ -55,10 +56,10 @@ namespace WebCompiler
         /// <param name="version"></param>
         public static void Initialize(string version = Version)
         {
-            _path = _path += version;
-
             if (!Directory.Exists(_path))
             {
+                OnInitializing();
+
                 Directory.CreateDirectory(_path);
                 SaveResourceFile(_path, "WebCompiler.Node.node.zip", "node.zip");
                 SaveResourceFile(_path, "WebCompiler.Node.node_modules.zip", "node_modules.zip");
@@ -75,7 +76,10 @@ namespace WebCompiler
                     Arguments = "/c prepare.cmd"
                 };
 
-                Process.Start(start);
+                Process p = Process.Start(start);
+                p.WaitForExit();
+
+                OnInitialized();
             }
         }
 
@@ -88,5 +92,24 @@ namespace WebCompiler
                     fs.WriteByte((byte)stream.ReadByte());
             }
         }
+
+        private static void OnInitializing()
+        {
+            if (Initializing != null)
+            {
+                Initializing(null, EventArgs.Empty);
+            }
+        }
+
+        private static void OnInitialized()
+        {
+            if (Initialized != null)
+            {
+                Initialized(null, EventArgs.Empty);
+            }
+        }
+
+        public static event EventHandler<EventArgs> Initializing;
+        public static event EventHandler<EventArgs> Initialized;
     }
 }

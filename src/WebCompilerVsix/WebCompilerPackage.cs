@@ -42,18 +42,6 @@ namespace WebCompilerVsix
             CompileOnBuild.Initialize(this);
             RemoveConfig.Initialize(this);
 
-            System.Threading.ThreadPool.QueueUserWorkItem((o) =>
-            {
-                try
-                {
-                    WebCompiler.CompilerService.Initialize(Version);
-                }
-                catch (Exception ex)
-                {
-                    Logger.Log(ex);
-                }
-            });
-
             base.Initialize();
         }
     }
