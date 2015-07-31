@@ -10,8 +10,8 @@ namespace WebCompiler
     {
         private static Regex _errorRx = new Regex("(?<message>.+) on line (?<line>[0-9]+), column (?<column>[0-9]+)", RegexOptions.Compiled);
         private string _path;
-        private StringBuilder _output = new StringBuilder();
-        private StringBuilder _error = new StringBuilder();
+        private string _output = string.Empty;
+        private string _error = string.Empty;
 
         public LessCompiler(string path)
         {
@@ -38,11 +38,11 @@ namespace WebCompiler
 
                 RunCompilerProcess(config, info);
 
-                result.CompiledContent = _output.ToString();
+                result.CompiledContent = _output;
 
                 if (_error.Length > 0)
                 {
-                    string message = _error.ToString();
+                    string message = _error;
                     CompilerError ce = new CompilerError
                     {
                         FileName = info.FullName,
@@ -97,15 +97,13 @@ namespace WebCompiler
 
             start.EnvironmentVariables["PATH"] = _path + ";" + start.EnvironmentVariables["PATH"];
 
-            Process p = new Process();
-            p.StartInfo = start;
-            p.EnableRaisingEvents = true;
-            p.OutputDataReceived += (s, e) => { if (e.Data != null) _output.Append(e.Data); };
-            p.ErrorDataReceived += (s, e) => { if (e.Data != null) _error.Append(e.Data); };
-            p.Start();
-            p.BeginErrorReadLine();
-            p.BeginOutputReadLine();
+            Process p = Process.Start(start);
+            var stdout = p.StandardOutput.ReadToEndAsync();
+            var stderr = p.StandardError.ReadToEndAsync();
             p.WaitForExit();
+
+            _output = stdout.Result;
+            _error = stderr.Result;
         }
 
         private static string ConstructArguments(Config config)
