@@ -110,7 +110,7 @@ namespace WebCompiler
 
             if (config.Minify.ContainsKey("enabled") && config.Minify["enabled"].ToString().Equals("true", StringComparison.OrdinalIgnoreCase))
             {
-                var minResult = FileMinifier.MinifyFile(config);
+                FileMinifier.MinifyFile(config);
             }
 
             if (config.SourceMap)

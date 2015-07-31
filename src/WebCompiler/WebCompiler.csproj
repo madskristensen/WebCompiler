@@ -44,10 +44,6 @@
       <HintPath>..\..\packages\CoffeeSharp.0.6\lib\CoffeeSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="dotless.Core, Version=1.5.1.0, Culture=neutral, PublicKeyToken=96b446c9e63eae34, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\dotless.1.5.1-alpha2\lib\dotless.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Jurassic, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\CoffeeSharp.0.6\lib\Jurassic.dll</HintPath>
       <Private>True</Private>
@@ -104,11 +100,21 @@
     <None Include="MSBuild\BuildWebCompiler.targets">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <EmbeddedResource Include="Node\node_modules.zip" />
+    <EmbeddedResource Include="Node\node.zip" />
+    <EmbeddedResource Include="Node\prepare.cmd" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Node\7z.dll" />
+    <EmbeddedResource Include="Node\7z.exe" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>$(SolutionDir)packages\NuGet.CommandLine.2.8.5\tools\nuget.exe pack .\msbuild\BuildWebCompiler.nuspec</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>$(SolutionDir)build\build.cmd</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

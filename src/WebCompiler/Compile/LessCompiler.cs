@@ -1,11 +1,21 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
-using dotless.Core;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace WebCompiler
 {
     class LessCompiler : ICompiler
     {
+        private static Regex _errorRx = new Regex("(?<message>.+) on line (?<line>[0-9]+), column (?<column>[0-9]+)", RegexOptions.Compiled);
+        private string _path;
+
+        public LessCompiler(string path)
+        {
+            _path = path;
+        }
+
         public CompilerResult Compile(Config config)
         {
             string baseFolder = Path.GetDirectoryName(config.FileName);
@@ -13,11 +23,6 @@ namespace WebCompiler
 
             FileInfo info = new FileInfo(inputFile);
             string content = File.ReadAllText(info.FullName);
-
-            var engine = new LessEngine();
-            engine.CurrentDirectory = info.Directory.FullName;
-
-            ApplyOptions(config, engine);
 
             CompilerResult result = new CompilerResult
             {
@@ -27,20 +32,40 @@ namespace WebCompiler
 
             try
             {
-                string css = engine.TransformToCss(content, info.FullName);
-                result.CompiledContent = css;
+                //var path = Path.Combine(Path.GetTempPath(), "WebCompiler");
 
-                if (engine.LastTransformationError != null)
+                Process p = RunCompilerProcess(config, info);
+
+                StringBuilder output = new StringBuilder();
+                StringBuilder error = new StringBuilder();
+
+                while (!p.HasExited)
                 {
-                    CompilerError error = new CompilerError
+                    output.Append(p.StandardOutput.ReadToEnd());
+                    error.Append(p.StandardError.ReadToEnd());
+                }
+
+                result.CompiledContent = output.ToString();
+
+                if (error.Length > 0)
+                {
+                    string message = error.ToString();
+                    CompilerError ce = new CompilerError
                     {
                         FileName = info.FullName,
-                        Message = engine.LastTransformationError.Message.Trim(),
-                        LineNumber = engine.LastTransformationError.ErrorLocation.LineNumber,
-                        ColumnNumber = engine.LastTransformationError.ErrorLocation.Position
+                        Message = message.Replace(baseFolder, string.Empty),
                     };
 
-                    result.Errors.Add(error);
+                    var match = _errorRx.Match(message);
+
+                    if (match.Success)
+                    {
+                        ce.Message = match.Groups["message"].Value.Replace(baseFolder, string.Empty);
+                        ce.LineNumber = int.Parse(match.Groups["line"].Value);
+                        ce.ColumnNumber = int.Parse(match.Groups["column"].Value);
+                    }
+
+                    result.Errors.Add(ce);
                 }
             }
             catch (Exception ex)
@@ -59,13 +84,42 @@ namespace WebCompiler
             return result;
         }
 
-        private static void ApplyOptions(Config config, LessEngine engine)
+        private Process RunCompilerProcess(Config config, FileInfo info)
         {
+            string arguments = ConstructArguments(config);
+
+            ProcessStartInfo start = new ProcessStartInfo
+            {
+                WorkingDirectory = Path.Combine(_path, "node_modules\\.bin"),
+                UseShellExecute = false,
+                WindowStyle = ProcessWindowStyle.Hidden,
+                CreateNoWindow = true,
+                FileName = "cmd.exe",
+                Arguments = "/c lessc.cmd " + arguments + " \"" + info.FullName + "\"",
+                StandardOutputEncoding = Encoding.UTF8,
+                StandardErrorEncoding = Encoding.UTF8,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+            };
+
+            start.EnvironmentVariables["PATH"] = _path + ";" + start.EnvironmentVariables["PATH"];
+
+            return Process.Start(start);
+        }
+
+        private static string ConstructArguments(Config config)
+        {
+            string arguments = " --no-color --relative-urls";
+
+            if (config.SourceMap)
+                arguments += " --source-map-map-inline";
+
             LessOptions options = new LessOptions(config);
-            engine.StrictMath = options.StrictMath;
-            engine.KeepFirstSpecialComment = options.KeepFirstSpecialComment;
-            engine.DisableVariableRedefines = options.DisableVariableRedefines;
-            engine.DisableColorCompression = options.DisableColorCompression;
+
+            if (options.StrictMath)
+                arguments += " --strict-math=on";
+
+            return arguments;
         }
     }
 }

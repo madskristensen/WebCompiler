@@ -21,6 +21,7 @@ namespace WebCompiler
         public override bool Execute()
         {
             FileInfo configFile = new FileInfo(FileName);
+            CompilerService.Initialize();
 
             Log.LogMessage(MessageImportance.High, Environment.NewLine + "WebCompiler: Begin compiling " + configFile.Name);
 
