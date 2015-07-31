@@ -20,6 +20,7 @@ if not exist node.zip (
 
 
 echo Installing packages...
+call npm install flatten-packages -g --quiet
 call npm install less --quiet
 
 
