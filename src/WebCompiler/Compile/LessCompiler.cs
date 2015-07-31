@@ -10,6 +10,8 @@ namespace WebCompiler
     {
         private static Regex _errorRx = new Regex("(?<message>.+) on line (?<line>[0-9]+), column (?<column>[0-9]+)", RegexOptions.Compiled);
         private string _path;
+        private StringBuilder _output = new StringBuilder();
+        private StringBuilder _error = new StringBuilder();
 
         public LessCompiler(string path)
         {
@@ -34,22 +36,13 @@ namespace WebCompiler
             {
                 //var path = Path.Combine(Path.GetTempPath(), "WebCompiler");
 
-                Process p = RunCompilerProcess(config, info);
+                RunCompilerProcess(config, info);
 
-                StringBuilder output = new StringBuilder();
-                StringBuilder error = new StringBuilder();
+                result.CompiledContent = _output.ToString();
 
-                while (!p.HasExited)
+                if (_error.Length > 0)
                 {
-                    output.Append(p.StandardOutput.ReadToEnd());
-                    error.Append(p.StandardError.ReadToEnd());
-                }
-
-                result.CompiledContent = output.ToString();
-
-                if (error.Length > 0)
-                {
-                    string message = error.ToString();
+                    string message = _error.ToString();
                     CompilerError ce = new CompilerError
                     {
                         FileName = info.FullName,
@@ -84,7 +77,7 @@ namespace WebCompiler
             return result;
         }
 
-        private Process RunCompilerProcess(Config config, FileInfo info)
+        private void RunCompilerProcess(Config config, FileInfo info)
         {
             string arguments = ConstructArguments(config);
 
@@ -104,7 +97,15 @@ namespace WebCompiler
 
             start.EnvironmentVariables["PATH"] = _path + ";" + start.EnvironmentVariables["PATH"];
 
-            return Process.Start(start);
+            Process p = new Process();
+            p.StartInfo = start;
+            p.EnableRaisingEvents = true;
+            p.OutputDataReceived += (s, e) => { if (e.Data != null) _output.Append(e.Data); };
+            p.ErrorDataReceived += (s, e) => { if (e.Data != null) _error.Append(e.Data); };
+            p.Start();
+            p.BeginErrorReadLine();
+            p.BeginOutputReadLine();
+            p.WaitForExit();
         }
 
         private static string ConstructArguments(Config config)
