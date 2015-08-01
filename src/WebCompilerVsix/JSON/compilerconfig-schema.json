@@ -197,7 +197,6 @@
         "outputFile": {
           "description": "The relative path to the desired output file name.",
           "type": "string",
-          "format": "uri",
           "minLength": 1
         }
       },

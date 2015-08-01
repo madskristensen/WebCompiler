@@ -139,7 +139,6 @@ namespace WebCompilerVsix.Commands
         {
             return new Config
             {
-                IncludeInProject = true,
                 OutputFile = outputFile,
                 InputFile = inputfile
             };
@@ -150,7 +149,7 @@ namespace WebCompilerVsix.Commands
             Uri baseUri = new Uri(baseFile, UriKind.RelativeOrAbsolute);
             Uri fileUri = new Uri(file, UriKind.RelativeOrAbsolute);
 
-            return baseUri.MakeRelativeUri(fileUri).ToString();
+            return Uri.UnescapeDataString(baseUri.MakeRelativeUri(fileUri).ToString());
         }
 
         private static string GetOutputFileName(string inputFile, string fileName)

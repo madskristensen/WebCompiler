@@ -37,7 +37,7 @@ namespace WebCompiler
         /// If true it makes Visual Studio include the output file in the project.
         /// </summary>
         [JsonProperty("includeInProject")]
-        public bool IncludeInProject { get; set; }
+        public bool IncludeInProject { get; set; } = true;
 
         /// <summary>
         /// If true a source map file is generated for the file types that support it.
