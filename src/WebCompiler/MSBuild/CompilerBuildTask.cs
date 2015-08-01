@@ -32,7 +32,9 @@ namespace WebCompiler
             }
 
             ConfigFileProcessor processor = new ConfigFileProcessor();
+            processor.BeforeProcess += (s, e) => { RemoveReadonlyFlagFromFile(e.Config.GetAbsoluteOutputFile()); };
             processor.AfterProcess += Processor_AfterProcess;
+            processor.BeforeWritingSourceMap += (s, e) => { RemoveReadonlyFlagFromFile(e.ResultFile); };
             processor.AfterWritingSourceMap += Processor_AfterWritingSourceMap;
             FileMinifier.AfterWritingMinFile += FileMinifier_AfterWritingMinFile;
 
@@ -62,6 +64,14 @@ namespace WebCompiler
                 Log.LogError(ex.Message);
                 return false;
             }
+        }
+
+        private static void RemoveReadonlyFlagFromFile(string fileName)
+        {
+            FileInfo file = new FileInfo(fileName);
+
+            if (file.Exists && file.IsReadOnly)
+                file.IsReadOnly = false;
         }
 
         private void Processor_AfterProcess(object sender, CompileFileEventArgs e)
