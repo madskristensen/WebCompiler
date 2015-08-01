@@ -5,16 +5,16 @@
 set HTTPGET_JS="%TEMP%\httpget.js"
 echo (function(b,d){var a=b.Arguments(0);var c=b.Arguments(1);var f=new d("MSXML2.XMLHTTP");f.open("GET",a,false);f.send();if(f.Status==200){var e=new d("ADODB.Stream");e.Open();e.Type=1;e.Write(f.ResponseBody);e.Position=0;e.SaveToFile(c);e.Close()}else{b.Echo("Error: HTTP "+f.status+" "+f.statusText)}})(WScript,ActiveXObject); > %HTTPGET_JS%
 
-if exist %~dp0..\src\WebCompiler\node\node.zip goto:EOF
+if exist %~dp0..\src\WebCompiler\node\node.7z goto:EOF
 
 if not exist %~dp0..\src\WebCompiler\node md %~dp0..\src\WebCompiler\node
 
 pushd %~dp0..\src\WebCompiler\node
 
-if not exist node.zip (
+if not exist node.7z (
     echo Downloading node...
     cscript //nologo %HTTPGET_JS% http://nodejs.org/dist/latest/node.exe node.exe
-    %~dp07z.exe a -r -mx9 node.zip node.exe
+    %~dp07z.exe a -r -mx9 node.7z node.exe
     del node.exe
 )
 
@@ -65,7 +65,7 @@ for /d /r . %%d in (tst)        do @if exist "%%d" rd /s /q "%%d"
 
 
 :: Zips the node_modules folder
-%~dp07z.exe a -r -mx9 node_modules.zip node_modules
+%~dp07z.exe a -r -mx9 node_modules.7z node_modules
 
 
 :: Deletes the node_modules folder after it has been zipped

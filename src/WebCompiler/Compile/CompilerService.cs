@@ -65,8 +65,8 @@ namespace WebCompiler
                 OnInitializing();
 
                 Directory.CreateDirectory(_path);
-                SaveResourceFile(_path, "WebCompiler.Node.node.zip", "node.zip");
-                SaveResourceFile(_path, "WebCompiler.Node.node_modules.zip", "node_modules.zip");
+                SaveResourceFile(_path, "WebCompiler.Node.node.7z", "node.7z");
+                SaveResourceFile(_path, "WebCompiler.Node.node_modules.7z", "node_modules.7z");
                 SaveResourceFile(_path, "WebCompiler.Node.7z.exe", "7z.exe");
                 SaveResourceFile(_path, "WebCompiler.Node.7z.dll", "7z.dll");
                 SaveResourceFile(_path, "WebCompiler.Node.prepare.cmd", "prepare.cmd");

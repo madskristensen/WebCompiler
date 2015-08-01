@@ -102,9 +102,9 @@
     <None Include="MSBuild\BuildWebCompiler.targets">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <EmbeddedResource Include="Node\node_modules.zip" />
-    <EmbeddedResource Include="Node\node.zip" />
     <EmbeddedResource Include="Node\prepare.cmd" />
+    <EmbeddedResource Include="Node\node.7z" />
+    <EmbeddedResource Include="Node\node_modules.7z" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
