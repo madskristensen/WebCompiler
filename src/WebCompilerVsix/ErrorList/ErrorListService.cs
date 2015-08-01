@@ -13,16 +13,22 @@ namespace WebCompilerVsix
         {
             WebCompilerPackage._dispatcher.BeginInvoke(new Action(() =>
             {
+                bool hasError = false;
+
                 foreach (CompilerResult result in results)
                 {
                     if (result.HasErrors)
                     {
+                        hasError = true;
                         ErrorList.AddErrors(result.FileName, result.Errors);
+                        WebCompilerPackage._dte.StatusBar.Text = $"Error compiling \"{Path.GetFileName(result.FileName)}\". See Error List for details";
                     }
                     else
                     {
                         ErrorList.CleanErrors(result.FileName);
-                        WebCompilerPackage._dte.StatusBar.Text = $"{Path.GetFileName(result.FileName)} compiled";
+
+                        if (!hasError)
+                            WebCompilerPackage._dte.StatusBar.Text = $"Done compiling \"{Path.GetFileName(result.FileName)}\"";
                     }
                 }
             }), DispatcherPriority.ApplicationIdle, null);

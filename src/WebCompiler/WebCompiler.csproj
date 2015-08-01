@@ -85,6 +85,7 @@
     <Compile Include="Compile\SassOptions.cs" />
     <Compile Include="Compile\LessOptions.cs" />
     <Compile Include="Compile\SassCompiler.cs" />
+    <Compile Include="Config\ConfigProcessedEventArgs.cs" />
     <Compile Include="Config\Config.cs" />
     <Compile Include="Compile\CompilerError.cs" />
     <Compile Include="Compile\CompilerResult.cs" />

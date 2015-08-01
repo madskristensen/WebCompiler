@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace WebCompiler
@@ -21,10 +22,14 @@ namespace WebCompiler
             var configs = ConfigHandler.GetConfigs(configFile);
             List<CompilerResult> list = new List<CompilerResult>();
 
+            if (configs.Any())
+                OnConfigProcessed(configs.First(), 0, configs.Count());
+
             foreach (Config config in configs)
             {
                 var result = ProcessConfig(info.Directory.FullName, config);
                 list.Add(result);
+                OnConfigProcessed(config, list.Count, configs.Count());
             }
 
             return list;
@@ -137,6 +142,14 @@ namespace WebCompiler
             }
         }
 
+        private void OnConfigProcessed(Config config, int amountProcessed, int total)
+        {
+            if (ConfigProcessed != null)
+            {
+                ConfigProcessed(this, new ConfigProcessedEventArgs(config, amountProcessed, total));
+            }
+        }
+
         private void OnAfterProcess(Config config, string baseFolder)
         {
             if (AfterProcess != null)
@@ -165,6 +178,11 @@ namespace WebCompiler
         /// Fires before the compiler writes the output to disk.
         /// </summary>
         public event EventHandler<CompileFileEventArgs> BeforeProcess;
+
+        /// <summary>
+        /// Fires when a config file has been processed.
+        /// </summary>
+        public event EventHandler<ConfigProcessedEventArgs> ConfigProcessed;
 
         /// <summary>
         /// Fires after the compiler writes the output to disk.
