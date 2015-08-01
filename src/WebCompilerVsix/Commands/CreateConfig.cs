@@ -164,7 +164,7 @@ namespace WebCompilerVsix.Commands
             {
                 dialog.InitialDirectory = Path.GetDirectoryName(inputFile);
                 dialog.DefaultExt = ext;
-                dialog.FileName = Path.GetFileNameWithoutExtension(fileName);
+                dialog.FileName = Path.GetFileNameWithoutExtension(fileName) + "." + ext;
                 dialog.Filter = ext.ToUpperInvariant() + " File|*." + ext;
 
                 DialogResult result = dialog.ShowDialog();
