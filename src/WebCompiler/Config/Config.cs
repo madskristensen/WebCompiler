@@ -92,5 +92,42 @@ namespace WebCompiler
         {
             return OutputFile.GetHashCode();
         }
+
+        public bool ShouldSerializeIncludeInProject()
+        {
+            Config config = new Config();
+            return IncludeInProject != config.IncludeInProject;
+        }
+
+        public bool ShouldSerializeMinify()
+        {
+            Config config = new Config();
+            return !DictionaryEqual(Minify, config.Minify, null);
+        }
+
+        public bool ShouldSerializeOptions()
+        {
+            Config config = new Config();
+            return !DictionaryEqual(Options, config.Options, null);
+        }
+
+        private static bool DictionaryEqual<TKey, TValue>(
+            IDictionary<TKey, TValue> first, IDictionary<TKey, TValue> second,
+            IEqualityComparer<TValue> valueComparer)
+        {
+            if (first == second) return true;
+            if ((first == null) || (second == null)) return false;
+            if (first.Count != second.Count) return false;
+
+            valueComparer = valueComparer ?? EqualityComparer<TValue>.Default;
+
+            foreach (var kvp in first)
+            {
+                TValue secondValue;
+                if (!second.TryGetValue(kvp.Key, out secondValue)) return false;
+                if (!valueComparer.Equals(kvp.Value, secondValue)) return false;
+            }
+            return true;
+        }
     }
 }

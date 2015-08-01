@@ -68,6 +68,10 @@
         },
         "minify": {
           "$ref": "#/definitions/cssOptions"
+        },
+        "sourceMap": {
+          "description": "Set to true to automatically create inline source map files.",
+          "type": "boolean"
         }
       }
     },
@@ -100,7 +104,7 @@
           "$ref": "#/definitions/cssOptions"
         },
         "sourceMap": {
-          "description": "Set to true to automatically create a .map file. Only works for .scss files.",
+          "description": "Set to true to automatically create inline source map files.",
           "type": "boolean"
         }
       }

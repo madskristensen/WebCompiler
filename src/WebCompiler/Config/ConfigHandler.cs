@@ -24,7 +24,13 @@ namespace WebCompiler
             configs.Add(config);
             config.FileName = fileName;
 
-            string content = JsonConvert.SerializeObject(configs, Formatting.Indented);
+            JsonSerializerSettings settings = new JsonSerializerSettings()
+            {
+                Formatting = Formatting.Indented,
+                DefaultValueHandling = DefaultValueHandling.Ignore,
+            };
+
+            string content = JsonConvert.SerializeObject(configs, settings);
             File.WriteAllText(fileName, content, new UTF8Encoding(true));
         }
 
