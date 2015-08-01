@@ -34,22 +34,19 @@ namespace WebCompiler
 
             try
             {
-                //var path = Path.Combine(Path.GetTempPath(), "WebCompiler");
-
                 RunCompilerProcess(config, info);
 
                 result.CompiledContent = _output;
 
                 if (_error.Length > 0)
                 {
-                    string message = _error;
                     CompilerError ce = new CompilerError
                     {
                         FileName = info.FullName,
-                        Message = message.Replace(baseFolder, string.Empty),
+                        Message = _error.Replace(baseFolder, string.Empty),
                     };
 
-                    var match = _errorRx.Match(message);
+                    var match = _errorRx.Match(_error);
 
                     if (match.Success)
                     {
@@ -66,7 +63,7 @@ namespace WebCompiler
                 CompilerError error = new CompilerError
                 {
                     FileName = info.FullName,
-                    Message = ex.Message,
+                    Message = string.IsNullOrEmpty(_error) ? ex.Message : _error,
                     LineNumber = 0,
                     ColumnNumber = 0,
                 };
@@ -108,7 +105,7 @@ namespace WebCompiler
 
         private static string ConstructArguments(Config config)
         {
-            string arguments = " --no-color --relative-urls";
+            string arguments = " --no-color";
 
             if (config.SourceMap)
                 arguments += " --source-map-map-inline";

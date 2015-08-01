@@ -53,6 +53,10 @@ namespace WebCompilerVsix
                     var result = Processor.Process(configFile);
                     ErrorListService.ProcessCompilerResults(result, configFile);
                 }
+                catch (FileNotFoundException ex)
+                {
+                    Logger.Log($"{Constants.VSIX_NAME} could not find {ex.FileName}");
+                }
                 catch (Exception ex)
                 {
                     Logger.Log(ex);
@@ -69,6 +73,10 @@ namespace WebCompilerVsix
                 {
                     var result = Processor.SourceFileChanged(configFile, sourceFile);
                     ErrorListService.ProcessCompilerResults(result, configFile);
+                }
+                catch (FileNotFoundException ex)
+                {
+                    Logger.Log($"{Constants.VSIX_NAME} could not find {ex.FileName}");
                 }
                 catch (Exception ex)
                 {
