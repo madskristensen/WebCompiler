@@ -10,7 +10,7 @@
             <Group guid="guidCompilerCmdSet" id="MyMenuGroup" priority="0x0200">
                 <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ITEMNODE"/>
             </Group>
-            <Group guid="guidCompilerCmdSet" id="SolExpMenuGroup" priority="0x2500">
+            <Group guid="guidCompilerCmdSet" id="SolExpMenuGroup" priority="0x9000">
                 <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_BUILD"/>
             </Group>
         </Groups>

@@ -65,7 +65,10 @@ file in the root of the project.
 ### Compile all
 
 You can run the compiler on all `compilerconfig.json` files
-in the solution by using the keyboard shortcut `Shift+Alt+Y`.
+in the solution by using the keyboard shortcut `Shift+Alt+Y`
+or by using the button on the top level Build menu.
+
+![Compile all](art/build-menu.png)
 
 ### Error list
 
