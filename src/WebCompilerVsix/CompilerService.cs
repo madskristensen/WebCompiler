@@ -39,8 +39,8 @@ namespace WebCompilerVsix
                     FileMinifier.BeforeWritingGzipFile += (s, e) => { ProjectHelpers.CheckFileOutOfSourceControl(e.ResultFile); };
                     FileMinifier.AfterWritingGzipFile += (s, e) => { ProjectHelpers.AddNestedFile(e.OriginalFile, e.ResultFile); };
 
-                    WebCompiler.CompilerService.Initializing += (s, e) => { _dte.StatusBar.Text = "Installing updated versions of the compilers..."; _dte.StatusBar.Animate(true, vsStatusAnimation.vsStatusAnimationGeneral); };
-                    WebCompiler.CompilerService.Initialized += (s, e) => { _dte.StatusBar.Text = "Done installing the compiler"; _dte.StatusBar.Animate(false, vsStatusAnimation.vsStatusAnimationGeneral); };
+                    WebCompiler.CompilerService.Initializing += (s, e) => { _dte.StatusBar.Text = "Installing updated versions of the compilers..."; };
+                    WebCompiler.CompilerService.Initialized += (s, e) => { _dte.StatusBar.Text = "Done installing the compiler"; };
                 }
 
                 return _processor;
