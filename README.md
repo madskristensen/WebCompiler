@@ -12,7 +12,7 @@ or get the
 
 ### Features
 
-- Compilation of LESS, Scss and CoffeeScript files
+- Compilation of LESS, Scss and (Iced)CoffeeScript files
 - Saving a source file triggers re-compilation automatically
 - Specify compiler options for each individual file
 - Error List integration
@@ -20,6 +20,7 @@ or get the
 - Minify the compiled output
 - Minification options for each language is customizable
 - Shows a watermark when opening a generated file
+- Shortcut to compile all specified files in solution
 
 ### Getting started
 
