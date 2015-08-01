@@ -69,6 +69,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Compile\BaseOptions.cs" />
+    <Compile Include="Compile\IcedCoffeeScriptOptions.cs" />
+    <Compile Include="Compile\IcedCoffeeScriptCompiler.cs" />
     <Compile Include="Compile\CompilerService.cs" />
     <Compile Include="Compile\ICompiler.cs" />
     <Compile Include="Compile\CoffeeScriptCompiler.cs" />

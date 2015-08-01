@@ -54,6 +54,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Compile\IcedCoffeeScriptTest.cs" />
     <Compile Include="Compile\CoffeeScriptTest.cs" />
     <Compile Include="Compile\CompileServiceTest.cs" />
     <Compile Include="Config\ConfigHandlerTest.cs" />
@@ -65,6 +66,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="artifacts\iced\error.iced" />
+    <None Include="artifacts\iced\test.iced" />
+    <None Include="artifacts\icedcoffeeconfig.json" />
+    <None Include="artifacts\icedcoffeeconfigError.json" />
     <None Include="artifacts\coffeeconfigError.json" />
     <None Include="artifacts\coffee\error.coffee" />
     <None Include="artifacts\coffee\test.coffee" />

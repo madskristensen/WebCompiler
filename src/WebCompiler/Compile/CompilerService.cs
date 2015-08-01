@@ -11,7 +11,7 @@ namespace WebCompiler
     public static class CompilerService
     {
         internal const string Version = "1.0.4";
-        private static readonly string[] _allowed = new[] { ".LESS", ".SCSS", ".COFFEE" };
+        private static readonly string[] _allowed = new[] { ".LESS", ".SCSS", ".COFFEE", ".ICED" };
         private static readonly string _path = Path.Combine(Path.GetTempPath(), "WebCompiler" + Version);
 
         /// <summary>
@@ -45,6 +45,11 @@ namespace WebCompiler
                 case ".COFFEE":
                     compiler = new CoffeeScriptCompiler();
                     break;
+
+                case ".ICED":
+                    Initialize();
+                    compiler = new IcedCoffeeScriptCompiler(_path);
+                    break;
             }
 
             return compiler;
@@ -53,8 +58,7 @@ namespace WebCompiler
         /// <summary>
         /// Initializes the Node environment.
         /// </summary>
-        /// <param name="version"></param>
-        public static void Initialize(string version = Version)
+        public static void Initialize()
         {
             if (!Directory.Exists(_path))
             {

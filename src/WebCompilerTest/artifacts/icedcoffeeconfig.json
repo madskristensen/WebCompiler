@@ -1,0 +1,8 @@
+﻿[
+	{
+		"outputFile": "iced/test.js",
+		"inputFile": "iced/test.iced",
+		"minify": { },
+		"includeInProject": true
+	}
+]

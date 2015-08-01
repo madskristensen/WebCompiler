@@ -22,6 +22,7 @@ if not exist node.zip (
 echo Installing packages...
 call npm install flatten-packages -g --quiet
 call npm install less --quiet
+call npm install iced-coffee-script --quiet
 
 
 echo Flatten the node_modules

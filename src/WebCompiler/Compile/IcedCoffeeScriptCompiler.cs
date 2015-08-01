@@ -6,14 +6,14 @@ using System.Text.RegularExpressions;
 
 namespace WebCompiler
 {
-    class LessCompiler : ICompiler
+    internal class IcedCoffeeScriptCompiler : ICompiler
     {
-        private static Regex _errorRx = new Regex("(?<message>.+) on line (?<line>[0-9]+), column (?<column>[0-9]+)", RegexOptions.Compiled);
+        private static Regex _errorRx = new Regex(":(?<line>[0-9]+):(?<column>[0-9]+).*error: (?<message>.+)", RegexOptions.Compiled);
         private string _path;
         private string _output = string.Empty;
         private string _error = string.Empty;
 
-        public LessCompiler(string path)
+        public IcedCoffeeScriptCompiler(string path)
         {
             _path = path;
         }
@@ -85,7 +85,7 @@ namespace WebCompiler
                 WindowStyle = ProcessWindowStyle.Hidden,
                 CreateNoWindow = true,
                 FileName = "cmd.exe",
-                Arguments = $"/c {Path.Combine(_path, "node_modules\\.bin\\lessc.cmd")} {arguments} \"{info.FullName}\"",
+                Arguments = $"/c {Path.Combine(_path, "node_modules\\.bin\\iced.cmd")} {arguments} \"{info.FullName}\"",
                 StandardOutputEncoding = Encoding.UTF8,
                 StandardErrorEncoding = Encoding.UTF8,
                 RedirectStandardOutput = true,
@@ -105,15 +105,18 @@ namespace WebCompiler
 
         private static string ConstructArguments(Config config)
         {
-            string arguments = " --no-color";
+            string arguments = " --print";
 
-            if (config.SourceMap)
-                arguments += " --source-map-map-inline";
+            //if (config.SourceMap)
+            //    arguments += " --source-map-map-inline";
 
-            LessOptions options = new LessOptions(config);
+            IcedCoffeeScriptOptions options = new IcedCoffeeScriptOptions(config);
 
-            if (options.StrictMath)
-                arguments += " --strict-math=on";
+            if (options.Bare)
+                arguments += " --bare";
+
+            if (!string.IsNullOrEmpty(options.RuntimeMode))
+                arguments += " --runtime " + options.RuntimeMode;
 
             return arguments;
         }

@@ -158,7 +158,7 @@ namespace WebCompilerVsix.Commands
             string extension = Path.GetExtension(fileName);
             string ext = "css";
 
-            if (extension == ".coffee")
+            if (extension == ".coffee" || extension == ".iced")
                 ext = "js";
 
             using (SaveFileDialog dialog = new SaveFileDialog())

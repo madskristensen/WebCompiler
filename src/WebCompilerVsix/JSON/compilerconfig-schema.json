@@ -139,6 +139,28 @@
       }
     },
 
+    "icedCoffeeScriptOptions": {
+      "properties": {
+        "inputFile": {
+          "pattern": "\\.iced$"
+        },
+        "options": {
+          "properties": {
+             "bare": {
+              "description": "CoffeeScript only. Compile the JavaScript without the top-level function safety wrapper.",
+              "type": "boolean"
+            },
+            "runtimeMode": {
+              "enum": [ "node", "inline", "none", "window" ]
+            }
+          }
+        },
+        "minify": {
+          "allOf": [ { "$ref": "#/definitions/coffeeScriptOptions/properties/minify" } ]
+        }
+      }
+    },
+
     "config": {
       "required": [ "outputFile", "inputFile" ],
 
@@ -183,12 +205,13 @@
       "oneOf": [
         { "$ref": "#/definitions/lessOptions" },
         { "$ref": "#/definitions/sassOptions" },
-        { "$ref": "#/definitions/coffeeScriptOptions" }
+        { "$ref": "#/definitions/coffeeScriptOptions" },
+        { "$ref": "#/definitions/icedCoffeeScriptOptions" }
       ]
     }
   },
 
-	"items": {
-		"$ref": "#/definitions/config"
-	}
+  "items": {
+    "$ref": "#/definitions/config"
+  }
 }
