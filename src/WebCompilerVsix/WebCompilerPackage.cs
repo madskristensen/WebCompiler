@@ -41,6 +41,7 @@ namespace WebCompilerVsix
             Recompile.Initialize(this);
             CompileOnBuild.Initialize(this);
             RemoveConfig.Initialize(this);
+            CompileAllFiles.Initialize(this);
 
             base.Initialize();
         }

@@ -18,9 +18,12 @@ namespace WebCompilerVsix
     internal sealed partial class PackageCommands
     {
         public const int MyMenuGroup = 0x1020;
+        public const int SolExpMenuGroup = 0x1030;
+        public const int ProjectMenuGroup = 0x1040;
         public const int CreateConfigFile = 0x0100;
         public const int RecompileConfigFile = 0x0200;
         public const int CompileOnBuild = 0x0300;
         public const int RemoveConfig = 0x0400;
+        public const int CompileSolution = 0x0500;
     }
 }

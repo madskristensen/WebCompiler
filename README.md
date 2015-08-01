@@ -62,6 +62,11 @@ any files to the project itself. thead NuGet package contains an MSBuild
 task that will run the exact same compilers on the `compilerconfig.json`
 file in the root of the project.
 
+### Compile all
+
+You can run the compiler on all `compilerconfig.json` files
+in the solution by using the keyboard shortcut `Shift+Alt+Y`.
+
 ### Error list
 
 When a compiler error occurs, the error list in Visual Studio

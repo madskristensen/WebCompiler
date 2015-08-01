@@ -52,6 +52,7 @@
     <Compile Include="Adornments\GeneratedAdornment.cs" />
     <Compile Include="Adornments\LogoAdornment.cs" />
     <Compile Include="Commands\CompileOnBuild.cs" />
+    <Compile Include="Commands\CompileAllFiles.cs" />
     <Compile Include="Commands\RemoveConfig.cs" />
     <Compile Include="CompilerService.cs" />
     <Compile Include="Commands\Recompile.cs" />

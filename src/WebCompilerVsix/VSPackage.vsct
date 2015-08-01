@@ -10,6 +10,9 @@
             <Group guid="guidCompilerCmdSet" id="MyMenuGroup" priority="0x0200">
                 <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ITEMNODE"/>
             </Group>
+            <Group guid="guidCompilerCmdSet" id="SolExpMenuGroup" priority="0x2500">
+                <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_BUILD"/>
+            </Group>
         </Groups>
 
         <!-- See all available images for ImageCatalogGuid at http://glyphlist.azurewebsites.net/knownmonikers/ -->
@@ -53,14 +56,37 @@
                     <ButtonText>Enable compile on build...</ButtonText>
                 </Strings>
             </Button>
+            <Button guid="guidCompilerCmdSet" id="CompileSolution" priority="0x0200" type="Button">
+                <Parent guid="guidCompilerCmdSet" id="SolExpMenuGroup" />
+                <Icon guid="ImageCatalogGuid" id="Event" />
+                <CommandFlag>IconIsMoniker</CommandFlag>
+                <CommandFlag>DynamicVisibility</CommandFlag>
+                <CommandFlag>DefaultInvisible</CommandFlag>
+                <Strings>
+                    <ButtonText>Re-compile all files in solution</ButtonText>
+                </Strings>
+            </Button>
         </Buttons>
     </Commands>
 
     <CommandPlacements>
         <CommandPlacement guid="guidCompilerCmdSet" id="MyMenuGroup" priority="0x0100">
+            <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_PROJNODE"/>
+        </CommandPlacement>
+        <CommandPlacement guid="guidCompilerCmdSet" id="MyMenuGroup" priority="0x0100">
+            <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_WEBPROJECT"/>
+        </CommandPlacement>
+        <CommandPlacement guid="guidCompilerCmdSet" id="MyMenuGroup" priority="0x0100">
             <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_WEBITEMNODE"/>
         </CommandPlacement>
+        <CommandPlacement guid="guidCompilerCmdSet" id="SolExpMenuGroup" priority="0x0100">
+            <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_SOLNNODE"/>
+        </CommandPlacement>
     </CommandPlacements>
+
+    <KeyBindings>
+        <KeyBinding guid="guidCompilerCmdSet" id="CompileSolution" mod1="Shift Alt" key1="Y" editor="guidVSStd97"/>
+    </KeyBindings>
 
     <Symbols>
         <!-- This is the package guid. -->
@@ -69,10 +95,14 @@
         <!-- This is the guid used to group the menu commands together -->
         <GuidSymbol name="guidCompilerCmdSet" value="{92a030a3-2493-40f9-b24b-34fdfffafb7d}">
             <IDSymbol name="MyMenuGroup" value="0x1020" />
+            <IDSymbol name="SolExpMenuGroup" value="0x1030" />
+            <IDSymbol name="ProjectMenuGroup" value="0x1040" />
+
             <IDSymbol name="CreateConfigFile" value="0x0100" />
             <IDSymbol name="RecompileConfigFile" value="0x0200" />
             <IDSymbol name="CompileOnBuild" value="0x0300" />
             <IDSymbol name="RemoveConfig" value="0x0400" />
+            <IDSymbol name="CompileSolution" value="0x0500" />
         </GuidSymbol>
     </Symbols>
 </CommandTable>

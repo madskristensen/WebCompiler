@@ -14,6 +14,7 @@ namespace WebCompilerVsix.Commands
     {
         private readonly Package _package;
         private bool _isInstalled;
+        private Project _project;
 
         private CompileOnBuild(Package package)
         {
@@ -39,6 +40,29 @@ namespace WebCompilerVsix.Commands
             var button = (OleMenuCommand)sender;
             var item = ProjectHelpers.GetSelectedItems().FirstOrDefault();
 
+            if (item == null) // Project
+            {
+                var project = ProjectHelpers.GetActiveProject();
+
+                if (project != null)
+                {
+                    string config = project.GetConfigFile();
+
+                    if (!string.IsNullOrEmpty(config) && File.Exists(config))
+                    {
+                        _isInstalled = IsPackageInstalled(project);
+                        _project = project;
+                        button.Checked = _isInstalled;
+                        button.Visible = true;
+
+                        DisableUnsupportProjectType(project, button);
+
+                        return;
+                    }
+                }
+            }
+
+            // Config file
             if (item == null || item.ContainingProject == null || item.Properties == null)
             {
                 button.Visible = false;
@@ -54,21 +78,29 @@ namespace WebCompilerVsix.Commands
                 return;
             }
 
-            // Some projects don't have a .csproj file and will therefore not be able to execute the build task.
-            if (item.ContainingProject.Kind.Equals("{E24C65DC-7377-472B-9ABA-BC803B73C61A}", StringComparison.OrdinalIgnoreCase) || // Website Project
-                item.ContainingProject.Kind.Equals("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}", StringComparison.OrdinalIgnoreCase))   // ASP.NET 5
-            {
-                button.Enabled = false;
+            if (!DisableUnsupportProjectType(item.ContainingProject, button))
                 return;
-            }
 
             button.Visible = isConfigFile;
 
             if (button.Visible)
             {
                 _isInstalled = IsPackageInstalled(item.ContainingProject);
+                _project = item.ContainingProject;
                 button.Checked = _isInstalled;
             }
+        }
+
+        private static bool DisableUnsupportProjectType(Project project, OleMenuCommand button)
+        {
+            if (project.Kind.Equals("{E24C65DC-7377-472B-9ABA-BC803B73C61A}", StringComparison.OrdinalIgnoreCase) || // Website Project
+                project.Kind.Equals("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}", StringComparison.OrdinalIgnoreCase))   // ASP.NET 5
+            {
+                button.Enabled = false;
+                return false;
+            }
+
+            return true;
         }
 
         public static CompileOnBuild Instance
@@ -92,9 +124,7 @@ namespace WebCompilerVsix.Commands
 
         private void EnableCompileOnBuild(object sender, EventArgs e)
         {
-            var item = ProjectHelpers.GetSelectedItems().FirstOrDefault();
-
-            if (item == null)
+            if (_project == null)
                 return;
 
             var componentModel = (IComponentModel)Package.GetGlobalService(typeof(SComponentModel));
@@ -114,18 +144,18 @@ namespace WebCompilerVsix.Commands
                 {
                     try
                     {
-                        WebCompilerPackage._dte.StatusBar.Text = $"Installing {Constants.NUGET_ID} NuGet package, this may take a minute...";
+                        WebCompilerPackage._dte.StatusBar.Text = $"Installing {Constants.NUGET_ID} v{WebCompilerPackage.Version} NuGet package, this may take a minute...";
                         WebCompilerPackage._dte.StatusBar.Animate(true, vsStatusAnimation.vsStatusAnimationSync);
 
                         var installer = componentModel.GetService<IVsPackageInstaller>();
-                        installer.InstallPackage(null, item.ContainingProject, Constants.NUGET_ID, version, false);
+                        installer.InstallPackage(null, _project, Constants.NUGET_ID, version, false);
 
-                        WebCompilerPackage._dte.StatusBar.Text = $"Finished installing the {Constants.NUGET_ID} NuGet package";
+                        WebCompilerPackage._dte.StatusBar.Text = $"Finished installing the {Constants.NUGET_ID} v{WebCompilerPackage.Version} NuGet package";
                     }
                     catch (Exception ex)
                     {
                         Logger.Log(ex);
-                        WebCompilerPackage._dte.StatusBar.Text = $"Unable to install the {Constants.NUGET_ID} NuGet package";
+                        WebCompilerPackage._dte.StatusBar.Text = $"Unable to install the {Constants.NUGET_ID} v{WebCompilerPackage.Version} NuGet package";
                     }
                     finally
                     {
@@ -142,7 +172,7 @@ namespace WebCompilerVsix.Commands
                         WebCompilerPackage._dte.StatusBar.Text = $"Uninstalling {Constants.NUGET_ID} NuGet package, this may take a minute...";
                         WebCompilerPackage._dte.StatusBar.Animate(true, vsStatusAnimation.vsStatusAnimationSync);
                         var uninstaller = componentModel.GetService<IVsPackageUninstaller>();
-                        uninstaller.UninstallPackage(item.ContainingProject, Constants.NUGET_ID, false);
+                        uninstaller.UninstallPackage(_project, Constants.NUGET_ID, false);
 
                         WebCompilerPackage._dte.StatusBar.Text = $"Finished uninstalling the {Constants.NUGET_ID} NuGet package";
                     }
