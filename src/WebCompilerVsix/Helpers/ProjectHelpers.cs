@@ -168,7 +168,7 @@ namespace WebCompilerVsix
             if (_dte.Solution == null)
                 return false;
 
-            return _dte.Solution.Count > 0;
+            return GetAllProjects().Any();
         }
 
         public static Project GetActiveProject()

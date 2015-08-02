@@ -33,15 +33,7 @@ namespace WebCompilerVsix.Commands
         {
             var button = (OleMenuCommand)sender;
 
-            if (!ProjectHelpers.IsSolutionLoaded())
-            {
-                button.Enabled = false;
-                return;
-            }
-
-            var projects = ProjectHelpers.GetAllProjects();
-
-            button.Enabled = projects.Any(p => !string.IsNullOrEmpty(p.GetConfigFile()));
+            button.Visible = ProjectHelpers.IsSolutionLoaded();
         }
 
         public static CompileAllFiles Instance { get; private set; }
