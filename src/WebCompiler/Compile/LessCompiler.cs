@@ -85,7 +85,7 @@ namespace WebCompiler
                 WindowStyle = ProcessWindowStyle.Hidden,
                 CreateNoWindow = true,
                 FileName = "cmd.exe",
-                Arguments = $"/c {Path.Combine(_path, "node_modules\\.bin\\lessc.cmd")} {arguments} \"{info.FullName}\"",
+                Arguments = $"/c \"\"{Path.Combine(_path, "node_modules\\.bin\\lessc.cmd")}\" {arguments} \"{info.FullName}\"\"",
                 StandardOutputEncoding = Encoding.UTF8,
                 StandardErrorEncoding = Encoding.UTF8,
                 RedirectStandardOutput = true,
