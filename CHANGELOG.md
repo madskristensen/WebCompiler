@@ -1,6 +1,4 @@
-# 1.1
-
-Future release
+# Future release
 
 - [x] Shortcut to easily setup compilation of single files
 - [x] LESS: Added StrictUnits and RootPath support
@@ -11,7 +9,9 @@ Future release
 Features that have a checkmark can be tested in the
 [nightly build](http://vsixgallery.com/extension/148ffa77-d70a-407f-892b-9ee542346862/)
 
-2015-08-03
+# 1.1
+
+**2015-08-03**
 
 - Support paths with spaces
 - Added "Compile All" button
