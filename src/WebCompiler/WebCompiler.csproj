@@ -118,9 +118,6 @@
     <EmbeddedResource Include="Node\7z.dll" />
     <EmbeddedResource Include="Node\7z.exe" />
   </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>$(SolutionDir)packages\NuGet.CommandLine.2.8.5\tools\nuget.exe pack .\msbuild\BuildWebCompiler.nuspec</PostBuildEvent>

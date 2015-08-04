@@ -14,63 +14,58 @@ pushd %~dp0..\src\WebCompiler\node
 if not exist node.7z (
     echo Downloading node...
     cscript //nologo %HTTPGET_JS% http://nodejs.org/dist/latest/node.exe node.exe
-    %~dp07z.exe a -r -mx9 node.7z node.exe
-    del node.exe
 )
 
 
 echo Installing packages...
-call npm install flatten-packages -g --quiet
-call npm install less --quiet
-call npm install iced-coffee-script --quiet
+call npm install flatten-packages -g --quiet > nul
+call npm install less --quiet > nul
+call npm install iced-coffee-script --quiet > nul
 
 
-echo Flatten the node_modules
-call flatten-packages
+echo Flattening node_modules...
+call flatten-packages > nul
 
 
 echo Deleting unneeded files and folders
-del /s /q *.md
-del /s /q *.markdown
-del /s /q *.html
-del /s /q *.txt
-del /s /q *.old
-del /s /q *.patch
-del /s /q *.ico
-del /s /q *.yml
-del /s /q *.tscache
-del /s /q *.npmignore
-del /s /q makefile.*
-del /s /q rakefile.*
-del /s /q generate-*
-del /s /q .jshintrc
-del /s /q .jscsrc
-del /s /q .bowerrc
-del /s /q LICENSE
-del /s /q README
-del /s /q CHANGELOG
-del /s /q CNAME
+del /s /q *.md > nul
+del /s /q *.markdown > nul
+del /s /q *.html > nul
+del /s /q *.txt > nul
+del /s /q *.old > nul
+del /s /q *.patch > nul
+del /s /q *.yml > nul
+del /s /q *.npmignore > nul
+del /s /q makefile.* > nul
+del /s /q generate-* > nul
+del /s /q .jshintrc > nul
+del /s /q .jscsrc > nul
+del /s /q LICENSE > nul
+del /s /q README > nul
+del /s /q CHANGELOG > nul
+del /s /q CNAME > nul
 
-for /d /r . %%d in (benchmark)  do @if exist "%%d" rd /s /q "%%d"
-for /d /r . %%d in (doc)        do @if exist "%%d" rd /s /q "%%d"
-for /d /r . %%d in (example)    do @if exist "%%d" rd /s /q "%%d"
-for /d /r . %%d in (examples)   do @if exist "%%d" rd /s /q "%%d"
-for /d /r . %%d in (images)     do @if exist "%%d" rd /s /q "%%d"
-for /d /r . %%d in (man)        do @if exist "%%d" rd /s /q "%%d"
-for /d /r . %%d in (media)      do @if exist "%%d" rd /s /q "%%d"
-for /d /r . %%d in (scripts)    do @if exist "%%d" rd /s /q "%%d"
-for /d /r . %%d in (test)       do @if exist "%%d" rd /s /q "%%d"
-for /d /r . %%d in (testing)    do @if exist "%%d" rd /s /q "%%d"
-for /d /r . %%d in (tst)        do @if exist "%%d" rd /s /q "%%d"
+for /d /r . %%d in (benchmark)  do @if exist "%%d" rd /s /q "%%d" > nul
+for /d /r . %%d in (doc)        do @if exist "%%d" rd /s /q "%%d" > nul
+for /d /r . %%d in (example)    do @if exist "%%d" rd /s /q "%%d" > nul
+for /d /r . %%d in (examples)   do @if exist "%%d" rd /s /q "%%d" > nul
+for /d /r . %%d in (images)     do @if exist "%%d" rd /s /q "%%d" > nul
+for /d /r . %%d in (man)        do @if exist "%%d" rd /s /q "%%d" > nul
+for /d /r . %%d in (media)      do @if exist "%%d" rd /s /q "%%d" > nul
+for /d /r . %%d in (scripts)    do @if exist "%%d" rd /s /q "%%d" > nul
+for /d /r . %%d in (test)       do @if exist "%%d" rd /s /q "%%d" > nul
+for /d /r . %%d in (testing)    do @if exist "%%d" rd /s /q "%%d" > nul
+for /d /r . %%d in (tst)        do @if exist "%%d" rd /s /q "%%d" > nul
 
+echo Compresses artifacts and cleans up
 
-:: Zips the node_modules folder
-%~dp07z.exe a -r -mx9 node_modules.7z node_modules
+:: Zips and deletes the node_modules folder
+%~dp07z.exe a -r -mx9 node_modules.7z node_modules > nul
+rmdir /S /Q node_modules > nul
 
-
-:: Deletes the node_modules folder after it has been zipped
-rmdir /S /Q node_modules
-
+:: Zips and deletes node.exe
+%~dp07z.exe a -r -mx9 node.7z node.exe > nul
+del node.exe > nul
 
 :done
 pushd "%~dp0"
