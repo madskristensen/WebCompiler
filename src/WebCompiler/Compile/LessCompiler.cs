@@ -115,8 +115,14 @@ namespace WebCompiler
             if (options.StrictMath)
                 arguments += " --strict-math=on";
 
+            if (options.StrictUnits)
+                arguments += " --strict-units=on";
+
             if (options.RelativeUrls)
                 arguments += " --relative-urls";
+
+            if (!string.IsNullOrEmpty(options.RootPath))
+                arguments += $" --rootpath=\"{options.RootPath}\"";
 
             return arguments;
         }

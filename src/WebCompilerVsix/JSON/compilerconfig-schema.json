@@ -52,9 +52,18 @@
               "description": "LESS only. Without this option on Less will try and process all maths in your CSS.",
               "type": "boolean"
             },
+            "strictUnits": {
+              "description": "LESS only. Without this option, less attempts to guess at the output unit when it does maths.",
+              "type": "boolean",
+              "default": false
+            },
             "relativeUrls": {
               "description": "LESS only. This option allows you to re-write URL's in imported files so that the URL is always relative to the base imported file.",
               "type": "boolean"
+            },
+            "rootPath": {
+              "description": "LESS only. Allows you to add a path to every generated import and url in your css. This does not affect less import statements that are processed, just ones that are left in the output css.",
+              "type": "string"
             }
           }
         },
@@ -142,7 +151,7 @@
         },
         "options": {
           "properties": {
-             "bare": {
+            "bare": {
               "description": "CoffeeScript only. Compile the JavaScript without the top-level function safety wrapper.",
               "type": "boolean"
             },
