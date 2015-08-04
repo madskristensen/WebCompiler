@@ -14,6 +14,9 @@ Features that have a checkmark are done and are available in the
 
 # Changelog
 
+These are the changes to each version that has been released
+on the official Visual Studio extension gallery. 
+
 ## 1.1
 
 **2015-08-03**
