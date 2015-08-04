@@ -15,7 +15,7 @@ Features that have a checkmark are done and are available in the
 # Changelog
 
 These are the changes to each version that has been released
-on the official Visual Studio extension gallery. 
+on the official Visual Studio extension gallery.
 
 ## 1.1
 
@@ -23,3 +23,16 @@ on the official Visual Studio extension gallery.
 
 - [x] Support paths with spaces (#63)
 - [x] Added "Compile All" button (#61)
+
+## 1.0
+
+**2015-07-20**
+
+- [x] Compilation of LESS, Scss and (Iced)CoffeeScript files
+- [x] Saving a source file triggers re-compilation automatically
+- [x] Specify compiler options for each individual file
+- [x] Error List integration
+- [x] MSBuild support for CI scenarios
+- [x] Minify the compiled output
+- [x] Minification options for each language is customizable
+- [x] Shows a watermark when opening a generated file
