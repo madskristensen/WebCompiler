@@ -48,20 +48,12 @@
         },
         "options": {
           "properties": {
-            "disableColorCompression": {
-              "description": "LESS only. Disable hexadecimal color compression.",
-              "type": "boolean"
-            },
-            "disableVariableRedefines": {
-              "description": "LESS only. Makes variables behave more like less.js, so the last variable definition is used.",
-              "type": "boolean"
-            },
-            "keepFirstSpecialComment": {
-              "description": "LESS only. Keeps the first comment beginning with /** when minified.",
-              "type": "boolean"
-            },
             "strictMath": {
               "description": "LESS only. Without this option on Less will try and process all maths in your CSS.",
+              "type": "boolean"
+            },
+            "relativeUrls": {
+              "description": "LESS only. This option allows you to re-write URL's in imported files so that the URL is always relative to the base imported file.",
               "type": "boolean"
             }
           }

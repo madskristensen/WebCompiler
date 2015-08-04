@@ -115,6 +115,9 @@ namespace WebCompiler
             if (options.StrictMath)
                 arguments += " --strict-math=on";
 
+            if (options.RelativeUrls)
+                arguments += " --relative-urls";
+
             return arguments;
         }
     }
