@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.IO;
 using System.Linq;
-using System.Windows.Forms;
+using EnvDTE;
+using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
 using WebCompiler;
 
@@ -33,32 +34,28 @@ namespace WebCompilerVsix.Commands
         }
 
         private List<Config> _reCompileConfigs = new List<Config>();
+        private ProjectItem _item;
 
         private void BeforeQueryStatus(object sender, EventArgs e)
         {
-            _reCompileConfigs.Clear();
             var button = (OleMenuCommand)sender;
-            var sourceFile = ProjectHelpers.GetSelectedItemPaths().FirstOrDefault();
+            button.Visible = button.Enabled = false;
 
-            if (string.IsNullOrEmpty(sourceFile))
-            {
-                button.Visible = false;
+            _item = GetProjectItem(WebCompilerPackage._dte);
+            _reCompileConfigs.Clear();
+
+            if (_item == null || _item.ContainingProject == null || _item.Properties == null)
                 return;
-            }
 
-            button.Visible = WebCompiler.CompilerService.IsSupported(sourceFile);
+            string configFile = _item.ContainingProject.GetConfigFile();
+            string inputFile = _item.Properties.Item("FullPath").Value.ToString();
+
+            button.Visible = button.Enabled = WebCompiler.CompilerService.IsSupported(inputFile);
 
             if (!button.Visible)
                 return;
 
-            var item = ProjectHelpers.GetSelectedItems().ElementAt(0);
-
-            if (item == null || item.ContainingProject == null)
-                return;
-
-            string configFile = item.ContainingProject.GetConfigFile();
-
-            var configs = ConfigFileProcessor.IsFileConfigured(configFile, sourceFile);
+            var configs = ConfigFileProcessor.IsFileConfigured(configFile, inputFile);
 
             if (configs != null && configs.Any())
             {
@@ -67,8 +64,28 @@ namespace WebCompilerVsix.Commands
             }
             else
             {
-                button.Text = "Compile file...";
+                button.Text = "Compile file";
             }
+        }
+
+        public static ProjectItem GetProjectItem(DTE2 dte)
+        {
+            Window2 window = dte.ActiveWindow as Window2;
+
+            if (window == null)
+                return null;
+
+            if (window.Type == vsWindowType.vsWindowTypeDocument)
+            {
+                Document doc = dte.ActiveDocument;
+
+                if (doc != null && !string.IsNullOrEmpty(doc.FullName))
+                {
+                    return dte.Solution.FindProjectItem(doc.FullName);
+                }
+            }
+
+            return ProjectHelpers.GetSelectedItems().FirstOrDefault();
         }
 
         public static CreateConfig Instance
@@ -92,13 +109,8 @@ namespace WebCompilerVsix.Commands
 
         private void AddConfig(object sender, EventArgs e)
         {
-            var item = ProjectHelpers.GetSelectedItems().First();
-
-            if (item.ContainingProject == null)
-                return;
-
-            string folder = item.ContainingProject.GetRootFolder();
-            string configFile = item.ContainingProject.GetConfigFile();
+            string folder = _item.ContainingProject.GetRootFolder();
+            string configFile = _item.ContainingProject.GetConfigFile();
             string relativeFile = MakeRelative(configFile, ProjectHelpers.GetSelectedItemPaths().First());
 
             // Recompile if already configured
@@ -110,9 +122,9 @@ namespace WebCompilerVsix.Commands
             }
 
             // Create new config
-            WebCompilerPackage._dte.StatusBar.Progress(true, "Compiling file", 0, 3);
-            string inputFile = item.Properties.Item("FullPath").Value.ToString();
-            string outputFile = GetOutputFileName(inputFile, Path.GetFileName(relativeFile));
+            WebCompilerPackage._dte.StatusBar.Progress(true, "Compiling file", 0, 2);
+            string inputFile = _item.Properties.Item("FullPath").Value.ToString();
+            string outputFile = GetOutputFileName(inputFile);
 
             if (string.IsNullOrEmpty(outputFile))
                 return;
@@ -120,16 +132,13 @@ namespace WebCompilerVsix.Commands
             string relativeOutputFile = MakeRelative(configFile, outputFile);
             Config config = CreateConfigFile(relativeFile, relativeOutputFile);
 
-            WebCompilerPackage._dte.StatusBar.Progress(true, "Compiling file", 1, 3);
+            WebCompilerPackage._dte.StatusBar.Progress(true, "Compiling file", 1, 2);
 
             ConfigHandler handler = new ConfigHandler();
             handler.AddConfig(configFile, config);
 
-            item.ContainingProject.AddFileToProject(configFile, "None");
-            WebCompilerPackage._dte.StatusBar.Progress(true, "Compiling file", 2, 3);
-
-            WebCompilerPackage._dte.ItemOperations.OpenFile(configFile);
-            WebCompilerPackage._dte.StatusBar.Progress(true, "Compiling file", 3, 3);
+            _item.ContainingProject.AddFileToProject(configFile, "None");
+            WebCompilerPackage._dte.StatusBar.Progress(true, "Compiling file", 2, 2);
 
             CompilerService.Process(configFile);
             WebCompilerPackage._dte.StatusBar.Progress(false, "Compiling file");
@@ -152,28 +161,15 @@ namespace WebCompilerVsix.Commands
             return Uri.UnescapeDataString(baseUri.MakeRelativeUri(fileUri).ToString());
         }
 
-        private static string GetOutputFileName(string inputFile, string fileName)
+        private static string GetOutputFileName(string inputFile)
         {
-            string extension = Path.GetExtension(fileName);
-            string ext = "css";
+            string extension = Path.GetExtension(inputFile);
+            string ext = ".css";
 
             if (extension == ".coffee" || extension == ".iced")
-                ext = "js";
+                ext = ".js";
 
-            using (SaveFileDialog dialog = new SaveFileDialog())
-            {
-                dialog.InitialDirectory = Path.GetDirectoryName(inputFile);
-                dialog.DefaultExt = ext;
-                dialog.FileName = Path.GetFileNameWithoutExtension(fileName) + "." + ext;
-                dialog.Filter = ext.ToUpperInvariant() + " File|*." + ext;
-
-                DialogResult result = dialog.ShowDialog();
-
-                if (result == DialogResult.OK)
-                    return dialog.FileName;
-            }
-
-            return null;
+            return Path.ChangeExtension(inputFile, ext);
         }
     }
 }

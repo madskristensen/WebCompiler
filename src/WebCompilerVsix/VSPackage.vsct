@@ -25,7 +25,8 @@
                 <CommandFlag>TextChanges</CommandFlag>
                 <CommandFlag>DefaultInvisible</CommandFlag>
                 <Strings>
-                    <ButtonText>Compile file...</ButtonText>
+                    <CommandName>CompileFile</CommandName>
+                    <ButtonText>Compile file</ButtonText>
                 </Strings>
             </Button>
             <Button guid="guidCompilerCmdSet" id="RemoveConfig" priority="0x0200" type="Button">
@@ -63,6 +64,7 @@
                 <CommandFlag>DynamicVisibility</CommandFlag>
                 <CommandFlag>DefaultInvisible</CommandFlag>
                 <Strings>
+                    <CommandName>RecompileAllFilesInSolution</CommandName>
                     <ButtonText>Re-compile all files in solution</ButtonText>
                 </Strings>
             </Button>
@@ -82,10 +84,14 @@
         <CommandPlacement guid="guidCompilerCmdSet" id="SolExpMenuGroup" priority="0x0100">
             <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_SOLNNODE"/>
         </CommandPlacement>
+        <CommandPlacement guid="guidCompilerCmdSet" id="CreateConfigFile" priority="0x1500">
+            <Parent guid="guidSHLMainMenu" id="IDG_VS_FILE_SAVE"/>
+        </CommandPlacement>
     </CommandPlacements>
 
     <KeyBindings>
         <KeyBinding guid="guidCompilerCmdSet" id="CompileSolution" mod1="Shift Alt" key1="Y" editor="guidVSStd97"/>
+        <KeyBinding guid="guidCompilerCmdSet" id="CreateConfigFile" mod1="Shift Alt" key1="Q" editor="guidVSStd97"/>
     </KeyBindings>
 
     <Symbols>

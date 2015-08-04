@@ -28,10 +28,10 @@ namespace WebCompilerVsix
                 {
                     _processor = new ConfigFileProcessor();
                     _processor.ConfigProcessed += ConfigProcessed;
-                    _processor.AfterProcess += AfterProcess;
                     _processor.BeforeProcess += (s, e) => { ProjectHelpers.CheckFileOutOfSourceControl(e.Config.GetAbsoluteOutputFile()); };
-                    _processor.AfterWritingSourceMap += AfterWritingSourceMap;
+                    _processor.AfterProcess += AfterProcess;
                     _processor.BeforeWritingSourceMap += (s, e) => { ProjectHelpers.CheckFileOutOfSourceControl(e.ResultFile); };
+                    _processor.AfterWritingSourceMap += AfterWritingSourceMap;
 
                     FileMinifier.BeforeWritingMinFile += (s, e) => { ProjectHelpers.CheckFileOutOfSourceControl(e.ResultFile); };
                     FileMinifier.AfterWritingMinFile += (s, e) => { ProjectHelpers.AddNestedFile(e.OriginalFile, e.ResultFile); };

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.ComponentModel.Composition;
 using System.IO;
 using Microsoft.VisualStudio.Editor;
@@ -6,6 +7,7 @@ using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.TextManager.Interop;
 using Microsoft.VisualStudio.Utilities;
+using WebCompiler;
 
 namespace WebCompilerVsix.Listeners
 {
@@ -13,6 +15,7 @@ namespace WebCompilerVsix.Listeners
     [ContentType("LESS")]
     [ContentType("SCSS")]
     [ContentType("CoffeeScript")]
+    [ContentType("Iced")]
     [TextViewRole(PredefinedTextViewRoles.Document)]
     class SourceFileCreationListener : IVsTextViewCreationListener
     {
@@ -60,7 +63,12 @@ namespace WebCompilerVsix.Listeners
                     ErrorList.CleanErrors(e.FilePath);
 
                     if (File.Exists(configFile))
-                        CompilerService.SourceFileChanged(configFile, e.FilePath);
+                    {
+                        var configs = ConfigFileProcessor.IsFileConfigured(configFile, e.FilePath);
+
+                        if (configs != null && configs.Any())
+                            CompilerService.SourceFileChanged(configFile, e.FilePath);
+                    }
                 }
             }
         }
