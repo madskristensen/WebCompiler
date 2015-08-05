@@ -20,7 +20,6 @@ if not exist node.7z (
 echo Installing packages...
 call npm install flatten-packages -g --quiet > nul
 call npm install less --quiet > nul
-call npm install coffee-script --quiet > nul
 call npm install iced-coffee-script --quiet > nul
 
 

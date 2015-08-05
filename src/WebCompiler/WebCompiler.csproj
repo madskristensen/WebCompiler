@@ -67,8 +67,6 @@
     <Compile Include="Compile\IcedCoffeeScriptCompiler.cs" />
     <Compile Include="Compile\CompilerService.cs" />
     <Compile Include="Compile\ICompiler.cs" />
-    <Compile Include="Compile\CoffeeScriptCompiler.cs" />
-    <Compile Include="Compile\CoffeeScriptOptions.cs" />
     <Compile Include="Compile\OutputStyle.cs" />
     <Compile Include="Compile\SassOptions.cs" />
     <Compile Include="Compile\LessOptions.cs" />
