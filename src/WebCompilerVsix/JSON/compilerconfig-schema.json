@@ -103,10 +103,6 @@
         },
         "minify": {
           "$ref": "#/definitions/cssOptions"
-        },
-        "sourceMap": {
-          "description": "Set to true to automatically create inline source map files.",
-          "type": "boolean"
         }
       }
     },
@@ -120,9 +116,6 @@
           "properties": {
             "bare": {
               "description": "CoffeeScript only. Compile the JavaScript without the top-level function safety wrapper.",
-              "type": "boolean"
-            },
-            "globals": {
               "type": "boolean"
             }
           }
@@ -203,6 +196,10 @@
           "description": "The relative path to the desired output file name.",
           "type": "string",
           "minLength": 1
+        },
+        "sourceMap": {
+          "description": "Set to true to automatically create inline source map files.",
+          "type": "boolean"
         }
       },
 

@@ -43,7 +43,8 @@ namespace WebCompiler
                     break;
 
                 case ".COFFEE":
-                    compiler = new CoffeeScriptCompiler();
+                    Initialize();
+                    compiler = new CoffeeScriptCompiler(_path);
                     break;
 
                 case ".ICED":

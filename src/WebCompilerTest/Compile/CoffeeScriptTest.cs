@@ -21,15 +21,19 @@ namespace WebCompilerTest
         {
             File.Delete("../../artifacts/coffee/test.js");
             File.Delete("../../artifacts/coffee/test.min.js");
+            File.Delete("../../artifacts/coffee/test.js.map");
         }
 
         [TestMethod, TestCategory("CoffeeScript")]
         public void CompileCoffeeScript()
         {
             var result = _processor.Process("../../artifacts/coffeeconfig.json");
-            FileInfo info = new FileInfo("../../artifacts/coffee/test.js");
-            Assert.IsTrue(info.Exists);
-            Assert.IsTrue(info.Length > 5);
+            FileInfo js = new FileInfo("../../artifacts/coffee/test.js");
+            FileInfo map = new FileInfo("../../artifacts/coffee/test.js.map");
+            Assert.IsTrue(js.Exists);
+            Assert.IsTrue(map.Exists);
+            Assert.IsTrue(js.Length > 5);
+            Assert.IsTrue(map.Length > 5);
         }
 
         [TestMethod, TestCategory("CoffeeScript")]
@@ -38,7 +42,7 @@ namespace WebCompilerTest
             var result = _processor.Process("../../artifacts/coffeeconfigerror.json");
             var error = result.First().Errors[0];
             Assert.AreEqual(1, error.LineNumber);
-            Assert.AreEqual("error: unexpected ==", error.Message);
+            Assert.AreEqual("unexpected ==", error.Message);
         }
     }
 }

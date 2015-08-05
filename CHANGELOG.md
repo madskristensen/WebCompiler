@@ -3,6 +3,7 @@
 - [x] Shortcut to easily setup compilation of single files
 - [x] LESS: Added StrictUnits and RootPath compiler support
 - [x] LESS: Added relative URL compiler support (#63)
+- [x] Use the official CoffeeScript compiler (#68)
 - [ ] Generate gulpfile.js from compilerconfig.json (#34)
 - [ ] Preview window (#6)
 - [ ] File globbing pattern support (#49)

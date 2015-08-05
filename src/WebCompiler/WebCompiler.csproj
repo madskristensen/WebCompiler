@@ -36,18 +36,6 @@
       <HintPath>..\..\packages\AjaxMin.5.14.5506.26202\lib\net40\AjaxMin.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="CoffeeScriptHttpHandler, Version=0.6.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\CoffeeSharp.0.6\lib\CoffeeScriptHttpHandler.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="CoffeeSharp, Version=0.6.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\CoffeeSharp.0.6\lib\CoffeeSharp.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Jurassic, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\CoffeeSharp.0.6\lib\Jurassic.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="LibSass.x86, Version=0.0.0.0, Culture=neutral, processorArchitecture=x86">
       <HintPath>..\..\packages\libsassnet.3.2.5\lib\net40\LibSass.x86.dll</HintPath>
       <Private>True</Private>

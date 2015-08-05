@@ -3,6 +3,7 @@
 		"outputFile": "coffee/test.js",
 		"inputFile": "coffee/test.coffee",
 		"minify": { },
-		"includeInProject": true
+    "includeInProject": true,
+    "sourceMap": true
 	}
 ]
