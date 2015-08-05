@@ -24,6 +24,7 @@ on the official Visual Studio extension gallery.
 
 - [x] Support paths with spaces (#63)
 - [x] Added "Compile All" button (#61)
+- [x] Support for Iced CoffeeScript
 
 ## 1.0
 
