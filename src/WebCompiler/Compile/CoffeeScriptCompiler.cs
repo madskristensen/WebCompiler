@@ -10,7 +10,6 @@ namespace WebCompiler
     {
         private static Regex _errorRx = new Regex(":(?<line>[0-9]+):(?<column>[0-9]+).*error: (?<message>.+)", RegexOptions.Compiled);
         private string _path;
-        private string _output = string.Empty;
         private string _error = string.Empty;
         private string _temp = Path.Combine(Path.GetTempPath(), ".coffee-script");
 
@@ -99,20 +98,16 @@ namespace WebCompiler
                 CreateNoWindow = true,
                 FileName = "cmd.exe",
                 Arguments = $"/c \"\"{Path.Combine(_path, "node_modules\\.bin\\coffee.cmd")}\" {arguments} \"{info.FullName}\"\"",
-                StandardOutputEncoding = Encoding.UTF8,
                 StandardErrorEncoding = Encoding.UTF8,
-                RedirectStandardOutput = true,
                 RedirectStandardError = true,
             };
 
             start.EnvironmentVariables["PATH"] = _path + ";" + start.EnvironmentVariables["PATH"];
 
             Process p = Process.Start(start);
-            var stdout = p.StandardOutput.ReadToEndAsync();
             var stderr = p.StandardError.ReadToEndAsync();
             p.WaitForExit();
 
-            _output = stdout.Result;
             _error = stderr.Result;
         }
 
@@ -127,9 +122,6 @@ namespace WebCompiler
 
             if (options.Bare)
                 arguments += " --bare";
-
-            //if (options.Globals)
-            //    arguments += " --globals";
 
             return arguments;
         }

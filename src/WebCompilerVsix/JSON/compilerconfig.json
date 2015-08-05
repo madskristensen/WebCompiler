@@ -5,7 +5,7 @@
 		"minify": {
 			"enabled": true
 		},
-		"includeInProject": true
+		"includeInProject": true,
 	},
 	{
 		"outputFile": "foo.css",

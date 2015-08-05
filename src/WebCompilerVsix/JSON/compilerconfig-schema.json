@@ -69,10 +69,6 @@
         },
         "minify": {
           "$ref": "#/definitions/cssOptions"
-        },
-        "sourceMap": {
-          "description": "Set to true to automatically create inline source map files.",
-          "type": "boolean"
         }
       }
     },
@@ -198,7 +194,7 @@
           "minLength": 1
         },
         "sourceMap": {
-          "description": "Set to true to automatically create inline source map files.",
+          "description": "Set to true to automatically create either inline source maps or a .map file.",
           "type": "boolean"
         }
       },

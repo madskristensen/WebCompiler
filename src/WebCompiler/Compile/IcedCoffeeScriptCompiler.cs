@@ -10,8 +10,8 @@ namespace WebCompiler
     {
         private static Regex _errorRx = new Regex(":(?<line>[0-9]+):(?<column>[0-9]+).*error: (?<message>.+)", RegexOptions.Compiled);
         private string _path;
-        private string _output = string.Empty;
         private string _error = string.Empty;
+        private string _temp = Path.Combine(Path.GetTempPath(), ".iced-coffee-script");
 
         public IcedCoffeeScriptCompiler(string path)
         {
@@ -36,7 +36,19 @@ namespace WebCompiler
             {
                 RunCompilerProcess(config, info);
 
-                result.CompiledContent = _output;
+                string tempFile = Path.ChangeExtension(Path.Combine(_temp, info.Name), ".js");
+
+                if (File.Exists(tempFile))
+                {
+                    result.CompiledContent = File.ReadAllText(tempFile);
+
+                    if (config.SourceMap)
+                    {
+                        string mapFile = tempFile + ".map";
+                        if (File.Exists(mapFile))
+                            result.SourceMap = File.ReadAllText(mapFile);
+                    }
+                }
 
                 if (_error.Length > 0)
                 {
@@ -86,29 +98,25 @@ namespace WebCompiler
                 CreateNoWindow = true,
                 FileName = "cmd.exe",
                 Arguments = $"/c \"\"{Path.Combine(_path, "node_modules\\.bin\\iced.cmd")}\" {arguments} \"{info.FullName}\"\"",
-                StandardOutputEncoding = Encoding.UTF8,
                 StandardErrorEncoding = Encoding.UTF8,
-                RedirectStandardOutput = true,
                 RedirectStandardError = true,
             };
 
             start.EnvironmentVariables["PATH"] = _path + ";" + start.EnvironmentVariables["PATH"];
 
             Process p = Process.Start(start);
-            var stdout = p.StandardOutput.ReadToEndAsync();
             var stderr = p.StandardError.ReadToEndAsync();
             p.WaitForExit();
 
-            _output = stdout.Result;
             _error = stderr.Result;
         }
 
-        private static string ConstructArguments(Config config)
+        private string ConstructArguments(Config config)
         {
-            string arguments = " --print";
+            string arguments = $" --compile --output \"{_temp}\"";
 
-            //if (config.SourceMap)
-            //    arguments += " --source-map-map-inline";
+            if (config.SourceMap)
+                arguments += " --map";
 
             IcedCoffeeScriptOptions options = new IcedCoffeeScriptOptions(config);
 

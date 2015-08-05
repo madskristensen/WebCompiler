@@ -21,19 +21,23 @@ namespace WebCompilerTest
         {
             File.Delete("../../artifacts/iced/test.js");
             File.Delete("../../artifacts/iced/test.min.js");
+            File.Delete("../../artifacts/iced/test.js.map");
         }
 
         [TestMethod, TestCategory("Iced CoffeeScript")]
-        public void CompileCoffeeScript()
+        public void CompileIcedCoffeeScript()
         {
             var result = _processor.Process("../../artifacts/icedcoffeeconfig.json");
-            FileInfo info = new FileInfo("../../artifacts/iced/test.js");
-            Assert.IsTrue(info.Exists);
-            Assert.IsTrue(info.Length > 5);
+            FileInfo js = new FileInfo("../../artifacts/iced/test.js");
+            FileInfo map = new FileInfo("../../artifacts/iced/test.js.map");
+            Assert.IsTrue(js.Exists);
+            Assert.IsTrue(map.Exists);
+            Assert.IsTrue(js.Length > 5);
+            Assert.IsTrue(map.Length > 5);
         }
 
         [TestMethod, TestCategory("Iced CoffeeScript")]
-        public void CompileCoffeeScriptWithError()
+        public void CompileIcedCoffeeScriptWithError()
         {
             var result = _processor.Process("../../artifacts/icedcoffeeconfigerror.json");
             var error = result.First().Errors[0];
