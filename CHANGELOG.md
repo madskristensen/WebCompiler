@@ -8,8 +8,6 @@
 - [ ] Generate gulpfile.js from compilerconfig.json (#34)
 - [ ] Preview window (#6)
 - [ ] File globbing pattern support (#49)
-- [ ] Sweet.js compiler support
-- [ ] LiveScript compiler support
 
 Features that have a checkmark are complete and available for
 download in the

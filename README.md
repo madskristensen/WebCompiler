@@ -10,6 +10,10 @@ Download the extension at the
 or get the
 [nightly build](http://vsixgallery.com/extension/148ffa77-d70a-407f-892b-9ee542346862/)
 
+See the
+[changelog](https://github.com/madskristensen/WebCompiler/blob/master/CHANGELOG.md)
+for changes and roadmap.
+
 ### Features
 
 - Compilation of LESS, Scss and (Iced)CoffeeScript files
