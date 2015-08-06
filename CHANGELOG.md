@@ -5,6 +5,7 @@
 - [x] LESS: Added relative URL compiler support (#63)
 - [x] Use the official CoffeeScript compiler (#68)
 - [x] Enable source maps for Iced CoffeeScript
+- [x] Compile up the LESS @import chain (#67)
 - [ ] Generate gulpfile.js from compilerconfig.json (#34)
 - [ ] Preview window (#6)
 - [ ] File globbing pattern support (#49)

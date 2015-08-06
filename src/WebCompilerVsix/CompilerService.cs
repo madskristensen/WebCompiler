@@ -1,10 +1,9 @@
 ﻿using System;
 using System.IO;
-using System.Threading;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Threading;
-using EnvDTE;
 using EnvDTE80;
 using WebCompiler;
 
@@ -58,8 +57,6 @@ namespace WebCompilerVsix
             {
                 try
                 {
-                    _dte.StatusBar.Animate(true, vsStatusAnimation.vsStatusAnimationBuild);
-
                     var result = Processor.Process(configFile);
                     ErrorListService.ProcessCompilerResults(result, configFile);
 
@@ -85,7 +82,6 @@ namespace WebCompilerVsix
                 }
                 finally
                 {
-                    _dte.StatusBar.Animate(false, vsStatusAnimation.vsStatusAnimationBuild);
                     _dte.StatusBar.Progress(false);
                 }
             });
@@ -97,7 +93,6 @@ namespace WebCompilerVsix
             {
                 try
                 {
-                    _dte.StatusBar.Animate(true, vsStatusAnimation.vsStatusAnimationBuild);
                     StatusText($"Compiling \"{Path.GetFileName(sourceFile)}\"...");
 
                     var result = Processor.SourceFileChanged(configFile, sourceFile);
@@ -113,10 +108,6 @@ namespace WebCompilerVsix
                     Logger.Log(ex);
                     ShowError(configFile);
                 }
-                finally
-                {
-                    _dte.StatusBar.Animate(false, vsStatusAnimation.vsStatusAnimationBuild);
-                }
             });
         }
 
@@ -130,7 +121,7 @@ namespace WebCompilerVsix
 
         private static void ShowError(string configFile)
         {
-            MessageBox.Show($"There is an error in the {Constants.CONFIG_FILENAME} file. This could be due to a change in the format after this extension was updated.", Constants.VSIX_NAME, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show($"There is an error in the {Constants.CONFIG_FILENAME} file. This could be due to a change in the format after this extension was updated.", Constants.VSIX_NAME, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.ServiceNotification);
 
             if (File.Exists(configFile))
                 WebCompilerPackage._dte.ItemOperations.OpenFile(configFile);

@@ -11,6 +11,8 @@ namespace WebCompiler
     /// </summary>
     public class ConfigFileProcessor
     {
+        private static List<string> _processing = new List<string>();
+
         /// <summary>
         /// Parses a compiler config file and runs the configured compilers.
         /// </summary>
@@ -18,18 +20,31 @@ namespace WebCompiler
         /// <returns>A list of compiler results.</returns>
         public IEnumerable<CompilerResult> Process(string configFile)
         {
-            FileInfo info = new FileInfo(configFile);
-            var configs = ConfigHandler.GetConfigs(configFile);
+            if (_processing.Contains(configFile))
+                return Enumerable.Empty<CompilerResult>();
+
+            _processing.Add(configFile);
             List<CompilerResult> list = new List<CompilerResult>();
 
-            if (configs.Any())
-                OnConfigProcessed(configs.First(), 0, configs.Count());
-
-            foreach (Config config in configs)
+            try
             {
-                var result = ProcessConfig(info.Directory.FullName, config);
-                list.Add(result);
-                OnConfigProcessed(config, list.Count, configs.Count());
+                FileInfo info = new FileInfo(configFile);
+                var configs = ConfigHandler.GetConfigs(configFile);
+
+                if (configs.Any())
+                    OnConfigProcessed(configs.First(), 0, configs.Count());
+
+                foreach (Config config in configs)
+                {
+                    var result = ProcessConfig(info.Directory.FullName, config);
+                    list.Add(result);
+                    OnConfigProcessed(config, list.Count, configs.Count());
+                }
+            }
+            finally
+            {
+                if (_processing.Contains(configFile))
+                    _processing.Remove(configFile);
             }
 
             return list;
