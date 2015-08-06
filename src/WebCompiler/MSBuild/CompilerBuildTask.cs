@@ -36,7 +36,10 @@ namespace WebCompiler
             processor.AfterProcess += Processor_AfterProcess;
             processor.BeforeWritingSourceMap += (s, e) => { RemoveReadonlyFlagFromFile(e.ResultFile); };
             processor.AfterWritingSourceMap += Processor_AfterWritingSourceMap;
+
+            FileMinifier.BeforeWritingMinFile += (s, e) => { RemoveReadonlyFlagFromFile(e.ResultFile); };
             FileMinifier.AfterWritingMinFile += FileMinifier_AfterWritingMinFile;
+            FileMinifier.BeforeWritingGzipFile += (s, e) => { RemoveReadonlyFlagFromFile(e.ResultFile); };
 
             try
             {
