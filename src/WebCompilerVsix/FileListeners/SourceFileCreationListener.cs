@@ -63,12 +63,7 @@ namespace WebCompilerVsix.Listeners
                     ErrorList.CleanErrors(e.FilePath);
 
                     if (File.Exists(configFile))
-                    {
-                        var configs = ConfigFileProcessor.IsFileConfigured(configFile, e.FilePath);
-
-                        if (configs != null && configs.Any())
-                            CompilerService.SourceFileChanged(configFile, e.FilePath);
-                    }
+                        CompilerService.SourceFileChanged(configFile, e.FilePath);
                 }
             }
         }
