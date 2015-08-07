@@ -1,14 +1,10 @@
 # Roadmap
 
-- [x] Shortcut to easily setup compilation of single files
-- [x] LESS: Added StrictUnits and RootPath compiler support
-- [x] LESS: Added relative URL compiler support (#63)
-- [x] Use the official CoffeeScript compiler (#68)
-- [x] Enable source maps for Iced CoffeeScript
-- [x] Compile up the LESS @import chain (#67)
 - [ ] Generate gulpfile.js from compilerconfig.json (#34)
 - [ ] Preview window (#6)
 - [ ] File globbing pattern support (#49)
+- [ ] Task Runner Explorer integration
+- [ ] Optimize compilatoin of newly added configs (#72)
 
 Features that have a checkmark are complete and available for
 download in the
@@ -18,6 +14,17 @@ download in the
 
 These are the changes to each version that has been released
 on the official Visual Studio extension gallery.
+
+## 1.2
+
+**2015-08-07**
+
+- [x] Shortcut to easily setup compilation of single files
+- [x] LESS: Added StrictUnits and RootPath compiler support
+- [x] LESS: Added relative URL compiler support (#63)
+- [x] Use the official CoffeeScript compiler (#68)
+- [x] Enable source maps for Iced CoffeeScript
+- [x] Compile up the LESS @import chain (#67)
 
 ## 1.1
 
