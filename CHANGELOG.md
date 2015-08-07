@@ -1,5 +1,6 @@
 # Roadmap
 
+- [x] MSBuild targets `Compile` instead of `Build` (#73)
 - [ ] Generate gulpfile.js from compilerconfig.json (#34)
 - [ ] Preview window (#6)
 - [ ] File globbing pattern support (#49)
