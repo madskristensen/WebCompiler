@@ -32,14 +32,15 @@ namespace WebCompiler
             }
 
             ConfigFileProcessor processor = new ConfigFileProcessor();
-            processor.BeforeProcess += (s, e) => { RemoveReadonlyFlagFromFile(e.Config.GetAbsoluteOutputFile()); };
+            processor.BeforeProcess += (s, e) => { FileHelpers.RemoveReadonlyFlagFromFile(e.Config.GetAbsoluteOutputFile()); };
             processor.AfterProcess += Processor_AfterProcess;
-            processor.BeforeWritingSourceMap += (s, e) => { RemoveReadonlyFlagFromFile(e.ResultFile); };
+            processor.BeforeWritingSourceMap += (s, e) => { FileHelpers.RemoveReadonlyFlagFromFile(e.ResultFile); };
             processor.AfterWritingSourceMap += Processor_AfterWritingSourceMap;
 
-            FileMinifier.BeforeWritingMinFile += (s, e) => { RemoveReadonlyFlagFromFile(e.ResultFile); };
+            FileMinifier.BeforeWritingMinFile += (s, e) => { FileHelpers.RemoveReadonlyFlagFromFile(e.ResultFile); };
             FileMinifier.AfterWritingMinFile += FileMinifier_AfterWritingMinFile;
-            FileMinifier.BeforeWritingGzipFile += (s, e) => { RemoveReadonlyFlagFromFile(e.ResultFile); };
+            FileMinifier.BeforeWritingGzipFile += (s, e) => { FileHelpers.RemoveReadonlyFlagFromFile(e.ResultFile); };
+            FileMinifier.AfterWritingGzipFile += FileMinifier_AfterWritingGzipFile;
 
             try
             {
@@ -69,12 +70,9 @@ namespace WebCompiler
             }
         }
 
-        private static void RemoveReadonlyFlagFromFile(string fileName)
+        private void FileMinifier_AfterWritingGzipFile(object sender, MinifyFileEventArgs e)
         {
-            FileInfo file = new FileInfo(fileName);
-
-            if (file.Exists && file.IsReadOnly)
-                file.IsReadOnly = false;
+            Log.LogMessage(MessageImportance.High, "\tGzipped " + FileHelpers.MakeRelative(e.ResultFile, FileName));
         }
 
         private void Processor_AfterProcess(object sender, CompileFileEventArgs e)
@@ -84,20 +82,12 @@ namespace WebCompiler
 
         private void Processor_AfterWritingSourceMap(object sender, SourceMapEventArgs e)
         {
-            Log.LogMessage(MessageImportance.High, "\tSourceMap " + MakeRelative(FileName, e.ResultFile));
+            Log.LogMessage(MessageImportance.High, "\tSourceMap " + FileHelpers.MakeRelative(FileName, e.ResultFile));
         }
 
         private void FileMinifier_AfterWritingMinFile(object sender, MinifyFileEventArgs e)
         {
-            Log.LogMessage(MessageImportance.High, "\tMinified " + MakeRelative(FileName, e.ResultFile));
-        }
-
-        private static string MakeRelative(string baseFile, string file)
-        {
-            Uri baseUri = new Uri(baseFile, UriKind.RelativeOrAbsolute);
-            Uri fileUri = new Uri(file, UriKind.RelativeOrAbsolute);
-
-            return Uri.EscapeDataString(baseUri.MakeRelativeUri(fileUri).ToString());
+            Log.LogMessage(MessageImportance.High, "\tMinified " + FileHelpers.MakeRelative(FileName, e.ResultFile));
         }
     }
 }

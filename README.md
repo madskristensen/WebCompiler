@@ -25,6 +25,8 @@ for changes and roadmap.
 - Minification options for each language is customizable
 - Shows a watermark when opening a generated file
 - Shortcut to compile all specified files in solution
+- Task Runner Explorer integration
+- Command line interface
 
 ### Getting started
 

@@ -1,10 +1,11 @@
 # Roadmap
 
 - [x] MSBuild targets `Compile` instead of `Build` (#73)
+- [x] Task Runner Explorer integration
+- [x] Command line support
 - [ ] Generate gulpfile.js from compilerconfig.json (#34)
 - [ ] Preview window (#6)
 - [ ] File globbing pattern support (#49)
-- [ ] Task Runner Explorer integration
 - [ ] Optimize compilatoin of newly added configs (#72)
 
 Features that have a checkmark are complete and available for

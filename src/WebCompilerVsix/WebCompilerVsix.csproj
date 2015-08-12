@@ -61,6 +61,8 @@
     <Compile Include="ErrorList\ErrorList.cs" />
     <Compile Include="ErrorList\ErrorListService.cs" />
     <Compile Include="Logger.cs" />
+    <Compile Include="TaskRunner\TaskRunnerConfig.cs" />
+    <Compile Include="TaskRunner\WebCompilerTaskRunner.cs" />
     <Compile Include="WebCompilerPackage.cs" />
     <Compile Include="Helpers\ProjectHelpers.cs" />
     <Compile Include="FileListeners\SourceFileCreationListener.cs" />
@@ -77,6 +79,13 @@
   <ItemGroup>
     <Content Include="..\..\LICENSE">
       <Link>Resources\LICENSE</Link>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="nesting.pkgdef">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\logo.png">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Content Include="Resources\Package.ico" />
@@ -178,6 +187,10 @@
     </Reference>
     <Reference Include="Microsoft.VisualStudio.Shell.Interop.9.0, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TaskRunnerExplorer.14.0, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Microsoft.VisualStudio.TaskRunnerExplorer.14.0.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.Text.Data, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <Private>False</Private>

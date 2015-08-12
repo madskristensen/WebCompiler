@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-    <UsingTask AssemblyFile="..\tools\WebCompiler.dll" TaskName="WebCompiler.CompilerBuildTask"/>
+    <UsingTask AssemblyFile="..\tools\WebCompiler.exe" TaskName="WebCompiler.CompilerBuildTask"/>
 
     <Target Name="WebCompile" AfterTargets="Compile">
         <WebCompiler.CompilerBuildTask FileName="$(MSBuildProjectDirectory)\compilerconfig.json" />

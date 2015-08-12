@@ -8,7 +8,7 @@ using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
 using WebCompiler;
 
-namespace WebCompilerVsix.Commands
+namespace WebCompilerVsix
 {
     internal sealed class CreateConfig
     {
@@ -111,7 +111,7 @@ namespace WebCompilerVsix.Commands
         {
             string folder = _item.ContainingProject.GetRootFolder();
             string configFile = _item.ContainingProject.GetConfigFile();
-            string relativeFile = MakeRelative(configFile, ProjectHelpers.GetSelectedItemPaths().First());
+            string relativeFile = FileHelpers.MakeRelative(configFile, ProjectHelpers.GetSelectedItemPaths().First());
 
             // Recompile if already configured
             if (_reCompileConfigs.Any())
@@ -129,7 +129,7 @@ namespace WebCompilerVsix.Commands
             if (string.IsNullOrEmpty(outputFile))
                 return;
 
-            string relativeOutputFile = MakeRelative(configFile, outputFile);
+            string relativeOutputFile = FileHelpers.MakeRelative(configFile, outputFile);
             Config config = CreateConfigFile(relativeFile, relativeOutputFile);
 
             WebCompilerPackage._dte.StatusBar.Progress(true, "Compiling file", 1, 2);
@@ -151,14 +151,6 @@ namespace WebCompilerVsix.Commands
                 OutputFile = outputFile,
                 InputFile = inputfile
             };
-        }
-
-        private static string MakeRelative(string baseFile, string file)
-        {
-            Uri baseUri = new Uri(baseFile, UriKind.RelativeOrAbsolute);
-            Uri fileUri = new Uri(file, UriKind.RelativeOrAbsolute);
-
-            return Uri.UnescapeDataString(baseUri.MakeRelativeUri(fileUri).ToString());
         }
 
         private static string GetOutputFileName(string inputFile)
