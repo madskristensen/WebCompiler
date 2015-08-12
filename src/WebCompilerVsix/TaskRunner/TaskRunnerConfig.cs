@@ -52,8 +52,16 @@ namespace WebCompilerVsix
             try
             {
                 ProjectHelpers.CheckFileOutOfSourceControl(bindingPath);
-                File.WriteAllText(bindingPath, "///" + bindingsXml, Encoding.UTF8);
-                ProjectHelpers.AddNestedFile(configPath, bindingPath);
+
+                if (bindingsXml == "<binding />" && File.Exists(bindingPath))
+                {
+                    ProjectHelpers.DeleteFileFromProject(bindingPath);
+                }
+                else
+                {
+                    File.WriteAllText(bindingPath, "///" + bindingsXml, Encoding.UTF8);
+                    ProjectHelpers.AddNestedFile(configPath, bindingPath);
+                }
 
                 IVsPersistDocData persistDocData;
                 if (!WebCompilerPackage.IsDocumentDirty(configPath, out persistDocData) && persistDocData != null)
@@ -69,8 +77,9 @@ namespace WebCompilerVsix
 
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
+                Logger.Log(ex);
                 return false;
             }
         }

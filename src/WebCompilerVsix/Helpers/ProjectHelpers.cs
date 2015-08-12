@@ -113,6 +113,23 @@ namespace WebCompilerVsix
             }
         }
 
+        public static void DeleteFileFromProject(string file)
+        {
+            ProjectItem item = _dte.Solution.FindProjectItem(file);
+
+            if (item == null)
+                return;
+            try
+            {
+                item.Delete();
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
+
+        }
+
         public static void AddNestedFile(string parentFile, string newFile)
         {
             ProjectItem item = _dte.Solution.FindProjectItem(parentFile);
