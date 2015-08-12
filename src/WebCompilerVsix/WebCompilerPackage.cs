@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Threading;
 using EnvDTE;
@@ -7,6 +8,7 @@ using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using WebCompilerVsix.Commands;
+using IServiceProvider = Microsoft.VisualStudio.OLE.Interop.IServiceProvider;
 
 namespace WebCompilerVsix
 {
@@ -44,6 +46,24 @@ namespace WebCompilerVsix
             CompileAllFiles.Initialize(this);
 
             base.Initialize();
+        }
+
+        public static bool IsDocumentDirty(string documentPath, out IVsPersistDocData persistDocData)
+        {
+            var serviceProvider = new ServiceProvider((IServiceProvider)_dte);
+
+            IVsHierarchy vsHierarchy;
+            uint itemId, docCookie;
+            VsShellUtilities.GetRDTDocumentInfo(
+                serviceProvider, documentPath, out vsHierarchy, out itemId, out persistDocData, out docCookie);
+            if (persistDocData != null)
+            {
+                int isDirty;
+                persistDocData.IsDocDataDirty(out isDirty);
+                return isDirty == 1;
+            }
+
+            return false;
         }
     }
 }
