@@ -1,7 +1,13 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text;
 using System.Windows.Media;
+using Microsoft.VisualStudio;
+using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.TaskRunnerExplorer;
+using Microsoft.VisualStudio.TextManager.Interop;
+using WebCompilerVsix.TaskRunner;
 
 namespace WebCompilerVsix
 {
@@ -52,6 +58,23 @@ namespace WebCompilerVsix
                 ProjectHelpers.CheckFileOutOfSourceControl(bindingPath);
                 File.WriteAllText(bindingPath, "///" + bindingsXml, Encoding.UTF8);
                 ProjectHelpers.AddNestedFile(configPath, bindingPath);
+                var configTextView = TextViewUtil.FindTextViewFor(configPath);
+                bool touchFile = configTextView == null;
+
+                if (configTextView != null)
+                {
+                    IVsPersistDocData persistDocData;
+                    if (!WebCompilerPackage.IsDocumentDirty(configPath, out persistDocData) && persistDocData != null)
+                    {
+                        int cancelled;
+                        string newName;
+                        persistDocData.SaveDocData(VSSAVEFLAGS.VSSAVE_SilentSave, out newName, out cancelled);
+                    }
+                }
+                else
+                {
+                    new FileInfo(configPath).LastWriteTime = DateTime.Now;
+                }
 
                 return true;
             }
