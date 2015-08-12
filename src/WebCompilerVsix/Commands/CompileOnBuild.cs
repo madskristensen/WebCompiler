@@ -137,9 +137,10 @@ namespace WebCompilerVsix.Commands
                     return;
 
                 Version version = new Version(WebCompilerPackage.Version);
-                if (version == new Version(1, 0, 4))
-                    version = (Version)null;
 
+#if DEBUG
+                version = (Version)null;
+#endif
                 System.Threading.ThreadPool.QueueUserWorkItem((o) =>
                 {
                     try

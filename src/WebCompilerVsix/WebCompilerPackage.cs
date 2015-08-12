@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Threading;
 using EnvDTE;
@@ -13,14 +12,14 @@ using IServiceProvider = Microsoft.VisualStudio.OLE.Interop.IServiceProvider;
 namespace WebCompilerVsix
 {
     [PackageRegistration(UseManagedResourcesOnly = true)]
-    [InstalledProductRegistration("#110", "#112", Version, IconResourceID = 400)] // Info on this package for Help/About
+    [InstalledProductRegistration("#110", "#112", Version, IconResourceID = 400)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(GuidList.guidCompilerPackageString)]
     [ProvideAutoLoad(UIContextGuids80.SolutionExists)]
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
     public sealed class WebCompilerPackage : Package
     {
-        public const string Version = "1.0.4"; // Don't change this without changing it in CompileOnBuild.cs too.
+        public const string Version = "1.0.4";
         public static DTE2 _dte;
         public static Package Package;
         public static Dispatcher _dispatcher;
