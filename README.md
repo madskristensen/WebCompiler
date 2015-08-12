@@ -77,6 +77,19 @@ or by using the button on the top level Build menu.
 
 ![Compile all](art/build-menu.png)
 
+### Task Runner Explorer
+
+Get a quick overview of the files you've specified or execute a
+compilation directly in Task Runner Explorer.
+
+![Task Runner Explorer](art/task-runner-explorer.png)
+
+You can even set bindings so that compilation happens automatically
+during certain Visual Studio events, such as *BeforeBuild* and
+*Project Open*.
+
+![Task Runner bindings](art/task-runner-bindings.png)
+
 ### Error list
 
 When a compiler error occurs, the error list in Visual Studio
