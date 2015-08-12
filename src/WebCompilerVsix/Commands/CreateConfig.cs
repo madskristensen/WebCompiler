@@ -140,7 +140,7 @@ namespace WebCompilerVsix
             _item.ContainingProject.AddFileToProject(configFile, "None");
             WebCompilerPackage._dte.StatusBar.Progress(true, "Compiling file", 2, 2);
 
-            CompilerService.Process(configFile);
+            CompilerService.Process(configFile, new[] { config });
             WebCompilerPackage._dte.StatusBar.Progress(false, "Compiling file");
         }
 

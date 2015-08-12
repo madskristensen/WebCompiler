@@ -49,7 +49,7 @@ namespace WebCompiler
         /// Options specific to each compiler. Based on the inputFile property.
         /// </summary>
         [JsonProperty("options")]
-        public Dictionary<string, string> Options { get; set; } = new Dictionary<string, string>();
+        public Dictionary<string, object> Options { get; set; } = new Dictionary<string, object>();
 
         internal string Output { get; set; }
 

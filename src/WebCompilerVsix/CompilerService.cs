@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -51,13 +52,13 @@ namespace WebCompilerVsix
             _dte.StatusBar.Progress(true, $"Compiling \"{e.Config.InputFile}\"", e.AmountProcessed, e.Total);
         }
 
-        public static void Process(string configFile)
+        public static void Process(string configFile, IEnumerable<Config> configs = null)
         {
             ThreadPool.QueueUserWorkItem((o) =>
             {
                 try
                 {
-                    var result = Processor.Process(configFile);
+                    var result = Processor.Process(configFile, configs);
                     ErrorListService.ProcessCompilerResults(result, configFile);
 
                     if (!result.Any(c => c.HasErrors))

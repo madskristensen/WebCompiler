@@ -3,10 +3,10 @@
 - [x] MSBuild targets `Compile` instead of `Build` (#73)
 - [x] Task Runner Explorer integration
 - [x] Command line support
+- [x] Optimize compilation of newly added configs (#72)
 - [ ] Generate gulpfile.js from compilerconfig.json (#34)
 - [ ] Preview window (#6)
 - [ ] File globbing pattern support (#49)
-- [ ] Optimize compilatoin of newly added configs (#72)
 
 Features that have a checkmark are complete and available for
 download in the

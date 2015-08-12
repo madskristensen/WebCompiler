@@ -17,7 +17,7 @@ namespace WebCompiler
         {
             if (config.Options.ContainsKey("outputStyle"))
             {
-                string style = config.Options["outputStyle"];
+                string style = config.Options["outputStyle"].ToString();
 
                 if (style == "nested")
                     OutputStyle = OutputStyle.Nested;
