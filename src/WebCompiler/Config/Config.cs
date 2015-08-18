@@ -93,18 +93,21 @@ namespace WebCompiler
             return OutputFile.GetHashCode();
         }
 
+        /// <summary>For the JSON.NET serializer</summary>
         public bool ShouldSerializeIncludeInProject()
         {
             Config config = new Config();
             return IncludeInProject != config.IncludeInProject;
         }
 
+        /// <summary>For the JSON.NET serializer</summary>
         public bool ShouldSerializeMinify()
         {
             Config config = new Config();
             return !DictionaryEqual(Minify, config.Minify, null);
         }
 
+        /// <summary>For the JSON.NET serializer</summary>
         public bool ShouldSerializeOptions()
         {
             Config config = new Config();
