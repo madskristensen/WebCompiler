@@ -1,6 +1,4 @@
-﻿using LibSassNet;
-
-namespace WebCompiler
+﻿namespace WebCompiler
 {
     /// <summary>
     /// Give all options for the Sass compiler
@@ -17,22 +15,9 @@ namespace WebCompiler
         {
             if (config.Options.ContainsKey("outputStyle"))
             {
-                string style = config.Options["outputStyle"].ToString();
-
-                if (style == "nested")
-                    OutputStyle = OutputStyle.Nested;
-                else if (style == "expanded")
-                    OutputStyle = OutputStyle.Expanded;
-                else if (style == "compact")
-                    OutputStyle = OutputStyle.Compact;
-                else if (style == "compressed")
-                    OutputStyle = OutputStyle.Compressed;
-                else if (style == "echo")
-                    OutputStyle = OutputStyle.Echo;
+                OutputStyle = config.Options["outputStyle"].ToString();
             }
-
-            IncludeSourceComments = GetValue(config, "includeSourceComments").ToLowerInvariant() == trueStr;
-
+            
             int precision = 5;
             if (int.TryParse(GetValue(config, "precision"), out precision))
                 Precision = precision;
@@ -41,12 +26,8 @@ namespace WebCompiler
         /// <summary>
         /// Type of output style
         /// </summary>
-        public OutputStyle OutputStyle { get; set; } = OutputStyle.Nested;
-
-        /// <summary>
-        /// Flag indicating if comments should be included in the compiled version.
-        /// </summary>
-        public bool IncludeSourceComments { get; set; }
+        public string OutputStyle { get; set; }
+        
 
         /// <summary>
         /// Precision

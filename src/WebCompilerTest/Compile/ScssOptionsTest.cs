@@ -12,7 +12,7 @@ namespace WebCompilerTest
         {
             var configs = ConfigHandler.GetConfigs("../../artifacts/options/scss/scssconfignested.json");
             var result = new WebCompiler.SassOptions(configs.ElementAt(0));
-            Assert.AreEqual(OutputStyle.Nested, result.OutputStyle);
+            Assert.AreEqual("nested", result.OutputStyle);
         }
 
         [TestMethod, TestCategory("SCSSOptions")]
@@ -20,7 +20,7 @@ namespace WebCompilerTest
         {
             var configs = ConfigHandler.GetConfigs("../../artifacts/options/scss/scssconfigexpanded.json");
             var result = new WebCompiler.SassOptions(configs.ElementAt(0));
-            Assert.AreEqual(OutputStyle.Expanded, result.OutputStyle);
+            Assert.AreEqual("expanded", result.OutputStyle);
         }
 
         [TestMethod, TestCategory("SCSSOptions")]
@@ -28,7 +28,7 @@ namespace WebCompilerTest
         {
             var configs = ConfigHandler.GetConfigs("../../artifacts/options/scss/scssconfigcompact.json");
             var result = new WebCompiler.SassOptions(configs.ElementAt(0));
-            Assert.AreEqual(OutputStyle.Compact, result.OutputStyle);
+            Assert.AreEqual("compact", result.OutputStyle);
         }
 
         [TestMethod, TestCategory("SCSSOptions")]
@@ -36,7 +36,7 @@ namespace WebCompilerTest
         {
             var configs = ConfigHandler.GetConfigs("../../artifacts/options/scss/scssconfigcompressed.json");
             var result = new WebCompiler.SassOptions(configs.ElementAt(0));
-            Assert.AreEqual(OutputStyle.Compressed, result.OutputStyle);
+            Assert.AreEqual("compressed", result.OutputStyle);
         }
 
         [TestMethod, TestCategory("SCSSOptions")]
@@ -44,7 +44,7 @@ namespace WebCompilerTest
         {
             var configs = ConfigHandler.GetConfigs("../../artifacts/options/scss/scssconfigecho.json");
             var result = new WebCompiler.SassOptions(configs.ElementAt(0));
-            Assert.AreEqual(OutputStyle.Echo, result.OutputStyle);
+            Assert.AreEqual("echo", result.OutputStyle);
         }
 
         [TestMethod, TestCategory("SCSSOptions")]
@@ -53,22 +53,6 @@ namespace WebCompilerTest
             var configs = ConfigHandler.GetConfigs("../../artifacts/options/scss/scssconfigprecision.json");
             var result = new WebCompiler.SassOptions(configs.ElementAt(0));
             Assert.AreEqual(3, result.Precision);
-        }
-
-        [TestMethod, TestCategory("SCSSOptions")]
-        public void IncludeSourceComments()
-        {
-            var configs = ConfigHandler.GetConfigs("../../artifacts/options/scss/scssconfigincludesourcecomments.json");
-            var result = new WebCompiler.SassOptions(configs.ElementAt(0));
-            Assert.IsTrue(result.IncludeSourceComments);
-        }
-
-        [TestMethod, TestCategory("SCSSOptions")]
-        public void IncludeSourceCommentsAsString()
-        {
-            var configs = ConfigHandler.GetConfigs("../../artifacts/options/scss/scssconfigincludesourcecommentsasstring.json");
-            var result = new WebCompiler.SassOptions(configs.ElementAt(0));
-            Assert.IsTrue(result.IncludeSourceComments);
         }
     }
 }

@@ -82,8 +82,6 @@
     <None Include="artifacts\options\scss\scssconfigcompressed.json" />
     <None Include="artifacts\options\scss\scssconfigcompact.json" />
     <None Include="artifacts\options\scss\scssconfigexpanded.json" />
-    <None Include="artifacts\options\scss\scssconfigincludesourcecommentsasstring.json" />
-    <None Include="artifacts\options\scss\scssconfigincludesourcecomments.json" />
     <None Include="artifacts\options\scss\scssconfigprecision.json" />
     <None Include="artifacts\options\scss\scssconfignested.json" />
     <None Include="artifacts\scssconfigError.json" />

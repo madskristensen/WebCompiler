@@ -39,7 +39,8 @@ namespace WebCompiler
                     break;
 
                 case ".SCSS":
-                    compiler = new SassCompiler();
+                    Initialize();
+                    compiler = new SassCompiler(_path);
                     break;
 
                 case ".COFFEE":

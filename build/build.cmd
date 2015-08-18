@@ -21,7 +21,12 @@ echo Installing packages...
 call npm install flatten-packages -g --quiet > nul
 call npm install less --quiet > nul
 call npm install iced-coffee-script --quiet > nul
+call npm install node-sass --quiet > nul
 
+if not exist "node_modules\node-sass\vendor\win32-ia32-14" (
+    md "node_modules\node-sass\vendor\win32-ia32-14"
+    copy binding.node "node_modules\node-sass\vendor\win32-ia32-14"
+)
 
 echo Flattening node_modules...
 call flatten-packages > nul
