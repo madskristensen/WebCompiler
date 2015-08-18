@@ -80,14 +80,24 @@
         },
         "options": {
           "properties": {
-            "includeSourceComments": {
-              "description": "Scss only. Enables additional debugging information in the output file as CSS comments.",
-              "type": "boolean",
-              "default": false
+            "indentType": {
+              "description": "Scss only. Indent type for output CSS.",
+              "enum": [ "space", "tab" ],
+              "default": "space"
+            },
+            "indentWidth": {
+              "description": "Scss only. Number of spaces or tabs.",
+              "type": "integer",
+              "maximum": 10,
+              "default": 2
+            },
+            "lineFeed": {
+              "description": "Scss only. Linefeed style (cr | crlf | lf | lfcr).",
+              "enum": [ "cr", "crlf", "lf", "lfcr" ]
             },
             "outputStyle": {
               "description": "Scss only. Determines the output format of the final CSS style.",
-              "enum": [ "nested", "expanded", "compact", "compressed", "echo" ],
+              "enum": [ "nested", "expanded", "compact", "compressed" ],
               "default": "nested"
             },
             "precision": {

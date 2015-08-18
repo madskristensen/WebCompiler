@@ -14,14 +14,29 @@
         public SassOptions(Config config)
         {
             if (config.Options.ContainsKey("outputStyle"))
-            {
                 OutputStyle = config.Options["outputStyle"].ToString();
-            }
-            
+
+            if (config.Options.ContainsKey("indentType"))
+                IndentType = config.Options["indentType"].ToString();
+
             int precision = 5;
             if (int.TryParse(GetValue(config, "precision"), out precision))
                 Precision = precision;
+
+            int indentWidth = -1;
+            if (int.TryParse(GetValue(config, "indentWidth"), out indentWidth))
+                IndentWidth = indentWidth;
         }
+
+        /// <summary>
+        /// Indent type for output CSS. 
+        /// </summary>
+        public string IndentType { get; set; }
+
+        /// <summary>
+        /// Number of spaces or tabs (maximum value: 10)
+        /// </summary>
+        public int IndentWidth { get; set; } = -1;
 
         /// <summary>
         /// Type of output style

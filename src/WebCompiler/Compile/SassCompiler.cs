@@ -113,6 +113,12 @@ namespace WebCompiler
             if (!string.IsNullOrEmpty(options.OutputStyle))
                 arguments += " --output-style=" + options.OutputStyle;
 
+            if (!string.IsNullOrEmpty(options.IndentType))
+                arguments += " --indent-type=" + options.IndentType;
+
+            if (options.IndentWidth > -1)
+                arguments += " --indent-width=" + options.IndentWidth;
+
             return arguments;
         }
     }
