@@ -37,6 +37,12 @@ namespace WebCompiler
             {
                 RunCompilerProcess(config, info);
 
+                int sourceMapIndex = _output.LastIndexOf("*/");
+                if (sourceMapIndex > -1)
+                {
+                    _output = _output.Substring(0, sourceMapIndex + 2);
+                }
+
                 result.CompiledContent = _output;
 
                 if (_error.Length > 0)
@@ -101,10 +107,10 @@ namespace WebCompiler
 
         private static string ConstructArguments(Config config)
         {
-            string arguments = " --no-color";
+            string arguments = "";
 
             if (config.SourceMap)
-                arguments += " --source-map-embed";
+                arguments += " --source-map=false --source-map-embed=true";
 
             SassOptions options = new SassOptions(config);
 

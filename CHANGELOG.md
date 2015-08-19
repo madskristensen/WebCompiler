@@ -5,6 +5,7 @@
 - [x] Command line support
 - [x] Optimize compilation of newly added configs (#72)
 - [x] Use `node-sass` to compile Sass files (#74)
+- [x] Source Maps support for Sass compiler
 - [ ] Generate gulpfile.js from compilerconfig.json (#34)
 - [ ] Preview window (#6)
 - [ ] File globbing pattern support (#49)
