@@ -51,6 +51,28 @@ namespace WebCompiler
         }
 
         /// <summary>
+        /// Creates a file containing the default compiler options if one doesn't exist.
+        /// </summary>
+        public void CreateDefaultsFile(string fileName)
+        {
+            if (File.Exists(fileName))
+                return;
+
+            var defaults = new
+            {
+                compilers = new
+                {
+                    less = new LessOptions(),
+                    sass = new SassOptions(),
+                    coffeescript = new IcedCoffeeScriptOptions()
+                }
+            };
+
+            string json = JsonConvert.SerializeObject(defaults, Formatting.Indented);
+            File.WriteAllText(fileName, json);
+        }
+
+        /// <summary>
         /// Get all the config objects in the specified file.
         /// </summary>
         /// <param name="fileName">A relative or absolute file path to the configuration file.</param>

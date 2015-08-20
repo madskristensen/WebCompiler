@@ -110,7 +110,7 @@ namespace WebCompiler
             if (config.SourceMap)
                 arguments += " --source-map-map-inline";
 
-            LessOptions options = new LessOptions(config);
+            LessOptions options = LessOptions.FromConfig(config);
 
             if (options.StrictMath)
                 arguments += " --strict-math=on";

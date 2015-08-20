@@ -82,7 +82,7 @@
       <Link>Resources\LICENSE</Link>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="nesting.pkgdef">
+    <Content Include="registry.pkgdef">
       <IncludeInVSIX>true</IncludeInVSIX>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -96,6 +96,10 @@
     <Content Include="JSON\compilerconfig-schema.json">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Content Include="JSON\compilerdefaults-schema.json">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <None Include="JSON\compilerdefaults.json" />
     <None Include="JSON\compilerconfig.json" />
     <None Include="packages.config" />
     <None Include="source.extension.vsixmanifest">
@@ -236,7 +240,11 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
-  <ProjectExtensions />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties JSON_4compilerconfig_1json__JSONSchema="compilerconfig-schema.json" />
+    </VisualStudio>
+  </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

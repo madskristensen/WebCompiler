@@ -23,12 +23,20 @@ namespace WebCompilerVsix.JSON
         {
             string fileName = Path.GetFileName(fileLocation);
 
-            if (!fileName.Equals(Constants.CONFIG_FILENAME, StringComparison.OrdinalIgnoreCase))
-                return null;
+            if (fileName.Equals(Constants.CONFIG_FILENAME, StringComparison.OrdinalIgnoreCase))
+                return GetSchemaFileName("json\\compilerconfig-schema.json");
 
+            if (fileName.Equals(Constants.DEFAULTS_FILENAME, StringComparison.OrdinalIgnoreCase))
+                return GetSchemaFileName("json\\compilerdefaults-schema.json");
+
+            return null;
+        }
+
+        private static string GetSchemaFileName(string relativePath)
+        {
             string assembly = Assembly.GetExecutingAssembly().Location;
             string folder = Path.GetDirectoryName(assembly);
-            return Path.Combine(folder, "json\\compilerconfig-schema.json");
+            return Path.Combine(folder, relativePath);
         }
     }
 }

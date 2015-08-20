@@ -1,0 +1,13 @@
+﻿{
+  "compilers": {
+    "less": {
+      "relativeUrls": true
+    }
+  },
+
+  "minifiers": {
+    "css": {
+    },
+    "javascript": {}
+  }
+}

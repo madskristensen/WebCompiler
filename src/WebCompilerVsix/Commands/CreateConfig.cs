@@ -122,7 +122,7 @@ namespace WebCompilerVsix
             }
 
             // Create new config
-            WebCompilerPackage._dte.StatusBar.Progress(true, "Compiling file", 0, 2);
+            WebCompilerPackage._dte.StatusBar.Progress(true, "Compiling file", 0, 3);
             string inputFile = _item.Properties.Item("FullPath").Value.ToString();
             string outputFile = GetOutputFileName(inputFile);
 
@@ -132,18 +132,25 @@ namespace WebCompilerVsix
             string relativeOutputFile = FileHelpers.MakeRelative(configFile, outputFile);
             Config config = CreateConfigFile(relativeFile, relativeOutputFile);
 
-            WebCompilerPackage._dte.StatusBar.Progress(true, "Compiling file", 1, 2);
+            WebCompilerPackage._dte.StatusBar.Progress(true, "Compiling file", 1, 3);
 
             ConfigHandler handler = new ConfigHandler();
             handler.AddConfig(configFile, config);
-
+            
             _item.ContainingProject.AddFileToProject(configFile, "None");
-            WebCompilerPackage._dte.StatusBar.Progress(true, "Compiling file", 2, 2);
+            WebCompilerPackage._dte.StatusBar.Progress(true, "Compiling file", 2, 3);
+
+            // Create defaults file
+            string defaultsFile = Path.Combine(folder, Constants.DEFAULTS_FILENAME);
+            ProjectHelpers.CheckFileOutOfSourceControl(defaultsFile);
+            handler.CreateDefaultsFile(defaultsFile);
+            ProjectHelpers.AddNestedFile(configFile, defaultsFile);
+            WebCompilerPackage._dte.StatusBar.Progress(true, "Creating defaults file", 3, 3);
 
             CompilerService.Process(configFile, new[] { config });
             WebCompilerPackage._dte.StatusBar.Progress(false, "Compiling file");
         }
-
+        
         private static Config CreateConfigFile(string inputfile, string outputFile)
         {
             return new Config

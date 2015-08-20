@@ -118,7 +118,7 @@ namespace WebCompiler
             if (config.SourceMap)
                 arguments += " --map";
 
-            IcedCoffeeScriptOptions options = new IcedCoffeeScriptOptions(config);
+            IcedCoffeeScriptOptions options = IcedCoffeeScriptOptions.FromConfig(config);
 
             if (options.Bare)
                 arguments += " --bare";

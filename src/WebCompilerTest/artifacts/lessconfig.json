@@ -5,8 +5,8 @@
 		"minify": { },
 		"includeInProject": true,
 		"options": {
-			"foo": 1,
-			"bar": "baz"
+      "relativeUrls": true,
+      "strictMath": true
 		}
 	}
 ]

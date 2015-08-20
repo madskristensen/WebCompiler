@@ -1,17 +1,22 @@
-﻿namespace WebCompiler
+﻿using Newtonsoft.Json;
+
+namespace WebCompiler
 {
     /// <summary>
     /// Give all options for the Sass compiler
     /// </summary>
-    public class SassOptions : BaseOptions
+    public class SassOptions : BaseOptions<SassOptions>
     {
         private const string trueStr = "true";
+
+        public SassOptions()
+        { }
 
         /// <summary>
         /// Create an instance of the Class SassOptions
         /// </summary>
         /// <param name="config">The Scss configuration file.</param>
-        public SassOptions(Config config)
+        protected override void LoadSettings(Config config)
         {
             if (config.Options.ContainsKey("outputStyle"))
                 OutputStyle = config.Options["outputStyle"].ToString();
@@ -28,20 +33,28 @@
                 IndentWidth = indentWidth;
         }
 
+        protected override string CompilerFileName
+        {
+            get { return "sass"; }
+        }
+
         /// <summary>
         /// Indent type for output CSS. 
         /// </summary>
-        public string IndentType { get; set; }
+        [JsonProperty("indentType")]
+        public string IndentType { get; set; } = "space";
 
         /// <summary>
         /// Number of spaces or tabs (maximum value: 10)
         /// </summary>
-        public int IndentWidth { get; set; } = -1;
+        [JsonProperty("indentWidth")]
+        public int IndentWidth { get; set; } = 2;
 
         /// <summary>
         /// Type of output style
         /// </summary>
-        public string OutputStyle { get; set; }
+        [JsonProperty("outputStyle")]
+        public string OutputStyle { get; set; } = "nested";
         
 
         /// <summary>

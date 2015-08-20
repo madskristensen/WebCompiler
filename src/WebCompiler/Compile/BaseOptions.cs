@@ -1,16 +1,50 @@
-﻿namespace WebCompiler
+﻿using System.IO;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
+namespace WebCompiler
 {
     /// <summary>
     /// Base class containing methods to all extensions options
     /// </summary>
-    public class BaseOptions
+    public abstract class BaseOptions<T> where T : BaseOptions<T>, new()
     {
-        internal static string GetValue(Config config, string key)
+        public static T FromConfig(Config config)
+        {
+            string defaultFile = config.FileName + ".defaults";
+
+            T options = new T();
+
+            if (File.Exists(defaultFile))
+            {
+                JObject json = JObject.Parse(File.ReadAllText(defaultFile));
+                var jsonOptions = json["compilers"][options.CompilerFileName];
+
+                if (jsonOptions != null)
+                    options = JsonConvert.DeserializeObject<T>(jsonOptions.ToString());
+            }
+
+            options.LoadSettings(config);
+
+            return options;
+        }
+
+        /// <summary>
+        /// The file name should match the compiler name
+        /// </summary>
+        protected abstract string CompilerFileName { get; }
+
+        protected abstract void LoadSettings(Config config);
+
+        /// <summary>
+        /// Gets a value from a string keyed dictionary
+        /// </summary>
+        protected string GetValue(Config config, string key)
         {
             if (config.Options.ContainsKey(key))
                 return config.Options[key].ToString();
 
-            return string.Empty;
+            return null;
         }
     }
 }

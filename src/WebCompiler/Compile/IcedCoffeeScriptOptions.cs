@@ -1,17 +1,34 @@
-﻿namespace WebCompiler
-{
-    class IcedCoffeeScriptOptions : BaseOptions
-    {
-		private const string trueStr = "true";
+﻿using Newtonsoft.Json;
 
-		public IcedCoffeeScriptOptions(Config config)
+namespace WebCompiler
+{
+    public class IcedCoffeeScriptOptions : BaseOptions<IcedCoffeeScriptOptions>
+    {
+        public IcedCoffeeScriptOptions()
+        { }
+
+        private const string trueStr = "true";
+
+        protected override void LoadSettings(Config config)
         {
-            Bare = GetValue(config, "bare").ToLowerInvariant() == trueStr;
-            RuntimeMode = GetValue(config, "runtimeMode").ToLowerInvariant();
+            var bare = GetValue(config, "bare");
+            if (bare != null)
+                Bare = bare.ToLowerInvariant() == trueStr;
+
+            var runtimeMode = GetValue(config, "runtimeMode");
+            if (runtimeMode != null)
+                RuntimeMode = runtimeMode.ToLowerInvariant();
         }
 
-        public bool Bare { get; set; }
+        protected override string CompilerFileName
+        {
+            get { return "coffeescript"; }
+        }
 
-        public string RuntimeMode{ get; set; }
+        [JsonProperty("bare")]
+        public bool Bare { get; set; } = false;
+
+        [JsonProperty("runtimeMode")]
+        public string RuntimeMode { get; set; } = "node";
     }
 }
