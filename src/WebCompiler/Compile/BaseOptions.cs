@@ -9,6 +9,9 @@ namespace WebCompiler
     /// </summary>
     public abstract class BaseOptions<T> where T : BaseOptions<T>, new()
     {
+        /// <summary>
+        /// Loads the options based on the config object
+        /// </summary>
         public static T FromConfig(Config config)
         {
             string defaultFile = config.FileName + ".defaults";
@@ -34,6 +37,9 @@ namespace WebCompiler
         /// </summary>
         protected abstract string CompilerFileName { get; }
 
+        /// <summary>
+        /// Load the settings from the config object
+        /// </summary>
         protected abstract void LoadSettings(Config config);
 
         /// <summary>

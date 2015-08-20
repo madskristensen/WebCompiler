@@ -9,13 +9,13 @@ namespace WebCompiler
     {
         private const string trueStr = "true";
 
+        /// <summary> Creates a new instance of the class.</summary>
         public SassOptions()
         { }
 
         /// <summary>
-        /// Create an instance of the Class SassOptions
+        /// Loads the settings based on the config
         /// </summary>
-        /// <param name="config">The Scss configuration file.</param>
         protected override void LoadSettings(Config config)
         {
             if (config.Options.ContainsKey("outputStyle"))
@@ -33,6 +33,9 @@ namespace WebCompiler
                 IndentWidth = indentWidth;
         }
 
+        /// <summary>
+        /// The file name should match the compiler name
+        /// </summary>
         protected override string CompilerFileName
         {
             get { return "sass"; }

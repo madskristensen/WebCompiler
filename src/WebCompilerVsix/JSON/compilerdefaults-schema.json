@@ -69,6 +69,7 @@
           "default": false
         },
         "runtimeMode": {
+          "description": "CoffeeScript only. Specify how the Iced runtime is included in the output JavaScript file.",
           "enum": [ "node", "inline", "none", "window" ],
           "default": "node"
         }
