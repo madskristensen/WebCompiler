@@ -1,13 +1,5 @@
 # Roadmap
 
-- [x] MSBuild targets `Compile` instead of `Build` (#73)
-- [x] Task Runner Explorer integration
-- [x] Command line support
-- [x] Optimize compilation of newly added configs (#72)
-- [x] Use `node-sass` to compile Sass files (#74)
-- [x] Source Maps support for Sass compiler
-- [x] LESS: Adjust relative paths in @import files by default
-- [x] Project wide global compiler options (#69)
 - [ ] Generate gulpfile.js from compilerconfig.json (#34)
 - [ ] Preview window (#6)
 - [ ] File globbing pattern support (#49)
@@ -20,6 +12,19 @@ download in the
 
 These are the changes to each version that has been released
 on the official Visual Studio extension gallery.
+
+## 1.3
+
+**2015-08-24**
+
+- [x] MSBuild targets `Compile` instead of `Build` (#73)
+- [x] Task Runner Explorer integration
+- [x] Command line support
+- [x] Optimize compilation of newly added configs (#72)
+- [x] Use `node-sass` to compile Sass files (#74)
+- [x] Source Maps support for Sass compiler
+- [x] LESS: Adjust relative paths in @import files by default
+- [x] Project wide global compiler options (#69)
 
 ## 1.2
 
