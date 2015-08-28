@@ -3,7 +3,7 @@
 
     <UsingTask AssemblyFile="..\tools\WebCompiler.exe" TaskName="WebCompiler.CompilerBuildTask"/>
 
-    <Target Name="WebCompile" AfterTargets="Compile">
+    <Target Name="WebCompile" AfterTargets="Build">
         <WebCompiler.CompilerBuildTask FileName="$(MSBuildProjectDirectory)\compilerconfig.json" />
     </Target>
 
