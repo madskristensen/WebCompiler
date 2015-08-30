@@ -55,6 +55,7 @@ namespace WebCompiler
                         Message = json["message"].ToString(),
                         ColumnNumber = int.Parse(json["column"].ToString()),
                         LineNumber = int.Parse(json["line"].ToString()),
+                        IsWarning = !string.IsNullOrEmpty(_output)
                     };
 
                     result.Errors.Add(ce);

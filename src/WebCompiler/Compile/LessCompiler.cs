@@ -44,6 +44,7 @@ namespace WebCompiler
                     {
                         FileName = info.FullName,
                         Message = _error.Replace(baseFolder, string.Empty),
+                        IsWarning = !string.IsNullOrEmpty(_output)
                     };
 
                     var match = _errorRx.Match(_error);

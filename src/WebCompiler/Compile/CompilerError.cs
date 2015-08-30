@@ -24,5 +24,10 @@
         /// The column number in the source file where the error happened.
         /// </summary>
         public int ColumnNumber { get; set; }
+
+        /// <summary>
+        /// Specifies whether or not the error should be treated as a warning.
+        /// </summary>
+        public bool IsWarning { get; set; }
     }
 }

@@ -57,7 +57,7 @@ namespace WebCompilerVsix
             {
                 Line = error.LineNumber,
                 Column = error.ColumnNumber,
-                ErrorCategory = TaskErrorCategory.Error,
+                ErrorCategory = error.IsWarning ? TaskErrorCategory.Warning : TaskErrorCategory.Error,
                 Category = TaskCategory.Html,
                 Document = error.FileName,
                 Priority = TaskPriority.Low,

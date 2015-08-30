@@ -3,6 +3,7 @@
 - [ ] Generate gulpfile.js from compilerconfig.json (#34)
 - [ ] Preview window (#6)
 - [ ] File globbing pattern support (#49)
+- [x] Show compiler warnings as warnings in Error List (#80)
 
 Features that have a checkmark are complete and available for
 download in the
