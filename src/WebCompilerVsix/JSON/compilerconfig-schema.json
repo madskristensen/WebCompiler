@@ -74,13 +74,15 @@
             },
             "gzip": {
               "description": "Produce a .gz file after minification.",
-              "type": "boolean"
+              "type": "boolean",
+              "default": false
             }
           }
         },
         "options": {
           "description": "Specify options for the compiler.",
-          "type": "object"
+          "type": "object",
+          "default": { }
         },
         "outputFile": {
           "description": "The relative path to the desired output file name.",
@@ -89,7 +91,8 @@
         },
         "sourceMap": {
           "description": "Set to true to automatically create either inline source maps or a .map file.",
-          "type": "boolean"
+          "type": "boolean",
+          "default": false
         }
       },
 

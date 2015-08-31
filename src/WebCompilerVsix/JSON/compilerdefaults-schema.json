@@ -81,11 +81,13 @@
       "properties": {
         "indentSize": {
           "description": "For the multi-line output feature, how many spaces to use when indenting a block (see outputMode).",
-          "type": "integer"
+          "type": "integer",
+          "default": 2
         },
         "outputMode": {
           "description": "SingleLine minifies everything to a single line. MultipleLines breaks the minified code into multiple lines for easier reading.",
-          "enum": [ "multipleLines", "singleLine", "none" ]
+          "enum": [ "multipleLines", "singleLine", "none" ],
+          "default": "singleLine"
         },
         "termSemicolons": {
           "description": "Forces all rules to be terminated with semicolons if set to true.",
@@ -120,7 +122,8 @@
         },
         "preserveImportantComments": {
           "description": "JavaScript only.",
-          "type": "boolean"
+          "type": "boolean",
+          "default": false
         }
       }
     }
