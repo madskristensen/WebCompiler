@@ -86,6 +86,7 @@
     <None Include="artifacts\options\scss\scssconfigexpanded.json" />
     <None Include="artifacts\options\scss\scssconfigprecision.json" />
     <None Include="artifacts\options\scss\scssconfignested.json" />
+    <None Include="artifacts\scssconfig-no-sourcemap.json" />
     <None Include="artifacts\scssconfigError.json" />
     <None Include="artifacts\scssconfig.json" />
     <None Include="artifacts\lessconfig.json" />

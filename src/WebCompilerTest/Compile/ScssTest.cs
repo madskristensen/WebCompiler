@@ -54,5 +54,12 @@ namespace WebCompilerTest
             var result = _processor.SourceFileChanged("../../artifacts/scssconfig.json", "scss/filewithinvalidextension.less");
             Assert.AreEqual(0, result.Count<CompilerResult>());
         }
+
+        [TestMethod, TestCategory("SCSS")]
+        public void MultiLineComments()
+        {
+            var result = _processor.Process("../../artifacts/scssconfig-no-sourcemap.json");
+            Assert.IsTrue(result.First().CompiledContent.Contains("#test3"));
+        }
     }
 }

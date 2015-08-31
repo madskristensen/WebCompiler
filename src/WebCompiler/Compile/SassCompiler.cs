@@ -38,7 +38,7 @@ namespace WebCompiler
                 RunCompilerProcess(config, info);
 
                 int sourceMapIndex = _output.LastIndexOf("*/");
-                if (sourceMapIndex > -1)
+                if (sourceMapIndex > -1 && _output.Contains("sourceMappingURL=data:"))
                 {
                     _output = _output.Substring(0, sourceMapIndex + 2);
                 }

@@ -1,0 +1,9 @@
+﻿[
+	{
+		"outputFile": "scss/test.css",
+		"inputFile": "scss/test.scss",
+		"minify": { },
+		"includeInProject": true,
+		"sourceMap": false
+	}
+]
