@@ -134,9 +134,10 @@ namespace WebCompilerVsix
 
             WebCompilerPackage._dte.StatusBar.Progress(true, "Compiling file", 1, 3);
 
+            ProjectHelpers.CheckFileOutOfSourceControl(configFile);
             ConfigHandler handler = new ConfigHandler();
             handler.AddConfig(configFile, config);
-            
+
             _item.ContainingProject.AddFileToProject(configFile, "None");
             WebCompilerPackage._dte.StatusBar.Progress(true, "Compiling file", 2, 3);
 
@@ -150,7 +151,7 @@ namespace WebCompilerVsix
             CompilerService.Process(configFile, new[] { config });
             WebCompilerPackage._dte.StatusBar.Progress(false, "Compiling file");
         }
-        
+
         private static Config CreateConfigFile(string inputfile, string outputFile)
         {
             return new Config
