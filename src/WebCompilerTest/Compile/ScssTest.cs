@@ -21,7 +21,7 @@ namespace WebCompilerTest
         {
             File.Delete("../../artifacts/scss/test.css");
             File.Delete("../../artifacts/scss/test.min.css");
-            File.Delete("../../artifacts/scss/test.css.map");
+            //File.Delete("../../artifacts/scss/test.css.map");
         }
 
         [TestMethod, TestCategory("SCSS")]

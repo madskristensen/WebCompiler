@@ -100,14 +100,44 @@ namespace WebCompilerVsix
 
             try
             {
-                ProjectItem item = project.ProjectItems.AddFromFile(file);
+                if (_dte.Solution.FindProjectItem(file) == null)
+                {
+                    ProjectItem item = project.ProjectItems.AddFromFile(file);
 
-                if (string.IsNullOrEmpty(itemType) ||
-                    project.Kind.Equals("{E24C65DC-7377-472B-9ABA-BC803B73C61A}", StringComparison.OrdinalIgnoreCase) || // Website
-                    project.Kind.Equals("{262852C6-CD72-467D-83FE-5EEB1973A190}", StringComparison.OrdinalIgnoreCase))   // Universal apps
+                    if (string.IsNullOrEmpty(itemType) ||
+                        project.Kind.Equals("{E24C65DC-7377-472B-9ABA-BC803B73C61A}", StringComparison.OrdinalIgnoreCase) || // Website
+                        project.Kind.Equals("{262852C6-CD72-467D-83FE-5EEB1973A190}", StringComparison.OrdinalIgnoreCase))   // Universal apps
+                        return;
+
+                    item.Properties.Item("ItemType").Value = "None";
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
+        }
+
+        public static void AddNestedFile(string parentFile, string newFile)
+        {
+            ProjectItem item = _dte.Solution.FindProjectItem(parentFile);
+
+            try
+            {
+                if (item == null
+                    || item.ContainingProject == null
+                    || item.ContainingProject.Kind.Equals("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}", StringComparison.OrdinalIgnoreCase)) // ASP.NET 5
                     return;
 
-                item.Properties.Item("ItemType").Value = "None";
+                if (item.ProjectItems == null || item.ContainingProject.Kind.Equals("{262852C6-CD72-467D-83FE-5EEB1973A190}", StringComparison.OrdinalIgnoreCase)) // Universal Apps
+                {
+                    if (_dte.Solution.FindProjectItem(newFile) == null)
+                        item.ContainingProject.ProjectItems.AddFromFile(newFile);
+                }
+                else
+                {
+                    item.ProjectItems.AddFromFile(newFile);
+                }
             }
             catch (Exception ex)
             {
@@ -124,33 +154,6 @@ namespace WebCompilerVsix
             try
             {
                 item.Delete();
-            }
-            catch (Exception ex)
-            {
-                Logger.Log(ex);
-            }
-        }
-
-        public static void AddNestedFile(string parentFile, string newFile)
-        {
-            ProjectItem item = _dte.Solution.FindProjectItem(parentFile);
-
-            try
-            {
-                if (item == null
-                    || item.ContainingProject == null
-                    || item.ContainingProject.Kind.Equals("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}", StringComparison.OrdinalIgnoreCase) // ASP.NET 5
-                    || item.ContainingProject.Kind.Equals("{262852C6-CD72-467D-83FE-5EEB1973A190}", StringComparison.OrdinalIgnoreCase)) // Universal Apps
-                    return;
-
-                if (item.ProjectItems == null) // Website project
-                {
-                    item.ContainingProject.ProjectItems.AddFromFile(newFile);
-                }
-                else
-                {
-                    item.ProjectItems.AddFromFile(newFile);
-                }
             }
             catch (Exception ex)
             {
