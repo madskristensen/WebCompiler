@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using EnvDTE;
 using EnvDTE80;
+using Microsoft.VisualStudio.Shell.Interop;
 
 namespace WebCompilerVsix
 {
@@ -107,9 +108,9 @@ namespace WebCompilerVsix
 
                 item.Properties.Item("ItemType").Value = "None";
             }
-            catch (Exception ex)
+            catch
             {
-                Logger.Log(ex);
+                // Not all project types support this
             }
         }
 
@@ -127,7 +128,6 @@ namespace WebCompilerVsix
             {
                 Logger.Log(ex);
             }
-
         }
 
         public static void AddNestedFile(string parentFile, string newFile)
@@ -136,7 +136,9 @@ namespace WebCompilerVsix
 
             try
             {
-                if (item == null || item.ContainingProject == null || item.ContainingProject.Kind.Equals("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}", StringComparison.OrdinalIgnoreCase))
+                if (item == null ||
+                    item.ContainingProject == null ||
+                    item.ContainingProject.Kind.Equals("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}", StringComparison.OrdinalIgnoreCase)) // ASP.NET 5
                     return;
 
                 if (item.ProjectItems == null) // Website project
@@ -144,9 +146,9 @@ namespace WebCompilerVsix
                 else
                     item.ProjectItems.AddFromFile(newFile);
             }
-            catch (Exception ex)
+            catch
             {
-                Logger.Log(ex);
+                // Not all project types support this
             }
         }
 
