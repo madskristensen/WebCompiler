@@ -137,13 +137,13 @@ namespace WebCompilerVsix
 
             try
             {
-                if (item == null ||
-                    item.ContainingProject == null ||
-                    item.ContainingProject.Kind.Equals("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}", StringComparison.OrdinalIgnoreCase)) // ASP.NET 5
+                if (item == null
+                    || item.ContainingProject == null
+                    || item.ContainingProject.Kind.Equals("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}", StringComparison.OrdinalIgnoreCase) // ASP.NET 5
+                    || item.ContainingProject.Kind.Equals("{262852C6-CD72-467D-83FE-5EEB1973A190}", StringComparison.OrdinalIgnoreCase)) // Universal Apps
                     return;
 
-                if (item.ProjectItems == null || // Website project
-                    item.ContainingProject.Kind.Equals("{262852C6-CD72-467D-83FE-5EEB1973A190}", StringComparison.OrdinalIgnoreCase)) // Website project and Universal apps
+                if (item.ProjectItems == null) // Website project
                 {
                     item.ContainingProject.ProjectItems.AddFromFile(newFile);
                 }
