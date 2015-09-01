@@ -4,6 +4,7 @@
 - [ ] Preview window (#6)
 - [ ] File globbing pattern support (#49)
 - [x] Show compiler warnings as warnings in Error List (#80)
+- [x] Universal Windows Apps support (#46, #84)
 
 Features that have a checkmark are complete and available for
 download in the
