@@ -5,6 +5,8 @@
 - [ ] File globbing pattern support (#49)
 - [x] Show compiler warnings as warnings in Error List (#80)
 - [x] Universal Windows Apps support (#46, #84)
+- [x] Better logic for (re-)building the node.js modules (#98)
+- [x] ES6 and JSX compiler using Babel
 
 Features that have a checkmark are complete and available for
 download in the
