@@ -30,7 +30,7 @@
     "coffeeScriptOptions": {
       "properties": {
         "inputFile": {
-          "pattern": "\\.coffee$"
+          "pattern": "\\.coffee$|\\.litcoffee$"
         },
         "options": {
           "$ref": "compilerdefaults-schema.json#/definitions/coffeeScript"
@@ -45,6 +45,14 @@
         },
         "options": {
           "$ref": "compilerdefaults-schema.json#/definitions/coffeeScript"
+        }
+      }
+    },
+
+    "babelOptions": {
+      "properties": {
+        "inputFile": {
+          "pattern": "\\.jsx"
         }
       }
     },
@@ -79,11 +87,6 @@
             }
           }
         },
-        "options": {
-          "description": "Specify options for the compiler.",
-          "type": "object",
-          "default": { }
-        },
         "outputFile": {
           "description": "The relative path to the desired output file name.",
           "type": "string",
@@ -100,7 +103,8 @@
         { "$ref": "#/definitions/lessOptions" },
         { "$ref": "#/definitions/sassOptions" },
         { "$ref": "#/definitions/coffeeScriptOptions" },
-        { "$ref": "#/definitions/icedCoffeeScriptOptions" }
+        { "$ref": "#/definitions/icedCoffeeScriptOptions" },
+        { "$ref": "#/definitions/babelOptions" }
       ]
     }
   },

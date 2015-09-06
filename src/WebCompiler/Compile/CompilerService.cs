@@ -11,7 +11,7 @@ namespace WebCompiler
     public static class CompilerService
     {
         internal const string Version = "1.0.4";
-        private static readonly string[] _allowed = new[] { ".LESS", ".SCSS", ".COFFEE", ".ICED" };
+        private static readonly string[] _allowed = new[] { ".LESS", ".SCSS", ".COFFEE", ".ICED", ".JS", ".JSX" };
         private static readonly string _path = Path.Combine(Path.GetTempPath(), "WebCompiler" + Version);
 
         /// <summary>
@@ -30,23 +30,26 @@ namespace WebCompiler
         {
             string ext = Path.GetExtension(config.InputFile).ToUpperInvariant();
             ICompiler compiler = null;
+            Initialize();
 
             switch (ext)
             {
                 case ".LESS":
-                    Initialize();
                     compiler = new LessCompiler(_path);
                     break;
 
                 case ".SCSS":
-                    Initialize();
                     compiler = new SassCompiler(_path);
                     break;
 
                 case ".COFFEE":
                 case ".ICED":
-                    Initialize();
                     compiler = new IcedCoffeeScriptCompiler(_path);
+                    break;
+
+                case ".JS":
+                case ".JSX":
+                    compiler = new BabelCompiler(_path);
                     break;
             }
 

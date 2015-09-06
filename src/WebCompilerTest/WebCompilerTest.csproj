@@ -58,6 +58,7 @@
     <Compile Include="Compile\CoffeeScriptTest.cs" />
     <Compile Include="Compile\CompileServiceTest.cs" />
     <Compile Include="Compile\LessOptionsTest.cs" />
+    <Compile Include="Compile\BabelTest.cs" />
     <Compile Include="Config\ConfigHandlerTest.cs" />
     <Compile Include="Compile\ScssOptionsTest.cs" />
     <Compile Include="Compile\ScssTest.cs" />
@@ -67,6 +68,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="artifacts\babelconfigError.json" />
+    <None Include="artifacts\babel\error.jsx" />
+    <Content Include="artifacts\babel\notjsx.css" />
+    <None Include="artifacts\babel\file1.jsx" />
     <None Include="artifacts\iced\error.iced" />
     <None Include="artifacts\iced\test.iced" />
     <None Include="artifacts\icedcoffeeconfig.json" />
@@ -76,6 +81,7 @@
     <None Include="artifacts\coffee\test.coffee" />
     <None Include="artifacts\coffeeconfig.json" />
     <None Include="artifacts\config\originalcoffeeconfig.json" />
+    <None Include="artifacts\lessconfig.json" />
     <None Include="artifacts\lessconfig.json.defaults" />
     <None Include="artifacts\lessconfigParseError.json" />
     <None Include="artifacts\lessconfigError.json" />
@@ -89,7 +95,7 @@
     <None Include="artifacts\scssconfig-no-sourcemap.json" />
     <None Include="artifacts\scssconfigError.json" />
     <None Include="artifacts\scssconfig.json" />
-    <None Include="artifacts\lessconfig.json" />
+    <None Include="artifacts\babelconfig.json" />
     <None Include="artifacts\scss\error.scss" />
     <None Include="artifacts\scss\test.scss" />
     <None Include="artifacts\scss\variables.scss" />

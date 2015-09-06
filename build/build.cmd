@@ -18,10 +18,11 @@ if not exist node.7z (
 
 
 echo Installing packages...
-call npm install flatten-packages -g --quiet > nul
-call npm install less --quiet > nul
-call npm install iced-coffee-script --quiet > nul
-call npm install node-sass --quiet > nul
+call npm install flatten-packages -g --no-optional --quiet > nul
+call npm install less --no-optional --quiet > nul
+call npm install iced-coffee-script --no-optional --quiet > nul
+call npm install node-sass --no-optional --quiet > nul
+call npm install babel --no-optional --quiet > nul
 
 if not exist "node_modules\node-sass\vendor\win32-ia32-14" (
     md "node_modules\node-sass\vendor\win32-ia32-14"

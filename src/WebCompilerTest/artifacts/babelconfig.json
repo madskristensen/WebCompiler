@@ -1,0 +1,8 @@
+﻿[
+	{
+		"outputFile": "babel/file1.js",
+		"inputFile": "babel/file1.jsx",
+    "includeInProject": true,
+    "sourceMap": true
+	}
+]

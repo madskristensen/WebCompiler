@@ -7,6 +7,8 @@
   "definitions": {
 
     "less": {
+      "description": "Specify options for the compiler.",
+      "type": "object",
       "properties": {
         "strictMath": {
           "description": "LESS only. Without this option on Less will try and process all maths in your CSS.",
@@ -31,6 +33,8 @@
     },
 
     "sass": {
+      "description": "Specify options for the compiler.",
+      "type": "object",
       "properties": {
         "indentType": {
           "description": "Scss only. Indent type for output CSS.",
@@ -62,6 +66,8 @@
     },
 
     "coffeeScript": {
+      "description": "Specify options for the compiler.",
+      "type": "object",
       "properties": {
         "bare": {
           "description": "CoffeeScript only. Compile the JavaScript without the top-level function safety wrapper.",
@@ -151,8 +157,8 @@
         },
         "javascript": {
           "allOf": [
-            {"$ref": "#/definitions/baseMinify" },
-            {"$ref": "#/definitions/javascriptMinify" }
+            { "$ref": "#/definitions/baseMinify" },
+            { "$ref": "#/definitions/javascriptMinify" }
           ]
         }
       }
