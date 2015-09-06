@@ -62,9 +62,16 @@ namespace WebCompiler
         /// </summary>
         public static void Initialize()
         {
-            if (!Directory.Exists(_path))
+            var node_modules = Path.Combine(_path, "node_modules");
+            var node_exe = Path.Combine(_path, "node.exe");
+            var log_file = Path.Combine(_path, "log.txt");
+
+            if (!Directory.Exists(node_modules) || !File.Exists(node_exe) || !File.Exists(log_file) || (Directory.Exists(node_modules) && Directory.GetDirectories(node_modules).Length < 240))
             {
                 OnInitializing();
+
+                if (Directory.Exists(_path))
+                    Directory.Delete(_path, true);
 
                 Directory.CreateDirectory(_path);
                 SaveResourceFile(_path, "WebCompiler.Node.node.7z", "node.7z");
@@ -84,6 +91,9 @@ namespace WebCompiler
 
                 Process p = Process.Start(start);
                 p.WaitForExit();
+
+                // If this file is written, then the initialization was successfull.
+                File.WriteAllText(log_file, DateTime.Now.ToLongDateString());
 
                 OnInitialized();
             }
