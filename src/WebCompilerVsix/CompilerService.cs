@@ -143,6 +143,9 @@ namespace WebCompilerVsix
 
             string inputWithOutputExtension = Path.ChangeExtension(input, Path.GetExtension(output));
 
+            if (Path.GetFileName(output).EndsWith(".es5.js"))
+                inputWithOutputExtension = Path.ChangeExtension(inputWithOutputExtension, ".es5.js");
+
             if (inputWithOutputExtension.Equals(output, StringComparison.OrdinalIgnoreCase))
             {
                 var inputItem = _dte.Solution.FindProjectItem(input);

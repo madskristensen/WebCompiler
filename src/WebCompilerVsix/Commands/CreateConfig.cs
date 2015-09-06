@@ -163,11 +163,14 @@ namespace WebCompilerVsix
 
         private static string GetOutputFileName(string inputFile)
         {
-            string extension = Path.GetExtension(inputFile);
+            string extension = Path.GetExtension(inputFile).ToLowerInvariant();
             string ext = ".css";
 
-            if (extension == ".coffee" || extension == ".iced" || extension == ".litcoffee" || extension == ".jsx")
+            if (extension == ".coffee" || extension == ".iced" || extension == ".litcoffee" || extension == ".jsx" || extension == ".es6")
                 ext = ".js";
+
+            if (extension == ".js")
+                ext = ".es5.js";
 
             return Path.ChangeExtension(inputFile, ext);
         }

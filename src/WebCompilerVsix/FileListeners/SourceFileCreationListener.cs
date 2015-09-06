@@ -14,6 +14,8 @@ namespace WebCompilerVsix.Listeners
     [ContentType("SCSS")]
     [ContentType("CoffeeScript")]
     [ContentType("Iced")]
+    [ContentType("jsx")]
+    [ContentType("javascript")]
     [TextViewRole(PredefinedTextViewRoles.Document)]
     class SourceFileCreationListener : IVsTextViewCreationListener
     {

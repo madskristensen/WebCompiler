@@ -11,7 +11,7 @@ namespace WebCompiler
     public static class CompilerService
     {
         internal const string Version = "1.0.4";
-        private static readonly string[] _allowed = new[] { ".LESS", ".SCSS", ".COFFEE", ".ICED", ".JS", ".JSX" };
+        private static readonly string[] _allowed = new[] { ".LESS", ".SCSS", ".COFFEE", ".ICED", ".JS", ".JSX", ".ES6" };
         private static readonly string _path = Path.Combine(Path.GetTempPath(), "WebCompiler" + Version);
 
         /// <summary>
@@ -49,6 +49,7 @@ namespace WebCompiler
 
                 case ".JS":
                 case ".JSX":
+                case ".ES6":
                     compiler = new BabelCompiler(_path);
                     break;
             }

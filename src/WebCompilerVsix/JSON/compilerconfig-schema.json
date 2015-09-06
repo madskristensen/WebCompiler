@@ -52,7 +52,7 @@
     "babelOptions": {
       "properties": {
         "inputFile": {
-          "pattern": "\\.jsx"
+          "pattern": "\\.(jsx|js|es6)$"
         }
       }
     },
