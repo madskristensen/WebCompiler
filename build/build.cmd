@@ -67,5 +67,4 @@ rmdir /S /Q node_modules > nul
 ::%~dp07z.exe a -r -mx9 node.7z node.exe > nul
 ::del node.exe > nul
 
-:done
-pushd "%~dp0"
+pushd %~dp0
