@@ -64,8 +64,8 @@ echo Compresses artifacts and cleans up
 rmdir /S /Q node_modules > nul
 
 :: Zips and deletes node.exe
-%~dp07z.exe a -r -mx9 node.7z node.exe > nul
-del node.exe > nul
+::%~dp07z.exe a -r -mx9 node.7z node.exe > nul
+::del node.exe > nul
 
 :done
 pushd "%~dp0"
