@@ -1,5 +1,5 @@
 packages
-*.7z
+node_modules.7z
 
 # User files
 *.suo

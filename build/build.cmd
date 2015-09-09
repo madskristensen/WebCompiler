@@ -5,17 +5,11 @@
 set HTTPGET_JS="%TEMP%\httpget.js"
 echo (function(b,d){var a=b.Arguments(0);var c=b.Arguments(1);var f=new d("MSXML2.XMLHTTP");f.open("GET",a,false);f.send();if(f.Status==200){var e=new d("ADODB.Stream");e.Open();e.Type=1;e.Write(f.ResponseBody);e.Position=0;e.SaveToFile(c);e.Close()}else{b.Echo("Error: HTTP "+f.status+" "+f.statusText)}})(WScript,ActiveXObject); > %HTTPGET_JS%
 
-if exist %~dp0..\src\WebCompiler\node\node.7z goto:EOF
+if exist %~dp0..\src\WebCompiler\node\node_modules.7z goto:EOF
 
 if not exist %~dp0..\src\WebCompiler\node md %~dp0..\src\WebCompiler\node
 
 pushd %~dp0..\src\WebCompiler\node
-
-if not exist node.7z (
-    echo Downloading node...
-    cscript //nologo %HTTPGET_JS% http://nodejs.org/dist/latest/node.exe node.exe
-)
-
 
 echo Installing packages...
 call npm install flatten-packages -g --no-optional --quiet > nul
