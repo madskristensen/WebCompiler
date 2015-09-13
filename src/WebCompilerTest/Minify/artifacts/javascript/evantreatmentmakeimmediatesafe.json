@@ -3,7 +3,7 @@
     "outputFile": "less/test.css",
     "inputFile": "less/test.less",
     "minify": {
-      "evanTreatment": "makeImmediateSafe"
+      "evalTreatment": "makeImmediateSafe"
     },
     "includeInProject": true,
     "options": {

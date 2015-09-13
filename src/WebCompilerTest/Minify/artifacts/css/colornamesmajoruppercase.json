@@ -3,7 +3,7 @@
     "outputFile": "less/test.css",
     "inputFile": "less/test.less",
     "minify": {
-      "colorNames": "Major"
+      "colorNames": "major"
     },
     "includeInProject": true,
     "options": {

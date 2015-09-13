@@ -3,7 +3,7 @@
     "outputFile": "less/test.css",
     "inputFile": "less/test.less",
     "minify": {
-      "commentMode": "Hacks"
+      "commentMode": "hacks"
     },
     "includeInProject": true,
     "options": {

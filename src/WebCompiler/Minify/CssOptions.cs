@@ -15,9 +15,9 @@ namespace WebCompiler
         public static CssSettings GetSettings(Config config)
         {
             CssSettings settings = new CssSettings();
-            settings.TermSemicolons = GetValue(config, "termSemicolons") == "true";
+            settings.TermSemicolons = GetValue(config, "termSemicolons") == "True";
 
-            string cssComment = GetValue(config, "commentMode").ToLowerInvariant();
+            string cssComment = GetValue(config, "commentMode");
 
             if (cssComment == "hacks")
                 settings.CommentMode = CssComment.Hacks;
@@ -28,27 +28,27 @@ namespace WebCompiler
             else if (cssComment == "all")
                 settings.CommentMode = CssComment.All;
 
-            string colorNames = GetValue(config, "colorNames").ToLowerInvariant();
+            string colorNames = GetValue(config, "colorNames");
 
             if (colorNames == "hex")
                 settings.ColorNames = CssColor.Hex;
             else if (colorNames == "major")
                 settings.ColorNames = CssColor.Major;
-            else if (colorNames == "noswap")
+            else if (colorNames == "noSwap")
                 settings.ColorNames = CssColor.NoSwap;
             else if (colorNames == "strict")
                 settings.ColorNames = CssColor.Strict;
 
-            string outputMode = GetValue(config, "outputMode").ToLowerInvariant ();
+            string outputMode = GetValue(config, "outputMode", "singleLine");
 
-            if (outputMode == "multiplelines")
+            if (outputMode == "multipleLines")
                 settings.OutputMode = OutputMode.MultipleLines;
-            else if (outputMode == "singleline")
+            else if (outputMode == "singleLine")
                 settings.OutputMode = OutputMode.SingleLine;
             else if (outputMode == "none")
                 settings.OutputMode = OutputMode.None;
 
-            string indentSize = GetValue(config, "indentSize");
+            string indentSize = GetValue(config, "indentSize", 2);
             int size;
             if (int.TryParse(indentSize, out size))
                 settings.IndentSize = size;
@@ -56,10 +56,13 @@ namespace WebCompiler
             return settings;
         }
 
-        internal static string GetValue(Config config, string key)
+        internal static string GetValue(Config config, string key, object defaultValue = null)
         {
             if (config.Minify.ContainsKey(key))
                 return config.Minify[key].ToString();
+
+            if (defaultValue != null)
+                return defaultValue.ToString();
 
             return string.Empty;
         }

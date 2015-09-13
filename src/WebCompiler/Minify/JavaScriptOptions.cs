@@ -1,4 +1,5 @@
-﻿using Microsoft.Ajax.Utilities;
+﻿using System;
+using Microsoft.Ajax.Utilities;
 
 namespace WebCompiler
 {
@@ -11,33 +12,36 @@ namespace WebCompiler
         /// Get settings for the minification
         /// </summary>
         /// <param name="config"></param>
-        /// <returns></returns>
+        /// <returns>CodeSettings based on the config file.</returns>
         public static CodeSettings GetSettings(Config config)
         {
             CodeSettings settings = new CodeSettings();
 
-            settings.PreserveImportantComments = GetValue(config, "preserveImportantComments") == "True";
-            settings.TermSemicolons = GetValue(config, "termSemicolons") == "True";
+            settings.PreserveImportantComments = GetValue(config, "preserveImportantComments", true) == "True";
+            settings.TermSemicolons = GetValue(config, "termSemicolons", true) == "True";
 
-            string evalTreatment = GetValue(config, "evanTreatment").ToLowerInvariant();
+            if (GetValue(config, "renameLocals", true) == "False")
+                settings.LocalRenaming = LocalRenaming.KeepAll;
 
-            if (evalTreatment == "ignore")
+            string evalTreatment = GetValue(config, "evalTreatment", "ignore");
+
+            if (evalTreatment.Equals("ignore", StringComparison.OrdinalIgnoreCase))
                 settings.EvalTreatment = EvalTreatment.Ignore;
-            else if (evalTreatment == "makeallsafe")
+            else if (evalTreatment.Equals("makeAllSafe", StringComparison.OrdinalIgnoreCase))
                 settings.EvalTreatment = EvalTreatment.MakeAllSafe;
-            else if (evalTreatment == "makeimmediatesafe")
+            else if (evalTreatment.Equals("makeImmediateSafe", StringComparison.OrdinalIgnoreCase))
                 settings.EvalTreatment = EvalTreatment.MakeImmediateSafe;
 
-            string outputMode = GetValue(config, "outputMode").ToLowerInvariant();
+            string outputMode = GetValue(config, "outputMode", "singleLine");
 
-            if (outputMode == "multiplelines")
+            if (outputMode.Equals("multipleLines", StringComparison.OrdinalIgnoreCase))
                 settings.OutputMode = OutputMode.MultipleLines;
-            else if (outputMode == "singleline")
+            else if (outputMode.Equals("singleLine", StringComparison.OrdinalIgnoreCase))
                 settings.OutputMode = OutputMode.SingleLine;
-            else if (outputMode == "none")
+            else if (outputMode.Equals("none", StringComparison.OrdinalIgnoreCase))
                 settings.OutputMode = OutputMode.None;
 
-            string indentSize = GetValue(config, "indentSize");
+            string indentSize = GetValue(config, "indentSize", 2);
             int size;
             if (int.TryParse(indentSize, out size))
                 settings.IndentSize = size;
@@ -45,10 +49,13 @@ namespace WebCompiler
             return settings;
         }
 
-        internal static string GetValue(Config config, string key)
+        internal static string GetValue(Config config, string key, object defaultValue = null)
         {
             if (config.Minify.ContainsKey(key))
                 return config.Minify[key].ToString();
+
+            if (defaultValue != null)
+                return defaultValue.ToString();
 
             return string.Empty;
         }

@@ -7,6 +7,7 @@
 - [x] Universal Windows Apps support (#46, #84)
 - [x] Better logic for (re-)building the node.js modules (#98)
 - [x] ES6 and JSX compiler using Babel
+- [x] Better minification default options
 
 Features that have a checkmark are complete and available for
 download in the

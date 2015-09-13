@@ -3,7 +3,7 @@
     "outputFile": "less/test.css",
     "inputFile": "less/test.less",
     "minify": {
-      "outputMode": "multiplelines"
+      "outputMode": "multipleLines"
     },
     "includeInProject": true,
     "options": {

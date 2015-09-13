@@ -94,11 +94,6 @@
           "description": "SingleLine minifies everything to a single line. MultipleLines breaks the minified code into multiple lines for easier reading.",
           "enum": [ "multipleLines", "singleLine", "none" ],
           "default": "singleLine"
-        },
-        "termSemicolons": {
-          "description": "Forces all rules to be terminated with semicolons if set to true.",
-          "type": "boolean",
-          "default": false
         }
       }
     },
@@ -114,7 +109,12 @@
         "commentMode": {
           "description": "CSS only. How to treat comments in the code. The default is 'none', which will strip all comments except 'important' comments. 'all' will leave all comments, and 'hacks' will only leave certain known comment-based hacks.",
           "enum": [ "none", "all", "hacks", "important" ],
-          "default": "none"
+          "default": "important"
+        },
+        "termSemicolons": {
+          "description": "Forces all rules to be terminated with semicolons if set to true.",
+          "type": "boolean",
+          "default": false
         }
       }
     },
@@ -124,12 +124,23 @@
       "properties": {
         "evalTreatment": {
           "description": "JavaScript only.",
-          "enum": [ "ignore", "makeAllSafe", "makeImmediateSafe" ]
+          "enum": [ "ignore", "makeAllSafe", "makeImmediateSafe" ],
+          "default": "ignore"
         },
         "preserveImportantComments": {
           "description": "JavaScript only.",
           "type": "boolean",
-          "default": false
+          "default": true
+        },
+        "renameLocals": {
+          "description": "JavaScript only. Controls if local variables should be shortened.",
+          "type": "boolean",
+          "default": true
+        },
+        "termSemicolons": {
+          "description": "Forces all rules to be terminated with semicolons if set to true.",
+          "type": "boolean",
+          "default": true
         }
       }
     }

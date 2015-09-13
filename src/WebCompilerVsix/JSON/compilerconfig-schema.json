@@ -12,6 +12,9 @@
         },
         "options": {
           "$ref": "compilerdefaults-schema.json#/definitions/less"
+        },
+        "minify": {
+          "$ref": "compilerdefaults-schema.json#/definitions/cssMinify"
         }
       }
     },
@@ -23,6 +26,9 @@
         },
         "options": {
           "$ref": "compilerdefaults-schema.json#/definitions/sass"
+        },
+        "minify": {
+          "$ref": "compilerdefaults-schema.json#/definitions/cssMinify"
         }
       }
     },
@@ -34,6 +40,9 @@
         },
         "options": {
           "$ref": "compilerdefaults-schema.json#/definitions/coffeeScript"
+        },
+        "minify": {
+          "$ref": "compilerdefaults-schema.json#/definitions/javascriptMinify"
         }
       }
     },
@@ -45,6 +54,9 @@
         },
         "options": {
           "$ref": "compilerdefaults-schema.json#/definitions/coffeeScript"
+        },
+        "minify": {
+          "$ref": "compilerdefaults-schema.json#/definitions/javascriptMinify"
         }
       }
     },
@@ -53,6 +65,9 @@
       "properties": {
         "inputFile": {
           "pattern": "\\.(jsx|js|es6)$"
+        },
+        "minify": {
+          "$ref": "compilerdefaults-schema.json#/definitions/javascriptMinify"
         }
       }
     },
@@ -85,7 +100,9 @@
               "type": "boolean",
               "default": false
             }
-          }
+          },
+
+          "allOf": [ { "$ref": "compilerdefaults-schema.json#/definitions/baseMinify" } ]
         },
         "outputFile": {
           "description": "The relative path to the desired output file name.",
