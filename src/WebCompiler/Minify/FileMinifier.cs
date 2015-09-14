@@ -40,7 +40,7 @@ namespace WebCompiler
 
             string result = minifier.MinifyJavaScript(content, settings);
 
-            if (!string.IsNullOrEmpty(result))
+            if (!string.IsNullOrEmpty(result) && FileHelpers.HasFileContentChanged(config, minFile))
             {
                 OnBeforeWritingMinFile(file, minFile);
                 File.WriteAllText(minFile, result, new UTF8Encoding(true));
@@ -64,11 +64,14 @@ namespace WebCompiler
             {
                 string minFile = GetMinFileName(file);
 
-                OnBeforeWritingMinFile(file, minFile);
-                File.WriteAllText(minFile, result, new UTF8Encoding(true));
-                OnAfterWritingMinFile(file, minFile);
+                if (FileHelpers.HasFileContentChanged(config, minFile))
+                {
+                    OnBeforeWritingMinFile(file, minFile);
+                    File.WriteAllText(minFile, result, new UTF8Encoding(true));
+                    OnAfterWritingMinFile(file, minFile);
 
-                GzipFile(config, minFile);
+                    GzipFile(config, minFile);
+                }
             }
 
             return new MinificationResult(result, null);

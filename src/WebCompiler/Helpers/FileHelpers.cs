@@ -30,5 +30,16 @@ namespace WebCompiler
             if (file.Exists && file.IsReadOnly)
                 file.IsReadOnly = false;
         }
+
+        /// <summary>
+        /// Checks if the content of a file on disk matches the newContent
+        /// </summary>
+        public static bool HasFileContentChanged(Config config, string fileName)
+        {
+            if (!File.Exists(fileName))
+                return true;
+
+            return File.GetLastWriteTime(fileName) < config.InputFileLastWriteTime;
+        }
     }
 }

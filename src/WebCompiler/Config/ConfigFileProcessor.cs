@@ -123,11 +123,14 @@ namespace WebCompiler
                 return result;
 
             config.Output = result.CompiledContent;
-            string outputFile = Path.Combine(baseFolder, config.OutputFile);
+            string outputFile = config.GetAbsoluteOutputFile();
 
-            OnBeforeProcess(config, baseFolder);
-            File.WriteAllText(outputFile, config.Output, new UTF8Encoding(true));
-            OnAfterProcess(config, baseFolder);
+            if (FileHelpers.HasFileContentChanged(config, outputFile))
+            {
+                OnBeforeProcess(config, baseFolder);
+                File.WriteAllText(outputFile, config.Output, new UTF8Encoding(true));
+                OnAfterProcess(config, baseFolder);
+            }
 
             if (config.Minify.ContainsKey("enabled") && config.Minify["enabled"].ToString().Equals("true", StringComparison.OrdinalIgnoreCase))
             {
@@ -141,9 +144,12 @@ namespace WebCompiler
                     string aboslute = config.GetAbsoluteOutputFile();
                     string mapFile = aboslute + ".map";
 
-                    OnBeforeWritingSourceMap(aboslute, mapFile);
-                    File.WriteAllText(mapFile, result.SourceMap, new UTF8Encoding(true));
-                    OnAfterWritingSourceMap(aboslute, mapFile);
+                    if (FileHelpers.HasFileContentChanged(config, mapFile))
+                    {
+                        OnBeforeWritingSourceMap(aboslute, mapFile);
+                        File.WriteAllText(mapFile, result.SourceMap, new UTF8Encoding(true));
+                        OnAfterWritingSourceMap(aboslute, mapFile);
+                    }
                 }
             }
 
