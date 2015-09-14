@@ -125,7 +125,7 @@ namespace WebCompiler
             config.Output = result.CompiledContent;
             string outputFile = config.GetAbsoluteOutputFile();
 
-            if (FileHelpers.HasFileContentChanged(config, outputFile))
+            if (FileHelpers.HasFileContentChanged(outputFile, config.Output))
             {
                 OnBeforeProcess(config, baseFolder);
                 File.WriteAllText(outputFile, config.Output, new UTF8Encoding(true));
@@ -144,7 +144,7 @@ namespace WebCompiler
                     string aboslute = config.GetAbsoluteOutputFile();
                     string mapFile = aboslute + ".map";
 
-                    if (FileHelpers.HasFileContentChanged(config, mapFile))
+                    if (FileHelpers.HasFileContentChanged(mapFile, result.SourceMap))
                     {
                         OnBeforeWritingSourceMap(aboslute, mapFile);
                         File.WriteAllText(mapFile, result.SourceMap, new UTF8Encoding(true));

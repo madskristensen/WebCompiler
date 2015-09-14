@@ -93,8 +93,7 @@ namespace WebCompilerVsix.Commands
 
         private static bool DisableUnsupportProjectType(Project project, OleMenuCommand button)
         {
-            if (project.Kind.Equals("{E24C65DC-7377-472B-9ABA-BC803B73C61A}", StringComparison.OrdinalIgnoreCase) || // Website Project
-                project.Kind.Equals("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}", StringComparison.OrdinalIgnoreCase))   // ASP.NET 5
+            if (project.IsKind(ProjectTypes.WEBSITE_PROJECT) || project.IsKind(ProjectTypes.ASPNET_5))
             {
                 button.Enabled = false;
                 return false;

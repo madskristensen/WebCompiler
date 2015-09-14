@@ -56,7 +56,7 @@ namespace WebCompiler
 
         private DateTime _inputFileLastWrite = DateTime.MinValue;
 
-        internal DateTime InputFileLastWriteTime
+        internal DateTime InputFileLastWrite
         {
             get
             {

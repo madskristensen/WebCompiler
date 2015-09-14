@@ -95,7 +95,7 @@ namespace WebCompilerVsix
 
         public static void AddFileToProject(this Project project, string file, string itemType = null)
         {
-            if (project.Kind.Equals("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}", StringComparison.OrdinalIgnoreCase)) // ASP.NET 5 projects
+            if (project.IsKind(ProjectTypes.ASPNET_5))
                 return;
 
             try
@@ -104,9 +104,9 @@ namespace WebCompilerVsix
                 {
                     ProjectItem item = project.ProjectItems.AddFromFile(file);
 
-                    if (string.IsNullOrEmpty(itemType) ||
-                        project.Kind.Equals("{E24C65DC-7377-472B-9ABA-BC803B73C61A}", StringComparison.OrdinalIgnoreCase) || // Website
-                        project.Kind.Equals("{262852C6-CD72-467D-83FE-5EEB1973A190}", StringComparison.OrdinalIgnoreCase))   // Universal apps
+                    if (string.IsNullOrEmpty(itemType)
+                        || project.IsKind(ProjectTypes.WEBSITE_PROJECT)
+                        || project.IsKind(ProjectTypes.UNIVERSAL_APP))
                         return;
 
                     item.Properties.Item("ItemType").Value = "None";
@@ -126,13 +126,12 @@ namespace WebCompilerVsix
             {
                 if (item == null
                     || item.ContainingProject == null
-                    || item.ContainingProject.Kind.Equals("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}", StringComparison.OrdinalIgnoreCase)) // ASP.NET 5
+                    || item.ContainingProject.IsKind(ProjectTypes.ASPNET_5))
                     return;
 
-                if (item.ProjectItems == null || item.ContainingProject.Kind.Equals("{262852C6-CD72-467D-83FE-5EEB1973A190}", StringComparison.OrdinalIgnoreCase)) // Universal Apps
+                if (item.ProjectItems == null || item.ContainingProject.IsKind(ProjectTypes.UNIVERSAL_APP))
                 {
-                    if (_dte.Solution.FindProjectItem(newFile) == null)
-                        item.ContainingProject.ProjectItems.AddFromFile(newFile);
+                    item.ContainingProject.AddFileToProject(newFile);
                 }
                 else
                 {
@@ -143,6 +142,11 @@ namespace WebCompilerVsix
             {
                 Logger.Log(ex);
             }
+        }
+
+        public static bool IsKind(this Project project, string kindGuid)
+        {
+            return project.Kind.Equals(kindGuid, StringComparison.OrdinalIgnoreCase);
         }
 
         public static void DeleteFileFromProject(string file)
@@ -174,7 +178,7 @@ namespace WebCompilerVsix
         {
             try
             {
-                if (parent.Kind != ProjectKinds.vsProjectKindSolutionFolder && parent.Collection == null)  // Unloaded
+                if (!parent.IsKind(ProjectKinds.vsProjectKindSolutionFolder) && parent.Collection == null)  // Unloaded
                     return Enumerable.Empty<Project>();
 
                 if (!string.IsNullOrEmpty(parent.FullName))
@@ -215,5 +219,12 @@ namespace WebCompilerVsix
 
             return null;
         }
+    }
+
+    public static class ProjectTypes
+    {
+        public const string ASPNET_5 = "{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}";
+        public const string WEBSITE_PROJECT = "{E24C65DC-7377-472B-9ABA-BC803B73C61A}";
+        public const string UNIVERSAL_APP = "{262852C6-CD72-467D-83FE-5EEB1973A190}";
     }
 }

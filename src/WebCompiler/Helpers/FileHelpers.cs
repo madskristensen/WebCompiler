@@ -34,12 +34,14 @@ namespace WebCompiler
         /// <summary>
         /// Checks if the content of a file on disk matches the newContent
         /// </summary>
-        public static bool HasFileContentChanged(Config config, string fileName)
+        public static bool HasFileContentChanged(string fileName, string newContent)
         {
             if (!File.Exists(fileName))
                 return true;
 
-            return File.GetLastWriteTime(fileName) < config.InputFileLastWriteTime;
+            string oldContent = File.ReadAllText(fileName);
+
+            return oldContent != newContent;
         }
     }
 }

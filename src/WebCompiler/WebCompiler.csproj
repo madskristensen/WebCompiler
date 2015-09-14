@@ -106,7 +106,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>$(SolutionDir)packages\NuGet.CommandLine.2.8.5\tools\nuget.exe pack .\msbuild\BuildWebCompiler.nuspec</PostBuildEvent>
+    <PostBuildEvent>$(SolutionDir)packages\NuGet.CommandLine.2.8.5\tools\nuget.exe pack .\msbuild\BuildWebCompiler.nuspec -Verbosity quiet</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>$(SolutionDir)build\build.cmd</PreBuildEvent>
