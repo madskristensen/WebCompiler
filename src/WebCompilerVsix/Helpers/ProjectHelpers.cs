@@ -133,7 +133,7 @@ namespace WebCompilerVsix
                 {
                     item.ContainingProject.AddFileToProject(newFile);
                 }
-                else
+                else if (_dte.Solution.FindProjectItem(newFile) == null)
                 {
                     item.ProjectItems.AddFromFile(newFile);
                 }

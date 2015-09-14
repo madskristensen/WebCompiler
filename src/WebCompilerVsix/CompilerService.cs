@@ -149,8 +149,10 @@ namespace WebCompilerVsix
             if (inputWithOutputExtension.Equals(output, StringComparison.OrdinalIgnoreCase))
             {
                 var inputItem = _dte.Solution.FindProjectItem(input);
+                var outputItem = _dte.Solution.FindProjectItem(output);
 
-                if (inputItem != null)
+                // Only add output file to project if it isn't already
+                if (inputItem != null && outputItem == null)
                     ProjectHelpers.AddNestedFile(input, output);
             }
             else
