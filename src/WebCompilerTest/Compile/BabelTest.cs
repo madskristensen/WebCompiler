@@ -19,8 +19,8 @@ namespace WebCompilerTest
         [TestCleanup]
         public void Cleanup()
         {
-            File.Delete("../../artifacts/babel/file.js");
-            File.Delete("../../artifacts/babel/file.min.js");
+            File.Delete("../../artifacts/babel/file1.js");
+            File.Delete("../../artifacts/babel/file1.min.js");
         }
 
         [TestMethod, TestCategory("BABEL")]

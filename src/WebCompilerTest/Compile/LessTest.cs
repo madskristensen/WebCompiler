@@ -21,6 +21,7 @@ namespace WebCompilerTest
         {
             File.Delete("../../artifacts/less/test.css");
             File.Delete("../../artifacts/less/test.min.css");
+            File.Delete("../../artifacts/less/error.css");
         }
 
         [TestMethod, TestCategory("LESS")]
