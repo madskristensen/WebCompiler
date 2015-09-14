@@ -31,7 +31,7 @@ namespace WebCompilerVsix
                     _processor.BeforeProcess += (s, e) => { ProjectHelpers.CheckFileOutOfSourceControl(e.Config.GetAbsoluteOutputFile()); };
                     _processor.AfterProcess += AfterProcess;
                     _processor.BeforeWritingSourceMap += (s, e) => { ProjectHelpers.CheckFileOutOfSourceControl(e.ResultFile); };
-                    _processor.AfterWritingSourceMap += AfterWritingSourceMap;
+                    _processor.AfterWritingSourceMap += (s, e) => { ProjectHelpers.AddNestedFile(e.OriginalFile, e.ResultFile); };
 
                     FileMinifier.BeforeWritingMinFile += (s, e) => { ProjectHelpers.CheckFileOutOfSourceControl(e.ResultFile); };
                     FileMinifier.AfterWritingMinFile += (s, e) => { ProjectHelpers.AddNestedFile(e.OriginalFile, e.ResultFile); };
@@ -159,16 +159,6 @@ namespace WebCompilerVsix
             {
                 item.ContainingProject.AddFileToProject(e.Config.GetAbsoluteOutputFile());
             }
-        }
-
-        private static void AfterWritingSourceMap(object sender, SourceMapEventArgs e)
-        {
-            var item = _dte.Solution.FindProjectItem(e.OriginalFile);
-
-            if (item == null || item.ContainingProject == null)
-                return;
-
-            ProjectHelpers.AddNestedFile(e.OriginalFile, e.ResultFile);
         }
     }
 }
