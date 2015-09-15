@@ -12,6 +12,7 @@ namespace WebCompiler
     public class ConfigFileProcessor
     {
         private static List<string> _processing = new List<string>();
+        private static object _syncRoot = new object(); // Used for source file changes so they don't try to write to the same file at the same time.
 
         /// <summary>
         /// Parses a compiler config file and runs the configured compilers.
@@ -56,34 +57,37 @@ namespace WebCompiler
         /// </summary>
         public IEnumerable<CompilerResult> SourceFileChanged(string configFile, string sourceFile)
         {
-            string folder = Path.GetDirectoryName(configFile);
-            List<CompilerResult> list = new List<CompilerResult>();
-            var configs = ConfigHandler.GetConfigs(configFile);
-
-            // Compile if the file if it's referenced directly in compilerconfig.json
-            foreach (Config config in configs)
+            lock (_syncRoot)
             {
-                string input = Path.Combine(folder, config.InputFile.Replace("/", "\\"));
+                string folder = Path.GetDirectoryName(configFile);
+                List<CompilerResult> list = new List<CompilerResult>();
+                var configs = ConfigHandler.GetConfigs(configFile);
 
-                if (input.Equals(sourceFile, StringComparison.OrdinalIgnoreCase))
-                    list.Add(ProcessConfig(folder, config));
-            }
-
-            // If not referenced directly, compile all configs with same file extension
-            if (list.Count == 0)
-            {
-                string sourceExtension = Path.GetExtension(sourceFile);
-
+                // Compile if the file if it's referenced directly in compilerconfig.json
                 foreach (Config config in configs)
                 {
-                    string inputExtension = Path.GetExtension(config.InputFile);
+                    string input = Path.Combine(folder, config.InputFile.Replace("/", "\\"));
 
-                    if (inputExtension.Equals(sourceExtension, StringComparison.OrdinalIgnoreCase))
+                    if (input.Equals(sourceFile, StringComparison.OrdinalIgnoreCase))
                         list.Add(ProcessConfig(folder, config));
                 }
-            }
 
-            return list;
+                // If not referenced directly, compile all configs with same file extension
+                if (list.Count == 0)
+                {
+                    string sourceExtension = Path.GetExtension(sourceFile);
+
+                    foreach (Config config in configs)
+                    {
+                        string inputExtension = Path.GetExtension(config.InputFile);
+
+                        if (inputExtension.Equals(sourceExtension, StringComparison.OrdinalIgnoreCase))
+                            list.Add(ProcessConfig(folder, config));
+                    }
+                }
+
+                return list;
+            }
         }
 
         /// <summary>

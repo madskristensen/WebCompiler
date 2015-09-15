@@ -9,6 +9,7 @@
 - [x] ES6 and JSX compiler using Babel
 - [x] Better minification default options
 - [x] Don't check out files that didn't change (#101)
+- [x] SaveAll no longer produces an error (#97)
 
 Features that have a checkmark are complete and available for
 download in the
