@@ -13,9 +13,7 @@ namespace WebCompilerVsix
 
         public static void AddErrors(string file, IEnumerable<CompilerError> errors)
         {
-            CleanErrors(file);
-
-            ErrorListProvider provider = new ErrorListProvider(WebCompilerPackage.Package);
+            ErrorListProvider provider = GetProvider(file);
 
             foreach (var error in errors)
             {
@@ -24,6 +22,19 @@ namespace WebCompilerVsix
             }
 
             _providers.Add(file, provider);
+        }
+
+        private static ErrorListProvider GetProvider(string file)
+        {
+            if (_providers.ContainsKey(file))
+            {
+                var provider = _providers[file];
+                provider.Tasks.Clear();
+
+                return provider;
+            }
+
+            return new ErrorListProvider(WebCompilerPackage.Package);
         }
 
         public static void CleanErrors(string file)
@@ -58,9 +69,9 @@ namespace WebCompilerVsix
                 Line = error.LineNumber,
                 Column = error.ColumnNumber,
                 ErrorCategory = error.IsWarning ? TaskErrorCategory.Warning : TaskErrorCategory.Error,
-                Category = TaskCategory.Html,
+                Category = TaskCategory.BuildCompile,
                 Document = error.FileName,
-                Priority = TaskPriority.Low,
+                Priority = TaskPriority.Normal,
                 Text = $"(WebCompiler) {error.Message}",
             };
 
