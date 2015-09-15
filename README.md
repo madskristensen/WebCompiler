@@ -105,7 +105,7 @@ plan is to have source map support for all languages.
 ### compilerconfig.json
 
 The extension adds a `compilerconfig.json` file at the root of the
-project which is used to configure all conmpilation.
+project which is used to configure all compilation.
 
 Here's an example of what that file looks like:
 
