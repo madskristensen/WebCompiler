@@ -10,9 +10,10 @@ namespace WebCompiler
     /// </summary>
     public static class CompilerService
     {
-        internal const string Version = "1.0.4";
+        internal const string Version = "1.4.166";
         private static readonly string[] _allowed = new[] { ".LESS", ".SCSS", ".COFFEE", ".ICED", ".JS", ".JSX", ".ES6" };
         private static readonly string _path = Path.Combine(Path.GetTempPath(), "WebCompiler" + Version);
+        private static object _syncRoot = new object(); // Used to lock on the initialize step
 
         /// <summary>
         /// Test if a file type is supported by the compilers.
@@ -30,7 +31,11 @@ namespace WebCompiler
         {
             string ext = Path.GetExtension(config.InputFile).ToUpperInvariant();
             ICompiler compiler = null;
-            Initialize();
+
+            lock (_syncRoot)
+            {
+                Initialize();
+            }
 
             switch (ext)
             {
@@ -102,7 +107,7 @@ namespace WebCompiler
         private static void SaveResourceFile(string path, string resourceName, string fileName)
         {
             using (Stream stream = typeof(CompilerService).Assembly.GetManifestResourceStream(resourceName))
-            using (FileStream fs = new FileStream(Path.Combine(path, fileName), FileMode.CreateNew))
+            using (FileStream fs = new FileStream(Path.Combine(path, fileName), FileMode.Create))
             {
                 for (int i = 0; i < stream.Length; i++)
                     fs.WriteByte((byte)stream.ReadByte());
