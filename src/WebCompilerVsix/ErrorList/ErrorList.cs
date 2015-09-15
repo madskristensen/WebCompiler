@@ -13,7 +13,8 @@ namespace WebCompilerVsix
 
         public static void AddErrors(string file, IEnumerable<CompilerError> errors)
         {
-            ErrorListProvider provider = GetProvider(file);
+            CleanErrors(file);
+            var provider = new ErrorListProvider(WebCompilerPackage.Package);
 
             foreach (var error in errors)
             {
@@ -22,19 +23,6 @@ namespace WebCompilerVsix
             }
 
             _providers.Add(file, provider);
-        }
-
-        private static ErrorListProvider GetProvider(string file)
-        {
-            if (_providers.ContainsKey(file))
-            {
-                var provider = _providers[file];
-                provider.Tasks.Clear();
-
-                return provider;
-            }
-
-            return new ErrorListProvider(WebCompilerPackage.Package);
         }
 
         public static void CleanErrors(string file)
@@ -94,33 +82,25 @@ namespace WebCompilerVsix
             return task;
         }
 
-        const uint DISP_E_MEMBERNOTFOUND = 0x80020003;
 
-        public static void AddHierarchyItem(ErrorTask task, EnvDTE.Project project)
+        private static void AddHierarchyItem(ErrorTask task, EnvDTE.Project project)
         {
-            IVsHierarchy hierarchyItem = null;
-            IVsSolution solution = WebCompilerPackage.GetGlobalService(typeof(SVsSolution)) as IVsSolution;
+            IVsSolution solution = Package.GetGlobalService(typeof(SVsSolution)) as IVsSolution;
 
-            if (solution != null && project != null)
+            if (solution == null || project == null)
+                return;
+
+            try
             {
-                int flag = -1;
-
-                try
-                {
-                    flag = solution.GetProjectOfUniqueName(project.FullName, out hierarchyItem);
-                }
-                catch (COMException ex)
-                {
-                    if ((uint)ex.ErrorCode != DISP_E_MEMBERNOTFOUND)
-                    {
-                        throw;
-                    }
-                }
-
-                if (0 == flag)
+                IVsHierarchy hierarchyItem = null;
+                if (solution.GetProjectOfUniqueName(project.FullName, out hierarchyItem) == 0)
                 {
                     task.HierarchyItem = hierarchyItem;
                 }
+            }
+            catch (COMException ex)
+            {
+                Logger.Log(ex);
             }
         }
     }
