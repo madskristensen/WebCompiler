@@ -18,7 +18,7 @@ namespace WebCompiler
         /// Parses a compiler config file and runs the configured compilers.
         /// </summary>
         /// <param name="configFile">The absolute or relative file path to compilerconfig.json</param>
-        /// <param name="configs">Optional configration items in the config file</param>
+        /// <param name="configs">Optional configuration items in the config file</param>
         /// <returns>A list of compiler results.</returns>
         public IEnumerable<CompilerResult> Process(string configFile, IEnumerable<Config> configs = null)
         {

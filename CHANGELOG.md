@@ -15,7 +15,7 @@ on the official Visual Studio extension gallery.
 
 ## 1.4
 
-**2015-09-15**
+**2015-09-22**
 
 - [x] Show compiler warnings as warnings in Error List (#80)
 - [x] Universal Windows Apps support (#46, #84)
