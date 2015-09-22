@@ -28,16 +28,16 @@ namespace WebCompilerVsix
                 {
                     _processor = new ConfigFileProcessor();
                     _processor.ConfigProcessed += ConfigProcessed;
-                    _processor.BeforeProcess += (s, e) => { ProjectHelpers.CheckFileOutOfSourceControl(e.Config.GetAbsoluteOutputFile()); };
+                    _processor.BeforeProcess += (s, e) => { if (e.ContainsChanges) ProjectHelpers.CheckFileOutOfSourceControl(e.Config.GetAbsoluteOutputFile()); };
                     _processor.AfterProcess += AfterProcess;
-                    _processor.BeforeWritingSourceMap += (s, e) => { ProjectHelpers.CheckFileOutOfSourceControl(e.ResultFile); };
-                    _processor.AfterWritingSourceMap += (s, e) => { ProjectHelpers.AddNestedFile(e.OriginalFile, e.ResultFile); };
+                    _processor.BeforeWritingSourceMap += (s, e) => { if (e.ContainsChanges) ProjectHelpers.CheckFileOutOfSourceControl(e.ResultFile); };
+                    _processor.AfterWritingSourceMap += (s, e) => { if (e.ContainsChanges) ProjectHelpers.AddNestedFile(e.OriginalFile, e.ResultFile); };
 
-                    FileMinifier.BeforeWritingMinFile += (s, e) => { ProjectHelpers.CheckFileOutOfSourceControl(e.ResultFile); };
-                    FileMinifier.AfterWritingMinFile += (s, e) => { ProjectHelpers.AddNestedFile(e.OriginalFile, e.ResultFile); };
+                    FileMinifier.BeforeWritingMinFile += (s, e) => { if (e.ContainsChanges) ProjectHelpers.CheckFileOutOfSourceControl(e.ResultFile); };
+                    FileMinifier.AfterWritingMinFile += (s, e) => { if (e.ContainsChanges) ProjectHelpers.AddNestedFile(e.OriginalFile, e.ResultFile); };
 
-                    FileMinifier.BeforeWritingGzipFile += (s, e) => { ProjectHelpers.CheckFileOutOfSourceControl(e.ResultFile); };
-                    FileMinifier.AfterWritingGzipFile += (s, e) => { ProjectHelpers.AddNestedFile(e.OriginalFile, e.ResultFile); };
+                    FileMinifier.BeforeWritingGzipFile += (s, e) => { if (e.ContainsChanges) ProjectHelpers.CheckFileOutOfSourceControl(e.ResultFile); };
+                    FileMinifier.AfterWritingGzipFile += (s, e) => { if (e.ContainsChanges) ProjectHelpers.AddNestedFile(e.OriginalFile, e.ResultFile); };
 
                     WebCompiler.CompilerService.Initializing += (s, e) => { _dte.StatusBar.Text = "Installing updated versions of the compilers..."; };
                     WebCompiler.CompilerService.Initialized += (s, e) => { _dte.StatusBar.Text = "Done installing the compiler"; };
@@ -130,7 +130,7 @@ namespace WebCompilerVsix
 
         private static void AfterProcess(object sender, CompileFileEventArgs e)
         {
-            if (!e.Config.IncludeInProject)
+            if (!e.Config.IncludeInProject || !e.ContainsChanges)
                 return;
 
             var item = _dte.Solution.FindProjectItem(e.Config.FileName);

@@ -32,14 +32,14 @@ namespace WebCompiler
             }
 
             ConfigFileProcessor processor = new ConfigFileProcessor();
-            processor.BeforeProcess += (s, e) => { FileHelpers.RemoveReadonlyFlagFromFile(e.Config.GetAbsoluteOutputFile()); };
+            processor.BeforeProcess += (s, e) => { if (e.ContainsChanges) FileHelpers.RemoveReadonlyFlagFromFile(e.Config.GetAbsoluteOutputFile()); };
             processor.AfterProcess += Processor_AfterProcess;
             processor.BeforeWritingSourceMap += (s, e) => { FileHelpers.RemoveReadonlyFlagFromFile(e.ResultFile); };
             processor.AfterWritingSourceMap += Processor_AfterWritingSourceMap;
 
-            FileMinifier.BeforeWritingMinFile += (s, e) => { FileHelpers.RemoveReadonlyFlagFromFile(e.ResultFile); };
+            FileMinifier.BeforeWritingMinFile += (s, e) => { if (e.ContainsChanges) FileHelpers.RemoveReadonlyFlagFromFile(e.ResultFile); };
             FileMinifier.AfterWritingMinFile += FileMinifier_AfterWritingMinFile;
-            FileMinifier.BeforeWritingGzipFile += (s, e) => { FileHelpers.RemoveReadonlyFlagFromFile(e.ResultFile); };
+            FileMinifier.BeforeWritingGzipFile += (s, e) => { if (e.ContainsChanges) FileHelpers.RemoveReadonlyFlagFromFile(e.ResultFile); };
             FileMinifier.AfterWritingGzipFile += FileMinifier_AfterWritingGzipFile;
 
             try

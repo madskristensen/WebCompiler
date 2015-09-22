@@ -40,13 +40,20 @@ namespace WebCompiler
 
             string result = minifier.MinifyJavaScript(content, settings);
 
-            if (!string.IsNullOrEmpty(result) && FileHelpers.HasFileContentChanged(minFile, result))
-            {
-                OnBeforeWritingMinFile(file, minFile);
-                File.WriteAllText(minFile, result, new UTF8Encoding(true));
-                OnAfterWritingMinFile(file, minFile);
+            bool containsChanges = FileHelpers.HasFileContentChanged(minFile, result);
 
-                GzipFile(config, minFile);
+            if (!string.IsNullOrEmpty(result))
+            {
+                OnBeforeWritingMinFile(file, minFile, containsChanges);
+
+                if (containsChanges)
+                {
+                    File.WriteAllText(minFile, result, new UTF8Encoding(true));
+                }
+
+                OnAfterWritingMinFile(file, minFile, containsChanges);
+
+                GzipFile(config, minFile, containsChanges);
             }
 
             return new MinificationResult(result, null);
@@ -63,15 +70,18 @@ namespace WebCompiler
             if (!string.IsNullOrEmpty(result))
             {
                 string minFile = GetMinFileName(file);
+                bool containsChanges = FileHelpers.HasFileContentChanged(minFile, result);
 
-                if (FileHelpers.HasFileContentChanged(minFile, result))
+                OnBeforeWritingMinFile(file, minFile, containsChanges);
+
+                if (containsChanges)
                 {
-                    OnBeforeWritingMinFile(file, minFile);
                     File.WriteAllText(minFile, result, new UTF8Encoding(true));
-                    OnAfterWritingMinFile(file, minFile);
-
-                    GzipFile(config, minFile);
                 }
+
+                OnAfterWritingMinFile(file, minFile, containsChanges);
+
+                GzipFile(config, minFile, containsChanges);
             }
 
             return new MinificationResult(result, null);
@@ -83,52 +93,56 @@ namespace WebCompiler
             return file.Substring(0, file.LastIndexOf(ext)) + ".min" + ext;
         }
 
-        private static void GzipFile(Config config, string sourceFile)
+        private static void GzipFile(Config config, string sourceFile, bool containsChanges)
         {
             if (!config.Minify.ContainsKey("gzip") || !config.Minify["gzip"].ToString().Equals("true", StringComparison.OrdinalIgnoreCase))
                 return;
 
             var gzipFile = sourceFile + ".gz";
-            OnBeforeWritingGzipFile(sourceFile, gzipFile);
 
-            using (var sourceStream = File.OpenRead(sourceFile))
-            using (var targetStream = File.OpenWrite(gzipFile))
-            using (var gzipStream = new GZipStream(targetStream, CompressionMode.Compress))
-                sourceStream.CopyTo(gzipStream);
+            OnBeforeWritingGzipFile(sourceFile, gzipFile, containsChanges);
 
-            OnAfterWritingGzipFile(sourceFile, gzipFile);
+            if (containsChanges)
+            {
+                using (var sourceStream = File.OpenRead(sourceFile))
+                using (var targetStream = File.OpenWrite(gzipFile))
+                using (var gzipStream = new GZipStream(targetStream, CompressionMode.Compress))
+                    sourceStream.CopyTo(gzipStream);
+            }
+
+            OnAfterWritingGzipFile(sourceFile, gzipFile, containsChanges);
         }
 
-        private static void OnBeforeWritingMinFile(string file, string minFile)
+        private static void OnBeforeWritingMinFile(string file, string minFile, bool containsChanges)
         {
             if (BeforeWritingMinFile != null)
             {
-                BeforeWritingMinFile(null, new MinifyFileEventArgs(file, minFile));
+                BeforeWritingMinFile(null, new MinifyFileEventArgs(file, minFile, containsChanges));
             }
         }
 
-        private static void OnAfterWritingMinFile(string file, string minFile)
+        private static void OnAfterWritingMinFile(string file, string minFile, bool containsChanges)
         {
             if (AfterWritingMinFile != null)
             {
-                AfterWritingMinFile(null, new MinifyFileEventArgs(file, minFile));
+                AfterWritingMinFile(null, new MinifyFileEventArgs(file, minFile, containsChanges));
             }
         }
 
 
-        private static void OnBeforeWritingGzipFile(string minFile, string gzipFile)
+        private static void OnBeforeWritingGzipFile(string minFile, string gzipFile, bool containsChanges)
         {
             if (BeforeWritingGzipFile != null)
             {
-                BeforeWritingGzipFile(null, new MinifyFileEventArgs(minFile, gzipFile));
+                BeforeWritingGzipFile(null, new MinifyFileEventArgs(minFile, gzipFile, containsChanges));
             }
         }
 
-        private static void OnAfterWritingGzipFile(string minFile, string gzipFile)
+        private static void OnAfterWritingGzipFile(string minFile, string gzipFile, bool containsChanges)
         {
             if (AfterWritingGzipFile != null)
             {
-                AfterWritingGzipFile(null, new MinifyFileEventArgs(minFile, gzipFile));
+                AfterWritingGzipFile(null, new MinifyFileEventArgs(minFile, gzipFile, containsChanges));
             }
         }
 

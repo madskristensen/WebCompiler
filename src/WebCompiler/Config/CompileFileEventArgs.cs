@@ -12,11 +12,18 @@ namespace WebCompiler
         /// </summary>
         /// <param name="config">The configuration object being processed.</param>
         /// <param name="baseFolder">The base folder of the config file.</param>
-        public CompileFileEventArgs(Config config, string baseFolder)
+        /// <param name="containsChanges">True if there were any changes.</param>
+        public CompileFileEventArgs(Config config, string baseFolder, bool containsChanges)
         {
+            ContainsChanges = containsChanges;
             Config = config;
             BaseFolder = baseFolder;
         }
+
+        /// <summary>
+        /// True if the output produced any changes to files on disk.
+        /// </summary>
+        public bool ContainsChanges { get; set; }
 
         /// <summary>
         /// The Config object used by the compiler.

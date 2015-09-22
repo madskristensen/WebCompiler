@@ -91,7 +91,7 @@ namespace WebCompiler
         }
 
         /// <summary>
-        /// Returns a collection of Config objects that all contain the specified sourceFile
+        /// Returns a collection of config objects that all contain the specified sourceFile
         /// </summary>
         public static IEnumerable<Config> IsFileConfigured(string configFile, string sourceFile)
         {
@@ -128,13 +128,16 @@ namespace WebCompiler
 
             config.Output = result.CompiledContent;
             string outputFile = config.GetAbsoluteOutputFile();
+            bool containsChanges = FileHelpers.HasFileContentChanged(outputFile, config.Output);
 
-            if (FileHelpers.HasFileContentChanged(outputFile, config.Output))
+            OnBeforeProcess(config, baseFolder, containsChanges);
+
+            if (containsChanges)
             {
-                OnBeforeProcess(config, baseFolder);
                 File.WriteAllText(outputFile, config.Output, new UTF8Encoding(true));
-                OnAfterProcess(config, baseFolder);
             }
+
+            OnAfterProcess(config, baseFolder, containsChanges);
 
             if (config.Minify.ContainsKey("enabled") && config.Minify["enabled"].ToString().Equals("true", StringComparison.OrdinalIgnoreCase))
             {
@@ -147,24 +150,27 @@ namespace WebCompiler
                 {
                     string aboslute = config.GetAbsoluteOutputFile();
                     string mapFile = aboslute + ".map";
+                    bool smChanges = FileHelpers.HasFileContentChanged(mapFile, result.SourceMap);
 
-                    if (FileHelpers.HasFileContentChanged(mapFile, result.SourceMap))
+                    OnBeforeWritingSourceMap(aboslute, mapFile, smChanges);
+
+                    if (smChanges)
                     {
-                        OnBeforeWritingSourceMap(aboslute, mapFile);
                         File.WriteAllText(mapFile, result.SourceMap, new UTF8Encoding(true));
-                        OnAfterWritingSourceMap(aboslute, mapFile);
                     }
+
+                    OnAfterWritingSourceMap(aboslute, mapFile, smChanges);
                 }
             }
 
             return result;
         }
 
-        private void OnBeforeProcess(Config config, string baseFolder)
+        private void OnBeforeProcess(Config config, string baseFolder, bool containsChanges)
         {
             if (BeforeProcess != null)
             {
-                BeforeProcess(this, new CompileFileEventArgs(config, baseFolder));
+                BeforeProcess(this, new CompileFileEventArgs(config, baseFolder, containsChanges));
             }
         }
 
@@ -176,27 +182,27 @@ namespace WebCompiler
             }
         }
 
-        private void OnAfterProcess(Config config, string baseFolder)
+        private void OnAfterProcess(Config config, string baseFolder, bool containsChanges)
         {
             if (AfterProcess != null)
             {
-                AfterProcess(this, new CompileFileEventArgs(config, baseFolder));
+                AfterProcess(this, new CompileFileEventArgs(config, baseFolder, containsChanges));
             }
         }
 
-        private void OnBeforeWritingSourceMap(string file, string mapFile)
+        private void OnBeforeWritingSourceMap(string file, string mapFile, bool containsChanges)
         {
             if (BeforeWritingSourceMap != null)
             {
-                BeforeWritingSourceMap(this, new SourceMapEventArgs(file, mapFile));
+                BeforeWritingSourceMap(this, new SourceMapEventArgs(file, mapFile, containsChanges));
             }
         }
 
-        private void OnAfterWritingSourceMap(string file, string mapFile)
+        private void OnAfterWritingSourceMap(string file, string mapFile, bool containsChanges)
         {
             if (AfterWritingSourceMap != null)
             {
-                AfterWritingSourceMap(this, new SourceMapEventArgs(file, mapFile));
+                AfterWritingSourceMap(this, new SourceMapEventArgs(file, mapFile, containsChanges));
             }
         }
 
