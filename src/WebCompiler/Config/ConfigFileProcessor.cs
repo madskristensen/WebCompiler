@@ -126,7 +126,13 @@ namespace WebCompiler
             if (result.HasErrors)
                 return result;
 
+            if (Path.GetExtension(config.OutputFile).Equals(".css", StringComparison.OrdinalIgnoreCase) && AdjustRelativePaths(config))
+            {
+                result.CompiledContent = CssRelativePath.Adjust(result.CompiledContent, config);
+            }
+
             config.Output = result.CompiledContent;
+
             string outputFile = config.GetAbsoluteOutputFile();
             bool containsChanges = FileHelpers.HasFileContentChanged(outputFile, config.Output);
 
@@ -164,6 +170,14 @@ namespace WebCompiler
             }
 
             return result;
+        }
+
+        private static bool AdjustRelativePaths(Config config)
+        {
+            if (!config.Minify.ContainsKey("adjustRelativePaths"))
+                return true;
+
+            return config.Minify["adjustRelativePaths"].ToString() == "True";
         }
 
         private void OnBeforeProcess(Config config, string baseFolder, bool containsChanges)

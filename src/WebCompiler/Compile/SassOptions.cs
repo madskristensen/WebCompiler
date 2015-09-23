@@ -42,7 +42,7 @@ namespace WebCompiler
         }
 
         /// <summary>
-        /// Indent type for output CSS. 
+        /// Indent type for output CSS.
         /// </summary>
         [JsonProperty("indentType")]
         public string IndentType { get; set; } = "space";
@@ -58,7 +58,7 @@ namespace WebCompiler
         /// </summary>
         [JsonProperty("outputStyle")]
         public string OutputStyle { get; set; } = "nested";
-        
+
 
         /// <summary>
         /// Precision

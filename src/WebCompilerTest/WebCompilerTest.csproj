@@ -68,6 +68,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="artifacts\less\sub\relative.less" />
     <None Include="artifacts\babelconfigError.json" />
     <None Include="artifacts\babel\error.jsx" />
     <Content Include="artifacts\babel\notjsx.css" />

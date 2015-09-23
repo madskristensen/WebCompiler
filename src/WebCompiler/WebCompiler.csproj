@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Compile\BaseOptions.cs" />
     <Compile Include="Compile\BabelCompiler.cs" />
+    <Compile Include="Compile\CssRelativePathAdjuster.cs" />
     <Compile Include="Compile\IcedCoffeeScriptOptions.cs" />
     <Compile Include="Compile\IcedCoffeeScriptCompiler.cs" />
     <Compile Include="Compile\CompilerService.cs" />

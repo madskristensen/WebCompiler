@@ -22,6 +22,8 @@ namespace WebCompilerTest
             File.Delete("../../artifacts/less/test.css");
             File.Delete("../../artifacts/less/test.min.css");
             File.Delete("../../artifacts/less/error.css");
+            File.Delete("../../artifacts/less/relative.css");
+            File.Delete("../../artifacts/less/relative.min.css");
         }
 
         [TestMethod, TestCategory("LESS")]
@@ -29,6 +31,8 @@ namespace WebCompilerTest
         {
             var result = _processor.Process("../../artifacts/lessconfig.json");
             Assert.IsTrue(File.Exists("../../artifacts/less/test.css"));
+
+            Assert.IsTrue(result.ElementAt(1).CompiledContent.Contains("url(foo.png)"));
         }
 
         [TestMethod, TestCategory("LESS")]
@@ -60,7 +64,7 @@ namespace WebCompilerTest
         public void AssociateExtensionSourceFileChangedTest()
         {
             var result = _processor.SourceFileChanged("../../artifacts/lessconfig.json", "less/test.less");
-            Assert.AreEqual(1, result.Count<CompilerResult>());
+            Assert.AreEqual(2, result.Count<CompilerResult>());
         }
 
         [TestMethod, TestCategory("LESS")]

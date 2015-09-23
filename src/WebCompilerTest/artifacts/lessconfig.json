@@ -1,12 +1,20 @@
 ﻿[
-	{
-		"outputFile": "less/test.css",
-		"inputFile": "less/test.less",
-		"minify": { },
-		"includeInProject": true,
-		"options": {
+  {
+    "outputFile": "less/test.css",
+    "inputFile": "less/test.less",
+    "minify": { },
+    "includeInProject": true,
+    "options": {
       "relativeUrls": true,
       "strictMath": true
-		}
-	}
+    }
+  },
+  {
+    "outputFile": "less/relative.css",
+    "inputFile": "less/sub/relative.less",
+    "minify": {
+      "enabled": true,
+      "adjustRelativePaths": true
+    }
+  }
 ]
