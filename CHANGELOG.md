@@ -3,6 +3,9 @@
 - [ ] Generate gulpfile.js from compilerconfig.json (#34)
 - [ ] Preview window (#6)
 - [ ] File globbing pattern support (#49)
+- [x] Adjust relative CSS URLs (#104)
+- [x] Re-compile support for multiple config files (#99)
+- [x] MSBuild task now supports conditions
 
 Features that have a checkmark are complete and available for
 download in the
