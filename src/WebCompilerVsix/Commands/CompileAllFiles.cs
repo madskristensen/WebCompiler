@@ -3,6 +3,8 @@ using System.Linq;
 using System.ComponentModel.Design;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
+using System.IO;
+using System.Collections.Generic;
 
 namespace WebCompilerVsix.Commands
 {
@@ -54,11 +56,33 @@ namespace WebCompilerVsix.Commands
 
             foreach (Project project in projects)
             {
-                string config = project.GetConfigFile();
+                string folder = Path.GetDirectoryName(project.GetRootFolder());
+                var configs = GetFiles(folder, Constants.CONFIG_FILENAME);
 
-                if (!string.IsNullOrEmpty(config))
-                    CompilerService.Process(config);
+                foreach (string config in configs)
+                {
+                    if (!string.IsNullOrEmpty(config))
+                        CompilerService.Process(config);
+                }
             }
+        }
+
+        private static List<string> GetFiles(string path, string pattern)
+        {
+            var files = new List<string>();
+
+            if (path.Contains("node_modules"))
+                return files;
+
+            try
+            {
+                files.AddRange(Directory.GetFiles(path, pattern, SearchOption.TopDirectoryOnly));
+                foreach (var directory in Directory.GetDirectories(path))
+                    files.AddRange(GetFiles(directory, pattern));
+            }
+            catch (UnauthorizedAccessException) { }
+
+            return files;
         }
     }
 }
