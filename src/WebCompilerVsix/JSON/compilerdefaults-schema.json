@@ -10,7 +10,11 @@
       "description": "Specify options for the compiler.",
       "type": "object",
       "properties": {
-        "strictMath": {
+        "autoPrefix": {
+          "description": "LESS only. Support for AutoPrefixer by adding a browser string. An empty string means this feature is disabled. Example: 'last 2 versions, > 5%'. See more at https://github.com/ai/browserslist.",
+          "type": "string",
+          "default": ""
+        },"strictMath": {
           "description": "LESS only. Without this option on Less will try and process all maths in your CSS.",
           "type": "boolean",
           "default": false

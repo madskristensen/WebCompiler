@@ -125,6 +125,9 @@ namespace WebCompiler
             if (!string.IsNullOrEmpty(options.RootPath))
                 arguments += $" --rootpath=\"{options.RootPath}\"";
 
+            if (!string.IsNullOrEmpty(options.AutoPrefix))
+                arguments += $" --autoprefix=\"{options.AutoPrefix}\"";
+
             return arguments;
         }
     }

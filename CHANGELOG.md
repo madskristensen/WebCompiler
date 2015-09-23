@@ -6,6 +6,7 @@
 - [x] Adjust relative CSS URLs (#104)
 - [x] Re-compile support for multiple config files (#99)
 - [x] MSBuild task now supports conditions
+- [x] AutoPrefixer support in the LESS compiler (#35)
 
 Features that have a checkmark are complete and available for
 download in the

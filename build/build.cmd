@@ -9,6 +9,7 @@ pushd %~dp0..\src\WebCompiler\node
 echo Installing packages...
 call npm install flatten-packages -g --no-optional --quiet > nul
 call npm install less --no-optional --quiet > nul
+call npm install less-plugin-autoprefix --no-optional --quiet > nul
 call npm install iced-coffee-script --no-optional --quiet > nul
 call npm install node-sass --no-optional --quiet > nul
 call npm install babel --no-optional --quiet > nul
@@ -52,7 +53,7 @@ for /d /r . %%d in (test)       do @if exist "%%d" rd /s /q "%%d" > nul
 for /d /r . %%d in (testing)    do @if exist "%%d" rd /s /q "%%d" > nul
 for /d /r . %%d in (tst)        do @if exist "%%d" rd /s /q "%%d" > nul
 
-echo Compresses artifacts and cleans up
+echo Compressing artifacts and cleans up
 
 :: Zips and deletes the node_modules folder
 %~dp07z.exe a -r -mx9 node_modules.7z node_modules > nul

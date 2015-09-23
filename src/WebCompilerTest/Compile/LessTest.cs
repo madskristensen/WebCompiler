@@ -32,6 +32,7 @@ namespace WebCompilerTest
             var result = _processor.Process("../../artifacts/lessconfig.json");
             Assert.IsTrue(File.Exists("../../artifacts/less/test.css"));
             Assert.IsTrue(result.ElementAt(1).CompiledContent.Contains("url(foo.png)"));
+            Assert.IsTrue(result.ElementAt(1).CompiledContent.Contains("-webkit-animation"), "AutoPrefix");
         }
 
         [TestMethod, TestCategory("LESS")]
