@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 
@@ -54,21 +53,6 @@ namespace WebCompiler
 
         internal string Output { get; set; }
 
-        private DateTime _inputFileLastWrite = DateTime.MinValue;
-
-        internal DateTime InputFileLastWrite
-        {
-            get
-            {
-                if (_inputFileLastWrite == DateTime.MinValue)
-                {
-                    _inputFileLastWrite = File.GetLastWriteTime(GetAbsoluteInputFile());
-                }
-
-                return _inputFileLastWrite;
-            }
-        }
-
         /// <summary>
         /// Converts the relative input file to an absolute file path.
         /// </summary>
@@ -88,7 +72,7 @@ namespace WebCompiler
         }
 
         /// <summary>
-        /// Determins if the object is equals to the other object.
+        /// Determines if the object is equals to the other object.
         /// </summary>
         public override bool Equals(object obj)
         {
