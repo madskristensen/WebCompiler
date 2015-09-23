@@ -26,7 +26,7 @@
           "default": true
         },
         "rootPath": {
-          "description": "LESS only. Allows you to add a path to every generated import and url in your css. This does not affect less import statements that are processed, just ones that are left in the output css.",
+          "description": "LESS only. Allows you to add a path to every generated import and URL in your CSS. This does not affect less import statements that are processed, just ones that are left in the output css.",
           "type": "string"
         }
       }
@@ -58,9 +58,14 @@
           "default": "nested"
         },
         "precision": {
-          "description": "Used to determine how many digits after the decimal will be allowed. For instance, if you had a decimal number of 1.23456789 and a precision of 5, the result will be 1.23457 in the final CSS.",
+          "description": "Scss only. Used to determine how many digits after the decimal will be allowed. For instance, if you had a decimal number of 1.23456789 and a precision of 5, the result will be 1.23457 in the final CSS.",
           "type": "integer",
           "default": 5
+        },
+        "relativeUrls": {
+          "description": "Scss only. This option allows you to re-write URL's to make them relative to the output file. This doesn't work for imported .scss files.",
+          "type": "boolean",
+          "default": true
         }
       }
     },

@@ -174,10 +174,10 @@ namespace WebCompiler
 
         private static bool AdjustRelativePaths(Config config)
         {
-            if (!config.Minify.ContainsKey("adjustRelativePaths"))
+            if (!config.Options.ContainsKey("relativeUrls"))
                 return true;
 
-            return config.Minify["adjustRelativePaths"].ToString() == "True";
+            return config.Options["relativeUrls"].ToString() == "True";
         }
 
         private void OnBeforeProcess(Config config, string baseFolder, bool containsChanges)

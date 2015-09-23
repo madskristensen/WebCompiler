@@ -1,9 +1,13 @@
 ﻿[
-	{
-		"outputFile": "scss/test.css",
-		"inputFile": "scss/test.scss",
-		"minify": { },
-		"includeInProject": true,
-		"sourceMap": true
+  {
+    "outputFile": "scss/test.css",
+    "inputFile": "scss/test.scss",
+    "minify": { },
+    "includeInProject": true,
+    "sourceMap": true
+  },
+  	{
+		"outputFile": "scss/relative.css",
+		"inputFile": "scss/sub/relative.scss"
 	}
 ]

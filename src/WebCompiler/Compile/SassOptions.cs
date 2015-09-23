@@ -31,6 +31,10 @@ namespace WebCompiler
             int indentWidth = -1;
             if (int.TryParse(GetValue(config, "indentWidth"), out indentWidth))
                 IndentWidth = indentWidth;
+
+            var relativeUrls = GetValue(config, "relativeUrls");
+            if (relativeUrls != null)
+                RelativeUrls = relativeUrls.ToLowerInvariant() == trueStr;
         }
 
         /// <summary>
@@ -64,5 +68,12 @@ namespace WebCompiler
         /// Precision
         /// </summary>
         public int Precision { get; set; } = 5;
+
+        /// <summary>
+        /// This option allows you to re-write URL's in imported files so that the URL is always
+        /// relative to the base imported file.
+        /// </summary>
+        [JsonProperty("relativeUrls")]
+        public bool RelativeUrls { get; set; } = true;
     }
 }

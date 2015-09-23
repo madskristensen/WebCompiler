@@ -98,6 +98,7 @@
     <None Include="artifacts\scssconfig.json" />
     <None Include="artifacts\babelconfig.json" />
     <None Include="artifacts\scss\error.scss" />
+    <None Include="artifacts\scss\sub\relative.scss" />
     <None Include="artifacts\scss\test.scss" />
     <None Include="artifacts\scss\variables.scss" />
     <None Include="artifacts\less\error.less" />

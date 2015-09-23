@@ -21,7 +21,8 @@ namespace WebCompilerTest
         {
             File.Delete("../../artifacts/scss/test.css");
             File.Delete("../../artifacts/scss/test.min.css");
-            //File.Delete("../../artifacts/scss/test.css.map");
+            File.Delete("../../artifacts/scss/relative.css");
+            File.Delete("../../artifacts/scss/relative.min.css");
         }
 
         [TestMethod, TestCategory("SCSS")]
@@ -31,6 +32,7 @@ namespace WebCompilerTest
             var first = result.First();
             Assert.IsTrue(File.Exists("../../artifacts/scss/test.css"));
             Assert.IsTrue(first.CompiledContent.Contains("/*# sourceMappingURL=data:"));
+            Assert.IsTrue(result.ElementAt(1).CompiledContent.Contains("url(foo.png)"));
         }
 
         [TestMethod, TestCategory("SCSS")]
@@ -45,7 +47,7 @@ namespace WebCompilerTest
         public void AssociateExtensionSourceFileChangedTest()
         {
             var result = _processor.SourceFileChanged("../../artifacts/scssconfig.json", "scss/test.scss");
-            Assert.AreEqual(1, result.Count<CompilerResult>());
+            Assert.AreEqual(2, result.Count<CompilerResult>());
         }
 
         [TestMethod, TestCategory("SCSS")]
