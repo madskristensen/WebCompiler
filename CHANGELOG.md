@@ -3,10 +3,13 @@
 - [ ] Generate gulpfile.js from compilerconfig.json (#34)
 - [ ] Preview window (#6)
 - [ ] File globbing pattern support (#49)
+- [ ] Add minification default settings
 - [x] Adjust relative CSS URLs (#104)
 - [x] Re-compile support for multiple config files (#99)
 - [x] MSBuild task now supports conditions
 - [x] AutoPrefixer support in the LESS compiler (#35)
+- [x] Sass: Adjusted SourceMap relative paths (#108)
+- [x] MSBuild task now uses BuildDependsOn (#73, #89)
 
 Features that have a checkmark are complete and available for
 download in the
