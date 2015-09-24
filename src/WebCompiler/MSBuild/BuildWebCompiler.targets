@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
+    <PropertyGroup>
+        <BuildDependsOn>
+            $(BuildDependsOn);
+            WebCompile
+        </BuildDependsOn>
+    </PropertyGroup>
+
     <UsingTask AssemblyFile="..\tools\WebCompiler.exe" TaskName="WebCompiler.CompilerBuildTask"/>
 
-    <Target Name="WebCompile" AfterTargets="Build" Condition="'$(RunWebCompiler)' != 'False'">
+    <Target Name="WebCompile" Condition="'$(RunWebCompiler)' != 'False'">
         <WebCompiler.CompilerBuildTask FileName="$(MSBuildProjectDirectory)\compilerconfig.json" />
     </Target>
 
