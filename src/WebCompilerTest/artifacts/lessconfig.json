@@ -12,6 +12,7 @@
   {
     "outputFile": "less/relative.css",
     "inputFile": "less/sub/relative.less",
+    "sourceMap": true,
     "minify": {
       "enabled": true,
       "adjustRelativePaths": true

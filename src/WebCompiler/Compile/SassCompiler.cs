@@ -83,7 +83,7 @@ namespace WebCompiler
 
             ProcessStartInfo start = new ProcessStartInfo
             {
-                WorkingDirectory = info.Directory.FullName,
+                WorkingDirectory = new FileInfo(config.FileName).DirectoryName,
                 UseShellExecute = false,
                 WindowStyle = ProcessWindowStyle.Hidden,
                 CreateNoWindow = true,

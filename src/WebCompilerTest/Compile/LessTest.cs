@@ -33,6 +33,9 @@ namespace WebCompilerTest
             Assert.IsTrue(File.Exists("../../artifacts/less/test.css"));
             Assert.IsTrue(result.ElementAt(1).CompiledContent.Contains("url(foo.png)"));
             Assert.IsTrue(result.ElementAt(1).CompiledContent.Contains("-webkit-animation"), "AutoPrefix");
+
+            string sourceMap = ScssTest.DecodeSourceMap(result.ElementAt(1).CompiledContent);
+            Assert.IsTrue(sourceMap.Contains("\"relative.less\""), "Source map paths");
         }
 
         [TestMethod, TestCategory("LESS")]

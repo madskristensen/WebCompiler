@@ -1,5 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
+using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WebCompiler;
 
@@ -33,6 +35,9 @@ namespace WebCompilerTest
             Assert.IsTrue(File.Exists("../../artifacts/scss/test.css"));
             Assert.IsTrue(first.CompiledContent.Contains("/*# sourceMappingURL=data:"));
             Assert.IsTrue(result.ElementAt(1).CompiledContent.Contains("url(foo.png)"));
+
+            string sourceMap = DecodeSourceMap(first.CompiledContent);
+            Assert.IsTrue(sourceMap.Contains("../scss/test.scss"), "Source map paths");
         }
 
         [TestMethod, TestCategory("SCSS")]
@@ -62,6 +67,20 @@ namespace WebCompilerTest
         {
             var result = _processor.Process("../../artifacts/scssconfig-no-sourcemap.json");
             Assert.IsTrue(result.First().CompiledContent.Contains("#test3"));
+        }
+
+        public static string DecodeSourceMap(string content)
+        {
+            string ident = "sourceMappingURL=data:application/json;base64,";
+            if (content.Contains(ident))
+            {
+                int start = content.IndexOf(ident) + ident.Length;
+                string map = content.Substring(start).Trim('*', '/');
+                byte[] data = Convert.FromBase64String(map);
+                return Encoding.UTF8.GetString(data);
+            }
+
+            return null;
         }
     }
 }
