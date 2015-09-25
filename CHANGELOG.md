@@ -4,6 +4,7 @@
 - [ ] Preview window (#6)
 - [ ] File globbing pattern support (#49)
 - [ ] Add minification default settings
+- [ ] Delete all output files on **Clean**
 - [x] Adjust relative CSS URLs (#104)
 - [x] Re-compile support for multiple config files (#99)
 - [x] MSBuild task now supports conditions

@@ -83,7 +83,7 @@ namespace WebCompiler
 
             ProcessStartInfo start = new ProcessStartInfo
             {
-                WorkingDirectory = new FileInfo(config.FileName).DirectoryName,
+                WorkingDirectory = new FileInfo(config.FileName).DirectoryName, // use config's directory to fix source map relative paths
                 UseShellExecute = false,
                 WindowStyle = ProcessWindowStyle.Hidden,
                 CreateNoWindow = true,
