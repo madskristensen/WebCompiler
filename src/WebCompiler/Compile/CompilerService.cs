@@ -12,7 +12,7 @@ namespace WebCompiler
     {
         internal const string Version = "1.4.166";
         private static readonly string[] _allowed = new[] { ".LESS", ".SCSS", ".COFFEE", ".ICED", ".JS", ".JSX", ".ES6" };
-        private static readonly string _path = Path.Combine(Path.GetTempPath(), "WebCompiler" + Version);
+        private static readonly string _path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "WebCompiler" + Version);
         private static object _syncRoot = new object(); // Used to lock on the initialize step
 
         /// <summary>
