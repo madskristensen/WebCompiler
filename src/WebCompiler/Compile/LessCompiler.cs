@@ -100,8 +100,8 @@ namespace WebCompiler
             var stderr = p.StandardError.ReadToEndAsync();
             p.WaitForExit();
 
-            _output = stdout.Result;
-            _error = stderr.Result;
+            _output = stdout.Result.Trim();
+            _error = stderr.Result.Trim();
         }
 
         private static string ConstructArguments(Config config)

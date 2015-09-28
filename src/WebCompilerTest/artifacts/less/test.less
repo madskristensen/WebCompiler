@@ -19,3 +19,18 @@ body {
     }
     .height-loop(@height, (@divider - 1));
 }
+
+.clearfix {
+  &:before,
+  &:after {
+    content: " "; // 1
+    display: table; // 2
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+p{
+  &:extend(.clearfix);
+}
