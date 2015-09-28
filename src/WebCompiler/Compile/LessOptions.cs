@@ -22,6 +22,10 @@ namespace WebCompiler
             if (autoPrefix != null)
                 AutoPrefix = autoPrefix;
 
+            var ieCompat = GetValue(config, "ieCompat");
+            if (ieCompat != null)
+                IECompat = ieCompat.ToLowerInvariant() == trueStr;
+
             var strictMath = GetValue(config, "strictMath");
             if (strictMath != null)
                 StrictMath = strictMath.ToLowerInvariant() == trueStr;
@@ -53,6 +57,13 @@ namespace WebCompiler
         /// </summary>
         [JsonProperty("autoPrefix")]
         public string AutoPrefix { get; set; } = "";
+
+        /// <summary>
+        /// Currently only used for the data-uri function to ensure that images aren't
+        /// created that are too large for the browser to handle.
+        /// </summary>
+        [JsonProperty("ieCompat")]
+        public bool IECompat { get; set; } = true;
 
         /// <summary>
         /// Without this option on Less will try and process all maths in your CSS.

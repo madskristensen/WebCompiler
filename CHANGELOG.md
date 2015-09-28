@@ -11,6 +11,7 @@
 - [x] AutoPrefixer support in the LESS compiler (#35)
 - [x] Sass: Adjusted SourceMap relative paths (#108)
 - [x] MSBuild task now uses BuildDependsOn (#73, #89)
+- [x] LESS: Added `--no-ie-compat` compiler switch (#111)
 
 Features that have a checkmark are complete and available for
 download in the
