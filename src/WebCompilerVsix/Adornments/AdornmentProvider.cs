@@ -81,7 +81,12 @@ namespace WebCompilerVsix
             }
             else
             {
-                var item = WebCompilerPackage._dte.Solution.FindProjectItem(fileName);
+                var solution = WebCompilerPackage._dte.Solution;
+
+                if (solution == null || string.IsNullOrEmpty(solution.FileName))
+                    return;
+
+                var item = solution.FindProjectItem(fileName);
 
                 if (item == null || item.ContainingProject == null)
                     return;
