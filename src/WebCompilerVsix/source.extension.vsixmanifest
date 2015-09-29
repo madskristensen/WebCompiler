@@ -8,7 +8,7 @@
         <ReleaseNotes>https://github.com/madskristensen/WebCompiler/blob/master/CHANGELOG.md</ReleaseNotes>
         <Icon>Resources\icon.png</Icon>
         <PreviewImage>Resources\preview.png</PreviewImage>
-        <Tags>bundle, bundling, minify, minification, js, css, html, jsx, es6</Tags>
+        <Tags>Compile, LESS, Sass, Scss, CoffeeScript, JavaScript, JSX, ES6</Tags>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[14.0]" />
