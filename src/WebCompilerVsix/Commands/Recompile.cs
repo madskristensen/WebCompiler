@@ -3,6 +3,7 @@ using System.ComponentModel.Design;
 using System.IO;
 using System.Linq;
 using Microsoft.VisualStudio.Shell;
+using WebCompiler;
 
 namespace WebCompilerVsix.Commands
 {
@@ -85,6 +86,8 @@ namespace WebCompilerVsix.Commands
                 if (project != null)
                     file = project.GetConfigFile();
             }
+
+            Telemetry.TrackEvent("VS re-compile");
 
             if (!string.IsNullOrEmpty(file))
                 CompilerService.Process(file);

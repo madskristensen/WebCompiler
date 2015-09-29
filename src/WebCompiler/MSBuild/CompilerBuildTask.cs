@@ -31,6 +31,8 @@ namespace WebCompiler
                 return true;
             }
 
+            Telemetry.TrackEvent("MSBuild");
+
             ConfigFileProcessor processor = new ConfigFileProcessor();
             processor.BeforeProcess += (s, e) => { if (e.ContainsChanges) FileHelpers.RemoveReadonlyFlagFromFile(e.Config.GetAbsoluteOutputFile()); };
             processor.AfterProcess += Processor_AfterProcess;

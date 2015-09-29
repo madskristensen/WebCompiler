@@ -7,6 +7,7 @@ using EnvDTE;
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.Shell;
 using NuGet.VisualStudio;
+using WebCompiler;
 
 namespace WebCompilerVsix.Commands
 {
@@ -134,6 +135,7 @@ namespace WebCompilerVsix.Commands
                 if (question == DialogResult.No)
                     return;
 
+                Telemetry.TrackEvent("VS add compile on build");
                 Version version = new Version(WebCompilerPackage.Version);
 
 #if DEBUG
@@ -164,6 +166,8 @@ namespace WebCompilerVsix.Commands
             }
             else
             {
+                Telemetry.TrackEvent("VS remove compile on build");
+
                 System.Threading.ThreadPool.QueueUserWorkItem((o) =>
                 {
                     try

@@ -87,6 +87,8 @@ namespace WebCompilerVsix.Commands
                 string outputFile = config.GetAbsoluteOutputFile();
                 ProjectHelpers.DeleteFileFromProject(outputFile);
             }
+
+            Telemetry.TrackEvent("VS clean output files");
         }
     }
 }

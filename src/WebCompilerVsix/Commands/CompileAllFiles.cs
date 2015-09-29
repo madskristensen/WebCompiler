@@ -5,6 +5,7 @@ using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using System.IO;
 using System.Collections.Generic;
+using WebCompiler;
 
 namespace WebCompilerVsix.Commands
 {
@@ -65,6 +66,8 @@ namespace WebCompilerVsix.Commands
                         CompilerService.Process(config);
                 }
             }
+
+            Telemetry.TrackEvent("VS compile solution");
         }
 
         private static List<string> GetFiles(string path, string pattern)

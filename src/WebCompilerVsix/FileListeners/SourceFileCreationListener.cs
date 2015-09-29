@@ -6,6 +6,7 @@ using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.TextManager.Interop;
 using Microsoft.VisualStudio.Utilities;
+using WebCompiler;
 
 namespace WebCompilerVsix.Listeners
 {
@@ -63,7 +64,10 @@ namespace WebCompilerVsix.Listeners
                     ErrorList.CleanErrors(e.FilePath);
 
                     if (File.Exists(configFile))
+                    {
+                        Telemetry.TrackEvent("VS file changed");
                         CompilerService.SourceFileChanged(configFile, e.FilePath);
+                    }
                 }
             }
         }

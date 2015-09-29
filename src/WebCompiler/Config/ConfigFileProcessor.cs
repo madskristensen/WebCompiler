@@ -47,6 +47,8 @@ namespace WebCompiler
             {
                 if (_processing.Contains(configFile))
                     _processing.Remove(configFile);
+
+                Telemetry.Flush();
             }
 
             return list;
@@ -85,6 +87,8 @@ namespace WebCompiler
                             list.Add(ProcessConfig(folder, config));
                     }
                 }
+
+                Telemetry.Flush();
 
                 return list;
             }
@@ -168,6 +172,8 @@ namespace WebCompiler
                     OnAfterWritingSourceMap(aboslute, mapFile, smChanges);
                 }
             }
+
+            Telemetry.TrackCompile(config);
 
             return result;
         }
