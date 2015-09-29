@@ -4,7 +4,7 @@
 - [ ] Preview window (#6)
 - [ ] File globbing pattern support (#49)
 - [ ] Add minification default settings
-- [ ] Delete all output files on **Clean**
+- [x] Delete all output files context menu command
 - [x] Adjust relative CSS URLs (#104)
 - [x] Re-compile support for multiple config files (#99)
 - [x] MSBuild task now supports conditions
@@ -12,6 +12,7 @@
 - [x] Sass: Adjusted SourceMap relative paths (#108)
 - [x] MSBuild task now uses BuildDependsOn (#73, #89)
 - [x] LESS: Added `--no-ie-compat` compiler switch (#111)
+- [x] Moved context menu into its own sub menu
 
 Features that have a checkmark are complete and available for
 download in the

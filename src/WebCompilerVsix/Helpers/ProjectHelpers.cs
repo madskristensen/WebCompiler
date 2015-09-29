@@ -219,6 +219,15 @@ namespace WebCompilerVsix
 
             return null;
         }
+
+        public static bool IsConfigFile(this ProjectItem item)
+        {
+            if (item == null || item.Properties == null || item.ContainingProject == null)
+                return false;
+
+            var sourceFile = item.Properties.Item("FullPath").Value.ToString();
+            return Path.GetFileName(sourceFile).Equals(Constants.CONFIG_FILENAME, StringComparison.OrdinalIgnoreCase);
+        }
     }
 
     public static class ProjectTypes

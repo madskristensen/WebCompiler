@@ -9,11 +9,11 @@ using WebCompiler;
 
 namespace WebCompilerVsix.Commands
 {
-    internal sealed class RemoveConfig
+    internal sealed class CleanOutputFiles
     {
         private readonly Package _package;
 
-        private RemoveConfig(Package package)
+        private CleanOutputFiles(Package package)
         {
             if (package == null)
             {
@@ -25,14 +25,12 @@ namespace WebCompilerVsix.Commands
             OleMenuCommandService commandService = this.ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
             if (commandService != null)
             {
-                var menuCommandID = new CommandID(PackageGuids.guidCompilerCmdSet, PackageIds.RemoveConfig);
+                var menuCommandID = new CommandID(PackageGuids.guidCompilerCmdSet, PackageIds.CleanOutputFiles);
                 var menuItem = new OleMenuCommand(AddConfig, menuCommandID);
                 menuItem.BeforeQueryStatus += BeforeQueryStatus;
                 commandService.AddCommand(menuItem);
             }
         }
-
-        private IEnumerable<Config> _configs;
 
         private void BeforeQueryStatus(object sender, EventArgs e)
         {
@@ -46,22 +44,10 @@ namespace WebCompilerVsix.Commands
 
             var item = items.FirstOrDefault();
 
-            if (item == null || item.ContainingProject == null || item.Properties == null)
-                return;
-
-            var sourceFile = item.Properties.Item("FullPath").Value.ToString();
-
-            if (!WebCompiler.CompilerService.IsSupported(sourceFile))
-                return;
-
-            string configFile = item.ContainingProject.GetConfigFile();
-
-            _configs = ConfigFileProcessor.IsFileConfigured(configFile, sourceFile);
-
-            button.Visible = _configs != null && _configs.Any();
+            button.Visible = item.IsConfigFile();
         }
 
-        public static RemoveConfig Instance
+        public static CleanOutputFiles Instance
         {
             get;
             private set;
@@ -77,29 +63,29 @@ namespace WebCompilerVsix.Commands
 
         public static void Initialize(Package package)
         {
-            Instance = new RemoveConfig(package);
+            Instance = new CleanOutputFiles(package);
         }
 
         private void AddConfig(object sender, EventArgs e)
         {
-            var question = MessageBox.Show($"This will remove the file from {Constants.CONFIG_FILENAME}.\r\rDo you want to continue?", Constants.VSIX_NAME, MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            var question = MessageBox.Show($"This will delete all output files from the project.\r\rDo you want to continue?", Constants.VSIX_NAME, MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
 
-            if (question == DialogResult.Cancel)
+            if (question == DialogResult.No)
                 return;
 
-            ConfigHandler handler = new ConfigHandler();
+            var item = ProjectHelpers.GetSelectedItems().FirstOrDefault();
 
-            try
+            if (item == null || item.Properties == null)
+                return;
+
+            string configFile = item.Properties.Item("FullPath").Value.ToString();
+
+            var configs = ConfigHandler.GetConfigs(configFile);
+
+            foreach (Config config in configs)
             {
-                foreach (Config config in _configs)
-                {
-                    handler.RemoveConfig(config);
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.Log(ex);
-                WebCompilerPackage._dte.StatusBar.Text = $"Could not update {Constants.CONFIG_FILENAME}. Make sure it's not write-protected or has syntax errors.";
+                string outputFile = config.GetAbsoluteOutputFile();
+                ProjectHelpers.DeleteFileFromProject(outputFile);
             }
         }
     }

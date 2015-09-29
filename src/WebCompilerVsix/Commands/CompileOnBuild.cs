@@ -28,7 +28,7 @@ namespace WebCompilerVsix.Commands
             OleMenuCommandService commandService = this.ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
             if (commandService != null)
             {
-                var menuCommandID = new CommandID(GuidList.guidCompilerCmdSet, PackageCommands.CompileOnBuild);
+                var menuCommandID = new CommandID(PackageGuids.guidCompilerCmdSet, PackageIds.CompileOnBuild);
                 var menuItem = new OleMenuCommand(EnableCompileOnBuild, menuCommandID);
                 menuItem.BeforeQueryStatus += BeforeQueryStatus;
                 commandService.AddCommand(menuItem);
@@ -69,8 +69,7 @@ namespace WebCompilerVsix.Commands
                 return;
             }
 
-            var sourceFile = item.Properties.Item("FullPath").Value.ToString();
-            bool isConfigFile = Path.GetFileName(sourceFile).Equals(Constants.CONFIG_FILENAME, StringComparison.OrdinalIgnoreCase);
+            bool isConfigFile = item.IsConfigFile();
 
             if (!isConfigFile)
             {

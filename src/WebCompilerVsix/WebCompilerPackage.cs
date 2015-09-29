@@ -14,7 +14,7 @@ namespace WebCompilerVsix
     [PackageRegistration(UseManagedResourcesOnly = true)]
     [InstalledProductRegistration("#110", "#112", Version, IconResourceID = 400)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
-    [Guid(GuidList.guidCompilerPackageString)]
+    [Guid(PackageGuids.guidCompilerPackageString)]
     [ProvideAutoLoad(UIContextGuids80.SolutionExists)]
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
     public sealed class WebCompilerPackage : Package
@@ -43,6 +43,7 @@ namespace WebCompilerVsix
             CompileOnBuild.Initialize(this);
             RemoveConfig.Initialize(this);
             CompileAllFiles.Initialize(this);
+            CleanOutputFiles.Initialize(this);
 
             base.Initialize();
         }
