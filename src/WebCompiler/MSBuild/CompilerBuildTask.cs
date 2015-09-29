@@ -68,6 +68,7 @@ namespace WebCompiler
             catch (Exception ex)
             {
                 Log.LogError(ex.Message);
+                Telemetry.TrackException(ex);
                 return false;
             }
         }

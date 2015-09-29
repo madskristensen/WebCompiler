@@ -46,5 +46,13 @@ namespace WebCompiler
             _telemetry.TrackEvent(key);
 #endif
         }
+
+        /// <summary>Tracks any exception.</summary>
+        public static void TrackException(Exception ex)
+        {
+#if !DEBUG
+            _telemetry.TrackException(new Microsoft.ApplicationInsights.DataContracts.ExceptionTelemetry(ex));
+#endif
+        }
     }
 }

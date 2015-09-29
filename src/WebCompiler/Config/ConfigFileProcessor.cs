@@ -115,8 +115,9 @@ namespace WebCompiler
 
                 return list;
             }
-            catch
+            catch (Exception ex)
             {
+                Telemetry.TrackException(ex);
                 return null;
             }
         }

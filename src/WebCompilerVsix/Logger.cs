@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.Shell.Interop;
+using WebCompiler;
 
 namespace WebCompilerVsix
 {
@@ -41,6 +42,7 @@ namespace WebCompilerVsix
             if (ex != null)
             {
                 Log(ex.ToString());
+                Telemetry.TrackException(ex);
             }
         }
 
