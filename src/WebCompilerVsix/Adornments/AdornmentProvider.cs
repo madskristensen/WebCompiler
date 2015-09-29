@@ -81,26 +81,21 @@ namespace WebCompilerVsix
             }
             else
             {
-                var solution = WebCompilerPackage._dte.Solution;
-
-                if (solution == null || string.IsNullOrEmpty(solution.FileName))
-                    return;
-
-                var item = solution.FindProjectItem(fileName);
-
-                if (item == null || item.ContainingProject == null)
-                    return;
-
-                string configFile = item.ContainingProject.GetConfigFile();
-
-                if (string.IsNullOrEmpty(configFile))
-                    return;
-
-                string extension = Path.GetExtension(fileName.Replace(".map", ""));
-                string normalizedFilePath = fileName.Replace(".map", "").Replace(".min" + extension, extension);
-
                 try
                 {
+                    var item = WebCompilerPackage._dte.Solution.FindProjectItem(fileName);
+
+                    if (item == null || item.ContainingProject == null)
+                        return;
+
+                    string configFile = item.ContainingProject.GetConfigFile();
+
+                    if (string.IsNullOrEmpty(configFile))
+                        return;
+
+                    string extension = Path.GetExtension(fileName.Replace(".map", ""));
+                    string normalizedFilePath = fileName.Replace(".map", "").Replace(".min" + extension, extension);
+
                     var configs = ConfigHandler.GetConfigs(configFile);
 
                     foreach (Config config in configs)
