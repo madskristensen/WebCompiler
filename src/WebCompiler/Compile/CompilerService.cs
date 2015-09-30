@@ -11,7 +11,7 @@ namespace WebCompiler
     public static class CompilerService
     {
         internal const string Version = "1.4.166";
-        private static readonly string[] _allowed = new[] { ".LESS", ".SCSS", ".COFFEE", ".ICED", ".JS", ".JSX", ".ES6" };
+        private static readonly string[] _allowed = new[] { ".LESS", ".SCSS", ".SASS", ".COFFEE", ".ICED", ".JS", ".JSX", ".ES6" };
         private static readonly string _path = Path.Combine(Path.GetTempPath(), "WebCompiler" + Version);
         private static object _syncRoot = new object(); // Used to lock on the initialize step
 
@@ -44,6 +44,7 @@ namespace WebCompiler
                     break;
 
                 case ".SCSS":
+                case ".SASS":
                     compiler = new SassCompiler(_path);
                     break;
 

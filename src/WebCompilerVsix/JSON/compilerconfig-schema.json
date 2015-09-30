@@ -22,7 +22,7 @@
     "sassOptions": {
       "properties": {
         "inputFile": {
-          "pattern": "\\.scss$"
+          "pattern": "\\.(scss|sass)$"
         },
         "options": {
           "$ref": "compilerdefaults-schema.json#/definitions/sass"

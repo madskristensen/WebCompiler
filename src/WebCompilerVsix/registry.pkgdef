@@ -11,3 +11,6 @@
 
 [$RootKey$\ShellFileAssociations\.defaults]
 "DefaultIconMoniker"="KnownMonikers.SettingsFile"
+
+[$RootKey$\ShellFileAssociations\.sass]
+"DefaultIconMoniker"="KnownMonikers.SASSStyleSheet"
