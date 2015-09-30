@@ -21,6 +21,9 @@ namespace WebCompiler
             {
                 string cssDirectoryPath = Path.GetDirectoryName(config.GetAbsoluteInputFile());
 
+                if (!Directory.Exists(cssDirectoryPath))
+                    return cssFileContents;
+
                 foreach (Match match in matches)
                 {
                     string quoteDelimiter = match.Groups[1].Value; //url('') vs url("")
@@ -36,6 +39,10 @@ namespace WebCompiler
                     var queryOnly = pathAndQuery.Length == 2 ? pathAndQuery[1] : string.Empty;
 
                     string absolutePath = GetAbsolutePath(cssDirectoryPath, pathOnly);
+
+                    if (string.IsNullOrEmpty(absoluteOutputPath))
+                        continue;
+
                     string serverRelativeUrl = FileHelpers.MakeRelative(absoluteOutputPath, absolutePath);
 
                     if (!string.IsNullOrEmpty(queryOnly))
@@ -52,6 +59,14 @@ namespace WebCompiler
 
         private static string GetAbsolutePath(string cssFilePath, string pathOnly)
         {
+            char[] invalids = Path.GetInvalidPathChars();
+
+            foreach (char invalid in invalids)
+            {
+                if (pathOnly.IndexOf(invalid) > -1)
+                    return null;
+            }
+
             return Path.GetFullPath(Path.Combine(cssFilePath, pathOnly));
         }
     }

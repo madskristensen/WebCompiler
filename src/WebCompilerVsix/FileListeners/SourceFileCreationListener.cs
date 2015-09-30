@@ -55,6 +55,10 @@ namespace WebCompilerVsix.Listeners
         {
             if (e.FileActionType == FileActionTypes.ContentSavedToDisk)
             {
+                // Check if filename is absolute because when debugging, script files are sometimes dynamically created.
+                if (string.IsNullOrEmpty(e.FilePath) || !Path.IsPathRooted(e.FilePath))
+                    return;
+
                 var item = WebCompilerPackage._dte.Solution.FindProjectItem(e.FilePath);
 
                 if (item != null && item.ContainingProject != null)
