@@ -51,7 +51,9 @@ namespace WebCompiler
         public static void TrackException(Exception ex)
         {
 #if !DEBUG
-            _telemetry.TrackException(new Microsoft.ApplicationInsights.DataContracts.ExceptionTelemetry(ex));
+            var telex = new Microsoft.ApplicationInsights.DataContracts.ExceptionTelemetry(ex);
+            telex.HandledAt = Microsoft.ApplicationInsights.DataContracts.ExceptionHandledAt.UserCode;
+            _telemetry.TrackException(telex);
 #endif
         }
     }
