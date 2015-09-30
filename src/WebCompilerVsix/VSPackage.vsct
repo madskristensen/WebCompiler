@@ -65,7 +65,7 @@
             </Button>
             <Button guid="guidCompilerCmdSet" id="CleanOutputFiles" priority="0x0200" type="Button">
                 <Parent guid="guidCompilerCmdSet" id="ContextMenuGroup" />
-                <Icon guid="ImageCatalogGuid" id="DeleteDocument" />
+                <Icon guid="ImageCatalogGuid" id="Cancel" />
                 <CommandFlag>IconIsMoniker</CommandFlag>
                 <CommandFlag>DynamicVisibility</CommandFlag>
                 <Strings>

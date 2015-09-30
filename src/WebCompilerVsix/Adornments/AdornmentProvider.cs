@@ -64,7 +64,8 @@ namespace WebCompilerVsix
             {
                 string fileName = Path.GetFileName(document.FilePath).ToLowerInvariant();
 
-                if (string.IsNullOrEmpty(fileName))
+                // Check if filename is absolute because when debugging, script files are sometimes dynamically created.
+                if (string.IsNullOrEmpty(fileName) || Path.IsPathRooted(document.FilePath))
                     return;
 
                 CreateAdornments(document, textView);

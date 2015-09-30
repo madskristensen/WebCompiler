@@ -45,7 +45,7 @@ run all the configured compilers.
 
 ### Compile on save
 
-Any time a `.less`,`.less`, `.scss`, `.jsx`, `.es6` or `.coffee` file is modified within
+Any time a `.less`, `.scss`, `.jsx`, `.es6` or `.coffee` file is modified within
 Visual Studio, the compiler runs automatically to produces the compiled output file.
 
 The same is true when saving the `compilerconfig.json` file where
