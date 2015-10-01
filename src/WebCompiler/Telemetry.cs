@@ -29,7 +29,7 @@ namespace WebCompiler
         public static void TrackCompile(Config config)
         {
 #if !DEBUG
-            if (EnableTelemetry)
+            if (Enabled)
             {
                 string fileName = config.GetAbsoluteInputFile();
                 string extension = System.IO.Path.GetExtension(fileName).ToLowerInvariant();
@@ -43,7 +43,7 @@ namespace WebCompiler
         public static void TrackEvent(string key)
         {
 #if !DEBUG
-            if (EnableTelemetry)
+            if (Enabled)
             {
                 _telemetry.TrackEvent(key);
             }
@@ -54,7 +54,7 @@ namespace WebCompiler
         public static void TrackException(Exception ex)
         {
 #if !DEBUG
-            if (EnableTelemetry)
+            if (Enabled)
             {
                 var telex = new Microsoft.ApplicationInsights.DataContracts.ExceptionTelemetry(ex);
                 telex.HandledAt = Microsoft.ApplicationInsights.DataContracts.ExceptionHandledAt.UserCode;
