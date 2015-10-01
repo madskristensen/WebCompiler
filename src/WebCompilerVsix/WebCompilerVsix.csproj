@@ -61,6 +61,7 @@
     <Compile Include="Commands\Recompile.cs" />
     <Compile Include="Commands\CreateConfig.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="ContentType\SassContentTypeDefinition.cs" />
     <Compile Include="ErrorList\ErrorList.cs" />
     <Compile Include="ErrorList\ErrorListService.cs" />
     <Compile Include="Logger.cs" />
