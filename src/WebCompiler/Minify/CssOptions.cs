@@ -58,16 +58,5 @@ namespace WebCompiler
 
             return settings;
         }
-
-        internal static string GetValue(Config config, string key, object defaultValue = null)
-        {
-            if (config.Minify.ContainsKey(key))
-                return config.Minify[key].ToString();
-
-            if (defaultValue != null)
-                return defaultValue.ToString();
-
-            return string.Empty;
-        }
     }
 }

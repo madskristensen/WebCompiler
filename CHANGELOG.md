@@ -5,6 +5,7 @@
 - [ ] File globbing pattern support (#49)
 - [x] Add minification default settings
 - [x] Support for the old Sass syntax and `.sass` files
+- [x] New icon for _Delete all output files_
 
 Features that have a checkmark are complete and available for
 download in the

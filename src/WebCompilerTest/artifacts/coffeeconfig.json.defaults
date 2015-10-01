@@ -1,0 +1,16 @@
+﻿{
+    "compilers": {
+        "less": {
+            "relativeUrls": false,
+            "rootPath": "./"
+        }
+    },
+
+    "minifiers": {
+        "css": {
+        },
+        "javascript": {
+            "enabled": false
+        }
+    }
+}

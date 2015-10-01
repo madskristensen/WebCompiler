@@ -6,7 +6,7 @@ namespace WebCompiler
     /// <summary>
     /// Handle all options for JavaScript Minification
     /// </summary>
-    public class JavaScriptOptions
+    public class JavaScriptOptions : BaseMinifyOptions<JavaScriptOptions>
     {
         /// <summary>
         /// Get settings for the minification
@@ -15,6 +15,8 @@ namespace WebCompiler
         /// <returns>CodeSettings based on the config file.</returns>
         public static CodeSettings GetSettings(Config config)
         {
+            LoadDefaultSettings(config, "javascript");
+
             CodeSettings settings = new CodeSettings();
 
             settings.PreserveImportantComments = GetValue(config, "preserveImportantComments", true) == "True";
@@ -47,17 +49,6 @@ namespace WebCompiler
                 settings.IndentSize = size;
 
             return settings;
-        }
-
-        internal static string GetValue(Config config, string key, object defaultValue = null)
-        {
-            if (config.Minify.ContainsKey(key))
-                return config.Minify[key].ToString();
-
-            if (defaultValue != null)
-                return defaultValue.ToString();
-
-            return string.Empty;
         }
     }
 }

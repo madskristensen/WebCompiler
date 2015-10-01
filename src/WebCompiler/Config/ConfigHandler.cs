@@ -68,8 +68,18 @@ namespace WebCompiler
                 },
                 minifiers = new
                 {
-                    css = new object(),
-                    js = new object()
+                    css = new
+                    {
+                        enabled = true,
+                        termSemicolons = true,
+                        gzip = false
+                    },
+                    javascript = new
+                    {
+                        enabled = true,
+                        termSemicolons = true,
+                        gzip = false
+                    },
                 }
             };
 
