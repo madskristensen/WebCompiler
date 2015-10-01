@@ -3,7 +3,8 @@ os: Visual Studio 2015
 
 install:
   - ps: (new-object Net.WebClient).DownloadString("https://raw.github.com/madskristensen/ExtensionScripts/master/AppVeyor/vsix.ps1") | iex
-  - npm install npm -g
+  - npm install npm@3.3.3 -g
+  - set PATH=%APPDATA%\npm;%PATH%
   - npm --version
 
 before_build:
