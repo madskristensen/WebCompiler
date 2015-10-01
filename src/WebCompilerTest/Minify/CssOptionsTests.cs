@@ -11,6 +11,12 @@ namespace WebCompilerTest.Minify
     {
         private const string processingConfigFile = "../../Minify/artifacts/css/";
 
+        [TestInitialize]
+        public void Setup()
+        {
+            Telemetry.Enabled = false;
+        }
+
 
         [TestMethod, TestCategory("CssOptions")]
         public void CssCommentInUpperCaseShouldWork()

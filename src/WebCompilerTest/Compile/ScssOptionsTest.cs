@@ -7,6 +7,12 @@ namespace WebCompilerTest
     [TestClass]
     public class ScssOptionsTest
     {
+        [TestInitialize]
+        public void Setup()
+        {
+            Telemetry.Enabled = false;
+        }
+
         [TestMethod, TestCategory("SCSSOptions")]
         public void OutputStyleNested()
         {

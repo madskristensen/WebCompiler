@@ -6,6 +6,12 @@ namespace WebCompilerTest
     [TestClass]
     public class CompileServiceTest
     {
+        [TestInitialize]
+        public void Setup()
+        {
+            Telemetry.Enabled = false;
+        }
+
         [TestMethod, TestCategory("CompileService")]
         public void LessIsSupported()
         {
