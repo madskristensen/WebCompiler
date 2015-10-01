@@ -7,23 +7,15 @@ if not exist %~dp0..\src\WebCompiler\node md %~dp0..\src\WebCompiler\node
 pushd %~dp0..\src\WebCompiler\node
 
 echo Installing packages...
-::call npm install flatten-packages -g --no-optional --quiet > nul
-call npm install less --no-optional --quiet > nul
-call npm install less-plugin-autoprefix --no-optional --quiet > nul
-call npm install iced-coffee-script --no-optional --quiet > nul
-call npm install node-sass --no-optional --quiet > nul
-call npm install babel --no-optional --quiet > nul
+call npm install --no-optional --quiet > nul
 
 if not exist "node_modules\node-sass\vendor\win32-ia32-14" (
+    echo Copying node binding...
     md "node_modules\node-sass\vendor\win32-ia32-14"
     copy binding.node "node_modules\node-sass\vendor\win32-ia32-14"
 )
 
-::echo Flattening node_modules...
-::call flatten-packages > nul
-
-
-echo Deleting unneeded files and folders
+echo Deleting unneeded files and folders...
 del /s /q *.md > nul
 del /s /q *.markdown > nul
 del /s /q *.html > nul
@@ -53,15 +45,11 @@ for /d /r . %%d in (test)       do @if exist "%%d" rd /s /q "%%d" > nul
 for /d /r . %%d in (testing)    do @if exist "%%d" rd /s /q "%%d" > nul
 for /d /r . %%d in (tst)        do @if exist "%%d" rd /s /q "%%d" > nul
 
-echo Compressing artifacts and cleans up
-
-:: Zips and deletes the node_modules folder
+echo Compressing artifacts and cleans up...
 %~dp07z.exe a -r -mx9 node_modules.7z node_modules > nul
 rmdir /S /Q node_modules > nul
 
-:: Zips and deletes node.exe
-::%~dp07z.exe a -r -mx9 node.7z node.exe > nul
-::del node.exe > nul
 
 :done
+echo Done
 pushd "%~dp0"
