@@ -100,6 +100,14 @@
     "baseMinify": {
       "type": "object",
       "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "gzip": {
+          "description": "Produce a .gz file after minification.",
+          "type": "boolean",
+          "default": false
+        },
         "indentSize": {
           "description": "For the multi-line output feature, how many spaces to use when indenting a block (see outputMode).",
           "type": "integer",

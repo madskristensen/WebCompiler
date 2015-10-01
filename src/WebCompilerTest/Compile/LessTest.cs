@@ -31,8 +31,11 @@ namespace WebCompilerTest
         {
             var result = _processor.Process("../../artifacts/lessconfig.json");
             Assert.IsTrue(File.Exists("../../artifacts/less/test.css"));
+            Assert.IsTrue(File.Exists("../../artifacts/less/test.min.css"));
             Assert.IsTrue(result.ElementAt(1).CompiledContent.Contains("url(foo.png)"));
             Assert.IsTrue(result.ElementAt(1).CompiledContent.Contains("-webkit-animation"), "AutoPrefix");
+
+            Assert.IsTrue(File.ReadAllText("../../artifacts/less/test.min.css").Contains("important comment"), "Default options");
 
             string sourceMap = ScssTest.DecodeSourceMap(result.ElementAt(1).CompiledContent);
             Assert.IsTrue(sourceMap.Contains("\"relative.less\""), "Source map paths");

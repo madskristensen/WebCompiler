@@ -32,6 +32,10 @@ namespace WebCompiler
         {
             string content = File.ReadAllText(file);
             var settings = JavaScriptOptions.GetSettings(config);
+
+            if (config.Minify.ContainsKey("enabled") && config.Minify["enabled"].ToString().Equals("false", StringComparison.OrdinalIgnoreCase))
+                return null;
+
             var minifier = new Minifier();
 
             string ext = Path.GetExtension(file);
@@ -63,6 +67,10 @@ namespace WebCompiler
         {
             string content = File.ReadAllText(file);
             var settings = CssOptions.GetSettings(config);
+
+            if (config.Minify.ContainsKey("enabled") && config.Minify["enabled"].ToString().Equals("false", StringComparison.OrdinalIgnoreCase))
+                return null;
+
             var minifier = new Minifier();
 
             string result = minifier.MinifyStyleSheet(content, settings);

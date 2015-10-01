@@ -3,7 +3,7 @@
 - [ ] Generate gulpfile.js from compilerconfig.json (#34)
 - [ ] Preview window (#6)
 - [ ] File globbing pattern support (#49)
-- [ ] Add minification default settings
+- [x] Add minification default settings
 - [x] Support for the old Sass syntax and `.sass` files
 
 Features that have a checkmark are complete and available for

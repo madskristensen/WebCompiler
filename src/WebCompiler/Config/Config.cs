@@ -31,7 +31,7 @@ namespace WebCompiler
         /// Settings for the minification.
         /// </summary>
         [JsonProperty("minify")]
-        public Dictionary<string, object> Minify { get; set; } = new Dictionary<string, object> { { "enabled", true } };
+        public Dictionary<string, object> Minify { get; set; } = new Dictionary<string, object>();
 
         /// <summary>
         /// If true it makes Visual Studio include the output file in the project.

@@ -1,11 +1,12 @@
-﻿using Microsoft.Ajax.Utilities;
+﻿using System;
+using Microsoft.Ajax.Utilities;
 
 namespace WebCompiler
 {
     /// <summary>
     /// Handle all options for Css Minification
     /// </summary>
-    public class CssOptions
+    public class CssOptions : BaseMinifyOptions<CssOptions>
     {
         /// <summary>
         /// Get settings for the minification
@@ -14,6 +15,8 @@ namespace WebCompiler
         /// <returns>CssSettings based on the config file.</returns>
         public static CssSettings GetSettings(Config config)
         {
+            LoadDefaultSettings(config, "css");
+
             CssSettings settings = new CssSettings();
             settings.TermSemicolons = GetValue(config, "termSemicolons") == "True";
 

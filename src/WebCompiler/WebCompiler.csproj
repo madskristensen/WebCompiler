@@ -80,6 +80,7 @@
     <Compile Include="Compile\CompilerResult.cs" />
     <Compile Include="Compile\LessCompiler.cs" />
     <Compile Include="Helpers\FileHelpers.cs" />
+    <Compile Include="Minify\BaseMinifyOptions.cs" />
     <Compile Include="Minify\FileMinifier.cs" />
     <Compile Include="Minify\CssOptions.cs" />
     <Compile Include="Minify\JavaScriptOptions.cs" />

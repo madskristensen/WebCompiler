@@ -89,19 +89,6 @@
         "minify": {
           "description": "Specify options for minification of the output file.",
           "type": "object",
-          "required": [ "enabled" ],
-
-          "properties": {
-            "enabled": {
-              "type": "boolean"
-            },
-            "gzip": {
-              "description": "Produce a .gz file after minification.",
-              "type": "boolean",
-              "default": false
-            }
-          },
-
           "allOf": [ { "$ref": "compilerdefaults-schema.json#/definitions/baseMinify" } ]
         },
         "outputFile": {

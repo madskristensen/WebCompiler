@@ -1,14 +1,15 @@
 ﻿{
-  "compilers": {
-    "less": {
-      "relativeUrls": false,
-      "rootPath": "./"
-    }
-  },
-
-  "minifiers": {
-    "css": {
+    "compilers": {
+        "less": {
+            "relativeUrls": false,
+            "rootPath": "./"
+        }
     },
-    "javascript": {}
-  }
+
+    "minifiers": {
+        "css": {
+            "commentMode": "all"
+        },
+        "javascript": { }
+    }
 }

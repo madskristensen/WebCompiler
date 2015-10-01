@@ -150,10 +150,10 @@ namespace WebCompiler
 
             OnAfterProcess(config, baseFolder, containsChanges);
 
-            if (config.Minify.ContainsKey("enabled") && config.Minify["enabled"].ToString().Equals("true", StringComparison.OrdinalIgnoreCase))
-            {
+            //if (!config.Minify.ContainsKey("enabled") || config.Minify["enabled"].ToString().Equals("true", StringComparison.OrdinalIgnoreCase))
+            //{
                 FileMinifier.MinifyFile(config);
-            }
+            //}
 
             if (config.SourceMap)
             {
