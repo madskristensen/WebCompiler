@@ -105,7 +105,6 @@
     <EmbeddedResource Include="Node\prepare.cmd" />
     <EmbeddedResource Include="Node\node.7z" />
     <EmbeddedResource Include="Node\node_modules.7z" />
-    <None Include="Node\package.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
