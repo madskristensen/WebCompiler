@@ -3,6 +3,8 @@ os: Visual Studio 2015
 
 install:
   - ps: (new-object Net.WebClient).DownloadString("https://raw.github.com/madskristensen/ExtensionScripts/master/AppVeyor/vsix.ps1") | iex
+  - npm install npm -g
+  - npm --version
 
 before_build:
   - ps: Vsix-IncrementVsixVersion | Vsix-UpdateBuildVersion
@@ -11,7 +13,6 @@ before_build:
   - ps: Vsix-TokenReplacement src\WebCompiler\Compile\CompilerService.cs 'Version = "([0-9\\.]+)"' 'Version = "{version}"'
 
 build_script:
-  - npm install npm@3.3.3 -g
   - nuget restore -Verbosity quiet
   - msbuild /p:configuration=Release /p:DeployExtension=false /p:ZipPackageCompressionLevel=normal /v:m
 
