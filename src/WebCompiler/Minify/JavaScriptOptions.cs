@@ -6,7 +6,7 @@ namespace WebCompiler
     /// <summary>
     /// Handle all options for JavaScript Minification
     /// </summary>
-    public class JavaScriptOptions : BaseMinifyOptions<JavaScriptOptions>
+    public class JavaScriptOptions : BaseMinifyOptions
     {
         /// <summary>
         /// Get settings for the minification

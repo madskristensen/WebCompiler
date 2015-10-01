@@ -5,7 +5,10 @@ using Newtonsoft.Json.Linq;
 
 namespace WebCompiler
 {
-    public abstract class BaseMinifyOptions<T> where T : BaseMinifyOptions<T>, new()
+    /// <summary>
+    /// Base class for minification options
+    /// </summary>
+    public abstract class BaseMinifyOptions
     {
         /// <summary>
         /// Loads the options based on the config object
@@ -32,6 +35,9 @@ namespace WebCompiler
             }
         }
 
+        /// <summary>
+        /// Gets the string value of the minification settings.
+        /// </summary>
         protected static string GetValue(Config config, string key, object defaultValue = null)
         {
             if (config.Minify.ContainsKey(key))

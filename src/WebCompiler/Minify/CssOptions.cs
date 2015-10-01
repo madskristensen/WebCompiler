@@ -6,7 +6,7 @@ namespace WebCompiler
     /// <summary>
     /// Handle all options for Css Minification
     /// </summary>
-    public class CssOptions : BaseMinifyOptions<CssOptions>
+    public class CssOptions : BaseMinifyOptions
     {
         /// <summary>
         /// Get settings for the minification
