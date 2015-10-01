@@ -7,7 +7,7 @@ if not exist %~dp0..\src\WebCompiler\node md %~dp0..\src\WebCompiler\node
 pushd %~dp0..\src\WebCompiler\node
 
 echo Installing packages...
-call npm install flatten-packages -g --no-optional --quiet > nul
+::call npm install flatten-packages -g --no-optional --quiet > nul
 call npm install less --no-optional --quiet > nul
 call npm install less-plugin-autoprefix --no-optional --quiet > nul
 call npm install iced-coffee-script --no-optional --quiet > nul
@@ -19,8 +19,8 @@ if not exist "node_modules\node-sass\vendor\win32-ia32-14" (
     copy binding.node "node_modules\node-sass\vendor\win32-ia32-14"
 )
 
-echo Flattening node_modules...
-call flatten-packages > nul
+::echo Flattening node_modules...
+::call flatten-packages > nul
 
 
 echo Deleting unneeded files and folders
