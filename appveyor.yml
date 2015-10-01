@@ -12,7 +12,6 @@ before_build:
   - ps: Vsix-IncrementNuspecVersion .\src\WebCompiler\MSBuild\*.nuspec
   - ps: Vsix-TokenReplacement src\WebCompilerVsix\WebCompilerPackage.cs 'Version = "([0-9\\.]+)"' 'Version = "{version}"'
   - ps: Vsix-TokenReplacement src\WebCompiler\Compile\CompilerService.cs 'Version = "([0-9\\.]+)"' 'Version = "{version}"'
-  - ps: Vsix-TokenReplacement src\WebCompiler\Node\package.json '"1\\.4\\.66"' '"{version}"'
 
 build_script:
   - nuget restore -Verbosity quiet
