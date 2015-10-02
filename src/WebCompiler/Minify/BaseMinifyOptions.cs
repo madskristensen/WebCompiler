@@ -23,7 +23,7 @@ namespace WebCompiler
             Dictionary<string, object> options = new Dictionary<string, object>();
 
             JObject json = JObject.Parse(File.ReadAllText(defaultFile));
-            var jsonOptions = json["minifiers"][minifierType];
+            var jsonOptions = json["minifiers"]?[minifierType];
 
             if (jsonOptions != null)
                 options = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonOptions.ToString());
