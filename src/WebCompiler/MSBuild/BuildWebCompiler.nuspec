@@ -18,5 +18,6 @@
         <file src="BuildWebCompiler.targets" target="build" />
         <file src="..\*.dll" target="tools" />
         <file src="..\WebCompiler.exe" target="tools" />
+        <file src="..\WebCompiler.pdb" target="tools" />
     </files>
 </package>
