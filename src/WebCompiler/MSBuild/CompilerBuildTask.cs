@@ -21,9 +21,6 @@ namespace WebCompiler
         public override bool Execute()
         {
             FileInfo configFile = new FileInfo(FileName);
-            CompilerService.Initialize();
-
-            Log.LogMessage(MessageImportance.High, Environment.NewLine + "WebCompiler: Begin compiling " + configFile.Name);
 
             if (!configFile.Exists)
             {
@@ -31,6 +28,7 @@ namespace WebCompiler
                 return true;
             }
 
+            Log.LogMessage(MessageImportance.High, Environment.NewLine + "WebCompiler: Begin compiling " + configFile.Name);
             Telemetry.TrackEvent("MSBuild");
 
             ConfigFileProcessor processor = new ConfigFileProcessor();
