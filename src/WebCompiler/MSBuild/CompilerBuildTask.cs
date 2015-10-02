@@ -42,6 +42,8 @@ namespace WebCompiler
             FileMinifier.BeforeWritingGzipFile += (s, e) => { if (e.ContainsChanges) FileHelpers.RemoveReadonlyFlagFromFile(e.ResultFile); };
             FileMinifier.AfterWritingGzipFile += FileMinifier_AfterWritingGzipFile;
 
+            CompilerService.Initializing += (s, e) => { Log.LogMessage(MessageImportance.High, "WebCompiler installing updated versions of the compilers..."); };
+
             try
             {
                 var results = processor.Process(configFile.FullName);

@@ -17,21 +17,24 @@ namespace WebCompiler
         {
             string defaultFile = config.FileName + ".defaults";
 
+            if (!File.Exists(defaultFile))
+                return;
+
             Dictionary<string, object> options = new Dictionary<string, object>();
 
-            if (File.Exists(defaultFile))
-            {
-                JObject json = JObject.Parse(File.ReadAllText(defaultFile));
-                var jsonOptions = json["minifiers"][minifierType];
+            JObject json = JObject.Parse(File.ReadAllText(defaultFile));
+            var jsonOptions = json["minifiers"][minifierType];
 
-                if (jsonOptions != null)
-                    options = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonOptions.ToString());
-            }
+            if (jsonOptions != null)
+                options = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonOptions.ToString());
 
-            foreach (string key in options.Keys)
+            if (options != null)
             {
-                if (!config.Minify.ContainsKey(key))
-                    config.Minify[key] = options[key];
+                foreach (string key in options.Keys)
+                {
+                    if (!config.Minify.ContainsKey(key))
+                        config.Minify[key] = options[key];
+                }
             }
         }
 
