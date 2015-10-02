@@ -75,7 +75,7 @@ namespace WebCompiler
 
         private void FileMinifier_AfterWritingGzipFile(object sender, MinifyFileEventArgs e)
         {
-            Log.LogMessage(MessageImportance.High, "\tGzipped " + FileHelpers.MakeRelative(FileName, e.ResultFile));
+            Log.LogMessage(MessageImportance.High, "\tGzipped  " + FileHelpers.MakeRelative(FileName, e.ResultFile));
         }
 
         private void Processor_AfterProcess(object sender, CompileFileEventArgs e)

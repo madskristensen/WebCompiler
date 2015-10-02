@@ -8,10 +8,11 @@
         <owners>Mads Kristensen</owners>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <projectUrl>https://github.com/madskristensen/WebCompiler</projectUrl>
-        <description>Compiles LESS, Sass and CoffeeScript files</description>
+        <iconUrl>https://raw.githubusercontent.com/madskristensen/WebCompiler/master/src/WebCompilerVsix/Resources/icon.png</iconUrl>
+        <description>Compiles LESS, Sass, JSX and CoffeeScript files</description>
         <releaseNotes>Initial release.</releaseNotes>
         <copyright>Copyright 2015</copyright>
-        <tags>LESS, Sass, Scss, CoffeeScript</tags>
+        <tags>LESS, Sass, Scss, JSX, EcmaScript6, CoffeeScript</tags>
     </metadata>
 
     <files>
