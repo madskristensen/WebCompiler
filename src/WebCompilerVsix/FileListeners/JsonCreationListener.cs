@@ -30,7 +30,8 @@ namespace WebCompilerVsix.Listeners
             {
                 string fileName = Path.GetFileName(_document.FilePath);
 
-                if (fileName.Equals(Constants.CONFIG_FILENAME, StringComparison.OrdinalIgnoreCase))
+                if (fileName.Equals(Constants.CONFIG_FILENAME, StringComparison.OrdinalIgnoreCase) ||
+                    fileName.Equals(Constants.DEFAULTS_FILENAME, StringComparison.OrdinalIgnoreCase))
                 {
                     _document.FileActionOccurred += DocumentSaved;
                 }
@@ -54,7 +55,8 @@ namespace WebCompilerVsix.Listeners
         {
             if (e.FileActionType == FileActionTypes.ContentSavedToDisk)
             {
-                CompilerService.Process(e.FilePath);
+                string file = e.FilePath.Replace(Constants.DEFAULTS_FILENAME, Constants.CONFIG_FILENAME);
+                CompilerService.Process(file);
             }
         }
     }

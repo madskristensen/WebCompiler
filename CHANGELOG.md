@@ -6,6 +6,8 @@
 - [x] Add minification default settings
 - [x] Support for the old Sass syntax and `.sass` files
 - [x] New icon for _Delete all output files_
+- [x] Re-compile when defaults file is saved
+- [x] Creates output directory if it doesn't exist
 
 Features that have a checkmark are complete and available for
 download in the

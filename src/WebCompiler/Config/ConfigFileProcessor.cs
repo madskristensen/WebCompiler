@@ -141,6 +141,11 @@ namespace WebCompiler
 
             if (containsChanges)
             {
+                string dir = Path.GetDirectoryName(outputFile);
+
+                if (!Directory.Exists(dir))
+                    Directory.CreateDirectory(dir);
+
                 File.WriteAllText(outputFile, config.Output, new UTF8Encoding(true));
             }
 
