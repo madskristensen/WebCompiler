@@ -3,11 +3,6 @@
 - [ ] Generate gulpfile.js from compilerconfig.json (#34)
 - [ ] Preview window (#6)
 - [ ] File globbing pattern support (#49)
-- [x] Add minification default settings
-- [x] Support for the old Sass syntax and `.sass` files
-- [x] New icon for _Delete all output files_
-- [x] Re-compile when defaults file is saved
-- [x] Creates output directory if it doesn't exist
 
 Features that have a checkmark are complete and available for
 download in the
@@ -17,6 +12,16 @@ download in the
 
 These are the changes to each version that has been released
 on the official Visual Studio extension gallery.
+
+## 1.6
+
+**2015-10-06**
+
+- [x] Add minification default settings
+- [x] Support for the old Sass syntax and `.sass` files
+- [x] New icon for _Delete all output files_
+- [x] Re-compile when defaults file is saved
+- [x] Creates output directory if it doesn't exist
 
 ## 1.5
 
