@@ -70,7 +70,6 @@ namespace WebCompilerVsix.Listeners
 
                     if (File.Exists(configFile))
                     {
-                        Telemetry.TrackEvent("VS file changed");
                         CompilerService.SourceFileChanged(configFile, e.FilePath);
                     }
                 }

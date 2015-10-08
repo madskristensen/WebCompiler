@@ -19,7 +19,7 @@ namespace WebCompiler
                 return 0;
             }
 
-            Telemetry.TrackEvent("Command line");
+            Telemetry.SetDeviceName("Command line");
 
             ConfigFileProcessor processor = new ConfigFileProcessor();
             EventHookups(processor, configPath);

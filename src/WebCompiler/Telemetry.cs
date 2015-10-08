@@ -25,6 +25,14 @@ namespace WebCompiler
             return client;
         }
 
+        /// <summary>
+        /// The device name is what identifies what kind of device is calling
+        /// </summary>
+        public static void SetDeviceName(string name)
+        {
+            _telemetry.Context.Device.Model = name;
+        }
+
         /// <summary>Tracks an event to ApplicationInsights.</summary>
         public static void TrackCompile(Config config)
         {

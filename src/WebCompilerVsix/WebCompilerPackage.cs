@@ -6,6 +6,7 @@ using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using WebCompiler;
 using WebCompilerVsix.Commands;
 using IServiceProvider = Microsoft.VisualStudio.OLE.Interop.IServiceProvider;
 
@@ -27,11 +28,12 @@ namespace WebCompilerVsix
 
         protected override void Initialize()
         {
-            Logger.Initialize(this, Constants.VSIX_NAME);
-
             _dte = GetService(typeof(DTE)) as DTE2;
             _dispatcher = Dispatcher.CurrentDispatcher;
             Package = this;
+
+            Telemetry.SetDeviceName(_dte.Edition);
+            Logger.Initialize(this, Constants.VSIX_NAME);
 
             Events2 events = _dte.Events as Events2;
             _events = events.SolutionEvents;
