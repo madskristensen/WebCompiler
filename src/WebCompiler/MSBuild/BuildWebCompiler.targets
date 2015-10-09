@@ -3,8 +3,8 @@
 
     <PropertyGroup>
         <BuildDependsOn>
-            $(BuildDependsOn);
-            WebCompile
+            WebCompile;
+            $(BuildDependsOn)
         </BuildDependsOn>
     </PropertyGroup>
 
