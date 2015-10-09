@@ -11,7 +11,7 @@ namespace WebCompiler
         public static string Adjust(string content, Config config)
         {
             string cssFileContents = content;
-            string absoluteOutputPath = config.GetAbsoluteOutputFile();
+            string absoluteOutputPath = config.GetAbsoluteOutputFile().FullName;
 
             // apply the RegEx to the file (to change relative paths)
             var matches = _rxUrl.Matches(cssFileContents);
@@ -19,7 +19,7 @@ namespace WebCompiler
             // Ignore the file if no match
             if (matches.Count > 0)
             {
-                string cssDirectoryPath = Path.GetDirectoryName(config.GetAbsoluteInputFile());
+                string cssDirectoryPath = config.GetAbsoluteInputFile().DirectoryName;
 
                 if (!Directory.Exists(cssDirectoryPath))
                     return cssFileContents;

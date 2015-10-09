@@ -4,6 +4,8 @@
 - [ ] Preview window (#6)
 - [ ] File globbing pattern support (#49)
 - [x] MSBuild: Changed build ordering (#124)
+- [x] Compile only when files have changed (#121)
+- [ ] Show yellow InfoBar when initializing
 
 Features that have a checkmark are complete and available for
 download in the

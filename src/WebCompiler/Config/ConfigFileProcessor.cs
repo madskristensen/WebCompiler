@@ -38,9 +38,12 @@ namespace WebCompiler
 
                 foreach (Config config in configs)
                 {
-                    var result = ProcessConfig(info.Directory.FullName, config);
-                    list.Add(result);
-                    OnConfigProcessed(config, list.Count, configs.Count());
+                    if (config.CompilationRequired())
+                    {
+                        var result = ProcessConfig(info.Directory.FullName, config);
+                        list.Add(result);
+                        OnConfigProcessed(config, list.Count, configs.Count());
+                    }
                 }
             }
             finally
@@ -134,19 +137,19 @@ namespace WebCompiler
 
             config.Output = result.CompiledContent;
 
-            string outputFile = config.GetAbsoluteOutputFile();
-            bool containsChanges = FileHelpers.HasFileContentChanged(outputFile, config.Output);
+            FileInfo outputFile = config.GetAbsoluteOutputFile();
+            bool containsChanges = FileHelpers.HasFileContentChanged(outputFile.FullName, config.Output);
 
             OnBeforeProcess(config, baseFolder, containsChanges);
 
             if (containsChanges)
             {
-                string dir = Path.GetDirectoryName(outputFile);
+                string dir = outputFile.DirectoryName;
 
                 if (!Directory.Exists(dir))
                     Directory.CreateDirectory(dir);
 
-                File.WriteAllText(outputFile, config.Output, new UTF8Encoding(true));
+                File.WriteAllText(outputFile.FullName, config.Output, new UTF8Encoding(true));
             }
 
             OnAfterProcess(config, baseFolder, containsChanges);
@@ -160,18 +163,18 @@ namespace WebCompiler
             {
                 if (!string.IsNullOrEmpty(result.SourceMap))
                 {
-                    string aboslute = config.GetAbsoluteOutputFile();
-                    string mapFile = aboslute + ".map";
+                    string absolute = config.GetAbsoluteOutputFile().FullName;
+                    string mapFile = absolute + ".map";
                     bool smChanges = FileHelpers.HasFileContentChanged(mapFile, result.SourceMap);
 
-                    OnBeforeWritingSourceMap(aboslute, mapFile, smChanges);
+                    OnBeforeWritingSourceMap(absolute, mapFile, smChanges);
 
                     if (smChanges)
                     {
                         File.WriteAllText(mapFile, result.SourceMap, new UTF8Encoding(true));
                     }
 
-                    OnAfterWritingSourceMap(aboslute, mapFile, smChanges);
+                    OnAfterWritingSourceMap(absolute, mapFile, smChanges);
                 }
             }
 

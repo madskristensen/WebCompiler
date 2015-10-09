@@ -101,7 +101,7 @@ namespace WebCompilerVsix
 
                     foreach (Config config in configs)
                     {
-                        if (config.GetAbsoluteOutputFile().Equals(normalizedFilePath, StringComparison.OrdinalIgnoreCase))
+                        if (config.GetAbsoluteOutputFile().FullName.Equals(normalizedFilePath, StringComparison.OrdinalIgnoreCase))
                         {
                             GeneratedAdornment generated = new GeneratedAdornment(textView, _isVisible, _initOpacity);
                             break;

@@ -84,7 +84,7 @@ namespace WebCompilerVsix.Commands
 
             foreach (Config config in configs)
             {
-                string outputFile = config.GetAbsoluteOutputFile();
+                string outputFile = config.GetAbsoluteOutputFile().FullName;
                 ProjectHelpers.DeleteFileFromProject(outputFile);
             }
 

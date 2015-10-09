@@ -13,16 +13,16 @@ namespace WebCompiler
     {
         internal static MinificationResult MinifyFile(Config config)
         {
-            string file = config.GetAbsoluteOutputFile();
-            string extension = Path.GetExtension(file).ToUpperInvariant();
+            FileInfo file = config.GetAbsoluteOutputFile();
+            string extension = file.Extension.ToUpperInvariant();
 
             switch (extension)
             {
                 case ".JS":
-                    return MinifyJavaScript(config, file);
+                    return MinifyJavaScript(config, file.FullName);
 
                 case ".CSS":
-                    return MinifyCss(config, file);
+                    return MinifyCss(config, file.FullName);
             }
 
             return null;

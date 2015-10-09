@@ -22,13 +22,20 @@ namespace WebCompiler
         /// <summary>
         /// If a file has the read-only attribute, this method will remove it.
         /// </summary>
-        /// <param name="fileName"></param>
         public static void RemoveReadonlyFlagFromFile(string fileName)
         {
             FileInfo file = new FileInfo(fileName);
 
             if (file.Exists && file.IsReadOnly)
                 file.IsReadOnly = false;
+        }
+
+        /// <summary>
+        /// If a file has the read-only attribute, this method will remove it.
+        /// </summary>
+        public static void RemoveReadonlyFlagFromFile(FileInfo file)
+        {
+            RemoveReadonlyFlagFromFile(file.FullName);
         }
 
         /// <summary>

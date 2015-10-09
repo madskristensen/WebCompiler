@@ -56,19 +56,33 @@ namespace WebCompiler
         /// <summary>
         /// Converts the relative input file to an absolute file path.
         /// </summary>
-        public string GetAbsoluteInputFile()
+        public FileInfo GetAbsoluteInputFile()
         {
             string folder = new FileInfo(FileName).DirectoryName;
-            return Path.Combine(folder, InputFile.Replace("/", "\\"));
+            return new FileInfo(Path.Combine(folder, InputFile.Replace("/", "\\")));
         }
 
         /// <summary>
         /// Converts the relative output file to an absolute file path.
         /// </summary>
-        public string GetAbsoluteOutputFile()
+        public FileInfo GetAbsoluteOutputFile()
         {
             string folder = new FileInfo(FileName).DirectoryName;
-            return Path.Combine(folder, OutputFile.Replace("/", "\\"));
+            return new FileInfo(Path.Combine(folder, OutputFile.Replace("/", "\\")));
+        }
+
+        /// <summary>
+        /// Checks to see if the input file needs compilation
+        /// </summary>
+        internal bool CompilationRequired()
+        {
+            FileInfo input = GetAbsoluteInputFile();
+            FileInfo output = GetAbsoluteOutputFile();
+
+            if (!output.Exists)
+                return true;
+
+            return input.LastAccessTimeUtc > output.LastWriteTimeUtc;
         }
 
         /// <summary>

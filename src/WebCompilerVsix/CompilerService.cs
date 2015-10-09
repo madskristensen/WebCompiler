@@ -28,7 +28,7 @@ namespace WebCompilerVsix
                 {
                     _processor = new ConfigFileProcessor();
                     _processor.ConfigProcessed += ConfigProcessed;
-                    _processor.BeforeProcess += (s, e) => { if (e.ContainsChanges) ProjectHelpers.CheckFileOutOfSourceControl(e.Config.GetAbsoluteOutputFile()); };
+                    _processor.BeforeProcess += (s, e) => { if (e.ContainsChanges) ProjectHelpers.CheckFileOutOfSourceControl(e.Config.GetAbsoluteOutputFile().FullName); };
                     _processor.AfterProcess += AfterProcess;
                     _processor.BeforeWritingSourceMap += (s, e) => { if (e.ContainsChanges) ProjectHelpers.CheckFileOutOfSourceControl(e.ResultFile); };
                     _processor.AfterWritingSourceMap += (s, e) => { if (e.ContainsChanges) ProjectHelpers.AddNestedFile(e.OriginalFile, e.ResultFile); };
@@ -49,7 +49,10 @@ namespace WebCompilerVsix
 
         private static void ConfigProcessed(object sender, ConfigProcessedEventArgs e)
         {
-            _dte.StatusBar.Progress(true, $"Compiling \"{e.Config.InputFile}\"", e.AmountProcessed, e.Total);
+            if (e.AmountProcessed > 0)
+                _dte.StatusBar.Progress(true, $"Compiling \"{e.Config.InputFile}\"", e.AmountProcessed, e.Total);
+            else
+                _dte.StatusBar.Progress(true, "Compiling...", e.AmountProcessed, e.Total);
         }
 
         public static void Process(string configFile, IEnumerable<Config> configs = null)
@@ -138,26 +141,26 @@ namespace WebCompilerVsix
             if (item == null || item.ContainingProject == null)
                 return;
 
-            string input = e.Config.GetAbsoluteInputFile();
-            string output = e.Config.GetAbsoluteOutputFile();
+            FileInfo input = e.Config.GetAbsoluteInputFile();
+            FileInfo output = e.Config.GetAbsoluteOutputFile();
 
-            string inputWithOutputExtension = Path.ChangeExtension(input, Path.GetExtension(output));
+            string inputWithOutputExtension = Path.ChangeExtension(input.FullName, output.Extension);
 
-            if (Path.GetFileName(output).EndsWith(".es5.js"))
+            if (output.Name.EndsWith(".es5.js"))
                 inputWithOutputExtension = Path.ChangeExtension(inputWithOutputExtension, ".es5.js");
 
-            if (inputWithOutputExtension.Equals(output, StringComparison.OrdinalIgnoreCase))
+            if (inputWithOutputExtension.Equals(output.FullName, StringComparison.OrdinalIgnoreCase))
             {
-                var inputItem = _dte.Solution.FindProjectItem(input);
-                var outputItem = _dte.Solution.FindProjectItem(output);
+                var inputItem = _dte.Solution.FindProjectItem(input.FullName);
+                var outputItem = _dte.Solution.FindProjectItem(output.FullName);
 
                 // Only add output file to project if it isn't already
                 if (inputItem != null && outputItem == null)
-                    ProjectHelpers.AddNestedFile(input, output);
+                    ProjectHelpers.AddNestedFile(input.FullName, output.FullName);
             }
             else
             {
-                item.ContainingProject.AddFileToProject(e.Config.GetAbsoluteOutputFile());
+                item.ContainingProject.AddFileToProject(e.Config.GetAbsoluteOutputFile().FullName);
             }
         }
     }
