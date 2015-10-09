@@ -19,8 +19,9 @@ namespace WebCompiler
         /// </summary>
         /// <param name="configFile">The absolute or relative file path to compilerconfig.json</param>
         /// <param name="configs">Optional configuration items in the config file</param>
+        /// <param name="force">Forces compilation of all config items.</param>
         /// <returns>A list of compiler results.</returns>
-        public IEnumerable<CompilerResult> Process(string configFile, IEnumerable<Config> configs = null)
+        public IEnumerable<CompilerResult> Process(string configFile, IEnumerable<Config> configs = null, bool force = false)
         {
             if (_processing.Contains(configFile))
                 return Enumerable.Empty<CompilerResult>();
@@ -38,7 +39,7 @@ namespace WebCompiler
 
                 foreach (Config config in configs)
                 {
-                    if (config.CompilationRequired())
+                    if (force || config.CompilationRequired())
                     {
                         var result = ProcessConfig(info.Directory.FullName, config);
                         list.Add(result);

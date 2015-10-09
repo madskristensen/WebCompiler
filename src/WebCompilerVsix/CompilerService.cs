@@ -55,13 +55,13 @@ namespace WebCompilerVsix
                 _dte.StatusBar.Progress(true, "Compiling...", e.AmountProcessed, e.Total);
         }
 
-        public static void Process(string configFile, IEnumerable<Config> configs = null)
+        public static void Process(string configFile, IEnumerable<Config> configs = null, bool force = false)
         {
             ThreadPool.QueueUserWorkItem((o) =>
             {
                 try
                 {
-                    var result = Processor.Process(configFile, configs);
+                    var result = Processor.Process(configFile, configs, force);
                     ErrorListService.ProcessCompilerResults(result, configFile);
 
                     if (!result.Any(c => c.HasErrors))

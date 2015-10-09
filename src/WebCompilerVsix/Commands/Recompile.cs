@@ -90,7 +90,7 @@ namespace WebCompilerVsix.Commands
             Telemetry.TrackEvent("VS re-compile");
 
             if (!string.IsNullOrEmpty(file))
-                CompilerService.Process(file);
+                CompilerService.Process(file, force: true);
         }
     }
 }
