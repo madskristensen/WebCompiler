@@ -1,9 +1,11 @@
 ﻿@import (reference) "variables.less";
+@colorpicker-path: sub;
 
 /*! important comment*/
 body {
-    background-color: @background;
     background: #ff0000;
+    background-color: @background;
+    background-image: data-uri('@{colorpicker-path}/logo.png');
     content: "✔";
     animation-name: bounce_loadingProgress;
     top: -100px;

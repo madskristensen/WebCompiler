@@ -72,7 +72,7 @@ namespace WebCompiler
             var node_exe = Path.Combine(_path, "node.exe");
             var log_file = Path.Combine(_path, "log.txt");
 
-            if (!Directory.Exists(node_modules) || !File.Exists(node_exe) || !File.Exists(log_file) || (Directory.Exists(node_modules) && Directory.GetDirectories(node_modules).Length < 240))
+            if (!Directory.Exists(node_modules) || !File.Exists(node_exe) || !File.Exists(log_file) || (Directory.Exists(node_modules) && Directory.GetDirectories(node_modules).Length < 300))
             {
                 OnInitializing();
 

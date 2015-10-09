@@ -68,6 +68,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="artifacts\less\sub\logo.png" />
     <None Include="artifacts\coffeeconfig.json.defaults" />
     <None Include="artifacts\less\sub\relative.less" />
     <None Include="artifacts\babelconfigError.json" />
