@@ -47,9 +47,6 @@ namespace WebCompilerVsix.Listeners
 
             if (view != null)
                 view.Closed -= TextviewClosed;
-
-            if (_document != null)
-                _document.FileActionOccurred -= DocumentSaved;
         }
 
         private void DocumentSaved(object sender, TextDocumentFileActionEventArgs e)
