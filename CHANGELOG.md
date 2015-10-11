@@ -3,11 +3,12 @@
 - [ ] Generate gulpfile.js from compilerconfig.json (#34)
 - [ ] Preview window (#6)
 - [ ] File globbing pattern support (#49)
+- [ ] Show yellow InfoBar when initializing
 - [x] MSBuild: Changed build ordering (#124)
 - [x] Compile only when files have changed (#121)
 - [x] Fixed loss of compile on save (#125)
 - [x] LESS: Support for _less-plugin-csscomb_ (#126)
-- [ ] Show yellow InfoBar when initializing
+- [x] Initializing automatically in the background
 
 Features that have a checkmark are complete and available for
 download in the

@@ -32,10 +32,7 @@ namespace WebCompiler
             string ext = Path.GetExtension(config.InputFile).ToUpperInvariant();
             ICompiler compiler = null;
 
-            lock (_syncRoot)
-            {
                 Initialize();
-            }
 
             switch (ext)
             {
@@ -72,36 +69,39 @@ namespace WebCompiler
             var node_exe = Path.Combine(_path, "node.exe");
             var log_file = Path.Combine(_path, "log.txt");
 
-            if (!Directory.Exists(node_modules) || !File.Exists(node_exe) || !File.Exists(log_file) || (Directory.Exists(node_modules) && Directory.GetDirectories(node_modules).Length < 300))
+            lock (_syncRoot)
             {
-                OnInitializing();
-
-                if (Directory.Exists(_path))
-                    Directory.Delete(_path, true);
-
-                Directory.CreateDirectory(_path);
-                SaveResourceFile(_path, "WebCompiler.Node.node.7z", "node.7z");
-                SaveResourceFile(_path, "WebCompiler.Node.node_modules.7z", "node_modules.7z");
-                SaveResourceFile(_path, "WebCompiler.Node.7z.exe", "7z.exe");
-                SaveResourceFile(_path, "WebCompiler.Node.7z.dll", "7z.dll");
-                SaveResourceFile(_path, "WebCompiler.Node.prepare.cmd", "prepare.cmd");
-
-                ProcessStartInfo start = new ProcessStartInfo
+                if (!Directory.Exists(node_modules) || !File.Exists(node_exe) || !File.Exists(log_file) || (Directory.Exists(node_modules) && Directory.GetDirectories(node_modules).Length < 300))
                 {
-                    WorkingDirectory = _path,
-                    CreateNoWindow = true,
-                    WindowStyle = ProcessWindowStyle.Hidden,
-                    FileName = "cmd.exe",
-                    Arguments = "/c prepare.cmd"
-                };
+                    OnInitializing();
 
-                Process p = Process.Start(start);
-                p.WaitForExit();
+                    if (Directory.Exists(_path))
+                        Directory.Delete(_path, true);
 
-                // If this file is written, then the initialization was successfull.
-                File.WriteAllText(log_file, DateTime.Now.ToLongDateString());
+                    Directory.CreateDirectory(_path);
+                    SaveResourceFile(_path, "WebCompiler.Node.node.7z", "node.7z");
+                    SaveResourceFile(_path, "WebCompiler.Node.node_modules.7z", "node_modules.7z");
+                    SaveResourceFile(_path, "WebCompiler.Node.7z.exe", "7z.exe");
+                    SaveResourceFile(_path, "WebCompiler.Node.7z.dll", "7z.dll");
+                    SaveResourceFile(_path, "WebCompiler.Node.prepare.cmd", "prepare.cmd");
 
-                OnInitialized();
+                    ProcessStartInfo start = new ProcessStartInfo
+                    {
+                        WorkingDirectory = _path,
+                        CreateNoWindow = true,
+                        WindowStyle = ProcessWindowStyle.Hidden,
+                        FileName = "cmd.exe",
+                        Arguments = "/c prepare.cmd"
+                    };
+
+                    Process p = Process.Start(start);
+                    p.WaitForExit();
+
+                    // If this file is written, then the initialization was successful.
+                    File.WriteAllText(log_file, DateTime.Now.ToLongDateString());
+
+                    OnInitialized();
+                }
             }
         }
 

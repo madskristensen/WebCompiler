@@ -68,4 +68,29 @@ namespace WebCompilerVsix
             return false;
         }
     }
+
+    [ProvideAutoLoad(UIContextGuids80.SolutionExists)]
+    [ProvideAutoLoad(UIContextGuids80.NoSolution)]
+    public sealed class WebCompilerInitPackage : Package
+    {
+        protected override void Initialize()
+        {
+            // Delay execution until VS is idle.
+            Dispatcher.CurrentDispatcher.BeginInvoke(new Action(() =>
+            {
+                // Then execute in a background thread.
+                System.Threading.ThreadPool.QueueUserWorkItem((o) =>
+                {
+                    try
+                    {
+                        WebCompiler.CompilerService.Initialize();
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Log(ex);
+                    }
+                });
+            }), DispatcherPriority.ApplicationIdle, null);
+        }
+    }
 }
