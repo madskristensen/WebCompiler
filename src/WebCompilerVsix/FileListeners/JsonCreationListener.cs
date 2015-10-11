@@ -56,7 +56,7 @@ namespace WebCompilerVsix.Listeners
             if (e.FileActionType == FileActionTypes.ContentSavedToDisk)
             {
                 string file = e.FilePath.Replace(Constants.DEFAULTS_FILENAME, Constants.CONFIG_FILENAME);
-                CompilerService.Process(file);
+                CompilerService.Process(file, force: true);
             }
         }
     }

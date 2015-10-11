@@ -15,6 +15,7 @@ namespace WebCompilerTest
         {
             Telemetry.Enabled = false;
             _processor = new ConfigFileProcessor();
+            Cleanup();
         }
 
         [TestCleanup]
@@ -40,6 +41,11 @@ namespace WebCompilerTest
 
             string sourceMap = ScssTest.DecodeSourceMap(result.ElementAt(1).CompiledContent);
             Assert.IsTrue(sourceMap.Contains("\"relative.less\""), "Source map paths");
+
+            string compiled = result.First().CompiledContent;
+            int top = compiled.IndexOf("top");
+            int pos = compiled.IndexOf("position");
+            Assert.IsTrue(pos < top, "CSS Comb ordering");
         }
 
         [TestMethod, TestCategory("LESS")]

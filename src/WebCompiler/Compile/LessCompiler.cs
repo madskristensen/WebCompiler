@@ -134,6 +134,9 @@ namespace WebCompiler
             if (!string.IsNullOrEmpty(options.AutoPrefix))
                 arguments += $" --autoprefix=\"{options.AutoPrefix}\"";
 
+            if (!string.IsNullOrEmpty(options.CssComb) && !options.CssComb.Equals("none", StringComparison.OrdinalIgnoreCase))
+                arguments += $" --csscomb=\"{options.CssComb}\"";
+
             return arguments;
         }
     }

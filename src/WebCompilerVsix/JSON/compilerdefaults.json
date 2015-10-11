@@ -1,7 +1,8 @@
 ﻿{
   "compilers": {
     "less": {
-      "relativeUrls": true
+      "relativeUrls": true,
+      "cssComb": "csscomb"
     }
   },
 

@@ -15,6 +15,19 @@
           "type": "string",
           "default": ""
         },
+        "cssComb": {
+          "description": "LESS only. CSScomb helps you sort and categorize CSS properties in your code to improve maintenance of your stylesheets. You can specify a relative path to a local .json file as well.",
+          "default": "none",
+          "oneOf": [
+            {
+              "enum": [ "csscomb", "zen", "yandex", "none" ]
+            },
+            {
+              "type": "string",
+              "pattern": ".+\\.json$"
+            }
+          ]
+        },
         "ieCompat": {
           "description": "LESS only. Currently only used for the data-uri function to ensure that images aren't created that are too large for the browser to handle.",
           "type": "boolean",

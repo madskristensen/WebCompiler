@@ -9,6 +9,7 @@ pushd %~dp0..\src\WebCompiler\node
 echo Installing packages...
 call npm install less --quiet > nul
 call npm install less-plugin-autoprefix --no-optional --quiet > nul
+call npm install less-plugin-csscomb --no-optional --quiet > nul
 call npm install iced-coffee-script --no-optional --quiet > nul
 call npm install node-sass --no-optional --quiet > nul
 call npm install babel --no-optional --quiet > nul

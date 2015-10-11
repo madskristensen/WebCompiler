@@ -22,6 +22,10 @@ namespace WebCompiler
             if (autoPrefix != null)
                 AutoPrefix = autoPrefix;
 
+            var cssComb = GetValue(config, "cssComb");
+            if (cssComb != null)
+                CssComb = cssComb;
+
             var ieCompat = GetValue(config, "ieCompat");
             if (ieCompat != null)
                 IECompat = ieCompat.ToLowerInvariant() == trueStr;
@@ -57,6 +61,12 @@ namespace WebCompiler
         /// </summary>
         [JsonProperty("autoPrefix")]
         public string AutoPrefix { get; set; } = "";
+
+        /// <summary>
+        /// CssComb will order the properties in the compiled CSS file.
+        /// </summary>
+        [JsonProperty("cssComb")]
+        public string CssComb { get; set; } = "none";
 
         /// <summary>
         /// Currently only used for the data-uri function to ensure that images aren't

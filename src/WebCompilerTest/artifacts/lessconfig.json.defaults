@@ -2,7 +2,8 @@
     "compilers": {
         "less": {
             "relativeUrls": false,
-            "rootPath": "./"
+            "rootPath": "./",
+            "cssComb": "csscomb"
         }
     },
 

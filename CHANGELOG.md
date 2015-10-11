@@ -6,6 +6,7 @@
 - [x] MSBuild: Changed build ordering (#124)
 - [x] Compile only when files have changed (#121)
 - [x] Fixed loss of compile on save (#125)
+- [x] LESS: Support for _less-plugin-csscomb_ (#126)
 - [ ] Show yellow InfoBar when initializing
 
 Features that have a checkmark are complete and available for
