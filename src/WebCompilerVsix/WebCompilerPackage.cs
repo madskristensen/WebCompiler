@@ -23,13 +23,11 @@ namespace WebCompilerVsix
         public const string Version = "1.4.166";
         public static DTE2 _dte;
         public static Package Package;
-        public static Dispatcher _dispatcher;
         private SolutionEvents _events;
 
         protected override void Initialize()
         {
             _dte = GetService(typeof(DTE)) as DTE2;
-            _dispatcher = Dispatcher.CurrentDispatcher;
             Package = this;
 
             Telemetry.SetDeviceName(_dte.Edition);
@@ -73,10 +71,19 @@ namespace WebCompilerVsix
     [ProvideAutoLoad(UIContextGuids80.NoSolution)]
     public sealed class WebCompilerInitPackage : Package
     {
+        public static Dispatcher _dispatcher;
+        public static DTE2 _dte;
+
         protected override void Initialize()
         {
+            _dispatcher = Dispatcher.CurrentDispatcher;
+            _dte = GetService(typeof(DTE)) as DTE2;
+
+            WebCompiler.CompilerService.Initializing += (s, e) => { StatusText("Installing updated versions of the web compilers..."); };
+            WebCompiler.CompilerService.Initialized += (s, e) => { StatusText("Done installing the web compilers"); };
+
             // Delay execution until VS is idle.
-            Dispatcher.CurrentDispatcher.BeginInvoke(new Action(() =>
+            _dispatcher.BeginInvoke(new Action(() =>
             {
                 // Then execute in a background thread.
                 System.Threading.ThreadPool.QueueUserWorkItem((o) =>
@@ -90,6 +97,14 @@ namespace WebCompilerVsix
                         Logger.Log(ex);
                     }
                 });
+            }), DispatcherPriority.ApplicationIdle, null);
+        }
+
+        public static void StatusText(string message)
+        {
+            WebCompilerInitPackage._dispatcher.BeginInvoke(new Action(() =>
+            {
+                _dte.StatusBar.Text = message;
             }), DispatcherPriority.ApplicationIdle, null);
         }
     }

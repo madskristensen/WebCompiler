@@ -38,9 +38,6 @@ namespace WebCompilerVsix
 
                     FileMinifier.BeforeWritingGzipFile += (s, e) => { if (e.ContainsChanges) ProjectHelpers.CheckFileOutOfSourceControl(e.ResultFile); };
                     FileMinifier.AfterWritingGzipFile += (s, e) => { if (e.ContainsChanges) ProjectHelpers.AddNestedFile(e.OriginalFile, e.ResultFile); };
-
-                    WebCompiler.CompilerService.Initializing += (s, e) => { _dte.StatusBar.Text = "Installing updated versions of the compilers..."; };
-                    WebCompiler.CompilerService.Initialized += (s, e) => { _dte.StatusBar.Text = "Done installing the compiler"; };
                 }
 
                 return _processor;
@@ -66,14 +63,14 @@ namespace WebCompilerVsix
 
                     if (!result.Any(c => c.HasErrors))
                     {
-                        StatusText("Done compiling");
+                        WebCompilerInitPackage.StatusText("Done compiling");
                     }
                 }
                 catch (Exception ex) when (ex is FileNotFoundException || ex is DirectoryNotFoundException)
                 {
                     string message = $"{Constants.VSIX_NAME} found an error in {Constants.CONFIG_FILENAME}";
                     Logger.Log(message);
-                    StatusText(message);
+                    WebCompilerInitPackage.StatusText(message);
                     _dte.StatusBar.Progress(false);
 
                 }
@@ -82,7 +79,7 @@ namespace WebCompilerVsix
                     Logger.Log(ex);
                     ShowError(configFile);
                     _dte.StatusBar.Progress(false);
-                    StatusText($"{Constants.VSIX_NAME} couldn't compile successfully");
+                    WebCompilerInitPackage.StatusText($"{Constants.VSIX_NAME} couldn't compile successfully");
                 }
                 finally
                 {
@@ -97,7 +94,7 @@ namespace WebCompilerVsix
             {
                 try
                 {
-                    StatusText($"Compiling \"{Path.GetFileName(sourceFile)}\"...");
+                    WebCompilerInitPackage.StatusText($"Compiling \"{Path.GetFileName(sourceFile)}\"...");
 
                     var result = Processor.SourceFileChanged(configFile, sourceFile);
                     ErrorListService.ProcessCompilerResults(result, configFile);
@@ -105,7 +102,7 @@ namespace WebCompilerVsix
                 catch (FileNotFoundException ex)
                 {
                     Logger.Log($"{Constants.VSIX_NAME} could not find \"{ex.FileName}\"");
-                    StatusText($"{Constants.VSIX_NAME} could not find \"{ex.FileName}\"");
+                    WebCompilerInitPackage.StatusText($"{Constants.VSIX_NAME} could not find \"{ex.FileName}\"");
                 }
                 catch (Exception ex)
                 {
@@ -114,15 +111,7 @@ namespace WebCompilerVsix
                 }
             });
         }
-
-        private static void StatusText(string message)
-        {
-            WebCompilerPackage._dispatcher.BeginInvoke(new Action(() =>
-            {
-                _dte.StatusBar.Text = message;
-            }), DispatcherPriority.ApplicationIdle, null);
-        }
-
+        
         private static void ShowError(string configFile)
         {
             MessageBox.Show($"There is an error in the {Constants.CONFIG_FILENAME} file. This could be due to a change in the format after this extension was updated.", Constants.VSIX_NAME, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.ServiceNotification);

@@ -11,7 +11,7 @@ namespace WebCompilerVsix
     {
         public static void ProcessCompilerResults(IEnumerable<CompilerResult> results, string configFile)
         {
-            WebCompilerPackage._dispatcher.BeginInvoke(new Action(() =>
+            WebCompilerInitPackage._dispatcher.BeginInvoke(new Action(() =>
             {
                 bool hasError = false;
 
