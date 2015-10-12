@@ -4,6 +4,7 @@
 - [ ] Preview window (#6)
 - [ ] File globbing pattern support (#49)
 - [ ] Show yellow InfoBar when initializing
+- [ ] Default settings for source maps (#120)
 - [x] MSBuild: Changed build ordering (#124)
 - [x] Compile only when files have changed (#121)
 - [x] Fixed loss of compile on save (#125)
