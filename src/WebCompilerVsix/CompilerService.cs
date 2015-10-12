@@ -82,7 +82,7 @@ namespace WebCompilerVsix
                     Logger.Log(ex);
                     ShowError(configFile);
                     _dte.StatusBar.Progress(false);
-                    StatusText($"{Constants.VSIX_NAME} couldn't compile succesfully");
+                    StatusText($"{Constants.VSIX_NAME} couldn't compile successfully");
                 }
                 finally
                 {
@@ -105,7 +105,7 @@ namespace WebCompilerVsix
                 catch (FileNotFoundException ex)
                 {
                     Logger.Log($"{Constants.VSIX_NAME} could not find \"{ex.FileName}\"");
-                    StatusText($"Compiling \"{Path.GetFileName(sourceFile)}\"...");
+                    StatusText($"{Constants.VSIX_NAME} could not find \"{ex.FileName}\"");
                 }
                 catch (Exception ex)
                 {
