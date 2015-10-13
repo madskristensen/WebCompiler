@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using System.Windows.Threading;
 using EnvDTE80;
 using WebCompiler;
 
@@ -111,7 +110,7 @@ namespace WebCompilerVsix
                 }
             });
         }
-        
+
         private static void ShowError(string configFile)
         {
             MessageBox.Show($"There is an error in the {Constants.CONFIG_FILENAME} file. This could be due to a change in the format after this extension was updated.", Constants.VSIX_NAME, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.ServiceNotification);

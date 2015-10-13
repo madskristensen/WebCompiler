@@ -32,7 +32,7 @@ namespace WebCompiler
             string ext = Path.GetExtension(config.InputFile).ToUpperInvariant();
             ICompiler compiler = null;
 
-                Initialize();
+            Initialize();
 
             switch (ext)
             {

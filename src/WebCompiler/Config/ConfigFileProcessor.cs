@@ -128,7 +128,7 @@ namespace WebCompiler
 
             var result = compiler.Compile(config);
 
-            if (result.HasErrors)
+            if (result.Errors.Any(e => !e.IsWarning))
                 return result;
 
             if (Path.GetExtension(config.OutputFile).Equals(".css", StringComparison.OrdinalIgnoreCase) && AdjustRelativePaths(config))
@@ -157,7 +157,7 @@ namespace WebCompiler
 
             //if (!config.Minify.ContainsKey("enabled") || config.Minify["enabled"].ToString().Equals("true", StringComparison.OrdinalIgnoreCase))
             //{
-                FileMinifier.MinifyFile(config);
+            FileMinifier.MinifyFile(config);
             //}
 
             if (config.SourceMap)
