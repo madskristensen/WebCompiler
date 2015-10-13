@@ -62,8 +62,10 @@
     <Compile Include="Commands\CreateConfig.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="ContentType\SassContentTypeDefinition.cs" />
-    <Compile Include="ErrorList\ErrorList.cs" />
     <Compile Include="ErrorList\ErrorListService.cs" />
+    <Compile Include="ErrorList\SinkManager.cs" />
+    <Compile Include="ErrorList\TableDataSource.cs" />
+    <Compile Include="ErrorList\TableEntriesSnapshot.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="TaskRunner\TaskRunnerConfig.cs" />
     <Compile Include="TaskRunner\WebCompilerTaskRunner.cs" />

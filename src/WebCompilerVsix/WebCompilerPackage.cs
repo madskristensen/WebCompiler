@@ -35,8 +35,8 @@ namespace WebCompilerVsix
 
             Events2 events = _dte.Events as Events2;
             _events = events.SolutionEvents;
-            _events.AfterClosing += () => { ErrorList.CleanAllErrors(); };
-            _events.ProjectRemoved += (project) => { ErrorList.CleanAllErrors(); };
+            _events.AfterClosing += () => { TableDataSource.Instance.CleanAllErrors(); };
+            _events.ProjectRemoved += (project) => { TableDataSource.Instance.CleanAllErrors(); };
 
             CreateConfig.Initialize(this);
             Recompile.Initialize(this);

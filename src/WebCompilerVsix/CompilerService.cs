@@ -58,7 +58,7 @@ namespace WebCompilerVsix
                 try
                 {
                     var result = Processor.Process(configFile, configs, force);
-                    ErrorListService.ProcessCompilerResults(result, configFile);
+                    ErrorListService.ProcessCompilerResults(result);
 
                     if (!result.Any(c => c.HasErrors))
                     {
@@ -96,7 +96,7 @@ namespace WebCompilerVsix
                     WebCompilerInitPackage.StatusText($"Compiling \"{Path.GetFileName(sourceFile)}\"...");
 
                     var result = Processor.SourceFileChanged(configFile, sourceFile);
-                    ErrorListService.ProcessCompilerResults(result, configFile);
+                    ErrorListService.ProcessCompilerResults(result);
                 }
                 catch (FileNotFoundException ex)
                 {

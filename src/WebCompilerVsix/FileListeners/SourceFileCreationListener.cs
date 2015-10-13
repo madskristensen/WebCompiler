@@ -63,7 +63,7 @@ namespace WebCompilerVsix.Listeners
                 {
                     string configFile = item.ContainingProject.GetConfigFile();
 
-                    ErrorList.CleanErrors(e.FilePath);
+                    //ErrorList.CleanErrors(e.FilePath);
 
                     if (File.Exists(configFile))
                     {

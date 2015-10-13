@@ -1,37 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Windows.Forms;
-using System.Windows.Threading;
+﻿using System.Collections.Generic;
+using System.Linq;
 using WebCompiler;
 
 namespace WebCompilerVsix
 {
     class ErrorListService
     {
-        public static void ProcessCompilerResults(IEnumerable<CompilerResult> results, string configFile)
+        public static void ProcessCompilerResults(IEnumerable<CompilerResult> results)
         {
-            WebCompilerInitPackage._dispatcher.BeginInvoke(new Action(() =>
+            var errors = results.Where(r => r.HasErrors).SelectMany(r => r.Errors);
+            var clean = results.Where(r => !r.HasErrors).Select(r => r.FileName);
+
+            if (errors.Any())
             {
-                bool hasError = false;
+                TableDataSource.Instance.AddErrors(errors);
+            }
 
-                foreach (CompilerResult result in results)
+            if (results.Any(r => r.HasErrors))
+            {
+                if (results.Any(r => r.Errors.Any(e => !e.IsWarning)))
                 {
-                    if (result.HasErrors)
-                    {
-                        hasError = true;
-                        ErrorList.AddErrors(result.FileName, result.Errors);
-                        WebCompilerPackage._dte.StatusBar.Text = $"Error compiling \"{Path.GetFileName(result.FileName)}\". See Error List for details";
-                    }
-                    else
-                    {
-                        ErrorList.CleanErrors(result.FileName);
-
-                        if (!hasError)
-                            WebCompilerPackage._dte.StatusBar.Text = $"Done compiling \"{Path.GetFileName(result.FileName)}\"";
-                    }
+                    WebCompilerPackage._dte.StatusBar.Text = "Error compiling. See Error List for details";
+                    TableDataSource.Instance.BringToFront();
                 }
-            }), DispatcherPriority.ApplicationIdle, null);
+                else
+                {
+                    WebCompilerInitPackage.StatusText($"Compiled with warnings");
+                }
+            }
+            else
+            {
+                WebCompilerInitPackage.StatusText($"Compiled successfully");
+            }
+
+            TableDataSource.Instance.CleanErrors(clean);
         }
     }
 }
