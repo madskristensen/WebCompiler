@@ -103,10 +103,13 @@ namespace WebCompilerVsix
 
             var cleanErrors = errors.Where(e => e != null && !string.IsNullOrEmpty(e.FileName));
 
-            foreach (var error in cleanErrors.GroupBy(t => t.FileName))
+            lock (_snapshots)
             {
-                var snapshot = new TableEntriesSnapshot(error.Key, error);
-                _snapshots[error.Key] = snapshot;
+                foreach (var error in cleanErrors.GroupBy(t => t.FileName))
+                {
+                    var snapshot = new TableEntriesSnapshot(error.Key, error);
+                    _snapshots[error.Key] = snapshot;
+                }
             }
 
             UpdateAllSinks();
@@ -114,12 +117,15 @@ namespace WebCompilerVsix
 
         public void CleanErrors(IEnumerable<string> files)
         {
-            foreach (string file in files)
+            lock (_snapshots)
             {
-                if (_snapshots.ContainsKey(file))
+                foreach (string file in files)
                 {
-                    _snapshots[file].Dispose();
-                    _snapshots.Remove(file);
+                    if (_snapshots.ContainsKey(file))
+                    {
+                        _snapshots[file].Dispose();
+                        _snapshots.Remove(file);
+                    }
                 }
             }
 
@@ -136,16 +142,19 @@ namespace WebCompilerVsix
 
         public void CleanAllErrors()
         {
-            foreach (string file in _snapshots.Keys)
+            lock (_snapshots)
             {
-                var snapshot = _snapshots[file];
-                if (snapshot != null)
+                foreach (string file in _snapshots.Keys)
                 {
-                    snapshot.Dispose();
+                    var snapshot = _snapshots[file];
+                    if (snapshot != null)
+                    {
+                        snapshot.Dispose();
+                    }
                 }
-            }
 
-            _snapshots.Clear();
+                _snapshots.Clear();
+            }
 
             lock (_managers)
             {
@@ -163,12 +172,18 @@ namespace WebCompilerVsix
 
         public bool HasErrors()
         {
-            return _snapshots.Count > 0;
+            lock (_snapshots)
+            {
+                return _snapshots.Count > 0;
+            }
         }
 
         public bool HasErrors(string fileName)
         {
-            return _snapshots.ContainsKey(fileName);
+            lock (_snapshots)
+            {
+                return _snapshots.ContainsKey(fileName);
+            }
         }
     }
 }

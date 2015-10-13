@@ -93,7 +93,7 @@ namespace WebCompilerVsix
             {
                 try
                 {
-                    WebCompilerInitPackage.StatusText($"Compiling \"{Path.GetFileName(sourceFile)}\"...");
+                    WebCompilerInitPackage.StatusText($"Compiling...");
 
                     var result = Processor.SourceFileChanged(configFile, sourceFile);
                     ErrorListService.ProcessCompilerResults(result);

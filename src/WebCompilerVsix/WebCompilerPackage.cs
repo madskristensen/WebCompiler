@@ -23,7 +23,8 @@ namespace WebCompilerVsix
         public const string Version = "1.4.166";
         public static DTE2 _dte;
         public static Package Package;
-        private SolutionEvents _events;
+        private SolutionEvents _solutionEvents;
+        private BuildEvents _buildEvents;
 
         protected override void Initialize()
         {
@@ -33,10 +34,13 @@ namespace WebCompilerVsix
             Telemetry.SetDeviceName(_dte.Edition);
             Logger.Initialize(this, Constants.VSIX_NAME);
 
-            Events2 events = _dte.Events as Events2;
-            _events = events.SolutionEvents;
-            _events.AfterClosing += () => { TableDataSource.Instance.CleanAllErrors(); };
-            _events.ProjectRemoved += (project) => { TableDataSource.Instance.CleanAllErrors(); };
+            Events2 events = (Events2)_dte.Events;
+            _solutionEvents = events.SolutionEvents;
+            _solutionEvents.AfterClosing += () => { TableDataSource.Instance.CleanAllErrors(); };
+            _solutionEvents.ProjectRemoved += (project) => { TableDataSource.Instance.CleanAllErrors(); };
+
+            _buildEvents = events.BuildEvents;
+            _buildEvents.OnBuildBegin += OnBuildBegin;
 
             CreateConfig.Initialize(this);
             Recompile.Initialize(this);
@@ -46,6 +50,11 @@ namespace WebCompilerVsix
             CleanOutputFiles.Initialize(this);
 
             base.Initialize();
+        }
+
+        private void OnBuildBegin(vsBuildScope Scope, vsBuildAction Action)
+        {
+            //TableDataSource.Instance.CleanAllErrors();
         }
 
         public static bool IsDocumentDirty(string documentPath, out IVsPersistDocData persistDocData)
