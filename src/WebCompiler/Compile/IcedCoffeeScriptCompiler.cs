@@ -104,11 +104,13 @@ namespace WebCompiler
 
             start.EnvironmentVariables["PATH"] = _path + ";" + start.EnvironmentVariables["PATH"];
 
-            Process p = Process.Start(start);
-            var stderr = p.StandardError.ReadToEndAsync();
-            p.WaitForExit();
+            using (Process p = Process.Start(start))
+            {
+                var stderr = p.StandardError.ReadToEndAsync();
+                p.WaitForExit();
 
-            _error = stderr.Result;
+                _error = stderr.Result;
+            }
         }
 
         private string ConstructArguments(Config config)

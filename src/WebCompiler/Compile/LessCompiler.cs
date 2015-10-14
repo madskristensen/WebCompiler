@@ -95,13 +95,15 @@ namespace WebCompiler
 
             start.EnvironmentVariables["PATH"] = _path + ";" + start.EnvironmentVariables["PATH"];
 
-            Process p = Process.Start(start);
-            var stdout = p.StandardOutput.ReadToEndAsync();
-            var stderr = p.StandardError.ReadToEndAsync();
-            p.WaitForExit();
+            using (Process p = Process.Start(start))
+            {
+                var stdout = p.StandardOutput.ReadToEndAsync();
+                var stderr = p.StandardError.ReadToEndAsync();
+                p.WaitForExit();
 
-            _output = stdout.Result.Trim();
-            _error = stderr.Result.Trim();
+                _output = stdout.Result.Trim();
+                _error = stderr.Result.Trim();
+            }
         }
 
         private static string ConstructArguments(Config config)
