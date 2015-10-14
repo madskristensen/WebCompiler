@@ -40,7 +40,7 @@ namespace WebCompiler
 
                     string absolutePath = GetAbsolutePath(cssDirectoryPath, pathOnly);
 
-                    if (string.IsNullOrEmpty(absoluteOutputPath))
+                    if (string.IsNullOrEmpty(absoluteOutputPath) || string.IsNullOrEmpty(absolutePath))
                         continue;
 
                     string serverRelativeUrl = FileHelpers.MakeRelative(absoluteOutputPath, absolutePath);
