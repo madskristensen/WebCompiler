@@ -5,6 +5,7 @@
 - [ ] File globbing pattern support (#49)
 - [ ] Show yellow InfoBar when initializing
 - [ ] Default settings for source maps (#120)
+- [ ] Run compilers from a node server
 - [x] Clean Error List on _Clean_
 - [x] Use new VS2015 Error List API
 - [x] MSBuild: Changed build ordering (#124)
