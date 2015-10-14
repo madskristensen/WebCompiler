@@ -82,7 +82,7 @@ namespace WebCompiler
             if (!output.Exists)
                 return true;
 
-            return input.LastAccessTimeUtc > output.LastWriteTimeUtc;
+            return input.LastWriteTimeUtc > output.LastWriteTimeUtc;
         }
 
         /// <summary>
