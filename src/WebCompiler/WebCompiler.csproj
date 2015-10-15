@@ -86,6 +86,7 @@
     <Compile Include="Minify\JavaScriptOptions.cs" />
     <Compile Include="Minify\MinificationResult.cs" />
     <Compile Include="Minify\MinifyFileEventArgs.cs" />
+    <Compile Include="MSBuild\CompilerCleanTask.cs" />
     <Compile Include="MSBuild\CompilerBuildTask.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="SourceMapEventArgs.cs" />

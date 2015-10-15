@@ -57,6 +57,24 @@ namespace WebCompiler
         }
 
         /// <summary>
+        /// Parses a compiler config file and deletes all outputs including .min and .min.map files
+        /// </summary>
+        public void DeleteOutputFiles(string configFile)
+        {
+            var configs = ConfigHandler.GetConfigs(configFile);
+            foreach (var item in configs)
+            {
+                var outputFile = item.GetAbsoluteOutputFile().FullName;
+                var minFile = Path.ChangeExtension(outputFile, ".min" + Path.GetExtension(outputFile));
+                var mapFile = minFile + ".map";
+
+                if (File.Exists(outputFile)) File.Delete(outputFile);
+                if (File.Exists(minFile)) File.Delete(minFile);
+                if (File.Exists(mapFile)) File.Delete(mapFile);
+            }
+        }
+
+        /// <summary>
         /// Compiles all configs with the same input file extension as the specified sourceFile
         /// </summary>
         public IEnumerable<CompilerResult> SourceFileChanged(string configFile, string sourceFile)
