@@ -2,6 +2,7 @@
 using System.IO;
 using System.IO.Compression;
 using System.Text;
+using System.Text.RegularExpressions;
 using Microsoft.Ajax.Utilities;
 
 namespace WebCompiler
@@ -72,6 +73,9 @@ namespace WebCompiler
                 return null;
 
             var minifier = new Minifier();
+
+            // Remove control characters which AjaxMin can't handle
+            content = Regex.Replace(content, @"[\u0000-\u001F]", string.Empty);
 
             string result = minifier.MinifyStyleSheet(content, settings);
 
