@@ -54,12 +54,12 @@ namespace WebCompilerVsix
             tasks.Description = $"Compiler configs specified in {Constants.CONFIG_FILENAME}.";
             root.Children.Add(tasks);
 
-            var list = new List<ITaskRunnerNode> {
-                GetFileType(configPath, ".less"),
-                GetFileType(configPath, ".scss"),
-                GetFileType(configPath, ".coffee"),
-                GetFileType(configPath, ".iced"),
-            };
+            var list = new List<ITaskRunnerNode>();
+
+            foreach (string ext in WebCompiler.CompilerService.AllowedExtensions)
+            {
+                list.Add(GetFileType(configPath, ext));
+            }
 
             root.Children.AddRange(list.Where(i => i != null));
 

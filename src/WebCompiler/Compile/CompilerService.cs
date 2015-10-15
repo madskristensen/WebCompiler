@@ -11,9 +11,11 @@ namespace WebCompiler
     public static class CompilerService
     {
         internal const string Version = "1.4.166";
-        private static readonly string[] _allowed = new[] { ".LESS", ".SCSS", ".SASS", ".COFFEE", ".ICED", ".JS", ".JSX", ".ES6" };
         private static readonly string _path = Path.Combine(Path.GetTempPath(), "WebCompiler" + Version);
         private static object _syncRoot = new object(); // Used to lock on the initialize step
+
+        /// <summary>A list of allowed file extensions.</summary>
+        public static readonly string[] AllowedExtensions = new[] { ".LESS", ".SCSS", ".SASS", ".COFFEE", ".ICED", ".JS", ".JSX", ".ES6" };
 
         /// <summary>
         /// Test if a file type is supported by the compilers.
@@ -24,7 +26,7 @@ namespace WebCompiler
         {
             string ext = Path.GetExtension(inputFile).ToUpperInvariant();
 
-            return _allowed.Contains(ext);
+            return AllowedExtensions.Contains(ext);
         }
 
         internal static ICompiler GetCompiler(Config config)
