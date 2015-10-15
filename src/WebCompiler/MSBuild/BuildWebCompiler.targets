@@ -9,9 +9,13 @@
     </PropertyGroup>
 
     <UsingTask AssemblyFile="..\tools\WebCompiler.exe" TaskName="WebCompiler.CompilerBuildTask"/>
+    <UsingTask AssemblyFile="..\tools\WebCompiler.exe" TaskName="WebCompiler.CompilerCleanTask"/>
 
     <Target Name="WebCompile" Condition="'$(RunWebCompiler)' != 'False'">
         <WebCompiler.CompilerBuildTask FileName="$(MSBuildProjectDirectory)\compilerconfig.json" />
+    </Target>
+    <Target Name="WebCompileClean" AfterTargets="CoreClean" Condition="'$(RunWebCompiler)' != 'False'">
+        <WebCompiler.CompilerCleanTask FileName="$(MSBuildProjectDirectory)\compilerconfig.json" />
     </Target>
 
 </Project>
