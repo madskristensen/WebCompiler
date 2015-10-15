@@ -47,7 +47,7 @@ namespace WebCompilerVsix
                 }
                 else if (columnName == StandardTableKeyNames.Line)
                 {
-                    content = _errors[index].LineNumber;
+                    content = _errors[index].LineNumber - 1;
                 }
                 else if (columnName == StandardTableKeyNames.Column)
                 {
