@@ -5,7 +5,6 @@
 - [ ] File globbing pattern support (#49)
 - [ ] Default settings for source maps (#120)
 - [ ] Run compilers from a node server
-- [ ] Refresh browsers automatically after compile
 - [x] Clean Error List on _Clean_
 - [x] Use new VS2015 Error List API
 - [x] MSBuild: Changed build ordering (#124)

@@ -104,6 +104,7 @@ namespace WebCompilerVsix
                         if (config.GetAbsoluteOutputFile().FullName.Equals(normalizedFilePath, StringComparison.OrdinalIgnoreCase))
                         {
                             GeneratedAdornment generated = new GeneratedAdornment(textView, _isVisible, _initOpacity);
+                            textView.Properties.AddProperty("generated", true);
                             break;
                         }
                     }
