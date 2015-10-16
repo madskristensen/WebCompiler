@@ -5,14 +5,6 @@
 - [ ] File globbing pattern support (#49)
 - [ ] Default settings for source maps (#120)
 - [ ] Run compilers from a node server
-- [x] Clean Error List on _Clean_
-- [x] Use new VS2015 Error List API
-- [x] MSBuild: Changed build ordering (#124)
-- [x] Compile only when files have changed (#121)
-- [x] Fixed loss of compile on save (#125)
-- [x] LESS: Support for _less-plugin-csscomb_ (#126)
-- [x] LESS: Warning no longer stops compilation (#127)
-- [x] Initializing automatically in the background
 
 Features that have a checkmark are complete and available for
 download in the
@@ -22,6 +14,19 @@ download in the
 
 These are the changes to each version that has been released
 on the official Visual Studio extension gallery.
+
+## 1.7
+
+**2015-10-16**
+
+- [x] Clean Error List on _Clean_
+- [x] Use new VS2015 Error List API
+- [x] MSBuild: Changed build ordering (#124)
+- [x] Compile only when files have changed (#121)
+- [x] Fixed loss of compile on save (#125)
+- [x] LESS: Support for _less-plugin-csscomb_ (#126)
+- [x] LESS: Warning no longer stops compilation (#127)
+- [x] Initializing automatically in the background
 
 ## 1.6
 
