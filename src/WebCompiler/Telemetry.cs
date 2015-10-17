@@ -39,7 +39,7 @@ namespace WebCompiler
 #if !DEBUG
             if (Enabled)
             {
-                string extension = config.GetAbsoluteInputFile().Extension.ToUpperInvariant();
+                string extension = config.GetAbsoluteInputFile().Extension.ToLowerInvariant();
                 _telemetry.TrackEvent(extension);
             }
 #endif
