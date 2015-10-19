@@ -3,12 +3,12 @@
     <Metadata>
         <Identity Id="148ffa77-d70a-407f-892b-9ee542346862" Version="1.7" Language="en-US" Publisher="Mads Kristensen" />
         <DisplayName>Web Compiler</DisplayName>
-        <Description xml:space="preserve">The easiest and most powerful way to compile LESS, Scss, JSX and CoffeeScript files directly within Visual Studio or through MSBuild.</Description>
+        <Description xml:space="preserve">The easiest and most powerful way to compile LESS, Scss,, Stylus, JSX and CoffeeScript files directly within Visual Studio or through MSBuild.</Description>
         <License>Resources\LICENSE</License>
         <ReleaseNotes>https://github.com/madskristensen/WebCompiler/blob/master/CHANGELOG.md</ReleaseNotes>
         <Icon>Resources\icon.png</Icon>
         <PreviewImage>Resources\preview.png</PreviewImage>
-        <Tags>Compile, LESS, Sass, Scss, CoffeeScript, JavaScript, JSX, ES6</Tags>
+        <Tags>Compile, LESS, Sass, Scss, CoffeeScript, JavaScript, JSX, ES6, Stylus</Tags>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[14.0]" />

@@ -15,7 +15,7 @@ namespace WebCompiler
         private static object _syncRoot = new object(); // Used to lock on the initialize step
 
         /// <summary>A list of allowed file extensions.</summary>
-        public static readonly string[] AllowedExtensions = new[] { ".LESS", ".SCSS", ".SASS", ".COFFEE", ".ICED", ".JS", ".JSX", ".ES6" };
+        public static readonly string[] AllowedExtensions = new[] { ".LESS", ".SCSS", ".SASS", ".STYL", ".COFFEE", ".ICED", ".JS", ".JSX", ".ES6" };
 
         /// <summary>
         /// Test if a file type is supported by the compilers.
@@ -47,6 +47,11 @@ namespace WebCompiler
                     compiler = new SassCompiler(_path);
                     break;
 
+                case ".STYL":
+                case ".STYLUS":
+                    compiler = new StylusCompiler(_path);
+                    break;
+
                 case ".COFFEE":
                 case ".ICED":
                     compiler = new IcedCoffeeScriptCompiler(_path);
@@ -73,7 +78,7 @@ namespace WebCompiler
 
             lock (_syncRoot)
             {
-                if (!Directory.Exists(node_modules) || !File.Exists(node_exe) || !File.Exists(log_file) || (Directory.Exists(node_modules) && Directory.GetDirectories(node_modules).Length < 300))
+                if (!Directory.Exists(node_modules) || !File.Exists(node_exe) || !File.Exists(log_file) || (Directory.Exists(node_modules) && Directory.GetDirectories(node_modules).Length < 310))
                 {
                     OnInitializing();
 

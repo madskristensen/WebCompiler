@@ -5,6 +5,7 @@
 - [ ] File globbing pattern support (#49)
 - [ ] Default settings for source maps (#120)
 - [ ] Run compilers from a node server
+- [x] Support for Stylus
 
 Features that have a checkmark are complete and available for
 download in the

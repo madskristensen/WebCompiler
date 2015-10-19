@@ -1,0 +1,11 @@
+﻿[
+  {
+    "outputFile": "stylus/output.css",
+    "inputFile": "stylus/a.styl",
+    "sourceMap": true
+  },
+  {
+    "outputFile": "stylus/error.css",
+    "inputFile": "stylus/error.styl"
+  }
+]

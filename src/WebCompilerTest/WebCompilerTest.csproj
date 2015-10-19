@@ -55,6 +55,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="AssemblyLoad.cs" />
+    <Compile Include="Compile\StylusTest.cs" />
     <Compile Include="Compile\IcedCoffeeScriptTest.cs" />
     <Compile Include="Compile\CoffeeScriptTest.cs" />
     <Compile Include="Compile\CompileServiceTest.cs" />
@@ -71,6 +72,7 @@
   <ItemGroup>
     <Content Include="artifacts\less\sub\logo.png" />
     <None Include="artifacts\coffeeconfig.json.defaults" />
+    <None Include="artifacts\stylusconfig.json" />
     <None Include="artifacts\less\sub\relative.less" />
     <None Include="artifacts\babelconfigError.json" />
     <None Include="artifacts\babel\error.jsx" />
@@ -107,6 +109,9 @@
     <None Include="artifacts\less\error.less" />
     <None Include="artifacts\less\test.less" />
     <None Include="artifacts\less\variables.less" />
+    <None Include="artifacts\stylus\error.styl" />
+    <None Include="artifacts\stylus\vendor.styl" />
+    <None Include="artifacts\stylus\a.styl" />
     <None Include="Minify\artifacts\javascript\evantreatmentmakeallsafeuppercase.json" />
     <None Include="Minify\artifacts\javascript\evantreatmentmakeimmediatesafe.json" />
     <None Include="Minify\artifacts\javascript\evantreatmentmakeallsafe.json" />
