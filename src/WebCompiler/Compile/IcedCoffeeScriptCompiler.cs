@@ -43,8 +43,13 @@ namespace WebCompiler
                 {
                     result.CompiledContent = File.ReadAllText(tempFile);
 
-                    if (File.Exists(tempMapFile))
-                        result.SourceMap = File.ReadAllText(tempMapFile);
+                    var options = IcedCoffeeScriptOptions.FromConfig(config);
+
+                    if (options.SourceMap || config.SourceMap)
+                    {
+                        if (File.Exists(tempMapFile))
+                            result.SourceMap = File.ReadAllText(tempMapFile);
+                    }
                 }
 
                 if (_error.Length > 0)
