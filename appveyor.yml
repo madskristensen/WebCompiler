@@ -28,5 +28,15 @@ deploy:
   api_key:
     secure: 6xBu/05BWJDPa2PRkxEH3PHU/caLvy2lzf1eWdRBGXwSCTejHtI+6e0V4s2LaVri
 
+- provider: GitHub
+  auth_token:
+    secure: AoQ7zAehRbs4EqGPu8dak66vXT80Wxutnm1Fq7WaKJ18zS7R/cW+OxTXoPmb72Zh
+  artifact: /.*\.vsix/
+  draft: false
+  prerelease: false
+  on:
+    branch: master
+    appveyor_repo_tag: true
+
 after_deploy:
   - ps: Vsix-PublishToGallery .\src\WebCompilerVsix\**\*.vsix
