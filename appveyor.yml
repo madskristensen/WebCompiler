@@ -29,6 +29,7 @@ deploy:
     secure: 6xBu/05BWJDPa2PRkxEH3PHU/caLvy2lzf1eWdRBGXwSCTejHtI+6e0V4s2LaVri
 
 - provider: GitHub
+  release: v$(appveyor_build_version)
   auth_token:
     secure: AoQ7zAehRbs4EqGPu8dak66vXT80Wxutnm1Fq7WaKJ18zS7R/cW+OxTXoPmb72Zh
   artifact: /.*\.vsix/
