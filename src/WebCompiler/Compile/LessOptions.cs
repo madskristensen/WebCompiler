@@ -18,6 +18,8 @@ namespace WebCompiler
         /// </summary>
         protected override void LoadSettings(Config config)
         {
+            base.LoadSettings(config);
+
             var autoPrefix = GetValue(config, "autoPrefix");
             if (autoPrefix != null)
                 AutoPrefix = autoPrefix;

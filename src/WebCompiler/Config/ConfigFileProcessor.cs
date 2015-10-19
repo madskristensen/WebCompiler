@@ -178,23 +178,20 @@ namespace WebCompiler
             FileMinifier.MinifyFile(config);
             //}
 
-            if (config.SourceMap)
+            if (!string.IsNullOrEmpty(result.SourceMap))
             {
-                if (!string.IsNullOrEmpty(result.SourceMap))
+                string absolute = config.GetAbsoluteOutputFile().FullName;
+                string mapFile = absolute + ".map";
+                bool smChanges = FileHelpers.HasFileContentChanged(mapFile, result.SourceMap);
+
+                OnBeforeWritingSourceMap(absolute, mapFile, smChanges);
+
+                if (smChanges)
                 {
-                    string absolute = config.GetAbsoluteOutputFile().FullName;
-                    string mapFile = absolute + ".map";
-                    bool smChanges = FileHelpers.HasFileContentChanged(mapFile, result.SourceMap);
-
-                    OnBeforeWritingSourceMap(absolute, mapFile, smChanges);
-
-                    if (smChanges)
-                    {
-                        File.WriteAllText(mapFile, result.SourceMap, new UTF8Encoding(true));
-                    }
-
-                    OnAfterWritingSourceMap(absolute, mapFile, smChanges);
+                    File.WriteAllText(mapFile, result.SourceMap, new UTF8Encoding(true));
                 }
+
+                OnAfterWritingSourceMap(absolute, mapFile, smChanges);
             }
 
             Telemetry.TrackCompile(config);

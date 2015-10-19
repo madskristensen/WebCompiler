@@ -5,10 +5,10 @@ namespace WebCompiler
     /// <summary>
     /// Give all options for the LESS compiler
     /// </summary>
-    public class StylusOptions : BaseOptions<StylusOptions>
+    public class BabelOptions : BaseOptions<BabelOptions>
     {
         /// <summary> Creates a new instance of the class.</summary>
-        public StylusOptions()
+        public BabelOptions()
         { }
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace WebCompiler
         /// </summary>
         protected override string CompilerFileName
         {
-            get { return "stylus"; }
+            get { return "babel"; }
         }
     }
 }

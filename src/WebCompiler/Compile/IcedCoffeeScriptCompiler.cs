@@ -32,22 +32,19 @@ namespace WebCompiler
                 OriginalContent = content,
             };
 
+            string tempFile = Path.ChangeExtension(Path.Combine(_temp, info.Name), ".js");
+            string tempMapFile = tempFile + ".map";
+
             try
             {
                 RunCompilerProcess(config, info);
-
-                string tempFile = Path.ChangeExtension(Path.Combine(_temp, info.Name), ".js");
 
                 if (File.Exists(tempFile))
                 {
                     result.CompiledContent = File.ReadAllText(tempFile);
 
-                    if (config.SourceMap)
-                    {
-                        string mapFile = tempFile + ".map";
-                        if (File.Exists(mapFile))
-                            result.SourceMap = File.ReadAllText(mapFile);
-                    }
+                    if (File.Exists(tempMapFile))
+                        result.SourceMap = File.ReadAllText(tempMapFile);
                 }
 
                 if (_error.Length > 0)
@@ -81,6 +78,11 @@ namespace WebCompiler
                 };
 
                 result.Errors.Add(error);
+            }
+            finally
+            {
+                File.Delete(tempFile);
+                File.Delete(tempMapFile);
             }
 
             return result;
@@ -117,10 +119,10 @@ namespace WebCompiler
         {
             string arguments = $" --compile --output \"{_temp}\"";
 
-            if (config.SourceMap)
-                arguments += " --map";
+            var options = IcedCoffeeScriptOptions.FromConfig(config);
 
-            IcedCoffeeScriptOptions options = IcedCoffeeScriptOptions.FromConfig(config);
+            if (options.SourceMap || config.SourceMap)
+                arguments += " --map";
 
             if (options.Bare)
                 arguments += " --bare";

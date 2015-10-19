@@ -4,7 +4,9 @@
     "inputFile": "scss/test.scss",
     "minify": { },
     "includeInProject": true,
-    "sourceMap": true
+    "options": {
+      "sourceMap": true
+    }
   },
   	{
 		"outputFile": "scss/relative.css",

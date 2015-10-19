@@ -18,6 +18,8 @@ namespace WebCompiler
         /// </summary>
         protected override void LoadSettings(Config config)
         {
+            base.LoadSettings(config);
+
             if (config.Options.ContainsKey("outputStyle"))
                 OutputStyle = config.Options["outputStyle"].ToString();
 

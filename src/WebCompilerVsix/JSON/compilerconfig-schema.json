@@ -33,6 +33,20 @@
       }
     },
 
+    "stylusOptions": {
+      "properties": {
+        "inputFile": {
+          "pattern": "\\.styl$"
+        },
+        "options": {
+          "$ref": "compilerdefaults-schema.json#/definitions/stylus"
+        },
+        "minify": {
+          "$ref": "compilerdefaults-schema.json#/definitions/cssMinify"
+        }
+      }
+    },
+
     "coffeeScriptOptions": {
       "properties": {
         "inputFile": {
@@ -97,7 +111,7 @@
           "minLength": 1
         },
         "sourceMap": {
-          "description": "Set to true to automatically create either inline source maps or a .map file.",
+          "description": "DEPRECATED! Use 'options/sourceMap' instead.",
           "type": "boolean",
           "default": false
         }
@@ -106,6 +120,7 @@
       "oneOf": [
         { "$ref": "#/definitions/lessOptions" },
         { "$ref": "#/definitions/sassOptions" },
+        { "$ref": "#/definitions/stylusOptions" },
         { "$ref": "#/definitions/coffeeScriptOptions" },
         { "$ref": "#/definitions/icedCoffeeScriptOptions" },
         { "$ref": "#/definitions/babelOptions" }

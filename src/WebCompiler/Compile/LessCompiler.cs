@@ -110,10 +110,10 @@ namespace WebCompiler
         {
             string arguments = " --no-color";
 
-            if (config.SourceMap)
-                arguments += " --source-map-map-inline";
-
             LessOptions options = LessOptions.FromConfig(config);
+
+            if (options.SourceMap || config.SourceMap)
+                arguments += " --source-map-map-inline";
 
             if (options.StrictMath)
                 arguments += " --strict-math=on";

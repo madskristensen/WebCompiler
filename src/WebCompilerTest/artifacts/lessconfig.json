@@ -11,13 +11,13 @@
   {
     "outputFile": "less/relative.css",
     "inputFile": "less/sub/relative.less",
-    "sourceMap": true,
     "minify": {
       "enabled": true,
       "adjustRelativePaths": true
     },
     "options": {
-      "autoPrefix": "last 2 versions, > 5%"
+      "autoPrefix": "last 2 versions, > 5%",
+      "sourceMap": true
     }
   }
 ]

@@ -3,6 +3,8 @@
 		"outputFile": "coffee/test.js",
 		"inputFile": "coffee/test.coffee",
     "includeInProject": true,
-    "sourceMap": true
+    "options": {
+      "sourceMap": true
+    }
 	}
 ]

@@ -29,6 +29,9 @@ namespace WebCompilerTest
         {
             var result = _processor.Process("../../artifacts/babelconfig.json");
             Assert.IsTrue(File.Exists("../../artifacts/babel/file1.js"));
+
+            string sourceMap = ScssTest.DecodeSourceMap(result.First().CompiledContent);
+            Assert.IsTrue(sourceMap.Contains("/file1.jsx\""), "Source map paths");
         }
 
         [TestMethod, TestCategory("BABEL")]

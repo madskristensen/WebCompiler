@@ -110,7 +110,9 @@ namespace WebCompiler
         {
             string arguments = "";
 
-            if (config.SourceMap)
+            var options = BabelOptions.FromConfig(config);
+
+            if (options.SourceMap || config.SourceMap)
                 arguments += " --source-maps inline";
 
             return arguments;

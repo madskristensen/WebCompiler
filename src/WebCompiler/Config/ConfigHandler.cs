@@ -64,7 +64,8 @@ namespace WebCompiler
                 {
                     less = new LessOptions(),
                     sass = new SassOptions(),
-                    coffeescript = new IcedCoffeeScriptOptions()
+                    coffeescript = new IcedCoffeeScriptOptions(),
+                    stylus = new StylusOptions(),
                 },
                 minifiers = new
                 {

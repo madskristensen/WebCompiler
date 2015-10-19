@@ -18,6 +18,8 @@ namespace WebCompiler
         /// </summary>
         protected override void LoadSettings(Config config)
         {
+            base.LoadSettings(config);
+
             var bare = GetValue(config, "bare");
             if (bare != null)
                 Bare = bare.ToLowerInvariant() == trueStr;

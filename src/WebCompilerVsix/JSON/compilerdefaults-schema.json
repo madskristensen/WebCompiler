@@ -33,6 +33,11 @@
           "type": "boolean",
           "default": true
         },
+        "sourceMap": {
+          "description": "Generates a base64 encoded source map at the bottom of the output.",
+          "type": "boolean",
+          "default": false
+        },
         "strictMath": {
           "description": "LESS only. Without this option on Less will try and process all maths in your CSS.",
           "type": "boolean",
@@ -89,6 +94,11 @@
           "description": "Scss only. This option allows you to re-write URL's to make them relative to the output file. This doesn't work for imported .scss files.",
           "type": "boolean",
           "default": true
+        },
+        "sourceMap": {
+          "description": "Generates a base64 encoded source map at the bottom of the output.",
+          "type": "boolean",
+          "default": false
         }
       }
     },
@@ -106,6 +116,23 @@
           "description": "CoffeeScript only. Specify how the Iced runtime is included in the output JavaScript file.",
           "enum": [ "node", "inline", "none", "window" ],
           "default": "node"
+        },
+        "sourceMap": {
+          "description": "Generates a source map file.",
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+
+    "stylus": {
+      "description": "Specify options for the compiler.",
+      "type": "object",
+      "properties": {
+        "sourceMap": {
+          "description": "Generates a base64 encoded source map at the bottom of the output.",
+          "type": "boolean",
+          "default": false
         }
       }
     },
@@ -189,6 +216,7 @@
       "properties": {
         "less": { "$ref": "#/definitions/less" },
         "sass": { "$ref": "#/definitions/sass" },
+        "stylus": { "$ref": "#/definitions/stylus" },
         "coffeescript": { "$ref": "#/definitions/coffeeScript" }
       }
     },

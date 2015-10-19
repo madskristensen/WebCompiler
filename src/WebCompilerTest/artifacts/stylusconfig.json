@@ -2,7 +2,9 @@
   {
     "outputFile": "stylus/output.css",
     "inputFile": "stylus/a.styl",
-    "sourceMap": true
+    "options": {
+      "sourceMap": true
+    }
   },
   {
     "outputFile": "stylus/error.css",

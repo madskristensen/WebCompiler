@@ -112,10 +112,10 @@ namespace WebCompiler
         {
             string arguments = "";
 
-            if (config.SourceMap)
-                arguments += " --source-map=false --source-map-embed=true";
-
             SassOptions options = SassOptions.FromConfig(config);
+
+            if (options.SourceMap || config.SourceMap)
+                arguments += " --source-map=false --source-map-embed=true";
 
             arguments += " --precision=" + options.Precision;
 

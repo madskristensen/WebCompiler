@@ -40,7 +40,18 @@ namespace WebCompiler
         /// <summary>
         /// Load the settings from the config object
         /// </summary>
-        protected abstract void LoadSettings(Config config);
+        protected virtual void LoadSettings(Config config)
+        {
+            var sourceMap = GetValue(config, "sourceMap");
+            if (sourceMap != null)
+                SourceMap = sourceMap.ToLowerInvariant() == "true";
+        }
+
+        /// <summary>
+        /// Generate Source Map v3
+        /// </summary>
+        [JsonProperty("sourceMap")]
+        public bool SourceMap { get; set; }
 
         /// <summary>
         /// Gets a value from a string keyed dictionary

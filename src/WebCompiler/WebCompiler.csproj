@@ -72,6 +72,7 @@
     <Compile Include="Compile\CompilerService.cs" />
     <Compile Include="Compile\ICompiler.cs" />
     <Compile Include="Compile\StylusCompiler.cs" />
+    <Compile Include="Compile\BabelOptions.cs" />
     <Compile Include="Compile\StylusOptions.cs" />
     <Compile Include="Compile\SassOptions.cs" />
     <Compile Include="Compile\LessOptions.cs" />

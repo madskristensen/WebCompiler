@@ -110,7 +110,9 @@ namespace WebCompiler
         {
             string arguments = " --print";
 
-            if (config.SourceMap)
+            var options = StylusOptions.FromConfig(config);
+
+            if (options.SourceMap || config.SourceMap)
                 arguments += " --sourcemap-inline";
 
             return arguments;
