@@ -34,7 +34,6 @@ deploy:
     secure: AoQ7zAehRbs4EqGPu8dak66vXT80Wxutnm1Fq7WaKJ18zS7R/cW+OxTXoPmb72Zh
   artifact: /.*\.vsix/
   draft: false
-  prerelease: false
   on:
     branch: master
     appveyor_repo_tag: true
