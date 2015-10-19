@@ -1,5 +1,7 @@
 @echo off
 
+:: IMPORTANT!! npm 3.x is required to avoid long path exceptions
+
 if exist %~dp0..\src\WebCompiler\node\node_modules.7z goto:EOF
 
 if not exist %~dp0..\src\WebCompiler\node md %~dp0..\src\WebCompiler\node
