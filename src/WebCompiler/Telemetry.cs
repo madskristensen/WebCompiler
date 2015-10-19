@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Security.Cryptography;
+using System.Text;
 using Microsoft.ApplicationInsights;
 
 namespace WebCompiler
@@ -20,7 +22,13 @@ namespace WebCompiler
             client.InstrumentationKey = TELEMETRY_KEY;
             client.Context.Component.Version = CompilerService.Version;
             client.Context.Session.Id = Guid.NewGuid().ToString();
-            client.Context.User.Id = (Environment.UserName + Environment.MachineName).GetHashCode().ToString();
+
+            byte[] enc = Encoding.UTF8.GetBytes(Environment.UserName + Environment.MachineName);
+            using (var crypto = new MD5CryptoServiceProvider())
+            {
+                byte[] hash = crypto.ComputeHash(enc);
+                client.Context.User.Id = Convert.ToBase64String(hash);
+            }
 
             return client;
         }
