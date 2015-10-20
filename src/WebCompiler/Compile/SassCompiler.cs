@@ -128,6 +128,9 @@ namespace WebCompiler
             if (options.IndentWidth > -1)
                 arguments += " --indent-width=" + options.IndentWidth;
 
+            if (!string.IsNullOrEmpty(options.IncludePath))
+                arguments += " --include-path=" + options.IncludePath;
+
             return arguments;
         }
     }

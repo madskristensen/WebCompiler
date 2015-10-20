@@ -37,6 +37,10 @@ namespace WebCompiler
             var relativeUrls = GetValue(config, "relativeUrls");
             if (relativeUrls != null)
                 RelativeUrls = relativeUrls.ToLowerInvariant() == trueStr;
+
+            var includePath = GetValue(config, "includePath");
+            if (includePath != null)
+                IncludePath = includePath;
         }
 
         /// <summary>
@@ -46,6 +50,12 @@ namespace WebCompiler
         {
             get { return "sass"; }
         }
+
+        /// <summary>
+        /// Path to look for imported files
+        /// </summary>
+        [JsonProperty("includePath")]
+        public string IncludePath { get; set; }
 
         /// <summary>
         /// Indent type for output CSS.

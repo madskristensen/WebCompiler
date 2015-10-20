@@ -64,6 +64,10 @@
       "description": "Specify options for the compiler.",
       "type": "object",
       "properties": {
+        "includePath": {
+          "description": "Scss only. Path to look for imported files",
+          "type": "string"
+        },
         "indentType": {
           "description": "Scss only. Indent type for output CSS.",
           "enum": [ "space", "tab" ],
