@@ -6,6 +6,7 @@
 - [ ] Run compilers from a node server
 - [x] Default settings for source maps (#120)
 - [x] Support for Stylus
+- [x] Sass: Support for _include-path_ (#137)
 
 Features that have a checkmark are complete and available for
 download in the
