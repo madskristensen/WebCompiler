@@ -56,6 +56,14 @@
         "rootPath": {
           "description": "LESS only. Allows you to add a path to every generated import and URL in your CSS. This does not affect less import statements that are processed, just ones that are left in the output css.",
           "type": "string"
+        },
+        "sourceMapRoot": {
+          "description": "LESS only. Base path, will be emitted in source-map as is.",
+          "type": "string"
+        },
+        "sourceMapBasePath": {
+          "description": "Scss only. This is the opposite of the rootpath option, it specifies a path which should be removed from the output paths.",
+          "type": "string"
         }
       }
     },

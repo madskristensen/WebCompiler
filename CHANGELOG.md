@@ -7,6 +7,7 @@
 - [x] Default settings for source maps (#120)
 - [x] Support for Stylus compilation
 - [x] Sass: Added _sourceMapRoot_ option (#141)
+- [x] LESS: Added _sourceMapRoot_ and _sourceMapBasePath_ options
 - [x] Fixed: Support for Sass' _include-path_ (#137)
 - [x] Fixed: CSS minification stripped selector spaces (#138)
 

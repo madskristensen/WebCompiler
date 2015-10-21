@@ -139,6 +139,12 @@ namespace WebCompiler
             if (!string.IsNullOrEmpty(options.CssComb) && !options.CssComb.Equals("none", StringComparison.OrdinalIgnoreCase))
                 arguments += $" --csscomb=\"{options.CssComb}\"";
 
+            if (!string.IsNullOrEmpty(options.SourceMapRoot))
+                arguments += " --source-map-rootpath=" + options.SourceMapRoot;
+
+            if (!string.IsNullOrEmpty(options.SourceMapBasePath))
+                arguments += " --source-map-basepath=" + options.SourceMapBasePath;
+
             return arguments;
         }
     }

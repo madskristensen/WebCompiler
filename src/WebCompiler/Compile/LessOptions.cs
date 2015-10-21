@@ -47,6 +47,14 @@ namespace WebCompiler
             var relativeUrls = GetValue(config, "relativeUrls");
             if (relativeUrls != null)
                 RelativeUrls = relativeUrls.ToLowerInvariant() == trueStr;
+
+            var sourceMapRoot = GetValue(config, "sourceMapRoot");
+            if (sourceMapRoot != null)
+                SourceMapRoot = sourceMapRoot;
+
+            var sourceMapBasePath = GetValue(config, "sourceMapBasePath");
+            if (sourceMapBasePath != null)
+                SourceMapBasePath = sourceMapBasePath;
         }
 
         /// <summary>
@@ -103,5 +111,17 @@ namespace WebCompiler
         /// </summary>
         [JsonProperty("rootPath")]
         public string RootPath { get; set; } = "";
+
+        /// <summary>
+        /// Base path, will be emitted in source-map as is
+        /// </summary>
+        [JsonProperty("soruceMapRoot")]
+        public string SourceMapRoot { get; set; }
+
+        /// <summary>
+        /// This is the opposite of the 'rootpath' option, it specifies a path which should be removed from the output paths.
+        /// </summary>
+        [JsonProperty("soruceMapBasePath")]
+        public string SourceMapBasePath { get; set; }
     }
 }
