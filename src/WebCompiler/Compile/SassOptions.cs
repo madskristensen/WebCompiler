@@ -41,6 +41,10 @@ namespace WebCompiler
             var includePath = GetValue(config, "includePath");
             if (includePath != null)
                 IncludePath = includePath;
+
+            var sourceMapRoot = GetValue(config, "sourceMapRoot");
+            if (sourceMapRoot != null)
+                SourceMapRoot = sourceMapRoot;
         }
 
         /// <summary>
@@ -87,5 +91,11 @@ namespace WebCompiler
         /// </summary>
         [JsonProperty("relativeUrls")]
         public bool RelativeUrls { get; set; } = true;
+
+        /// <summary>
+        /// Base path, will be emitted in source-map as is
+        /// </summary>
+        [JsonProperty("soruceMapRoot")]
+        public string SourceMapRoot { get; set; }
     }
 }

@@ -103,6 +103,10 @@
           "description": "Generates a base64 encoded source map at the bottom of the output.",
           "type": "boolean",
           "default": false
+        },
+        "sourceMapRoot": {
+          "description": "Scss only. Base path, will be emitted in source-map as is.",
+          "type": "string"
         }
       }
     },

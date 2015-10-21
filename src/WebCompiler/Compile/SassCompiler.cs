@@ -131,6 +131,9 @@ namespace WebCompiler
             if (!string.IsNullOrEmpty(options.IncludePath))
                 arguments += " --include-path=" + options.IncludePath;
 
+            if (!string.IsNullOrEmpty(options.SourceMapRoot))
+                arguments += " --source-map-root=" + options.SourceMapRoot;
+
             return arguments;
         }
     }
