@@ -2,7 +2,9 @@
   {
     "outputFile": "scss/test.css",
     "inputFile": "scss/test.scss",
-    "minify": { },
+    "minify": {
+      "enabled": true
+    },
     "includeInProject": true,
     "options": {
       "sourceMap": true

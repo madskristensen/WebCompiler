@@ -1,7 +1,8 @@
-@import "variables";
+﻿@import "variables";
 
 body {
     background-color: $background;
+    content: "✔ æøå";
 }
 
 #test1{
@@ -14,4 +15,13 @@ body {
 
 #test3{
     color: green;
+}
+
+.parent
+{
+    .child
+    {
+        width: 64px;
+        height: 24px;
+    }
 }

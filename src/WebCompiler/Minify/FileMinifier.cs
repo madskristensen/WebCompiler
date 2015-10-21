@@ -75,7 +75,7 @@ namespace WebCompiler
             var minifier = new Minifier();
 
             // Remove control characters which AjaxMin can't handle
-            content = Regex.Replace(content, @"[\u0000-\u001F]", string.Empty);
+            content = Regex.Replace(content, @"[\u0000-\u0009\u000B-\u000C\u000E-\u001F]", string.Empty);
 
             string result = minifier.MinifyStyleSheet(content, settings);
 
