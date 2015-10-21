@@ -5,8 +5,9 @@
 - [ ] File globbing pattern support (#49)
 - [ ] Run compilers from a node server
 - [x] Default settings for source maps (#120)
-- [x] Support for Stylus
-- [x] Sass: Support for _include-path_ (#137)
+- [x] Support for Stylus compilation
+- [x] Fixed: Support for Sass' _include-path_ (#137)
+- [x] Fixed: CSS minification stripped selector spaces (#138)
 
 Features that have a checkmark are complete and available for
 download in the
