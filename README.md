@@ -27,6 +27,7 @@ for changes and roadmap.
 - Shortcut to compile all specified files in solution
 - Task Runner Explorer integration
 - Command line interface
+- Integrates with [Web Analyzer](https://visualstudiogallery.msdn.microsoft.com/6edc26d4-47d8-4987-82ee-7c820d79be1d)
 
 ### Getting started
 
