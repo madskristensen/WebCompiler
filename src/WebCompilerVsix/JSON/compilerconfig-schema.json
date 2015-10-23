@@ -87,24 +87,24 @@
     },
 
     "config": {
-      "required": [ "outputFile", "inputFile" ],
-
-      "properties": {
+        "properties": {
         "includeInProject": {
           "description": "Set to true to include the output file in the project. Doesn't work in some Visual Studio project types like ASP.NET 5 applications.",
           "type": "boolean",
           "default": true
         },
+        "inputFiles": { "type": "string" },
         "inputFile": {
-          "description": "One or more relative file names to bundle.",
-          "type": "string",
-          "format": "compiler_relativepath"
+            "description": "One or more relative file names to bundle.",
+            "type": "string",
+            "format": "compiler_relativepath"
         },
         "minify": {
-          "description": "Specify options for minification of the output file.",
-          "type": "object",
-          "allOf": [ { "$ref": "compilerdefaults-schema.json#/definitions/baseMinify" } ]
+            "description": "Specify options for minification of the output file.",
+            "type": "object",
+            "allOf": [ { "$ref": "compilerdefaults-schema.json#/definitions/baseMinify" } ]
         },
+        "outputFiles": { "type": "string" },
         "outputFile": {
           "description": "The relative path to the desired output file name.",
           "type": "string",
