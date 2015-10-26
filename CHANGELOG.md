@@ -4,12 +4,6 @@
 - [ ] Preview window (#6)
 - [ ] File globbing pattern support (#49)
 - [ ] Run compilers from a node server
-- [x] Default settings for source maps (#120)
-- [x] Support for Stylus compilation
-- [x] Sass: Added _sourceMapRoot_ option (#141)
-- [x] LESS: Added _sourceMapRoot_ and _sourceMapBasePath_ options
-- [x] Fixed: Support for Sass' _include-path_ (#137)
-- [x] Fixed: CSS minification stripped selector spaces (#138)
 
 Features that have a checkmark are complete and available for
 download in the
@@ -19,6 +13,17 @@ download in the
 
 These are the changes to each version that has been released
 on the official Visual Studio extension gallery.
+
+## 1.8
+
+**2015-10-26**
+
+- [x] Default settings for source maps (#120)
+- [x] Support for Stylus compilation (.styl files)
+- [x] Sass: Added _sourceMapRoot_ option (#141)
+- [x] LESS: Added _sourceMapRoot_ and _sourceMapBasePath_ options
+- [x] Fixed: Support for Sass' _include-path_ (#137)
+- [x] Fixed: CSS minification stripped selector spaces (#138)
 
 ## 1.7
 
