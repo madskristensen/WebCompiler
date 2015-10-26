@@ -24,7 +24,7 @@ artifacts:
   - path: src\WebCompiler\**\*.nupkg
 
 before_deploy:
-  - ps: Vsix-CreateChocolatyPackage
+  - ps: Vsix-CreateChocolatyPackage -packageId webcompiler
 
 deploy:
   - provider: NuGet
