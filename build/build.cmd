@@ -14,7 +14,8 @@ call npm install less-plugin-autoprefix --no-optional --quiet > nul
 call npm install less-plugin-csscomb --no-optional --quiet > nul
 call npm install iced-coffee-script --no-optional --quiet > nul
 call npm install node-sass --no-optional --quiet > nul
-call npm install babel --no-optional --quiet > nul
+call npm install babel-cli --no-optional --quiet > nul
+call npm install babel-preset-react --no-optional --quiet > nul
 call npm install stylus --no-optional --quiet > nul
 
 if not exist "node_modules\node-sass\vendor\win32-ia32-14" (

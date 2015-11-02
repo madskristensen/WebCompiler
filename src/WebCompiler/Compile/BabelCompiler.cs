@@ -81,12 +81,12 @@ namespace WebCompiler
 
             ProcessStartInfo start = new ProcessStartInfo
             {
-                WorkingDirectory = info.Directory.FullName,
+                WorkingDirectory = _path,
                 UseShellExecute = false,
                 WindowStyle = ProcessWindowStyle.Hidden,
                 CreateNoWindow = true,
                 FileName = "cmd.exe",
-                Arguments = $"/c \"\"{Path.Combine(_path, "node_modules\\.bin\\babel.cmd")}\" {arguments} \"{info.FullName}\"\"",
+                Arguments = $"/c \"\"{"node_modules\\.bin\\babel.cmd"}\" {arguments} \"{info.FullName}\"\"",
                 StandardOutputEncoding = Encoding.UTF8,
                 StandardErrorEncoding = Encoding.UTF8,
                 RedirectStandardOutput = true,
@@ -108,7 +108,8 @@ namespace WebCompiler
 
         private static string ConstructArguments(Config config)
         {
-            string arguments = "";
+            //string relative = FileHelpers.MakeRelative(config.GetAbsoluteOutputFile().FullName, config.GetAbsoluteInputFile().FullName);
+            string arguments = $"--presets react";
 
             var options = BabelOptions.FromConfig(config);
 
