@@ -59,7 +59,7 @@ namespace WebCompiler
         /// Path to look for imported files
         /// </summary>
         [JsonProperty("includePath")]
-        public string IncludePath { get; set; }
+        public string IncludePath { get; set; } = string.Empty;
 
         /// <summary>
         /// Indent type for output CSS.
