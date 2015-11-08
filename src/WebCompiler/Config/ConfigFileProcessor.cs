@@ -67,10 +67,12 @@ namespace WebCompiler
                 var outputFile = item.GetAbsoluteOutputFile().FullName;
                 var minFile = Path.ChangeExtension(outputFile, ".min" + Path.GetExtension(outputFile));
                 var mapFile = minFile + ".map";
+                var gzipFile = minFile + ".gz";
 
                 if (File.Exists(outputFile)) File.Delete(outputFile);
                 if (File.Exists(minFile)) File.Delete(minFile);
                 if (File.Exists(mapFile)) File.Delete(mapFile);
+                if (File.Exists(gzipFile)) File.Delete(gzipFile);
             }
         }
 
