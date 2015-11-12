@@ -95,7 +95,7 @@ namespace WebCompiler
         /// <summary>
         /// Base path, will be emitted in source-map as is
         /// </summary>
-        [JsonProperty("soruceMapRoot")]
+        [JsonProperty("sourceMapRoot")]
         public string SourceMapRoot { get; set; }
     }
 }

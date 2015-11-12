@@ -115,13 +115,13 @@ namespace WebCompiler
         /// <summary>
         /// Base path, will be emitted in source-map as is
         /// </summary>
-        [JsonProperty("soruceMapRoot")]
+        [JsonProperty("sourceMapRoot")]
         public string SourceMapRoot { get; set; }
 
         /// <summary>
         /// This is the opposite of the 'rootpath' option, it specifies a path which should be removed from the output paths.
         /// </summary>
-        [JsonProperty("soruceMapBasePath")]
+        [JsonProperty("sourceMapBasePath")]
         public string SourceMapBasePath { get; set; }
     }
 }
