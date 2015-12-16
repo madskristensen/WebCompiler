@@ -5,6 +5,7 @@
 - [ ] File globbing pattern support (#49)
 - [ ] Run compilers from a node server
 - [x] Set build action to "None" on default file (#159)
+- [x] Minify even when empty (#157)
 
 Features that have a checkmark are complete and available for
 download in the

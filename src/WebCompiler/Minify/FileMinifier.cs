@@ -78,23 +78,19 @@ namespace WebCompiler
             content = Regex.Replace(content, @"[\u0000-\u0009\u000B-\u000C\u000E-\u001F]", string.Empty);
 
             string result = minifier.MinifyStyleSheet(content, settings);
+            string minFile = GetMinFileName(file);
+            bool containsChanges = FileHelpers.HasFileContentChanged(minFile, result);
 
-            if (!string.IsNullOrEmpty(result))
+            OnBeforeWritingMinFile(file, minFile, containsChanges);
+
+            if (containsChanges)
             {
-                string minFile = GetMinFileName(file);
-                bool containsChanges = FileHelpers.HasFileContentChanged(minFile, result);
-
-                OnBeforeWritingMinFile(file, minFile, containsChanges);
-
-                if (containsChanges)
-                {
-                    File.WriteAllText(minFile, result, new UTF8Encoding(true));
-                }
-
-                OnAfterWritingMinFile(file, minFile, containsChanges);
-
-                GzipFile(config, minFile, containsChanges);
+                File.WriteAllText(minFile, result, new UTF8Encoding(true));
             }
+
+            OnAfterWritingMinFile(file, minFile, containsChanges);
+
+            GzipFile(config, minFile, containsChanges);
 
             return new MinificationResult(result, null);
         }
