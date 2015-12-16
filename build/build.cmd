@@ -9,14 +9,15 @@ if not exist %~dp0..\src\WebCompiler\node md %~dp0..\src\WebCompiler\node
 pushd %~dp0..\src\WebCompiler\node
 
 echo Installing packages...
-call npm install less --quiet > nul
-call npm install less-plugin-autoprefix --no-optional --quiet > nul
-call npm install less-plugin-csscomb --no-optional --quiet > nul
-call npm install iced-coffee-script --no-optional --quiet > nul
-call npm install node-sass --no-optional --quiet > nul
-call npm install babel-cli --no-optional --quiet > nul
-call npm install babel-preset-react --no-optional --quiet > nul
-call npm install stylus --no-optional --quiet > nul
+call npm install --quiet ^
+        babel@5.8.34 ^
+        iced-coffee-script ^
+        less ^
+        less-plugin-autoprefix ^
+        less-plugin-csscomb ^
+        node-sass ^
+        stylus ^
+        > nul
 
 if not exist "node_modules\node-sass\vendor\win32-ia32-14" (
     echo Copying node binding...

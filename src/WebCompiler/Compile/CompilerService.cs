@@ -78,7 +78,7 @@ namespace WebCompiler
 
             lock (_syncRoot)
             {
-                if (!Directory.Exists(node_modules) || !File.Exists(node_exe) || !File.Exists(log_file) || (Directory.Exists(node_modules) && Directory.GetDirectories(node_modules).Length < 310))
+                if (!Directory.Exists(node_modules) || !File.Exists(node_exe) || !File.Exists(log_file))
                 {
                     OnInitializing();
 
