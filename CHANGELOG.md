@@ -4,7 +4,7 @@
 - [ ] Preview window (#6)
 - [ ] File globbing pattern support (#49)
 - [ ] Run compilers from a node server
-- [x] Updated to Babel 6 compiler
+- [x] Set build action to "None" on default file (#159)
 
 Features that have a checkmark are complete and available for
 download in the

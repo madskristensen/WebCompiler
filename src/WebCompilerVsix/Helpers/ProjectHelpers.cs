@@ -98,19 +98,27 @@ namespace WebCompilerVsix
             if (project.IsKind(ProjectTypes.ASPNET_5))
                 return;
 
+
+            if (_dte.Solution.FindProjectItem(file) == null)
+            {
+                ProjectItem item = project.ProjectItems.AddFromFile(file);
+                item.SetItemType(itemType);
+            }
+        }
+
+        public static void SetItemType(this ProjectItem item, string itemType)
+        {
             try
             {
-                if (_dte.Solution.FindProjectItem(file) == null)
-                {
-                    ProjectItem item = project.ProjectItems.AddFromFile(file);
+                if (item == null || item.ContainingProject == null)
+                    return;
 
-                    if (string.IsNullOrEmpty(itemType)
-                        || project.IsKind(ProjectTypes.WEBSITE_PROJECT)
-                        || project.IsKind(ProjectTypes.UNIVERSAL_APP))
-                        return;
+                if (string.IsNullOrEmpty(itemType)
+                    || item.ContainingProject.IsKind(ProjectTypes.WEBSITE_PROJECT)
+                    || item.ContainingProject.IsKind(ProjectTypes.UNIVERSAL_APP))
+                    return;
 
-                    item.Properties.Item("ItemType").Value = "None";
-                }
+                item.Properties.Item("ItemType").Value = itemType;
             }
             catch (Exception ex)
             {
@@ -118,7 +126,7 @@ namespace WebCompilerVsix
             }
         }
 
-        public static void AddNestedFile(string parentFile, string newFile)
+        public static void AddNestedFile(string parentFile, string newFile, string itemType = null)
         {
             ProjectItem item = _dte.Solution.FindProjectItem(parentFile);
 
@@ -137,6 +145,9 @@ namespace WebCompilerVsix
                 {
                     item.ProjectItems.AddFromFile(newFile);
                 }
+
+                ProjectItem newItem = _dte.Solution.FindProjectItem(newFile);
+                newItem.SetItemType(itemType);
             }
             catch (Exception ex)
             {
@@ -235,5 +246,6 @@ namespace WebCompilerVsix
         public const string ASPNET_5 = "{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}";
         public const string WEBSITE_PROJECT = "{E24C65DC-7377-472B-9ABA-BC803B73C61A}";
         public const string UNIVERSAL_APP = "{262852C6-CD72-467D-83FE-5EEB1973A190}";
+        public const string NODE_JS = "{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}";
     }
 }

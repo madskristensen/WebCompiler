@@ -146,7 +146,7 @@ namespace WebCompilerVsix
             string defaultsFile = Path.Combine(folder, Constants.DEFAULTS_FILENAME);
             ProjectHelpers.CheckFileOutOfSourceControl(defaultsFile);
             handler.CreateDefaultsFile(defaultsFile);
-            ProjectHelpers.AddNestedFile(configFile, defaultsFile);
+            ProjectHelpers.AddNestedFile(configFile, defaultsFile, "None");
             WebCompilerPackage._dte.StatusBar.Progress(true, "Creating defaults file", 3, 3);
 
             CompilerService.Process(configFile, new[] { config });
