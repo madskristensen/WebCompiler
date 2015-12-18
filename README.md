@@ -101,7 +101,7 @@ will show the error and its exact location in the source file.
 ### Source maps
 
 Source maps are supported for `.scss` files only for now, but the
-plan is to have source map support for all languages.
+plan is to have source map support for all languages. Web Compiler differs from it's predecesor, Web Essentials, in that it inlines a base64 encoded version of the map in the generated .css file rather than producing a separate .map file. 
 
 ### compilerconfig.json
 
@@ -119,8 +119,9 @@ Here's an example of what that file looks like:
         "enabled": true
     },
     "includeInProject": true,
-    "sourceMap": false,
-    "options":{}
+    "options":{
+        "sourceMap": false
+    }
   },
   {
     "outputFile": "output/scss.css",
@@ -129,8 +130,10 @@ Here's an example of what that file looks like:
         "enabled": true
     },
     "includeInProject": true,
-    "sourceMap": true,
-    "options":{}
+    "options":{
+        "sourceMap": true
+    }
   }
 ]
 ```
+Default values for `compilerconfig.json` can be found in the `compilerconfig.json.defaults` file in the same location. 
