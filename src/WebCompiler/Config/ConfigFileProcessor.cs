@@ -233,7 +233,7 @@ namespace WebCompiler
             }
             else
             {
-                result = new CompilerResult() { FileName = Path.Combine(baseFolder, config.InputFile) };
+                result = new CompilerResult() { FileName = new System.IO.FileInfo(Path.Combine(baseFolder, config.InputFile)).FullName };
             }
 
             return result;
