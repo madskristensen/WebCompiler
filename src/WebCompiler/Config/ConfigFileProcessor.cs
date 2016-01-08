@@ -144,59 +144,70 @@ namespace WebCompiler
 
         private CompilerResult ProcessConfig(string baseFolder, Config config)
         {
-            ICompiler compiler = CompilerService.GetCompiler(config);
+            CompilerResult result;
 
-            var result = compiler.Compile(config);
-
-            if (result.Errors.Any(e => !e.IsWarning))
-                return result;
-
-            if (Path.GetExtension(config.OutputFile).Equals(".css", StringComparison.OrdinalIgnoreCase) && AdjustRelativePaths(config))
+            //skip compilation if a file starts with _
+            if (!Path.GetFileName(config.InputFile).StartsWith("_"))
             {
-                result.CompiledContent = CssRelativePath.Adjust(result.CompiledContent, config);
-            }
+                ICompiler compiler = CompilerService.GetCompiler(config);
 
-            config.Output = result.CompiledContent;
+                result = compiler.Compile(config);
 
-            FileInfo outputFile = config.GetAbsoluteOutputFile();
-            bool containsChanges = FileHelpers.HasFileContentChanged(outputFile.FullName, config.Output);
+                if (result.Errors.Any(e => !e.IsWarning))
+                    return result;
 
-            OnBeforeProcess(config, baseFolder, containsChanges);
-
-            if (containsChanges)
-            {
-                string dir = outputFile.DirectoryName;
-
-                if (!Directory.Exists(dir))
-                    Directory.CreateDirectory(dir);
-
-                File.WriteAllText(outputFile.FullName, config.Output, new UTF8Encoding(true));
-            }
-
-            OnAfterProcess(config, baseFolder, containsChanges);
-
-            //if (!config.Minify.ContainsKey("enabled") || config.Minify["enabled"].ToString().Equals("true", StringComparison.OrdinalIgnoreCase))
-            //{
-            FileMinifier.MinifyFile(config);
-            //}
-
-            if (!string.IsNullOrEmpty(result.SourceMap))
-            {
-                string absolute = config.GetAbsoluteOutputFile().FullName;
-                string mapFile = absolute + ".map";
-                bool smChanges = FileHelpers.HasFileContentChanged(mapFile, result.SourceMap);
-
-                OnBeforeWritingSourceMap(absolute, mapFile, smChanges);
-
-                if (smChanges)
+                if (Path.GetExtension(config.OutputFile).Equals(".css", StringComparison.OrdinalIgnoreCase) && AdjustRelativePaths(config))
                 {
-                    File.WriteAllText(mapFile, result.SourceMap, new UTF8Encoding(true));
+                    result.CompiledContent = CssRelativePath.Adjust(result.CompiledContent, config);
                 }
 
-                OnAfterWritingSourceMap(absolute, mapFile, smChanges);
-            }
+                config.Output = result.CompiledContent;
 
-            Telemetry.TrackCompile(config);
+                FileInfo outputFile = config.GetAbsoluteOutputFile();
+                bool containsChanges = FileHelpers.HasFileContentChanged(outputFile.FullName, config.Output);
+
+                OnBeforeProcess(config, baseFolder, containsChanges);
+
+                if (containsChanges)
+                {
+                    string dir = outputFile.DirectoryName;
+
+                    if (!Directory.Exists(dir))
+                        Directory.CreateDirectory(dir);
+
+                    File.WriteAllText(outputFile.FullName, config.Output, new UTF8Encoding(true));
+                }
+
+                OnAfterProcess(config, baseFolder, containsChanges);
+
+                //if (!config.Minify.ContainsKey("enabled") || config.Minify["enabled"].ToString().Equals("true", StringComparison.OrdinalIgnoreCase))
+                //{
+                FileMinifier.MinifyFile(config);
+                //}
+
+                if (!string.IsNullOrEmpty(result.SourceMap))
+                {
+                    string absolute = config.GetAbsoluteOutputFile().FullName;
+                    string mapFile = absolute + ".map";
+                    bool smChanges = FileHelpers.HasFileContentChanged(mapFile, result.SourceMap);
+
+                    OnBeforeWritingSourceMap(absolute, mapFile, smChanges);
+
+                    if (smChanges)
+                    {
+                        File.WriteAllText(mapFile, result.SourceMap, new UTF8Encoding(true));
+                    }
+
+                    OnAfterWritingSourceMap(absolute, mapFile, smChanges);
+                }
+
+                Telemetry.TrackCompile(config);
+
+            }
+            else
+            {
+                result = new CompilerResult() { FileName = config.InputFile };
+            }
 
             return result;
         }
