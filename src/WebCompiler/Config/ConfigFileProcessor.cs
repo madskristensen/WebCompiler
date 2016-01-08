@@ -110,7 +110,34 @@ namespace WebCompiler
                     }
                 }
 
+                ProcessDependentFiles(configFile, (from cr in list select cr.FileName).ToList());
+
                 return list;
+            }
+        }
+
+        /// <summary>
+        /// Loops through all the registered files to see if any of the files import any of the compiled files, and also compiles these
+        /// </summary>
+        private void ProcessDependentFiles(string configFile, List<String> compiledFiles)
+        {
+            var configs = ConfigHandler.GetConfigs(configFile);
+            foreach (Config config in configs)
+            {
+                string baseFolder = Path.GetDirectoryName(config.FileName);
+                string inputFile = Path.Combine(baseFolder, config.InputFile);
+                FileInfo info = new FileInfo(inputFile);
+                string content = File.ReadAllText(info.FullName);
+
+                var matches = System.Text.RegularExpressions.Regex.Matches(content, "@import\\s+(['\"])(.*?)(\\1);");
+                foreach(System.Text.RegularExpressions.Match match in matches)
+                {
+                    FileInfo importedfile = new FileInfo(System.IO.Path.Combine(info.DirectoryName, match.Groups[2].Value));
+                    if (compiledFiles.Contains(importedfile.FullName))
+                    {
+                        SourceFileChanged(configFile, info.FullName);
+                    }
+                }
             }
         }
 
@@ -206,7 +233,7 @@ namespace WebCompiler
             }
             else
             {
-                result = new CompilerResult() { FileName = config.InputFile };
+                result = new CompilerResult() { FileName = Path.Combine(baseFolder, config.InputFile) };
             }
 
             return result;
