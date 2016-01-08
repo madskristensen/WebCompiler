@@ -110,7 +110,7 @@ namespace WebCompiler
                     }
                 }
 
-                ProcessDependentFiles(configFile, (from cr in list select cr.FileName).ToList());
+                ProcessDependentFiles(configFile, (from cr in list select cr.FileName.ToLower()).ToList());
 
                 return list;
             }
@@ -133,7 +133,7 @@ namespace WebCompiler
                 foreach(System.Text.RegularExpressions.Match match in matches)
                 {
                     FileInfo importedfile = new FileInfo(System.IO.Path.Combine(info.DirectoryName, match.Groups[2].Value));
-                    if (compiledFiles.Contains(importedfile.FullName))
+                    if (compiledFiles.Contains(importedfile.FullName.ToLower()))
                     {
                         SourceFileChanged(configFile, info.FullName);
                     }
