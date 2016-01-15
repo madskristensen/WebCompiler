@@ -82,7 +82,7 @@
     <Compile Include="Compile\CompilerError.cs" />
     <Compile Include="Compile\CompilerResult.cs" />
     <Compile Include="Compile\LessCompiler.cs" />
-    <Compile Include="Config\Dependencies.cs" />
+    <Compile Include="Dependencies\Dependencies.cs" />
     <Compile Include="Dependencies\DependencyService.cs" />
     <Compile Include="Dependencies\DependencyResolverBase.cs" />
     <Compile Include="Dependencies\SassDependencyResolver.cs" />

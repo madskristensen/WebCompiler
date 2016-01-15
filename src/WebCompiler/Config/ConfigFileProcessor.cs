@@ -114,13 +114,32 @@ namespace WebCompiler
 
                 //compile files that are dependent on the current file
                 var dependencies = DependencyService.GetDependencies(projectPath, sourceFile);
-                if(dependencies != null && dependencies.ContainsKey(sourceFile.ToLowerInvariant()))
+                if(dependencies != null)
                 {
-                    //compile all files that have references to the compiled file
-                    foreach (var file in dependencies[sourceFile.ToLowerInvariant()].DependentFiles)
+                    if(dependencies.ContainsKey(sourceFile.ToLowerInvariant()))
                     {
-                        if (!compiledFiles.Contains(file.ToLowerInvariant()))
-                            SourceFileChanged(configFile, file, projectPath, compiledFiles);
+                        //compile all files that have references to the compiled file
+                        foreach (var file in dependencies[sourceFile.ToLowerInvariant()].DependentFiles)
+                        {
+                            if (!compiledFiles.Contains(file.ToLowerInvariant()))
+                                SourceFileChanged(configFile, file, projectPath, compiledFiles);
+                        }
+                    }
+                }
+                else
+                {
+                    // If not referenced directly, compile all configs with same file extension
+                    if (list.Count == 0)
+                    {
+                        string sourceExtension = Path.GetExtension(sourceFile);
+
+                        foreach (Config config in configs)
+                        {
+                            string inputExtension = Path.GetExtension(config.InputFile);
+
+                            if (inputExtension.Equals(sourceExtension, StringComparison.OrdinalIgnoreCase))
+                                list.Add(ProcessConfig(folder, config));
+                        }
                     }
                 }
 
