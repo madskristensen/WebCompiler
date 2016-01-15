@@ -32,6 +32,9 @@ namespace WebCompiler
         public static Dictionary<string, Dependencies> GetDependencies(string projectRootPath,
                                                                        string sourceFile)
         {
+            if (projectRootPath == null)
+                return null;
+
             var dependencyType = GetDependencyType(sourceFile);
 
             if(!_dependencies.ContainsKey(dependencyType))

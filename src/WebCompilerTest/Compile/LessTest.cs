@@ -76,14 +76,14 @@ namespace WebCompilerTest
         [TestMethod, TestCategory("LESS")]
         public void AssociateExtensionSourceFileChangedTest()
         {
-            var result = _processor.SourceFileChanged("../../artifacts/lessconfig.json", "less/test.less");
+            var result = _processor.SourceFileChanged("../../artifacts/lessconfig.json", null, "less/test.less");
             Assert.AreEqual(2, result.Count<CompilerResult>());
         }
 
         [TestMethod, TestCategory("LESS")]
         public void OtherExtensionTypeSourceFileChangedTest()
         {
-            var result = _processor.SourceFileChanged("../../artifacts/lessconfig.json", "scss/test.scss");
+            var result = _processor.SourceFileChanged("../../artifacts/lessconfig.json", null, "scss/test.scss");
             Assert.AreEqual(0, result.Count<CompilerResult>());
         }
     }

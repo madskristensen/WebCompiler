@@ -52,14 +52,14 @@ namespace WebCompilerTest
         [TestMethod, TestCategory("SCSS")]
         public void AssociateExtensionSourceFileChangedTest()
         {
-            var result = _processor.SourceFileChanged("../../artifacts/scssconfig.json", "scss/test.scss");
+            var result = _processor.SourceFileChanged("../../artifacts/scssconfig.json",null,"scss/test.scss");
             Assert.AreEqual(2, result.Count<CompilerResult>());
         }
 
         [TestMethod, TestCategory("SCSS")]
         public void OtherExtensionTypeSourceFileChangedTest()
         {
-            var result = _processor.SourceFileChanged("../../artifacts/scssconfig.json", "scss/filewithinvalidextension.less");
+            var result = _processor.SourceFileChanged("../../artifacts/scssconfig.json", null, "scss/filewithinvalidextension.less");
             Assert.AreEqual(0, result.Count<CompilerResult>());
         }
 
