@@ -79,7 +79,20 @@ namespace WebCompiler
         /// <summary>
         /// Compiles all configs with the same input file extension as the specified sourceFile
         /// </summary>
-        public IEnumerable<CompilerResult> SourceFileChanged(string configFile, string sourceFile)
+        public IEnumerable<CompilerResult> SourceFileChanged(string configFile, 
+                                                             string sourceFile,
+                                                             string projectPath)
+        {
+            return SourceFileChanged(configFile, sourceFile, projectPath, new HashSet<string>());
+        }
+
+        /// <summary>
+        /// Compiles all configs with the same input file extension as the specified sourceFile
+        /// </summary>
+        private IEnumerable<CompilerResult> SourceFileChanged(string configFile,
+                                                              string sourceFile,
+                                                              string projectPath,
+                                                              HashSet<string> compiledFiles)
         {
             lock (_syncRoot)
             {
@@ -93,51 +106,25 @@ namespace WebCompiler
                     string input = Path.Combine(folder, config.InputFile.Replace("/", "\\"));
 
                     if (input.Equals(sourceFile, StringComparison.OrdinalIgnoreCase))
-                        list.Add(ProcessConfig(folder, config));
-                }
-
-                // If not referenced directly, compile all configs with same file extension
-                if (list.Count == 0)
-                {
-                    string sourceExtension = Path.GetExtension(sourceFile);
-
-                    foreach (Config config in configs)
                     {
-                        string inputExtension = Path.GetExtension(config.InputFile);
-
-                        if (inputExtension.Equals(sourceExtension, StringComparison.OrdinalIgnoreCase))
-                            list.Add(ProcessConfig(folder, config));
+                        list.Add(ProcessConfig(folder, config));
+                        compiledFiles.Add(input.ToLowerInvariant());
                     }
                 }
 
-                ProcessDependentFiles(configFile, (from cr in list select cr.FileName.ToLower()).ToList());
+                //compile files that are dependent on the current file
+                var dependencies = DependencyService.GetDependencies(projectPath, sourceFile);
+                if(dependencies != null && dependencies.ContainsKey(sourceFile.ToLowerInvariant()))
+                {
+                    //compile all files that have references to the compiled file
+                    foreach (var file in dependencies[sourceFile.ToLowerInvariant()].DependentFiles)
+                    {
+                        if (!compiledFiles.Contains(file.ToLowerInvariant()))
+                            SourceFileChanged(configFile, file, projectPath, compiledFiles);
+                    }
+                }
 
                 return list;
-            }
-        }
-
-        /// <summary>
-        /// Loops through all the registered files to see if any of the files import any of the compiled files, and also compiles these
-        /// </summary>
-        private void ProcessDependentFiles(string configFile, List<String> compiledFiles)
-        {
-            var configs = ConfigHandler.GetConfigs(configFile);
-            foreach (Config config in configs)
-            {
-                string baseFolder = Path.GetDirectoryName(config.FileName);
-                string inputFile = Path.Combine(baseFolder, config.InputFile);
-                FileInfo info = new FileInfo(inputFile);
-                string content = File.ReadAllText(info.FullName);
-
-                var matches = System.Text.RegularExpressions.Regex.Matches(content, "@import\\s+(['\"])(.*?)(\\1);");
-                foreach(System.Text.RegularExpressions.Match match in matches)
-                {
-                    FileInfo importedfile = new FileInfo(System.IO.Path.Combine(info.DirectoryName, match.Groups[2].Value));
-                    if (compiledFiles.Contains(importedfile.FullName.ToLower()))
-                    {
-                        SourceFileChanged(configFile, info.FullName);
-                    }
-                }
             }
         }
 
@@ -171,70 +158,59 @@ namespace WebCompiler
 
         private CompilerResult ProcessConfig(string baseFolder, Config config)
         {
-            CompilerResult result;
+            ICompiler compiler = CompilerService.GetCompiler(config);
 
-            //skip compilation if a file starts with _
-            if (!Path.GetFileName(config.InputFile).StartsWith("_"))
+            var result = compiler.Compile(config);
+
+            if (result.Errors.Any(e => !e.IsWarning))
+                return result;
+
+            if (Path.GetExtension(config.OutputFile).Equals(".css", StringComparison.OrdinalIgnoreCase) && AdjustRelativePaths(config))
             {
-                ICompiler compiler = CompilerService.GetCompiler(config);
-
-                result = compiler.Compile(config);
-
-                if (result.Errors.Any(e => !e.IsWarning))
-                    return result;
-
-                if (Path.GetExtension(config.OutputFile).Equals(".css", StringComparison.OrdinalIgnoreCase) && AdjustRelativePaths(config))
-                {
-                    result.CompiledContent = CssRelativePath.Adjust(result.CompiledContent, config);
-                }
-
-                config.Output = result.CompiledContent;
-
-                FileInfo outputFile = config.GetAbsoluteOutputFile();
-                bool containsChanges = FileHelpers.HasFileContentChanged(outputFile.FullName, config.Output);
-
-                OnBeforeProcess(config, baseFolder, containsChanges);
-
-                if (containsChanges)
-                {
-                    string dir = outputFile.DirectoryName;
-
-                    if (!Directory.Exists(dir))
-                        Directory.CreateDirectory(dir);
-
-                    File.WriteAllText(outputFile.FullName, config.Output, new UTF8Encoding(true));
-                }
-
-                OnAfterProcess(config, baseFolder, containsChanges);
-
-                //if (!config.Minify.ContainsKey("enabled") || config.Minify["enabled"].ToString().Equals("true", StringComparison.OrdinalIgnoreCase))
-                //{
-                FileMinifier.MinifyFile(config);
-                //}
-
-                if (!string.IsNullOrEmpty(result.SourceMap))
-                {
-                    string absolute = config.GetAbsoluteOutputFile().FullName;
-                    string mapFile = absolute + ".map";
-                    bool smChanges = FileHelpers.HasFileContentChanged(mapFile, result.SourceMap);
-
-                    OnBeforeWritingSourceMap(absolute, mapFile, smChanges);
-
-                    if (smChanges)
-                    {
-                        File.WriteAllText(mapFile, result.SourceMap, new UTF8Encoding(true));
-                    }
-
-                    OnAfterWritingSourceMap(absolute, mapFile, smChanges);
-                }
-
-                Telemetry.TrackCompile(config);
-
+                result.CompiledContent = CssRelativePath.Adjust(result.CompiledContent, config);
             }
-            else
+
+            config.Output = result.CompiledContent;
+
+            FileInfo outputFile = config.GetAbsoluteOutputFile();
+            bool containsChanges = FileHelpers.HasFileContentChanged(outputFile.FullName, config.Output);
+
+            OnBeforeProcess(config, baseFolder, containsChanges);
+
+            if (containsChanges)
             {
-                result = new CompilerResult() { FileName = new System.IO.FileInfo(Path.Combine(baseFolder, config.InputFile)).FullName };
+                string dir = outputFile.DirectoryName;
+
+                if (!Directory.Exists(dir))
+                    Directory.CreateDirectory(dir);
+
+                File.WriteAllText(outputFile.FullName, config.Output, new UTF8Encoding(true));
             }
+
+            OnAfterProcess(config, baseFolder, containsChanges);
+
+            //if (!config.Minify.ContainsKey("enabled") || config.Minify["enabled"].ToString().Equals("true", StringComparison.OrdinalIgnoreCase))
+            //{
+            FileMinifier.MinifyFile(config);
+            //}
+
+            if (!string.IsNullOrEmpty(result.SourceMap))
+            {
+                string absolute = config.GetAbsoluteOutputFile().FullName;
+                string mapFile = absolute + ".map";
+                bool smChanges = FileHelpers.HasFileContentChanged(mapFile, result.SourceMap);
+
+                OnBeforeWritingSourceMap(absolute, mapFile, smChanges);
+
+                if (smChanges)
+                {
+                    File.WriteAllText(mapFile, result.SourceMap, new UTF8Encoding(true));
+                }
+
+                OnAfterWritingSourceMap(absolute, mapFile, smChanges);
+            }
+
+            Telemetry.TrackCompile(config);
 
             return result;
         }
