@@ -45,14 +45,14 @@ namespace WebCompilerTest
         [TestMethod, TestCategory("BABEL")]
         public void AssociateExtensionSourceFileChangedTest()
         {
-            var result = _processor.SourceFileChanged("../../artifacts/babelconfig.json",null, "babel/file1.jsx");
+            var result = _processor.SourceFileChanged("../../artifacts/babelconfig.json", "babel/file1.jsx", null);
             Assert.AreEqual(1, result.Count());
         }
 
         [TestMethod, TestCategory("BABEL")]
         public void OtherExtensionTypeSourceFileChangedTest()
         {
-            var result = _processor.SourceFileChanged("../../artifacts/babelconfig.json", null, "babel/notjsx.css");
+            var result = _processor.SourceFileChanged("../../artifacts/babelconfig.json", "babel/notjsx.css", null);
             Assert.AreEqual(0, result.Count<CompilerResult>());
         }
     }
