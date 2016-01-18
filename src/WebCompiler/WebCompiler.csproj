@@ -82,6 +82,11 @@
     <Compile Include="Compile\CompilerError.cs" />
     <Compile Include="Compile\CompilerResult.cs" />
     <Compile Include="Compile\LessCompiler.cs" />
+    <Compile Include="Dependencies\Dependencies.cs" />
+    <Compile Include="Dependencies\DependencyService.cs" />
+    <Compile Include="Dependencies\DependencyResolverBase.cs" />
+    <Compile Include="Dependencies\LessDependencyResolver.cs" />
+    <Compile Include="Dependencies\SassDependencyResolver.cs" />
     <Compile Include="Helpers\FileHelpers.cs" />
     <Compile Include="Minify\BaseMinifyOptions.cs" />
     <Compile Include="Minify\FileMinifier.cs" />

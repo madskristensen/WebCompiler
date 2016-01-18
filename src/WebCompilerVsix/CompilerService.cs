@@ -95,7 +95,10 @@ namespace WebCompilerVsix
                 {
                     WebCompilerInitPackage.StatusText($"Compiling...");
 
-                    var result = Processor.SourceFileChanged(configFile, sourceFile);
+                    var activeProject = ProjectHelpers.GetActiveProject();
+                    var projectRoot = ProjectHelpers.GetRootFolder(activeProject);
+
+                    var result = Processor.SourceFileChanged(configFile, sourceFile, projectRoot);
                     ErrorListService.ProcessCompilerResults(result);
                 }
                 catch (FileNotFoundException ex)

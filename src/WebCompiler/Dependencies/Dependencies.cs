@@ -1,0 +1,50 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace WebCompiler
+{
+    /// <summary>
+    /// Contains dependency information (on what file is the current file dependent, what other files are dependent on this file) for a file
+    /// </summary>
+    public class Dependencies
+    {
+        private HashSet<string> _dependentOn;
+        private HashSet<string> _dependentFiles;
+
+        /// <summary>
+        /// Contains all files the current file is dependent ont
+        /// </summary>
+        public HashSet<string> DependentOn
+        {
+            get
+            {
+                return _dependentOn;
+            }
+            set
+            {
+                _dependentOn = value;
+            }
+        }
+
+        /// <summary>
+        /// Contains all files that are dependent on this file
+        /// </summary>
+        public HashSet<string> DependentFiles
+        {
+            get { return _dependentFiles; }
+            set { _dependentFiles = value; }
+        }
+
+        /// <summary>
+        /// Creates a new dependecies object
+        /// </summary>
+        public Dependencies()
+        {
+            _dependentOn = new HashSet<string>();
+            _dependentFiles = new HashSet<string>();
+        }
+    }
+}

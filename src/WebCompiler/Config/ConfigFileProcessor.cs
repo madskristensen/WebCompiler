@@ -79,7 +79,20 @@ namespace WebCompiler
         /// <summary>
         /// Compiles all configs with the same input file extension as the specified sourceFile
         /// </summary>
-        public IEnumerable<CompilerResult> SourceFileChanged(string configFile, string sourceFile)
+        public IEnumerable<CompilerResult> SourceFileChanged(string configFile, 
+                                                             string sourceFile,
+                                                             string projectPath)
+        {
+            return SourceFileChanged(configFile, sourceFile, projectPath, new HashSet<string>());
+        }
+
+        /// <summary>
+        /// Compiles all configs with the same input file extension as the specified sourceFile
+        /// </summary>
+        private IEnumerable<CompilerResult> SourceFileChanged(string configFile,
+                                                              string sourceFile,
+                                                              string projectPath,
+                                                              HashSet<string> compiledFiles)
         {
             lock (_syncRoot)
             {
@@ -93,20 +106,40 @@ namespace WebCompiler
                     string input = Path.Combine(folder, config.InputFile.Replace("/", "\\"));
 
                     if (input.Equals(sourceFile, StringComparison.OrdinalIgnoreCase))
+                    {
                         list.Add(ProcessConfig(folder, config));
+                        compiledFiles.Add(input.ToLowerInvariant());
+                    }
                 }
 
-                // If not referenced directly, compile all configs with same file extension
-                if (list.Count == 0)
+                //compile files that are dependent on the current file
+                var dependencies = DependencyService.GetDependencies(projectPath, sourceFile);
+                if(dependencies != null)
                 {
-                    string sourceExtension = Path.GetExtension(sourceFile);
-
-                    foreach (Config config in configs)
+                    if(dependencies.ContainsKey(sourceFile.ToLowerInvariant()))
                     {
-                        string inputExtension = Path.GetExtension(config.InputFile);
+                        //compile all files that have references to the compiled file
+                        foreach (var file in dependencies[sourceFile.ToLowerInvariant()].DependentFiles)
+                        {
+                            if (!compiledFiles.Contains(file.ToLowerInvariant()))
+                                SourceFileChanged(configFile, file, projectPath, compiledFiles);
+                        }
+                    }
+                }
+                else
+                {
+                    // If not referenced directly, compile all configs with same file extension
+                    if (list.Count == 0)
+                    {
+                        string sourceExtension = Path.GetExtension(sourceFile);
 
-                        if (inputExtension.Equals(sourceExtension, StringComparison.OrdinalIgnoreCase))
-                            list.Add(ProcessConfig(folder, config));
+                        foreach (Config config in configs)
+                        {
+                            string inputExtension = Path.GetExtension(config.InputFile);
+
+                            if (inputExtension.Equals(sourceExtension, StringComparison.OrdinalIgnoreCase))
+                                list.Add(ProcessConfig(folder, config));
+                        }
                     }
                 }
 
