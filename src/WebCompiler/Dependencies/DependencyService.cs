@@ -17,7 +17,8 @@ namespace WebCompiler
         private enum DependencyType
         {
             None = 0,
-            Sass = 1
+            Sass = 1,
+            Less = 2
         }
 
         /// <summary>
@@ -44,6 +45,9 @@ namespace WebCompiler
                     case DependencyType.Sass:
                         _dependencies[dependencyType] = new SassDependencyResolver();
                         break;
+                    case DependencyType.Less:
+                        _dependencies[dependencyType] = new LessDependencyResolver();
+                        break;
                 }
             }
 
@@ -65,7 +69,7 @@ namespace WebCompiler
             switch (ext)
             {
                 case ".LESS":
-                    return DependencyType.None;
+                    return DependencyType.Less;
 
                 case ".SCSS":
                 case ".SASS":

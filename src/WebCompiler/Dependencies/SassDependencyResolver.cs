@@ -46,10 +46,11 @@ namespace WebCompiler
                 FileInfo info = new FileInfo(path);
                 string content = File.ReadAllText(info.FullName);
 
-                var matches = System.Text.RegularExpressions.Regex.Matches(content, "@import\\s+(['\"])(.*?)(\\1);");
+                //match both <@import "myFile.scss";> and <@import url("myFile.scss");> syntax
+                var matches = System.Text.RegularExpressions.Regex.Matches(content, "@import\\s+(url\\()?(['\"])(.*?)(\\2)\\)?;");
                 foreach (System.Text.RegularExpressions.Match match in matches)
                 {
-                    FileInfo importedfile = new FileInfo(System.IO.Path.Combine(info.DirectoryName, match.Groups[2].Value));
+                    FileInfo importedfile = new FileInfo(System.IO.Path.Combine(info.DirectoryName, match.Groups[3].Value));
                     var dependencyFilePath = importedfile.FullName.ToLowerInvariant();
 
                     if (!this.Dependencies[path].DependentOn.Contains(dependencyFilePath))
