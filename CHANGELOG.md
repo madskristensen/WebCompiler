@@ -4,7 +4,6 @@
 - [ ] Preview window (#6)
 - [ ] File globbing pattern support (#49)
 - [ ] Run compilers from a node server
-- [x] Sass/LESS dependent file support
 
 Features that have a checkmark are complete and available for
 download in the
@@ -14,6 +13,11 @@ download in the
 
 These are the changes to each version that has been released
 on the official Visual Studio extension gallery.
+
+## 1.10
+**2016-01-19**
+
+- [x] Sass/LESS dependent file support
 
 ## 1.9
 
