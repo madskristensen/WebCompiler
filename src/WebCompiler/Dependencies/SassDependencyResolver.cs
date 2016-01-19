@@ -1,21 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WebCompiler
 {
     class SassDependencyResolver : DependencyResolverBase
     {
-        
         public override string[] SearchPatterns
         {
-            get
-            {
-                return new string[] { "*.scss","*.sass"};
-            }
+            get { return new[] { "*.scss", "*.sass" }; }
         }
 
         /// <summary>
@@ -28,18 +20,18 @@ namespace WebCompiler
             {
                 path = path.ToLowerInvariant();
 
-                if (!this.Dependencies.ContainsKey(path))
-                    this.Dependencies[path] = new WebCompiler.Dependencies();
+                if (!Dependencies.ContainsKey(path))
+                    Dependencies[path] = new Dependencies();
 
                 //remove the dependencies registration of this file
                 this.Dependencies[path].DependentOn = new HashSet<string>();
                 //remove the dependentfile registration of this file for all other files
-                foreach (var dependenciesPath in this.Dependencies.Keys)
+                foreach (var dependenciesPath in Dependencies.Keys)
                 {
                     var lowerDependenciesPath = path.ToLowerInvariant();
-                    if (this.Dependencies[lowerDependenciesPath].DependentFiles.Contains(path))
+                    if (Dependencies[lowerDependenciesPath].DependentFiles.Contains(path))
                     {
-                        this.Dependencies[lowerDependenciesPath].DependentFiles.Remove(path);
+                        Dependencies[lowerDependenciesPath].DependentFiles.Remove(path);
                     }
                 }
 
@@ -50,17 +42,17 @@ namespace WebCompiler
                 var matches = System.Text.RegularExpressions.Regex.Matches(content, "@import\\s+(url\\()?(['\"])(.*?)(\\2)\\)?;");
                 foreach (System.Text.RegularExpressions.Match match in matches)
                 {
-                    FileInfo importedfile = new FileInfo(System.IO.Path.Combine(info.DirectoryName, match.Groups[3].Value));
+                    FileInfo importedfile = new FileInfo(Path.Combine(info.DirectoryName, match.Groups[3].Value));
                     var dependencyFilePath = importedfile.FullName.ToLowerInvariant();
 
-                    if (!this.Dependencies[path].DependentOn.Contains(dependencyFilePath))
-                        this.Dependencies[path].DependentOn.Add(dependencyFilePath);
+                    if (!Dependencies[path].DependentOn.Contains(dependencyFilePath))
+                        Dependencies[path].DependentOn.Add(dependencyFilePath);
 
-                    if (!this.Dependencies.ContainsKey(dependencyFilePath))
-                        this.Dependencies[dependencyFilePath] = new WebCompiler.Dependencies();
+                    if (!Dependencies.ContainsKey(dependencyFilePath))
+                        Dependencies[dependencyFilePath] = new Dependencies();
 
-                    if (!this.Dependencies[dependencyFilePath].DependentFiles.Contains(path))
-                        this.Dependencies[dependencyFilePath].DependentFiles.Add(path);
+                    if (!Dependencies[dependencyFilePath].DependentFiles.Contains(path))
+                        Dependencies[dependencyFilePath].DependentFiles.Add(path);
                 }
             }
         }

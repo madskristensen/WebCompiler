@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WebCompiler
 {
@@ -11,12 +9,12 @@ namespace WebCompiler
     /// </summary>
     public abstract class DependencyResolverBase
     {
-        private Dictionary<string, WebCompiler.Dependencies> _dependencies;
+        private Dictionary<string, Dependencies> _dependencies;
 
         /// <summary>
         /// Stores all resolved dependencies
         /// </summary>
-        protected Dictionary<string, WebCompiler.Dependencies> Dependencies
+        protected Dictionary<string, Dependencies> Dependencies
         {
             get
             {
@@ -40,17 +38,17 @@ namespace WebCompiler
         {
             if (_dependencies == null)
             {
-                _dependencies = new Dictionary<string, WebCompiler.Dependencies>();
+                _dependencies = new Dictionary<string, Dependencies>();
 
                 List<string> files = new List<string>();
-                foreach(var pattern in this.SearchPatterns)
+                foreach (var pattern in this.SearchPatterns)
                 {
-                    files.AddRange(System.IO.Directory.GetFiles(projectRootPath, pattern, System.IO.SearchOption.AllDirectories));
+                    files.AddRange(Directory.GetFiles(projectRootPath, pattern, SearchOption.AllDirectories));
                 }
-                
+
                 foreach (var path in (from p in files select p.ToLowerInvariant()))
                 {
-                    this.UpdateFileDependencies(path);
+                    UpdateFileDependencies(path);
                 }
             }
 
@@ -61,6 +59,5 @@ namespace WebCompiler
         /// Updates the dependencies for the given file
         /// </summary>
         public abstract void UpdateFileDependencies(string path);
-
     }
 }

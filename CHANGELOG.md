@@ -4,6 +4,7 @@
 - [ ] Preview window (#6)
 - [ ] File globbing pattern support (#49)
 - [ ] Run compilers from a node server
+- [x] Sass/LESS dependent file support
 
 Features that have a checkmark are complete and available for
 download in the
