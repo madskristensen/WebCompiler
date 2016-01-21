@@ -15,7 +15,7 @@ namespace WebCompilerVsix.Commands
         {
             if (package == null)
             {
-                throw new ArgumentNullException("package");
+                throw new ArgumentNullException(nameof(package));
             }
 
             _package = package;

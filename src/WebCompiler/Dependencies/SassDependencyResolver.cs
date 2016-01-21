@@ -49,10 +49,10 @@ namespace WebCompiler
                 string content = File.ReadAllText(info.FullName);
 
                 //match both <@import "myFile.scss";> and <@import url("myFile.scss");> syntax
-                var matches = System.Text.RegularExpressions.Regex.Matches(content, "@import\\s+(url\\()?(['\"])(.*?)(\\2)\\)?;");
+                var matches = System.Text.RegularExpressions.Regex.Matches(content, "@import([\\s]+)(\\([\\S]+\\)([\\s]+))?(url\\()?('|\"|)(?<url>[^'\"\\)]+)('|\"|\\))");
                 foreach (System.Text.RegularExpressions.Match match in matches)
                 {
-                    FileInfo importedfile = new FileInfo(Path.Combine(info.DirectoryName, match.Groups[3].Value));
+                    FileInfo importedfile = new FileInfo(Path.Combine(info.DirectoryName, match.Groups["url"].Value));
                     //if the file doesn't end with the correct extension, an import statement without extension is probably used, to re-add the extension (#175)
                     if (string.Compare(importedfile.Extension, FileExtension, StringComparison.OrdinalIgnoreCase) != 0)
                     {

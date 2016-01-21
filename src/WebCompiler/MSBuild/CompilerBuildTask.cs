@@ -57,7 +57,7 @@ namespace WebCompiler
 
                         foreach (var error in result.Errors)
                         {
-                            Log.LogError("WebCompiler", "0", "", error.FileName, error.LineNumber, error.ColumnNumber, error.LineNumber, error.ColumnNumber, error.Message, null); ;
+                            Log.LogError("WebCompiler", "0", "", error.FileName, error.LineNumber, error.ColumnNumber, error.LineNumber, error.ColumnNumber, error.Message, null);
                         }
                     }
                 }
