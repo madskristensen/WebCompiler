@@ -49,10 +49,14 @@ namespace WebCompiler
                 string content = File.ReadAllText(info.FullName);
 
                 //match both <@import "myFile.scss";> and <@import url("myFile.scss");> syntax
-                var matches = System.Text.RegularExpressions.Regex.Matches(content, "@import([\\s]+)(\\([\\S]+\\)([\\s]+))?(url\\()?('|\"|)(?<url>[^'\"\\)]+)('|\"|\\))");
+                var matches = System.Text.RegularExpressions.Regex.Matches(content, "@import([\\s]+)(\\([\\S]+\\)([\\s]+))?(url\\()?('|\"|)(?<url>[^'\"\\):?:]+)('|\"|\\))");
                 foreach (System.Text.RegularExpressions.Match match in matches)
                 {
-                    FileInfo importedfile = new FileInfo(Path.Combine(info.DirectoryName, match.Groups["url"].Value));
+                    FileInfo importedfile = GetFileInfo(info, match);
+
+                    if (importedfile == null)
+                        continue;
+
                     //if the file doesn't end with the correct extension, an import statement without extension is probably used, to re-add the extension (#175)
                     if (string.Compare(importedfile.Extension, FileExtension, StringComparison.OrdinalIgnoreCase) != 0)
                     {
@@ -70,6 +74,21 @@ namespace WebCompiler
                     if (!Dependencies[dependencyFilePath].DependentFiles.Contains(path))
                         Dependencies[dependencyFilePath].DependentFiles.Add(path);
                 }
+            }
+        }
+
+        private static FileInfo GetFileInfo(FileInfo info, System.Text.RegularExpressions.Match match)
+        {
+            string url = match.Groups["url"].Value;
+
+            try
+            {
+                return new FileInfo(Path.Combine(info.DirectoryName, match.Groups["url"].Value));
+            }
+            catch (Exception)
+            {
+                // Not a valid file name
+                return null;
             }
         }
     }
