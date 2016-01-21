@@ -18,6 +18,14 @@ namespace WebCompiler
             }
         }
 
+        public override string FileExtension
+        {
+            get
+            {
+                return ".scss";
+            }
+        }
+
         /// <summary>
         /// Updates the dependencies of a single file
         /// </summary>
@@ -36,7 +44,7 @@ namespace WebCompiler
                 //remove the dependentfile registration of this file for all other files
                 foreach (var dependenciesPath in this.Dependencies.Keys)
                 {
-                    var lowerDependenciesPath = path.ToLowerInvariant();
+                    var lowerDependenciesPath = dependenciesPath.ToLowerInvariant();
                     if (this.Dependencies[lowerDependenciesPath].DependentFiles.Contains(path))
                     {
                         this.Dependencies[lowerDependenciesPath].DependentFiles.Remove(path);
@@ -51,6 +59,12 @@ namespace WebCompiler
                 foreach (System.Text.RegularExpressions.Match match in matches)
                 {
                     FileInfo importedfile = new FileInfo(System.IO.Path.Combine(info.DirectoryName, match.Groups[3].Value));
+                    //if the file doesn't end with the correct extension, an import statement without extension is probably used, to re-add the extension (#175)
+                    if(String.Compare(importedfile.Extension,this.FileExtension,true) != 0)
+                    {
+                        importedfile = new FileInfo(importedfile.FullName + this.FileExtension);
+                    }
+
                     var dependencyFilePath = importedfile.FullName.ToLowerInvariant();
 
                     if (!this.Dependencies[path].DependentOn.Contains(dependencyFilePath))
