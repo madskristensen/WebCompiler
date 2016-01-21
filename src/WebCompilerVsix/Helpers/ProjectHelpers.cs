@@ -58,7 +58,7 @@ namespace WebCompilerVsix
 
         public static string GetRootFolder(this Project project)
         {
-            if (string.IsNullOrEmpty(project.FullName))
+            if (project == null || string.IsNullOrEmpty(project.FullName))
                 return null;
 
             string fullPath;
@@ -222,6 +222,16 @@ namespace WebCompilerVsix
 
                 if (activeSolutionProjects != null && activeSolutionProjects.Length > 0)
                     return activeSolutionProjects.GetValue(0) as Project;
+
+                var doc = _dte.ActiveDocument;
+
+                if (doc != null && !string.IsNullOrEmpty(doc.FullName))
+                {
+                    var item = _dte.Solution?.FindProjectItem(doc.FullName);
+
+                    if (item != null)
+                        return item.ContainingProject;
+                }
             }
             catch (Exception ex)
             {

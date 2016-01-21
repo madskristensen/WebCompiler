@@ -116,10 +116,12 @@ namespace WebCompiler
                 var dependencies = DependencyService.GetDependencies(projectPath, sourceFile);
                 if(dependencies != null)
                 {
-                    if(dependencies.ContainsKey(sourceFile.ToLowerInvariant()))
+                    string key = sourceFile.ToLowerInvariant();
+
+                    if (dependencies.ContainsKey(key))
                     {
                         //compile all files that have references to the compiled file
-                        foreach (var file in dependencies[sourceFile.ToLowerInvariant()].DependentFiles)
+                        foreach (var file in dependencies[key].DependentFiles.ToArray())
                         {
                             if (!compiledFiles.Contains(file.ToLowerInvariant()))
                                 SourceFileChanged(configFile, file, projectPath, compiledFiles);

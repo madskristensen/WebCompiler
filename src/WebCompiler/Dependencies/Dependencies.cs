@@ -11,40 +11,14 @@ namespace WebCompiler
     /// </summary>
     public class Dependencies
     {
-        private HashSet<string> _dependentOn;
-        private HashSet<string> _dependentFiles;
-
         /// <summary>
         /// Contains all files the current file is dependent ont
         /// </summary>
-        public HashSet<string> DependentOn
-        {
-            get
-            {
-                return _dependentOn;
-            }
-            set
-            {
-                _dependentOn = value;
-            }
-        }
+        public HashSet<string> DependentOn { get; set; } = new HashSet<string>();
 
         /// <summary>
         /// Contains all files that are dependent on this file
         /// </summary>
-        public HashSet<string> DependentFiles
-        {
-            get { return _dependentFiles; }
-            set { _dependentFiles = value; }
-        }
-
-        /// <summary>
-        /// Creates a new dependecies object
-        /// </summary>
-        public Dependencies()
-        {
-            _dependentOn = new HashSet<string>();
-            _dependentFiles = new HashSet<string>();
-        }
+        public HashSet<string> DependentFiles { get; set; } = new HashSet<string>();
     }
 }

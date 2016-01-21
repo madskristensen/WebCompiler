@@ -31,6 +31,14 @@ namespace WebCompiler
         }
 
         /// <summary>
+        /// The file extension of files of this type
+        /// </summary>
+        public abstract string FileExtension
+        {
+            get;
+        }
+
+        /// <summary>
         /// Gets the dependency tree
         /// </summary>
         /// <returns></returns>

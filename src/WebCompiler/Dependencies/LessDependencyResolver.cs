@@ -6,5 +6,14 @@
         {
             get { return new string[] { "*.less" }; }
         }
+
+        public override string FileExtension
+        {
+            get
+            {
+                return ".less";
+            }
+        }
+
     }
 }

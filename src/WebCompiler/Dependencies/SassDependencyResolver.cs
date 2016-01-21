@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace WebCompiler
@@ -9,6 +10,15 @@ namespace WebCompiler
         {
             get { return new[] { "*.scss", "*.sass" }; }
         }
+
+        public override string FileExtension
+        {
+            get
+            {
+                return ".scss";
+            }
+        }
+
 
         /// <summary>
         /// Updates the dependencies of a single file
@@ -28,7 +38,7 @@ namespace WebCompiler
                 //remove the dependentfile registration of this file for all other files
                 foreach (var dependenciesPath in Dependencies.Keys)
                 {
-                    var lowerDependenciesPath = path.ToLowerInvariant();
+                    var lowerDependenciesPath = dependenciesPath.ToLowerInvariant();
                     if (Dependencies[lowerDependenciesPath].DependentFiles.Contains(path))
                     {
                         Dependencies[lowerDependenciesPath].DependentFiles.Remove(path);
@@ -43,6 +53,12 @@ namespace WebCompiler
                 foreach (System.Text.RegularExpressions.Match match in matches)
                 {
                     FileInfo importedfile = new FileInfo(Path.Combine(info.DirectoryName, match.Groups[3].Value));
+                    //if the file doesn't end with the correct extension, an import statement without extension is probably used, to re-add the extension (#175)
+                    if (string.Compare(importedfile.Extension, FileExtension, StringComparison.OrdinalIgnoreCase) != 0)
+                    {
+                        importedfile = new FileInfo(importedfile.FullName + this.FileExtension);
+                    }
+
                     var dependencyFilePath = importedfile.FullName.ToLowerInvariant();
 
                     if (!Dependencies[path].DependentOn.Contains(dependencyFilePath))
