@@ -98,7 +98,6 @@ namespace WebCompilerVsix
             if (project.IsKind(ProjectTypes.ASPNET_5))
                 return;
 
-
             if (_dte.Solution.FindProjectItem(file) == null)
             {
                 ProjectItem item = project.ProjectItems.AddFromFile(file);
@@ -218,12 +217,25 @@ namespace WebCompilerVsix
         {
             try
             {
+                Window2 window = _dte.ActiveWindow as Window2;
+                Document doc = _dte.ActiveDocument;
+
+                if (window != null && window.Type == vsWindowType.vsWindowTypeDocument)
+                {
+                    // if a document is active, use the document's containing directory
+                    if (doc != null && !string.IsNullOrEmpty(doc.FullName))
+                    {
+                        ProjectItem docItem = _dte.Solution.FindProjectItem(doc.FullName);
+
+                        if (docItem != null && docItem.ContainingProject != null)
+                            return docItem.ContainingProject;
+                    }
+                }
+
                 Array activeSolutionProjects = _dte.ActiveSolutionProjects as Array;
 
                 if (activeSolutionProjects != null && activeSolutionProjects.Length > 0)
                     return activeSolutionProjects.GetValue(0) as Project;
-
-                var doc = _dte.ActiveDocument;
 
                 if (doc != null && !string.IsNullOrEmpty(doc.FullName))
                 {
