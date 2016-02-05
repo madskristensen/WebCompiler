@@ -79,7 +79,7 @@ namespace WebCompiler
         /// <summary>
         /// Compiles all configs with the same input file extension as the specified sourceFile
         /// </summary>
-        public IEnumerable<CompilerResult> SourceFileChanged(string configFile, 
+        public IEnumerable<CompilerResult> SourceFileChanged(string configFile,
                                                              string sourceFile,
                                                              string projectPath)
         {
@@ -124,7 +124,7 @@ namespace WebCompiler
                         foreach (var file in dependencies[key].DependentFiles.ToArray())
                         {
                             if (!compiledFiles.Contains(file.ToLowerInvariant()))
-                                SourceFileChanged(configFile, file, projectPath, compiledFiles);
+                                list.AddRange(SourceFileChanged(configFile, file, projectPath, compiledFiles));
                         }
                     }
                 }

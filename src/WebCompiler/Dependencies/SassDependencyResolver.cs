@@ -29,7 +29,7 @@ namespace WebCompiler
             if (this.Dependencies != null)
             {
                 path = path.ToLowerInvariant();
-
+                
                 if (!Dependencies.ContainsKey(path))
                     Dependencies[path] = new Dependencies();
 
@@ -64,6 +64,19 @@ namespace WebCompiler
                     }
 
                     var dependencyFilePath = importedfile.FullName.ToLowerInvariant();
+
+                    if (!File.Exists(dependencyFilePath))
+                    {
+                        // Trim leading underscore to support Sass partials
+                        var dir = Path.GetDirectoryName(dependencyFilePath);
+                        var fileName = Path.GetFileName(dependencyFilePath);
+                        var cleanPath = Path.Combine(dir, "_" + fileName);
+
+                        if (!File.Exists(cleanPath))
+                            continue;
+
+                        dependencyFilePath = cleanPath;
+                    }
 
                     if (!Dependencies[path].DependentOn.Contains(dependencyFilePath))
                         Dependencies[path].DependentOn.Add(dependencyFilePath);
