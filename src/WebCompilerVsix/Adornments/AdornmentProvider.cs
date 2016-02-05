@@ -80,7 +80,7 @@ namespace WebCompilerVsix
             {
                 LogoAdornment highlighter = new LogoAdornment(textView, _isVisible, _initOpacity);
             }
-            else
+            else if (Path.IsPathRooted(fileName))
             {
                 try
                 {
