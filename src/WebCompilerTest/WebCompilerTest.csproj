@@ -73,6 +73,7 @@
   <ItemGroup>
     <Content Include="artifacts\less\sub\logo.png" />
     <None Include="artifacts\coffeeconfig.json.defaults" />
+    <None Include="artifacts\scss\sub\foo.scss" />
     <None Include="artifacts\stylusconfig.json" />
     <None Include="artifacts\less\sub\relative.less" />
     <None Include="artifacts\babelconfigError.json" />

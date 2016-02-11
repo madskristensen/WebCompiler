@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace WebCompiler
 {
@@ -29,7 +30,7 @@ namespace WebCompiler
             if (this.Dependencies != null)
             {
                 path = path.ToLowerInvariant();
-                
+
                 if (!Dependencies.ContainsKey(path))
                     Dependencies[path] = new Dependencies();
 
@@ -49,60 +50,72 @@ namespace WebCompiler
                 string content = File.ReadAllText(info.FullName);
 
                 //match both <@import "myFile.scss";> and <@import url("myFile.scss");> syntax
-                var matches = System.Text.RegularExpressions.Regex.Matches(content, "@import([\\s]+)(\\([\\S]+\\)([\\s]+))?(url\\()?('|\"|)(?<url>[^'\"\\):?:]+)('|\"|\\))");
-                foreach (System.Text.RegularExpressions.Match match in matches)
+                var matches = Regex.Matches(content, @"(?<=^@import(?:[\s]+))(?:(?:\(\w+\)))?\s*(?:url)?(?<url>.+?)$", RegexOptions.Multiline);
+                foreach (Match match in matches)
                 {
-                    FileInfo importedfile = GetFileInfo(info, match);
+                    var importedfiles = GetFileInfos(info, match);
 
-                    if (importedfile == null)
-                        continue;
-
-                    //if the file doesn't end with the correct extension, an import statement without extension is probably used, to re-add the extension (#175)
-                    if (string.Compare(importedfile.Extension, FileExtension, StringComparison.OrdinalIgnoreCase) != 0)
+                    foreach (FileInfo importedfile in importedfiles)
                     {
-                        importedfile = new FileInfo(importedfile.FullName + this.FileExtension);
-                    }
-
-                    var dependencyFilePath = importedfile.FullName.ToLowerInvariant();
-
-                    if (!File.Exists(dependencyFilePath))
-                    {
-                        // Trim leading underscore to support Sass partials
-                        var dir = Path.GetDirectoryName(dependencyFilePath);
-                        var fileName = Path.GetFileName(dependencyFilePath);
-                        var cleanPath = Path.Combine(dir, "_" + fileName);
-
-                        if (!File.Exists(cleanPath))
+                        if (importedfile == null)
                             continue;
 
-                        dependencyFilePath = cleanPath;
+                        var theFile = importedfile;
+
+                        //if the file doesn't end with the correct extension, an import statement without extension is probably used, to re-add the extension (#175)
+                        if (string.Compare(importedfile.Extension, FileExtension, StringComparison.OrdinalIgnoreCase) != 0)
+                        {
+                            theFile = new FileInfo(importedfile.FullName + this.FileExtension);
+                        }
+
+                        var dependencyFilePath = theFile.FullName.ToLowerInvariant();
+
+                        if (!File.Exists(dependencyFilePath))
+                        {
+                            // Trim leading underscore to support Sass partials
+                            var dir = Path.GetDirectoryName(dependencyFilePath);
+                            var fileName = Path.GetFileName(dependencyFilePath);
+                            var cleanPath = Path.Combine(dir, "_" + fileName);
+
+                            if (!File.Exists(cleanPath))
+                                continue;
+
+                            dependencyFilePath = cleanPath;
+                        }
+
+                        if (!Dependencies[path].DependentOn.Contains(dependencyFilePath))
+                            Dependencies[path].DependentOn.Add(dependencyFilePath);
+
+                        if (!Dependencies.ContainsKey(dependencyFilePath))
+                            Dependencies[dependencyFilePath] = new Dependencies();
+
+                        if (!Dependencies[dependencyFilePath].DependentFiles.Contains(path))
+                            Dependencies[dependencyFilePath].DependentFiles.Add(path);
                     }
-
-                    if (!Dependencies[path].DependentOn.Contains(dependencyFilePath))
-                        Dependencies[path].DependentOn.Add(dependencyFilePath);
-
-                    if (!Dependencies.ContainsKey(dependencyFilePath))
-                        Dependencies[dependencyFilePath] = new Dependencies();
-
-                    if (!Dependencies[dependencyFilePath].DependentFiles.Contains(path))
-                        Dependencies[dependencyFilePath].DependentFiles.Add(path);
                 }
             }
         }
 
-        private static FileInfo GetFileInfo(FileInfo info, System.Text.RegularExpressions.Match match)
+        private static IEnumerable<FileInfo> GetFileInfos(FileInfo info, System.Text.RegularExpressions.Match match)
         {
-            string url = match.Groups["url"].Value;
+            string url = match.Groups["url"].Value.Replace("'", "\"").Replace("(", "").Replace(")", "").Replace(";", "").Trim();
+            var list = new List<FileInfo>();
 
-            try
+            foreach (string name in url.Split(new[] { "\"," }, StringSplitOptions.RemoveEmptyEntries))
             {
-                return new FileInfo(Path.Combine(info.DirectoryName, match.Groups["url"].Value));
+                try
+                {
+                    string value = name.Replace("\"", "").Replace("/", "\\").Trim();
+                    list.Add(new FileInfo(Path.Combine(info.DirectoryName, value)));
+                }
+                catch (Exception ex)
+                {
+                    // Not a valid file name
+                    System.Diagnostics.Debug.Write(ex);
+                }
             }
-            catch (Exception)
-            {
-                // Not a valid file name
-                return null;
-            }
+
+            return list;
         }
     }
 }
