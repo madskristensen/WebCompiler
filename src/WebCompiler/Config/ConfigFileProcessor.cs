@@ -69,10 +69,19 @@ namespace WebCompiler
                 var mapFile = minFile + ".map";
                 var gzipFile = minFile + ".gz";
 
-                if (File.Exists(outputFile)) File.Delete(outputFile);
-                if (File.Exists(minFile)) File.Delete(minFile);
-                if (File.Exists(mapFile)) File.Delete(mapFile);
-                if (File.Exists(gzipFile)) File.Delete(gzipFile);
+                DeleteFile(outputFile);
+                DeleteFile(minFile);
+                DeleteFile(mapFile);
+                DeleteFile(gzipFile);
+            }
+        }
+
+        static void DeleteFile(string fileName)
+        {
+            if (File.Exists(fileName))
+            {
+                FileHelpers.RemoveReadonlyFlagFromFile(fileName);
+                File.Delete(fileName);
             }
         }
 
