@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
+using WebCompiler.Helpers;
 
 namespace WebCompiler
 {
@@ -145,6 +147,28 @@ namespace WebCompiler
                 if (!valueComparer.Equals(kvp.Value, secondValue)) return false;
             }
             return true;
+        }
+
+        internal Config Match(string folder, string sourceFile)
+        {
+            string inputFile = Path.Combine(folder, this.InputFile.Replace("/", "\\"));
+            if (GlobHelper.Glob(sourceFile, inputFile))
+            {
+                string compileExtension = CompileHelper.GetCompiledExtension(sourceFile);
+                return new Config()
+                {
+                    InputFile = sourceFile,
+                    OutputFile = Path.ChangeExtension(sourceFile, compileExtension),
+                    FileName = this.FileName,
+                    IncludeInProject = this.IncludeInProject,
+                    Minify = this.Minify,
+                    Options = this.Options,
+                    Output = this.Output,
+                    SourceMap = this.SourceMap
+                };
+            }
+
+            return null;
         }
     }
 }

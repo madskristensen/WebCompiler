@@ -4,6 +4,7 @@ using System.ComponentModel.Composition;
 using System.IO;
 using Microsoft.JSON.Core.Parser.TreeItems;
 using Microsoft.JSON.Core.Schema;
+using WebCompiler.Helpers;
 
 namespace WebCompilerVsix.JSON
 {
@@ -33,7 +34,7 @@ namespace WebCompilerVsix.JSON
             string folder = Path.GetDirectoryName(doc.DocumentLocation);
             string absolutePath = Path.Combine(folder, canonicalizedValue);
 
-            if (!File.Exists(absolutePath) && !Directory.Exists(absolutePath))
+            if (!File.Exists(absolutePath) && !Directory.Exists(absolutePath) && !GlobHelper.IsGlobPattern(absolutePath))
                 yield return $"The file '{canonicalizedValue}' does not exist";
         }
     }
