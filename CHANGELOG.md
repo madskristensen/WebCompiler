@@ -14,7 +14,15 @@ download in the
 These are the changes to each version that has been released
 on the official Visual Studio extension gallery.
 
+## 1.11
+
+**2016-05-10**
+
+- [x] Fix for Sass/LESS imports with comments
+- [x] Fix for path containing spaces
+
 ## 1.10
+
 **2016-01-19**
 
 - [x] Sass/LESS dependent file support
