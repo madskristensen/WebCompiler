@@ -80,8 +80,8 @@ namespace WebCompiler
                             if (!File.Exists(cleanPath))
                                 continue;
 
-                            dependencyFilePath = cleanPath;
-                        }
+							dependencyFilePath = cleanPath.ToLowerInvariant();
+						}
 
                         if (!Dependencies[path].DependentOn.Contains(dependencyFilePath))
                             Dependencies[path].DependentOn.Add(dependencyFilePath);
