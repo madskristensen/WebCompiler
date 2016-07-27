@@ -122,10 +122,10 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>$(SolutionDir)packages\NuGet.CommandLine.2.8.5\tools\nuget.exe pack .\msbuild\BuildWebCompiler.nuspec -Verbosity quiet</PostBuildEvent>
+    <PostBuildEvent>"$(SolutionDir)packages\NuGet.CommandLine.2.8.5\tools\nuget.exe" pack .\msbuild\BuildWebCompiler.nuspec -Verbosity quiet</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>$(SolutionDir)build\build.cmd</PreBuildEvent>
+    <PreBuildEvent>"$(SolutionDir)build\build.cmd"</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
