@@ -2,11 +2,11 @@
 
 :: IMPORTANT!! npm 3.x is required to avoid long path exceptions
 
-if exist %~dp0..\src\WebCompiler\node\node_modules.7z goto:EOF
+if exist "%~dp0..\src\WebCompiler\node\node_modules.7z" goto:EOF
 
-if not exist %~dp0..\src\WebCompiler\node md %~dp0..\src\WebCompiler\node
+if not exist "%~dp0..\src\WebCompiler\node" md "%~dp0..\src\WebCompiler\node"
 
-pushd %~dp0..\src\WebCompiler\node
+pushd "%~dp0..\src\WebCompiler\node"
 
 echo Installing packages...
 call npm install --quiet ^
