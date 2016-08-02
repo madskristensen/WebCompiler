@@ -11,12 +11,6 @@ namespace WebCompilerTest.Minify
     {
         private const string processingConfigFile = "../../Minify/artifacts/javascript/";
 
-        [TestInitialize]
-        public void Setup()
-        {
-            Telemetry.Enabled = false;
-        }
-
         [TestMethod, TestCategory("JavaScriptOptions")]
         public void EvanTreatmentInUpperCaseShouldWork()
         {

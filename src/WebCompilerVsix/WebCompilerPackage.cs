@@ -31,7 +31,6 @@ namespace WebCompilerVsix
             _dte = GetService(typeof(DTE)) as DTE2;
             Package = this;
 
-            Telemetry.SetDeviceName(_dte.Edition);
             Logger.Initialize(this, Constants.VSIX_NAME);
 
             Events2 events = (Events2)_dte.Events;

@@ -117,7 +117,6 @@ namespace WebCompilerVsix
             if (_reCompileConfigs.Any())
             {
                 string absoluteFile = Path.Combine(folder, relativeFile).Replace("/", "\\");
-                Telemetry.TrackEvent("VS recompile config");
                 CompilerService.SourceFileChanged(configFile, absoluteFile);
                 return;
             }
@@ -151,8 +150,6 @@ namespace WebCompilerVsix
 
             CompilerService.Process(configFile, new[] { config });
             WebCompilerPackage._dte.StatusBar.Progress(false, "Compiling file");
-
-            Telemetry.TrackEvent("VS config created");
         }
 
         private static Config CreateConfigFile(string inputfile, string outputFile)

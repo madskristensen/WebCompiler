@@ -135,7 +135,6 @@ namespace WebCompilerVsix.Commands
                 if (question == DialogResult.No)
                     return;
 
-                Telemetry.TrackEvent("VS add compile on build");
                 Version version = new Version(WebCompilerPackage.Version);
 
 #if DEBUG
@@ -166,8 +165,6 @@ namespace WebCompilerVsix.Commands
             }
             else
             {
-                Telemetry.TrackEvent("VS remove compile on build");
-
                 System.Threading.ThreadPool.QueueUserWorkItem((o) =>
                 {
                     try

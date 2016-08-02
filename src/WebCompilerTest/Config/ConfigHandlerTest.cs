@@ -16,7 +16,6 @@ namespace WebCompilerTest.Config
         [TestInitialize]
         public void Setup()
         {
-            Telemetry.Enabled = false;
             _handler = new ConfigHandler();
 
             File.Copy(originalConfigFile, processingConfigFile, true);

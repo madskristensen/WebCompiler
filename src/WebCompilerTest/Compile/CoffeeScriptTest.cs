@@ -13,7 +13,6 @@ namespace WebCompilerTest
         [TestInitialize]
         public void Setup()
         {
-            Telemetry.Enabled = false;
             _processor = new ConfigFileProcessor();
         }
 

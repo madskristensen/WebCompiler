@@ -29,7 +29,6 @@ namespace WebCompiler
             }
 
             Log.LogMessage(MessageImportance.High, Environment.NewLine + "WebCompiler: Begin cleaning output of " + configFile.Name);
-            Telemetry.SetDeviceName("MSBuild");
 
             try
             {
@@ -43,7 +42,6 @@ namespace WebCompiler
             catch (Exception ex)
             {
                 Log.LogError(ex.Message);
-                Telemetry.TrackException(ex);
                 return false;
             }
         }

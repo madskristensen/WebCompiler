@@ -55,7 +55,6 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="AssemblyLoad.cs" />
     <Compile Include="Compile\StylusTest.cs" />
     <Compile Include="Compile\IcedCoffeeScriptTest.cs" />
     <Compile Include="Compile\CoffeeScriptTest.cs" />

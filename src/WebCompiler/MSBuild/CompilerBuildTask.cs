@@ -29,7 +29,6 @@ namespace WebCompiler
             }
 
             Log.LogMessage(MessageImportance.High, Environment.NewLine + "WebCompiler: Begin compiling " + configFile.Name);
-            Telemetry.SetDeviceName("MSBuild");
 
             ConfigFileProcessor processor = new ConfigFileProcessor();
             processor.BeforeProcess += (s, e) => { if (e.ContainsChanges) FileHelpers.RemoveReadonlyFlagFromFile(e.Config.GetAbsoluteOutputFile()); };
@@ -68,7 +67,6 @@ namespace WebCompiler
             catch (Exception ex)
             {
                 Log.LogError(ex.Message);
-                Telemetry.TrackException(ex);
                 return false;
             }
         }

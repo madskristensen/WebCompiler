@@ -123,7 +123,7 @@ namespace WebCompiler
 
                 //compile files that are dependent on the current file
                 var dependencies = DependencyService.GetDependencies(projectPath, sourceFile);
-                if(dependencies != null)
+                if (dependencies != null)
                 {
                     string key = sourceFile.ToLowerInvariant();
 
@@ -179,9 +179,8 @@ namespace WebCompiler
 
                 return list;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Telemetry.TrackException(ex);
                 return null;
             }
         }
@@ -239,8 +238,6 @@ namespace WebCompiler
 
                 OnAfterWritingSourceMap(absolute, mapFile, smChanges);
             }
-
-            Telemetry.TrackCompile(config);
 
             return result;
         }

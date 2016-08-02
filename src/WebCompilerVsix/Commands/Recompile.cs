@@ -87,8 +87,6 @@ namespace WebCompilerVsix.Commands
                     file = project.GetConfigFile();
             }
 
-            Telemetry.TrackEvent("VS re-compile");
-
             if (!string.IsNullOrEmpty(file))
                 CompilerService.Process(file, force: true);
         }

@@ -66,8 +66,6 @@ namespace WebCompilerVsix.Commands
                         CompilerService.Process(config);
                 }
             }
-
-            Telemetry.TrackEvent("VS compile solution");
         }
 
         private static List<string> GetFiles(string path, string pattern)

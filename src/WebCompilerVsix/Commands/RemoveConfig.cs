@@ -88,7 +88,6 @@ namespace WebCompilerVsix.Commands
                 return;
 
             ConfigHandler handler = new ConfigHandler();
-            Telemetry.TrackEvent("VS remove config");
 
             try
             {

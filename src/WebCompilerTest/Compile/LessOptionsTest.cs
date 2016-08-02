@@ -7,12 +7,6 @@ namespace WebCompilerTest
     [TestClass]
     public class LessOptionsTest
     {
-        [TestInitialize]
-        public void Setup()
-        {
-            Telemetry.Enabled = false;
-        }
-
         [TestMethod, TestCategory("LessOptions")]
         public void RelativeUrls()
         {
