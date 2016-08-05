@@ -11,7 +11,7 @@
     <UsingTask AssemblyFile="..\tools\WebCompiler.exe" TaskName="WebCompiler.CompilerBuildTask"/>
     <UsingTask AssemblyFile="..\tools\WebCompiler.exe" TaskName="WebCompiler.CompilerCleanTask"/>
 
-    <Target Name="WebCompile" Condition="'$(RunWebCompiler)' != 'False'">
+    <Target Name="WebCompile" BeforeTargets="BundleMinify" Condition="'$(RunWebCompiler)' != 'False'">
         <WebCompiler.CompilerBuildTask FileName="$(MSBuildProjectDirectory)\compilerconfig.json" />
     </Target>
     <Target Name="WebCompileClean" AfterTargets="CoreClean" Condition="'$(RunWebCompiler)' != 'False'">
