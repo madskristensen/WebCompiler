@@ -39,8 +39,7 @@ namespace WebCompiler
 
             var minifier = new Minifier();
 
-            string ext = Path.GetExtension(file);
-            string minFile = file.Substring(0, file.LastIndexOf(ext)) + ".min" + ext;
+            string minFile = GetMinFileName(file);
             string mapFile = minFile + ".map";
 
             string result = minifier.MinifyJavaScript(content, settings);
