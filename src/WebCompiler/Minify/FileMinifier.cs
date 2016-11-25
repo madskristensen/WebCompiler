@@ -39,8 +39,7 @@ namespace WebCompiler
 
             var minifier = new Minifier();
 
-            string ext = Path.GetExtension(file);
-            string minFile = file.Substring(0, file.LastIndexOf(ext)) + ".min" + ext;
+            string minFile = GetMinFileName(file);
             string mapFile = minFile + ".map";
 
             string result = minifier.MinifyJavaScript(content, settings);
@@ -98,7 +97,14 @@ namespace WebCompiler
         private static string GetMinFileName(string file)
         {
             string ext = Path.GetExtension(file);
-            return file.Substring(0, file.LastIndexOf(ext)) + ".min" + ext;
+
+            string fileName = file.Substring(0, file.LastIndexOf(ext));
+            if (!fileName.EndsWith(".min"))
+            {
+                fileName += ".min";
+            }
+
+            return fileName + ext;
         }
 
         private static void GzipFile(Config config, string sourceFile, bool containsChanges)

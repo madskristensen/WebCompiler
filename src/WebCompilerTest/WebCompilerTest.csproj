@@ -67,6 +67,8 @@
     <Compile Include="Compile\LessTest.cs" />
     <Compile Include="Minify\JavaScriptOptionsTests.cs" />
     <Compile Include="Minify\CssOptionsTests.cs" />
+    <Compile Include="Minify\CssMinifierTests.cs" />
+    <Compile Include="Minify\JavaScriptMinifierTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -113,10 +115,16 @@
     <None Include="artifacts\stylus\error.styl" />
     <None Include="artifacts\stylus\vendor.styl" />
     <None Include="artifacts\stylus\a.styl" />
+    <None Include="Minify\artifacts\css\minify.less" />
     <None Include="Minify\artifacts\javascript\evantreatmentmakeallsafeuppercase.json" />
     <None Include="Minify\artifacts\javascript\evantreatmentmakeimmediatesafe.json" />
     <None Include="Minify\artifacts\javascript\evantreatmentmakeallsafe.json" />
     <None Include="Minify\artifacts\javascript\evantreatmentignore.json" />
+    <Content Include="Minify\artifacts\javascript\minify.js" />
+    <None Include="Minify\artifacts\css\outputfilemin.json" />
+    <None Include="Minify\artifacts\javascript\outputfilemin.json" />
+    <None Include="Minify\artifacts\css\outputfilenomin.json" />
+    <None Include="Minify\artifacts\javascript\outputfilenomin.json" />
     <None Include="Minify\artifacts\javascript\indentsize.json" />
     <None Include="Minify\artifacts\javascript\outputmodemultiplelines.json" />
     <None Include="Minify\artifacts\javascript\outputmodemultiplelineslowercase.json" />
