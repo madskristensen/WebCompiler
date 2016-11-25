@@ -1,26 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
-    <Metadata>
-        <Identity Id="148ffa77-d70a-407f-892b-9ee542346862" Version="1.11" Language="en-US" Publisher="Mads Kristensen" />
-        <DisplayName>Web Compiler</DisplayName>
-        <Description xml:space="preserve">The easiest and most powerful way to compile LESS, Scss, Stylus, JSX and CoffeeScript files directly within Visual Studio or through MSBuild.</Description>
-        <MoreInfo>https://github.com/madskristensen/WebCompiler</MoreInfo>
-        <License>Resources\LICENSE</License>
-        <ReleaseNotes>https://github.com/madskristensen/WebCompiler/blob/master/CHANGELOG.md</ReleaseNotes>
-        <Icon>Resources\icon.png</Icon>
-        <PreviewImage>Resources\preview.png</PreviewImage>
-        <Tags>Compile, LESS, Sass, Scss, CoffeeScript, JavaScript, JSX, ES6, Stylus</Tags>
-    </Metadata>
-    <Installation>
-        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[14.0]" />
-    </Installation>
-    <Dependencies>
-        <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
-        <Dependency Id="Microsoft.VisualStudio.MPF.14.0" DisplayName="Visual Studio MPF 14.0" d:Source="Installed" Version="[14.0]" />
-    </Dependencies>
-    <Assets>
-        <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
-        <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%|" />
-        <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="File" Path="registry.pkgdef" />
-    </Assets>
+  <Metadata>
+    <Identity Id="148ffa77-d70a-407f-892b-9ee542346862" Version="1.11" Language="en-US" Publisher="Mads Kristensen" />
+    <DisplayName>Web Compiler</DisplayName>
+    <Description xml:space="preserve">The easiest and most powerful way to compile LESS, Scss, Stylus, JSX and CoffeeScript files directly within Visual Studio or through MSBuild.</Description>
+    <MoreInfo>https://github.com/madskristensen/WebCompiler</MoreInfo>
+    <License>Resources\LICENSE</License>
+    <ReleaseNotes>https://github.com/madskristensen/WebCompiler/blob/master/CHANGELOG.md</ReleaseNotes>
+    <Icon>Resources\icon.png</Icon>
+    <PreviewImage>Resources\preview.png</PreviewImage>
+    <Tags>Compile, LESS, Sass, Scss, CoffeeScript, JavaScript, JSX, ES6, Stylus</Tags>
+  </Metadata>
+  <Installation>
+    <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[14.0, 15.0]" />
+  </Installation>
+  <Dependencies>
+    <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
+    <Dependency Id="Microsoft.VisualStudio.MPF.14.0" DisplayName="Visual Studio MPF 14.0" d:Source="Installed" Version="[14.0]" />
+  </Dependencies>
+  <Assets>
+    <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
+    <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%|" />
+    <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="File" Path="registry.pkgdef" />
+  </Assets>
+    <Prerequisites>
+        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,16.0)" DisplayName="Visual Studio core editor" />
+        <!--<Prerequisite Id="Microsoft.VisualStudio.Component.DiagnosticTools" Version="[15.0.25814.0,16.0)" DisplayName="Profiling tools" />
+        <Prerequisite Id="Microsoft.VisualStudio.Shell.12.0" Version="[12.0]" />-->
+    </Prerequisites>
 </PackageManifest>

@@ -1,0 +1,14 @@
+﻿{
+  "compilers": {
+    "less": {
+      "relativeUrls": true,
+      "cssComb": "csscomb"
+    }
+  },
+
+  "minifiers": {
+    "css": {
+    },
+    "javascript": {}
+  }
+}
