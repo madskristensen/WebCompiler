@@ -9,6 +9,7 @@ namespace WebCompiler
     class HandlebarsCompiler : ICompiler
     {
         private static Regex _errorRx = new Regex("Error: (?<message>.+) on line (?<line>[0-9]+):", RegexOptions.Compiled);
+        private string _mapPath;
         private string _path;
         private string _name = string.Empty;
         private string _extension = string.Empty;
@@ -55,11 +56,20 @@ namespace WebCompiler
                 _extension = "handlebarstemp";
             }
 
+            _mapPath = Path.ChangeExtension(inputFile, ".js.map");
+
             try
             {                
                 RunCompilerProcess(config, info);
 
                 result.CompiledContent = _output;
+
+                var options = HandlebarsOptions.FromConfig(config);
+                if (options.SourceMap || config.SourceMap)
+                {
+                    if (File.Exists(_mapPath))
+                        result.SourceMap = File.ReadAllText(_mapPath);
+                }
 
                 if (_error.Length > 0)
                 {
@@ -96,6 +106,10 @@ namespace WebCompiler
             }
             finally
             {
+                if (File.Exists(_mapPath))
+                {
+                    File.Delete(_mapPath);
+                }
                 // Temporarily Fix
                 // TODO: Remove after actual fix
                 if (info.Extension == ".handlebarstemp")
@@ -162,6 +176,9 @@ namespace WebCompiler
 
             if (options.NoBOM)
                 arguments += " --bom";
+
+            if ((options.SourceMap || config.SourceMap) && !string.IsNullOrWhiteSpace(_mapPath))
+                arguments += $" --map \"{_mapPath}\"";
 
             if (!string.IsNullOrEmpty(options.TemplateNameSpace))
                 arguments += $" --namespace \"{options.TemplateNameSpace}\"";
