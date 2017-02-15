@@ -20,7 +20,7 @@ namespace WebCompilerVsix
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
     public sealed class WebCompilerPackage : Package
     {
-        public const string Version = "1.4.166";
+        public const string Version = "1.4.167";
         public static DTE2 _dte;
         public static Package Package;
         private SolutionEvents _solutionEvents;
