@@ -97,5 +97,13 @@ namespace WebCompiler
         /// </summary>
         [JsonProperty("sourceMapRoot")]
         public string SourceMapRoot { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Linefeed style (cr | crlf | lf | lfcr)
+        /// </summary>
+        [JsonProperty("lineFeed")]
+        public string LineFeed { get; set; } = string.Empty;
+
+
     }
 }

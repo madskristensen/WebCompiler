@@ -134,6 +134,9 @@ namespace WebCompiler
             if (!string.IsNullOrEmpty(options.SourceMapRoot))
                 arguments += " --source-map-root=" + options.SourceMapRoot;
 
+            if (!string.IsNullOrEmpty(options.LineFeed))
+                arguments += " --linefeed=" + options.LineFeed;
+
             return arguments;
         }
     }
