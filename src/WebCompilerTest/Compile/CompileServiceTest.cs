@@ -28,6 +28,16 @@ namespace WebCompilerTest
         }
 
         [TestMethod, TestCategory("CompileService")]
+        public void HandleBarsIsSupported()
+        {
+            var result = CompilerService.IsSupported(".HANDLEBARS");
+            Assert.IsTrue(result);
+
+            result = CompilerService.IsSupported(".hbs");
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod, TestCategory("CompileService")]
         public void LowerCaseSupportedExtensionAlsoWorks()
         {
             var result = CompilerService.IsSupported(".less");

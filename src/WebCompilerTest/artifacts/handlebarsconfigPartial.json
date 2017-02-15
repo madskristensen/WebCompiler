@@ -1,0 +1,13 @@
+﻿[
+	{
+		"outputFile": "handlebars/_partial.js",
+		"inputFile": "handlebars/_partial.hbs",
+		"includeInProject": true,
+		"options": {
+			"sourceMap": false
+		},
+		"minify": {
+			"enabled": true
+		}
+	}
+]
