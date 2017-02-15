@@ -56,7 +56,7 @@ namespace WebCompiler
                 _extension = "handlebarstemp";
             }
 
-            _mapPath = Path.ChangeExtension(inputFile, ".js.map");
+            _mapPath = Path.ChangeExtension(inputFile, ".js.map.tmp");
 
             try
             {                
