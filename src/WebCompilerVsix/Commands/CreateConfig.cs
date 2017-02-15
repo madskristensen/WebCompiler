@@ -166,7 +166,7 @@ namespace WebCompilerVsix
             string extension = Path.GetExtension(inputFile).ToLowerInvariant();
             string ext = ".css";
 
-            if (extension == ".coffee" || extension == ".iced" || extension == ".litcoffee" || extension == ".jsx" || extension == ".es6")
+            if (extension == ".coffee" || extension == ".iced" || extension == ".litcoffee" || extension == ".jsx" || extension == ".es6" || extension == ".hbs" || extension == ".handlebars")
                 ext = ".js";
 
             if (extension == ".js")

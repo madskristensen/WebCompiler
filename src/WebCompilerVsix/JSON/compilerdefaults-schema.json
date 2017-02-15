@@ -152,6 +152,51 @@
         }
       }
     },
+    
+    "handlebars": {
+      "description": "Specify options for the compiler.",
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "noBOM": {
+          "description": "Removes the BOM (Byte Order Mark) from the beginning of the templates.",
+          "type": "boolean",
+          "default": false
+        },
+        "namespace": {
+          "description": "Template namespace",
+          "type": "string",
+          "default": ""
+        },
+        "root": {
+          "description": "Template root. Base value that will be stripped from template names.",
+          "type": "string",
+          "default": ""
+        },
+        "knownHelpers": {
+          "description": "List of known helpers for a more optimized output (comma separated)",
+          "type": "string",
+          "default": ""
+        },
+        "knownHelpersOnly": {
+          "description": "Compile with known helpers only",
+          "type": "boolean",
+          "default": false
+        },
+        "commonjs": {
+          "description": "Path to the Handlebars module to export CommonJS style",
+          "type": "string",
+          "default": ""
+        },
+        "amd": {
+          "description": "Exports amd style (require.js), this option has priority to commonjs.",
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
 
     "baseMinify": {
       "type": "object",
@@ -233,7 +278,8 @@
         "less": { "$ref": "#/definitions/less" },
         "sass": { "$ref": "#/definitions/sass" },
         "stylus": { "$ref": "#/definitions/stylus" },
-        "coffeescript": { "$ref": "#/definitions/coffeeScript" }
+        "coffeescript": { "$ref": "#/definitions/coffeeScript" },
+        "handlebars": { "$ref": "#/definitions/handlebars" }
       }
     },
     "minifiers": {

@@ -17,6 +17,7 @@ call npm install --quiet ^
         less-plugin-csscomb ^
         node-sass ^
         stylus ^
+        handlebars ^
         > nul
 
 if not exist "node_modules\node-sass\vendor\win32-ia32-14" (

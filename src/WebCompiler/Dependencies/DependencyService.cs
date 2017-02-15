@@ -79,6 +79,10 @@ namespace WebCompiler
                 case ".ICED":
                     return DependencyType.None;
 
+                case ".HBS":
+                case ".HANDLEBARS":
+                    return DependencyType.None;
+
                 case ".JS":
                 case ".JSX":
                 case ".ES6":
