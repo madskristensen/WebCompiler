@@ -106,6 +106,9 @@ namespace WebCompilerVsix
                 case ".COFFEE":
                 case ".LITCOFFEE":
                     return "CoffeeScript";
+                case ".HBS":
+                case ".HANDLEBARS":
+                    return "HandleBars";
                 case ".ICED":
                     return "Iced CoffeeScript";
             }

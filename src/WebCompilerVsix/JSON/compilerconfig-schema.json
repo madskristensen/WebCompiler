@@ -19,6 +19,7 @@
       }
     },
 
+
     "sassOptions": {
       "properties": {
         "inputFile": {
@@ -85,6 +86,20 @@
         }
       }
     },
+    
+    "handlebarsOptions": {
+      "properties": {
+        "inputFile": {
+          "pattern": "\\.(hbs|handlebars)$"
+        },
+        "options": {
+          "$ref": "compilerdefaults-schema.json#/definitions/handlebars"
+        },
+        "minify": {
+          "$ref": "compilerdefaults-schema.json#/definitions/javascriptMinify"
+        }
+      }
+    },
 
     "config": {
       "required": [ "outputFile", "inputFile" ],
@@ -123,7 +138,8 @@
         { "$ref": "#/definitions/stylusOptions" },
         { "$ref": "#/definitions/coffeeScriptOptions" },
         { "$ref": "#/definitions/icedCoffeeScriptOptions" },
-        { "$ref": "#/definitions/babelOptions" }
+        { "$ref": "#/definitions/babelOptions" },
+        { "$ref": "#/definitions/handlebarsOptions" }
       ]
     }
   },

@@ -22,4 +22,7 @@ x64/
 # NCrunch
 *.ncrunchsolution
 *.ncrunchproject
-_NCrunch_WebCompiler
+_NCrunch_WebCompiler#Node
+
+#Node
+src/WebCompiler/Node/node_modules/*

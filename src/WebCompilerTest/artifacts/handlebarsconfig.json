@@ -1,0 +1,13 @@
+﻿[
+	{
+		"outputFile": "handlebars/test.js",
+		"inputFile": "handlebars/test.hbs",
+		"includeInProject": true,
+		"options": {
+			"sourceMap": true
+		},
+		"minify": {
+			"enabled": false
+		}
+	}
+]

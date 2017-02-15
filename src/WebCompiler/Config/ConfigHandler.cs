@@ -67,6 +67,7 @@ namespace WebCompiler
                     stylus = new StylusOptions(),
                     babel = new BabelOptions(),
                     coffeescript = new IcedCoffeeScriptOptions(),
+                    handlebars = new HandlebarsOptions(),
                 },
                 minifiers = new
                 {
