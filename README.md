@@ -31,15 +31,15 @@ for changes and roadmap.
 
 ### Getting started
 
-Right-click and `.less`, `.scss`, `.styl`, `.jsx`, `.es6` or `.coffee` file in Solution Explorer to
+Right-click any `.less`, `.scss`, `.styl`, `.jsx`, `.es6` or `.coffee` file in Solution Explorer to
 setup compilation.
 
 ![Compile file](art/contextmenu-compile.png)
 
 A file called `compilerconfig.json` is created in the root of the
-project. This file let's you modify the behavior of the compiler.
+project. This file lets you modify the behavior of the compiler.
 
-Right-clicking the `compilerconfig.json` file let's you easily
+Right-clicking the `compilerconfig.json` file lets you easily
 run all the configured compilers.
 
 ![Recompile](art/contextmenu-recompile.png)
@@ -47,7 +47,7 @@ run all the configured compilers.
 ### Compile on save
 
 Any time a `.less`, `.scss`, `.styl`, `.jsx`, `.es6` or `.coffee` file is modified within
-Visual Studio, the compiler runs automatically to produces the compiled output file.
+Visual Studio, the compiler runs automatically to produce the compiled output file.
 
 The same is true when saving the `compilerconfig.json` file where
 all configured files will be compiled.
