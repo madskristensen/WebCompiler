@@ -29,7 +29,8 @@ namespace WebCompiler
         {
             if (this.Dependencies != null)
             {
-                path = path.ToLowerInvariant();
+                FileInfo info = new FileInfo(path);
+                path = info.FullName.ToLowerInvariant();
 
                 if (!Dependencies.ContainsKey(path))
                     Dependencies[path] = new Dependencies();
@@ -46,7 +47,6 @@ namespace WebCompiler
                     }
                 }
 
-                FileInfo info = new FileInfo(path);
                 string content = File.ReadAllText(info.FullName);
 
                 //match both <@import "myFile.scss";> and <@import url("myFile.scss");> syntax
