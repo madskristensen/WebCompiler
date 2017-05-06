@@ -109,7 +109,7 @@ namespace WebCompiler
         private static string ConstructArguments(Config config)
         {
             //string relative = FileHelpers.MakeRelative(config.GetAbsoluteOutputFile().FullName, config.GetAbsoluteInputFile().FullName);
-            string arguments = $"--presets react";
+            string arguments = $"--presets react --out-file \"\"";
 
             var options = BabelOptions.FromConfig(config);
 
