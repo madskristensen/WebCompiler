@@ -38,7 +38,7 @@ namespace WebCompilerTest
             Assert.IsTrue(result.ElementAt(1).CompiledContent.Contains("url(foo.png)"));
 
             string sourceMap = DecodeSourceMap(first.CompiledContent);
-            Assert.IsTrue(sourceMap.Contains("../scss/test.scss"), "Source map paths");
+            Assert.IsTrue(sourceMap.Contains("scss/test.scss"), "Source map paths");
         }
 
         [TestMethod, TestCategory("SCSS")]
