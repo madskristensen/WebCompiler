@@ -36,6 +36,7 @@ namespace WebCompilerTest
             Assert.IsTrue(File.Exists("../../artifacts/scss/test.css"));
             Assert.IsTrue(first.CompiledContent.Contains("/*# sourceMappingURL=data:"));
             Assert.IsTrue(result.ElementAt(1).CompiledContent.Contains("url(foo.png)"));
+            Assert.IsTrue(result.ElementAt(1).CompiledContent.Contains("-webkit-animation"), "AutoPrefix");
 
             string sourceMap = DecodeSourceMap(first.CompiledContent);
             Assert.IsTrue(sourceMap.Contains("scss/test.scss"), "Source map paths");

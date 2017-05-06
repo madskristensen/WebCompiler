@@ -16,6 +16,8 @@ call npm install --quiet ^
         less-plugin-autoprefix ^
         less-plugin-csscomb ^
         node-sass ^
+        postcss-cli ^
+        autoprefixer ^
         stylus ^
         handlebars ^
         > nul

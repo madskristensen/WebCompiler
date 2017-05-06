@@ -10,8 +10,11 @@
       "sourceMap": true
     }
   },
-  	{
-		"outputFile": "scss/relative.css",
-		"inputFile": "scss/sub/relative.scss"
-	}
+  {
+    "outputFile": "scss/relative.css",
+    "inputFile": "scss/sub/relative.scss",
+    "options": {
+      "autoPrefix": "last 2 versions, > 5%",
+    }
+  }
 ]

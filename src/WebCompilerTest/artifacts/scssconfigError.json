@@ -4,6 +4,9 @@
 		"inputFile": "scss/error.scss",
 		"minify": { },
 		"includeInProject": true,
-		"sourceMap": false
+		"sourceMap": false,
+    "options": {
+      "autoPrefix": "last 2 versions, > 5%"
+    }
 	}
 ]
