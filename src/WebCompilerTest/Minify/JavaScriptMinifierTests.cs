@@ -11,6 +11,13 @@ namespace WebCompilerTest.Minify
     {
         private const string processingConfigFile = "../../Minify/artifacts/javascript/";
 
+        [TestCleanup]
+        public void Cleanup()
+        {
+            File.Delete("../../Minify/artifacts/javascript/site.js");
+            File.Delete("../../Minify/artifacts/javascript/site.min.js");
+        }
+
         /// <summary>
         /// Tests that '.min' is automatically appended to a minified file name.
         /// </summary>
