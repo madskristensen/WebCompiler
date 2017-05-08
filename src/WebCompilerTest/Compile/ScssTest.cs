@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WebCompiler;
 
@@ -35,9 +36,10 @@ namespace WebCompilerTest
             Assert.IsTrue(File.Exists("../../artifacts/scss/test.css"));
             Assert.IsTrue(first.CompiledContent.Contains("/*# sourceMappingURL=data:"));
             Assert.IsTrue(result.ElementAt(1).CompiledContent.Contains("url(foo.png)"));
+            Assert.IsTrue(result.ElementAt(1).CompiledContent.Contains("-webkit-animation"), "AutoPrefix");
 
             string sourceMap = DecodeSourceMap(first.CompiledContent);
-            Assert.IsTrue(sourceMap.Contains("../scss/test.scss"), "Source map paths");
+            Assert.IsTrue(sourceMap.Contains("scss/test.scss"), "Source map paths");
         }
 
         [TestMethod, TestCategory("SCSS")]
@@ -80,10 +82,10 @@ namespace WebCompilerTest
 
         public static string DecodeSourceMap(string content)
         {
-            string ident = "sourceMappingURL=data:application/json;base64,";
-            if (content.Contains(ident))
+            Match match = Regex.Match(content, @"sourceMappingURL=data:application/json;.*base64,");
+            if (match.Success)
             {
-                int start = content.IndexOf(ident) + ident.Length;
+                int start = match.Index + match.Length;
                 string map = content.Substring(start).Trim('*', '/');
                 byte[] data = Convert.FromBase64String(map);
                 return Encoding.UTF8.GetString(data);

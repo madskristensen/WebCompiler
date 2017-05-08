@@ -88,12 +88,20 @@ namespace WebCompiler
                 WindowStyle = ProcessWindowStyle.Hidden,
                 CreateNoWindow = true,
                 FileName = "cmd.exe",
-                Arguments = $"/c \"\"{Path.Combine(_path, "node_modules\\.bin\\node-sass.cmd")}\" {arguments} \"{info.FullName}\"\"",
+                Arguments = $"/c \"\"{Path.Combine(_path, "node_modules\\.bin\\node-sass.cmd")}\" {arguments} \"{info.FullName}\" \"",
                 StandardOutputEncoding = Encoding.UTF8,
                 StandardErrorEncoding = Encoding.UTF8,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
             };
+
+            // Pipe output from node-sass to postcss if autoprefix option is set
+            SassOptions options = SassOptions.FromConfig(config);
+            if (!string.IsNullOrEmpty(options.AutoPrefix))
+            {
+                start.Arguments = start.Arguments.TrimEnd('"') + $" | \"{Path.Combine(_path, "node_modules\\.bin\\postcss.cmd")}\" --use autoprefixer\"";
+                start.EnvironmentVariables.Add("BROWSERSLIST", options.AutoPrefix);
+            }
 
             start.EnvironmentVariables["PATH"] = _path + ";" + start.EnvironmentVariables["PATH"];
 
@@ -104,7 +112,9 @@ namespace WebCompiler
                 p.WaitForExit();
 
                 _output = stdout.Result;
-                _error = stderr.Result;
+                // postcss outputs "√ Finished stdin (##ms)" to stderr for some reason
+                if (!stderr.Result.StartsWith("√"))
+                    _error = stderr.Result;
             }
         }
 
@@ -115,7 +125,7 @@ namespace WebCompiler
             SassOptions options = SassOptions.FromConfig(config);
 
             if (options.SourceMap || config.SourceMap)
-                arguments += " --source-map=false --source-map-embed=true";
+                arguments += " --source-map-embed=true";
 
             arguments += " --precision=" + options.Precision;
 

@@ -20,6 +20,10 @@ namespace WebCompiler
         {
             base.LoadSettings(config);
 
+            var autoPrefix = GetValue(config, "autoPrefix");
+            if (autoPrefix != null)
+                AutoPrefix = autoPrefix;
+
             if (config.Options.ContainsKey("outputStyle"))
                 OutputStyle = config.Options["outputStyle"].ToString();
 
@@ -54,6 +58,13 @@ namespace WebCompiler
         {
             get { return "sass"; }
         }
+
+        /// <summary>
+        /// Autoprefixer will use the data based on current browser popularity and
+        /// property support to apply prefixes for you.
+        /// </summary>
+        [JsonProperty("autoPrefix")]
+        public string AutoPrefix { get; set; } = "";
 
         /// <summary>
         /// Path to look for imported files
