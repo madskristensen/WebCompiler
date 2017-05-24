@@ -63,7 +63,7 @@ namespace WebCompilerVsix.Commands
                 foreach (string config in configs)
                 {
                     if (!string.IsNullOrEmpty(config))
-                        CompilerService.Process(config);
+                        CompilerService.Process(config, force: true);
                 }
             }
         }
