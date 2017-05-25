@@ -75,7 +75,7 @@ namespace WebCompiler
         /// <summary>
         /// Checks to see if the input file needs compilation
         /// </summary>
-        internal bool CompilationRequired()
+        public bool CompilationRequired()
         {
             FileInfo input = GetAbsoluteInputFile();
             FileInfo output = GetAbsoluteOutputFile();

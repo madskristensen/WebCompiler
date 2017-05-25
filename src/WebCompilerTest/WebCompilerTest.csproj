@@ -66,6 +66,7 @@
     <Compile Include="Compile\ScssOptionsTest.cs" />
     <Compile Include="Compile\ScssTest.cs" />
     <Compile Include="Compile\LessTest.cs" />
+    <Compile Include="Config\ConfigTest.cs" />
     <Compile Include="Minify\JavaScriptOptionsTests.cs" />
     <Compile Include="Minify\CssOptionsTests.cs" />
     <Compile Include="Minify\CssMinifierTests.cs" />
@@ -74,6 +75,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="artifacts\less\sub\logo.png" />
+    <None Include="artifacts\config\compilationrequired.scss" />
+    <None Include="artifacts\config\dependencies\sub\bar.scss" />
+    <None Include="artifacts\config\dependencies\foo.scss" />
     <None Include="artifacts\handlebarsconfigPartial.json" />
     <None Include="artifacts\handlebarsconfig.json" />
     <None Include="artifacts\coffeeconfig.json.defaults" />
