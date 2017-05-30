@@ -111,6 +111,10 @@ namespace WebCompiler
             foreach (var file in dependencies[key].DependentOn.ToArray())
             {
                 var fileInfo = new FileInfo(file);
+
+                if (!fileInfo.Exists)
+                    continue;
+
                 if (fileInfo.LastWriteTimeUtc > output.LastWriteTimeUtc)
                     return true;
 
