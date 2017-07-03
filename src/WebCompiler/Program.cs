@@ -50,7 +50,7 @@ namespace WebCompiler
             FileMinifier.AfterWritingGzipFile += (s, e) => { Console.WriteLine($"  \x1B[32mGZipped"); };
         }
 
-        private static IEnumerable<Config> GetConfigs(string configPath, string file)
+        private static Config[] GetConfigs(string configPath, string file)
         {
             var configs = ConfigHandler.GetConfigs(configPath);
 
@@ -60,9 +60,9 @@ namespace WebCompiler
             if (file != null)
             {
                 if (file.StartsWith("*"))
-                    configs = configs.Where(c => Path.GetExtension(c.InputFile).Equals(file.Substring(1), StringComparison.OrdinalIgnoreCase));
+                    configs = configs.Where(c => Path.GetExtension(c.InputFile).Equals(file.Substring(1), StringComparison.OrdinalIgnoreCase)).ToArray();
                 else
-                    configs = configs.Where(c => c.InputFile.Equals(file, StringComparison.OrdinalIgnoreCase));
+                    configs = configs.Where(c => c.InputFile.Equals(file, StringComparison.OrdinalIgnoreCase)).ToArray();
             }
 
             return configs;

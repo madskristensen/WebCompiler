@@ -51,7 +51,7 @@ namespace WebCompilerVsix
                 _dte.StatusBar.Progress(true, "Compiling...", e.AmountProcessed, e.Total);
         }
 
-        public static void Process(string configFile, IEnumerable<Config> configs = null, bool force = false)
+        public static void Process(string configFile, Config[] configs = null, bool force = false)
         {
             ThreadPool.QueueUserWorkItem((o) =>
             {

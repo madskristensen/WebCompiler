@@ -22,7 +22,7 @@ namespace WebCompiler
         /// <param name="configs">Optional configuration items in the config file</param>
         /// <param name="force">Forces compilation of all config items.</param>
         /// <returns>A list of compiler results.</returns>
-        public IEnumerable<CompilerResult> Process(string configFile, IEnumerable<Config> configs = null, bool force = false)
+        public IEnumerable<CompilerResult> Process(string configFile, Config[] configs = null, bool force = false)
         {
             if (_processing.Contains(configFile))
                 return Enumerable.Empty<CompilerResult>();
@@ -36,8 +36,8 @@ namespace WebCompiler
                 string directory = info.Directory.FullName;
                 configs = configs ?? ConfigHandler.GetConfigs(configFile);
 
-                if (configs.Any())
-                    OnConfigProcessed(configs.First(), 0, configs.Count());
+                if (configs.Length > 0)
+                    OnConfigProcessed(configs.First(), 0, configs.Length);
 
                 int i = 0;
                 foreach (Config config in configs)
@@ -56,7 +56,7 @@ namespace WebCompiler
                             list.Add(ProcessConfig(directory, config));
                         }
 
-                        OnConfigProcessed(config, i, configs.Count());
+                        OnConfigProcessed(config, i, configs.Length);
                     }
                 }
             }
