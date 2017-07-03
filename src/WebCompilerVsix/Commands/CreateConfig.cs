@@ -7,6 +7,7 @@ using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
 using WebCompiler;
+using WebCompiler.Helpers;
 
 namespace WebCompilerVsix
 {
@@ -163,16 +164,7 @@ namespace WebCompilerVsix
 
         private static string GetOutputFileName(string inputFile)
         {
-            string extension = Path.GetExtension(inputFile).ToLowerInvariant();
-            string ext = ".css";
-
-            if (extension == ".coffee" || extension == ".iced" || extension == ".litcoffee" || extension == ".jsx" || extension == ".es6" || extension == ".hbs" || extension == ".handlebars")
-                ext = ".js";
-
-            if (extension == ".js")
-                ext = ".es5.js";
-
-            return Path.ChangeExtension(inputFile, ext);
+            return Path.ChangeExtension(inputFile, CompileHelper.GetCompiledExtension(inputFile));
         }
     }
 }

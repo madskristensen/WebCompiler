@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
+using WebCompiler.Helpers;
 
 namespace WebCompiler
 {
@@ -185,6 +186,45 @@ namespace WebCompiler
                 if (!valueComparer.Equals(kvp.Value, secondValue)) return false;
             }
             return true;
+        }
+
+        internal Config Match(string folder, string sourceFile)
+        {
+            if (sourceFile == null)
+                return null;
+
+            string inputFile = Path.Combine(folder, this.InputFile);
+
+            if (!GlobHelper.IsGlobPattern(this.InputFile))
+                return sourceFile.Equals(inputFile.Replace('/', '\\'), System.StringComparison.OrdinalIgnoreCase)
+                           ? this : null;
+
+            if (GlobHelper.Glob(sourceFile, inputFile))
+                return MakeMatchedConfig(sourceFile);
+
+            return null;
+        }
+
+        Config MakeMatchedConfig(string sourceFile)
+        {
+            string compileExtension = CompileHelper.GetCompiledExtension(sourceFile);
+            return new Config()
+            {
+                InputFile = sourceFile,
+                OutputFile = Path.ChangeExtension(sourceFile, compileExtension),
+                FileName = this.FileName,
+                IncludeInProject = this.IncludeInProject,
+                Minify = this.Minify,
+                Options = this.Options,
+                Output = this.Output,
+                SourceMap = this.SourceMap
+            };
+        }
+
+        internal IEnumerable<Config> Match(string folder)
+        {
+            return Directory.EnumerateFiles(folder, this.InputFile, SearchOption.AllDirectories)
+                            .Select(MakeMatchedConfig);
         }
     }
 }

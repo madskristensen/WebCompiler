@@ -85,7 +85,9 @@
     <Compile Include="Dependencies\DependencyResolverBase.cs" />
     <Compile Include="Dependencies\LessDependencyResolver.cs" />
     <Compile Include="Dependencies\SassDependencyResolver.cs" />
+    <Compile Include="Helpers\CompileHelper.cs" />
     <Compile Include="Helpers\FileHelpers.cs" />
+    <Compile Include="Helpers\GlobHelper.cs" />
     <Compile Include="Minify\BaseMinifyOptions.cs" />
     <Compile Include="Minify\FileMinifier.cs" />
     <Compile Include="Minify\CssOptions.cs" />
