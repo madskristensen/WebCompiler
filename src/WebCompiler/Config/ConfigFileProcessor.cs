@@ -203,7 +203,7 @@ namespace WebCompiler
 
             var result = compiler.Compile(config);
 
-            if (result.Errors.Any(e => !e.IsWarning))
+            if (result.Errors.Any(e => !e.IsWarning) || string.IsNullOrWhiteSpace(result.CompiledContent))
                 return result;
 
             if (Path.GetExtension(config.OutputFile).Equals(".css", StringComparison.OrdinalIgnoreCase) && AdjustRelativePaths(config))

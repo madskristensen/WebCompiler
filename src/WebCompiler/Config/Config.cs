@@ -55,6 +55,8 @@ namespace WebCompiler
 
         internal string Output { get; set; }
 
+        internal bool GlobalMatch { get; set; }
+
         /// <summary>
         /// Converts the relative input file to an absolute file path.
         /// </summary>
@@ -224,7 +226,12 @@ namespace WebCompiler
         internal IEnumerable<Config> Match(string folder)
         {
             return Directory.EnumerateFiles(folder, this.InputFile, SearchOption.AllDirectories)
-                            .Select(MakeMatchedConfig);
+                            .Select(s =>
+                            {
+                                Config config = MakeMatchedConfig(s);
+                                config.GlobalMatch = true;
+                                return config;
+                            });
         }
     }
 }
