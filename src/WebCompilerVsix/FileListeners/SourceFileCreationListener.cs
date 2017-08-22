@@ -20,6 +20,8 @@ namespace WebCompilerVsix.Listeners
     [ContentType(SassContentTypeDefinition.SassContentType)]
     [ContentType(HandlebarsContentTypeDefinition.HandleBarsContentType)]
     [ContentType(HBSContentTypeDefinition.HBSContentType)]
+    [ContentType(StylusContentTypeDefinition.StylusContentType)]
+    [ContentType(StylContentTypeDefinition.StylContentType)]
     [TextViewRole(PredefinedTextViewRoles.Document)]
     class SourceFileCreationListener : IVsTextViewCreationListener
     {

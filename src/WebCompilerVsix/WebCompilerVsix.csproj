@@ -64,6 +64,8 @@
     <Compile Include="ContentType\HBSContentTypeDefinition.cs" />
     <Compile Include="ContentType\HandlebarsContentTypeDefinition.cs" />
     <Compile Include="ContentType\SassContentTypeDefinition.cs" />
+    <Compile Include="ContentType\StylContentTypeDefinition.cs" />
+    <Compile Include="ContentType\StylusContentTypeDefinition.cs" />
     <Compile Include="ErrorList\ErrorListService.cs" />
     <Compile Include="ErrorList\SinkManager.cs" />
     <Compile Include="ErrorList\TableDataSource.cs" />
