@@ -99,7 +99,12 @@ namespace WebCompiler
             SassOptions options = SassOptions.FromConfig(config);
             if (!string.IsNullOrEmpty(options.AutoPrefix))
             {
-                start.Arguments = start.Arguments.TrimEnd('"') + $" | \"{Path.Combine(_path, "node_modules\\.bin\\postcss.cmd")}\" --use autoprefixer\"";
+                string postCssArguments = "--use autoprefixer";
+
+                if (!options.SourceMap && !config.SourceMap)
+                    postCssArguments += " --no-map";
+
+                start.Arguments = start.Arguments.TrimEnd('"') + $" | \"{Path.Combine(_path, "node_modules\\.bin\\postcss.cmd")}\" {postCssArguments}\"";
                 start.EnvironmentVariables.Add("BROWSERSLIST", options.AutoPrefix);
             }
 
