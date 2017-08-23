@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
@@ -37,6 +38,7 @@ namespace WebCompiler
         /// <summary>
         /// If true it makes Visual Studio include the output file in the project.
         /// </summary>
+        [DefaultValue(true)]
         [JsonProperty("includeInProject")]
         public bool IncludeInProject { get; set; } = true;
 
