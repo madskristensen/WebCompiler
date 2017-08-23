@@ -34,6 +34,8 @@ namespace WebCompilerTest.Config
             var newConfig = new WebCompiler.Config();
             const string newInputFileName = "newInputFile";
             newConfig.InputFile = newInputFileName;
+            const string newOutputFileName = "newOutputFile";
+            newConfig.OutputFile = newOutputFileName;
 
             _handler.AddConfig(processingConfigFile, newConfig);
 

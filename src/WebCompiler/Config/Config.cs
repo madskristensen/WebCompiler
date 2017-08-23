@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
@@ -27,6 +28,18 @@ namespace WebCompiler
         /// </summary>
         [JsonProperty("inputFile")]
         public string InputFile { get; set; }
+
+        /// <summary>
+        /// The relative file path to the output files.
+        /// </summary>
+        [JsonProperty("outputFiles")]
+        public string OutputFiles { get; set; }
+
+        /// <summary>
+        /// The relative file path to the input files.
+        /// </summary>
+        [JsonProperty("inputFiles")]
+        public string InputFiles { get; set; }
 
         /// <summary>
         /// Settings for the minification.
@@ -59,8 +72,7 @@ namespace WebCompiler
         /// </summary>
         public FileInfo GetAbsoluteInputFile()
         {
-            string folder = new FileInfo(FileName).DirectoryName;
-            return new FileInfo(Path.Combine(folder, InputFile.Replace("/", "\\")));
+            return new FileInfo(GetAbsolutePath(InputFile));
         }
 
         /// <summary>
@@ -68,8 +80,22 @@ namespace WebCompiler
         /// </summary>
         public FileInfo GetAbsoluteOutputFile()
         {
+            return new FileInfo(GetAbsolutePath(OutputFile));
+        }
+
+        private string GetAbsolutePath(string relativePath)
+        {
             string folder = new FileInfo(FileName).DirectoryName;
-            return new FileInfo(Path.Combine(folder, OutputFile.Replace("/", "\\")));
+            return Path.Combine(folder, relativePath.Replace("/", "\\"));
+        }
+
+        private string GetRelativePath(string absolutePath)
+        {
+            if (absolutePath == null)
+                return null;
+
+            string folder = new FileInfo(FileName).DirectoryName;
+            return absolutePath.Replace(folder, string.Empty).TrimStart('\\').Replace("\\", "/");
         }
 
         /// <summary>
@@ -123,6 +149,49 @@ namespace WebCompiler
             }
 
             return false;
+        }
+
+        internal IEnumerable<Config> ExpandConfig()
+        {
+            string inputFiles = InputFiles;
+            string outputFiles = OutputFiles;
+
+            InputFiles = OutputFiles = null;
+
+            if (!string.IsNullOrEmpty(InputFile) && !string.IsNullOrEmpty(OutputFile))
+            {
+                yield return this;
+            }
+
+            if (string.IsNullOrEmpty(inputFiles) || string.IsNullOrEmpty(outputFiles))
+            {
+                yield break;
+            }
+
+            inputFiles = GetAbsolutePath(inputFiles);
+            outputFiles = GetAbsolutePath(outputFiles);
+
+            string inputFolder = Path.GetDirectoryName(inputFiles);
+            string inputFilePattern = Path.GetFileName(inputFiles);
+            string outputFolder = Path.GetDirectoryName(outputFiles);
+            string outputFilePattern = Path.GetFileName(outputFiles);
+
+            foreach (var filePath in Directory.GetFiles(inputFolder, inputFilePattern))
+            {
+                var fileConfig = Clone();
+                fileConfig.InputFile = GetRelativePath(filePath);
+                fileConfig.OutputFile = GetRelativePath(Path.Combine(outputFolder,
+                                                                        Path.ChangeExtension(Path.GetFileName(filePath), Path.GetExtension(outputFilePattern))));
+                yield return fileConfig;
+            }
+        }
+
+        private Config Clone()
+        {
+            var clone = (Config)MemberwiseClone();
+            clone.Minify = Minify.AsEnumerable().ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+            clone.Options = Options.AsEnumerable().ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+            return clone;
         }
 
         /// <summary>

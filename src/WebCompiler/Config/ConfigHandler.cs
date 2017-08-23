@@ -18,7 +18,7 @@ namespace WebCompiler
         /// <param name="config">The compiler config object to add to the configration file.</param>
         public void AddConfig(string fileName, Config config)
         {
-            IEnumerable<Config> existing = GetConfigs(fileName);
+            IEnumerable<Config> existing = GetVerbatimConfigs(fileName);
             List<Config> configs = new List<Config>();
             configs.AddRange(existing);
             configs.Add(config);
@@ -39,7 +39,7 @@ namespace WebCompiler
         /// </summary>
         public void RemoveConfig(Config configToRemove)
         {
-            IEnumerable<Config> configs = GetConfigs(configToRemove.FileName);
+            IEnumerable<Config> configs = GetVerbatimConfigs(configToRemove.FileName);
             List<Config> newConfigs = new List<Config>();
 
             if (configs.Contains(configToRemove))
@@ -96,6 +96,16 @@ namespace WebCompiler
         /// <param name="fileName">A relative or absolute file path to the configuration file.</param>
         /// <returns>A list of Config objects.</returns>
         public static IEnumerable<Config> GetConfigs(string fileName)
+        {
+            IEnumerable<Config> configs = GetVerbatimConfigs(fileName);
+
+            if (configs != null && configs.Any())
+                configs = configs.SelectMany(c => c.ExpandConfig()).Distinct().ToList();
+
+            return configs;
+        }
+
+        private static IEnumerable<Config> GetVerbatimConfigs(string fileName)
         {
             FileInfo file = new FileInfo(fileName);
 
