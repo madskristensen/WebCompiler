@@ -12,10 +12,10 @@ before_build:
   - ps: Vsix-TokenReplacement src\WebCompiler\Compile\CompilerService.cs 'Version = "([0-9\\.]+)"' 'Version = "{version}"'
 
 build_script:
-  - dotnet restore WebCompiler.sln
   - nuget restore -Verbosity quiet
   - msbuild .\src\WebCompilerVsix\WebCompilerVsix.csproj /p:configuration=Release /p:DeployExtension=false /p:ZipPackageCompressionLevel=normal /v:m
   - msbuild .\src\WebCompilerTest\WebCompilerTest.csproj /p:configuration=Release /v:m
+  - dotnet restore src\WebCompiler\
   - ps: dotnet pack src\WebCompiler\ -c Release "/p:Version=${env:APPVEYOR_BUILD_VERSION}"
 
 after_test:
