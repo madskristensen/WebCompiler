@@ -13,9 +13,9 @@ before_build:
 
 build_script:
   - nuget restore -Verbosity quiet
+  - dotnet restore src\WebCompiler\
   - msbuild .\src\WebCompilerVsix\WebCompilerVsix.csproj /p:configuration=Release /p:DeployExtension=false /p:ZipPackageCompressionLevel=normal /v:m
   - msbuild .\src\WebCompilerTest\WebCompilerTest.csproj /p:configuration=Release /v:m
-  - dotnet restore src\WebCompiler\
   - ps: dotnet pack src\WebCompiler\ -c Release "/p:Version=${env:APPVEYOR_BUILD_VERSION}"
 
 after_test:
