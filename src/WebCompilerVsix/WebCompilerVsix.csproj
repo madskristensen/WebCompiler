@@ -91,7 +91,7 @@
       <Link>Resources\LICENSE</Link>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="..\WebCompiler\bin\$(Configuration)\WebCompiler.pdb">
+    <Content Include="..\WebCompiler\bin\$(Configuration)\net46\WebCompiler.pdb">
       <Link>WebCompiler.pdb</Link>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
