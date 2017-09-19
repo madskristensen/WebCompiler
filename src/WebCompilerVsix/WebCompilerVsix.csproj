@@ -231,7 +231,13 @@
   <ItemGroup>
     <ProjectReference Include="..\WebCompiler\WebCompiler.csproj">
       <Project>{b714b5b9-27c4-443c-9517-fe5c5ef46ea2}</Project>
-      <Name>WebCompiler</Name>
+      <Name>WebCompiler</Name>      
+      <!-- Workaround for https://github.com/dotnet/sdk/issues/433 -->
+      <Private>false</Private>
+      <IncludeOutputGroupsInVSIX>
+      </IncludeOutputGroupsInVSIX>
+      <IncludeOutputGroupsInVSIXLocalOnly>
+      </IncludeOutputGroupsInVSIXLocalOnly>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
