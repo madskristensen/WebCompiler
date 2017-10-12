@@ -121,9 +121,6 @@ namespace WebCompiler
             if (!options.IECompat)
                 arguments += " --no-ie-compat";
 
-            if (options.StrictMath)
-                arguments += " --strict-math=on";
-
             if (options.StrictUnits)
                 arguments += " --strict-units=on";
 
