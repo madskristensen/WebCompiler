@@ -3,7 +3,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Text;
 using System.Text.RegularExpressions;
-using Microsoft.Ajax.Utilities;
+using NUglify;
 
 namespace WebCompiler
 {
@@ -37,12 +37,11 @@ namespace WebCompiler
             if (config.Minify.ContainsKey("enabled") && config.Minify["enabled"].ToString().Equals("false", StringComparison.OrdinalIgnoreCase))
                 return null;
 
-            var minifier = new Minifier();
 
             string minFile = GetMinFileName(file);
-            string mapFile = minFile + ".map";
 
-            string result = minifier.MinifyJavaScript(content, settings);
+            var minifiedJs = Uglify.Js(content, settings);
+            string result = minifiedJs.Code;
 
             bool containsChanges = FileHelpers.HasFileContentChanged(minFile, result);
 
@@ -71,12 +70,12 @@ namespace WebCompiler
             if (config.Minify.ContainsKey("enabled") && config.Minify["enabled"].ToString().Equals("false", StringComparison.OrdinalIgnoreCase))
                 return null;
 
-            var minifier = new Minifier();
 
             // Remove control characters which AjaxMin can't handle
             content = Regex.Replace(content, @"[\u0000-\u0009\u000B-\u000C\u000E-\u001F]", string.Empty);
+            var minifiedCss = Uglify.Css(content, settings);
 
-            string result = minifier.MinifyStyleSheet(content, settings);
+            string result = minifiedCss.Code;
             string minFile = GetMinFileName(file);
             bool containsChanges = FileHelpers.HasFileContentChanged(minFile, result);
 

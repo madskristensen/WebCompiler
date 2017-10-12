@@ -1,134 +1,48 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\common.props" />
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B714B5B9-27C4-443C-9517-FE5C5EF46EA2}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WebCompiler</RootNamespace>
-    <AssemblyName>WebCompiler</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\WebCompiler.XML</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\WebCompiler.XML</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
-  <PropertyGroup>
-    <NoWin32Manifest>true</NoWin32Manifest>
+    <TargetFrameworks>net46;netstandard2.0;netcoreapp2.0</TargetFrameworks>
+    
+    <Title>Web Compiler</Title>
+    <PackageId>BuildWebCompiler</PackageId>
+
+    <BuildOutputTargetFolder>tools</BuildOutputTargetFolder>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <NoPackageAnalysis>true</NoPackageAnalysis>
+    <!-- forces SDK to copy dependencies into build output to make packing easier -->
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxMin, Version=5.14.5506.26196, Culture=neutral, PublicKeyToken=21ef50ce11b5d80f, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\AjaxMin.5.14.5506.26202\lib\net40\AjaxMin.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Build.Framework" />
-    <Reference Include="Microsoft.Build.Tasks.v4.0" />
-    <Reference Include="Microsoft.Build.Utilities.v4.0" />
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.XML" />
-    <Reference Include="System.Xml.Linq" />
+    <Content Include="MSBuild\*.targets" PackagePath="build\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Compile\BaseOptions.cs" />
-    <Compile Include="Compile\BabelCompiler.cs" />
-    <Compile Include="Compile\CssRelativePathAdjuster.cs" />
-    <Compile Include="Compile\IcedCoffeeScriptOptions.cs" />
-    <Compile Include="Compile\IcedCoffeeScriptCompiler.cs" />
-    <Compile Include="Compile\CompilerService.cs" />
-    <Compile Include="Compile\ICompiler.cs" />
-    <Compile Include="Compile\HandlebarsCompiler.cs" />
-    <Compile Include="Compile\HandlebarsOptions.cs" />
-    <Compile Include="Compile\StylusCompiler.cs" />
-    <Compile Include="Compile\BabelOptions.cs" />
-    <Compile Include="Compile\StylusOptions.cs" />
-    <Compile Include="Compile\SassOptions.cs" />
-    <Compile Include="Compile\LessOptions.cs" />
-    <Compile Include="Compile\SassCompiler.cs" />
-    <Compile Include="Config\ConfigProcessedEventArgs.cs" />
-    <Compile Include="Config\Config.cs" />
-    <Compile Include="Compile\CompilerError.cs" />
-    <Compile Include="Compile\CompilerResult.cs" />
-    <Compile Include="Compile\LessCompiler.cs" />
-    <Compile Include="Dependencies\Dependencies.cs" />
-    <Compile Include="Dependencies\DependencyService.cs" />
-    <Compile Include="Dependencies\DependencyResolverBase.cs" />
-    <Compile Include="Dependencies\LessDependencyResolver.cs" />
-    <Compile Include="Dependencies\SassDependencyResolver.cs" />
-    <Compile Include="Helpers\FileHelpers.cs" />
-    <Compile Include="Minify\BaseMinifyOptions.cs" />
-    <Compile Include="Minify\FileMinifier.cs" />
-    <Compile Include="Minify\CssOptions.cs" />
-    <Compile Include="Minify\JavaScriptOptions.cs" />
-    <Compile Include="Minify\MinificationResult.cs" />
-    <Compile Include="Minify\MinifyFileEventArgs.cs" />
-    <Compile Include="MSBuild\CompilerCleanTask.cs" />
-    <Compile Include="MSBuild\CompilerBuildTask.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="SourceMapEventArgs.cs" />
-    <Compile Include="Config\CompileFileEventArgs.cs" />
-    <Compile Include="Config\ConfigHandler.cs" />
-    <Compile Include="Config\ConfigFileProcessor.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="MSBuild\BuildWebCompiler.nuspec">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="MSBuild\BuildWebCompiler.targets">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <EmbeddedResource Include="Node\prepare.cmd" />
     <EmbeddedResource Include="Node\node.7z" />
     <EmbeddedResource Include="Node\node_modules.7z" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Node\7z.dll" />
     <EmbeddedResource Include="Node\7z.exe" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>"$(SolutionDir)packages\NuGet.CommandLine.2.8.5\tools\nuget.exe" pack .\msbuild\BuildWebCompiler.nuspec -Verbosity quiet</PostBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup>
-    <PreBuildEvent>"$(SolutionDir)build\build.cmd"</PreBuildEvent>
-  </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Build.Framework" Version="15.1.0-*" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="15.1.0-*" PrivateAssets="All" />
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" PrivateAssets="All" />
+    <PackageReference Include="NUglify" Version="1.5.5" PrivateAssets="All" />
+  </ItemGroup>
+  <Target Name="PrepareNpmDependencies" AfterTargets="Restore">
+    <Exec Command="..\..\build\build.cmd" />
   </Target>
-  <Target Name="AfterBuild">
+  <Target Name="PackTaskDependencies" BeforeTargets="GenerateNuspec">
+    <!--
+    The include needs to happen after output has been copied to build output folder
+    but before NuGet generates a nuspec. See https://github.com/NuGet/Home/issues/4704.
+    -->
+    <ItemGroup>
+      <_PackageFiles Include="bin\$(Configuration)\*\Newtonsoft.Json.dll;bin\$(Configuration)\*\NUglify.dll">
+        <PackagePath>tools\%(RecursiveDir)</PackagePath>
+        <Visible>false</Visible>
+        <BuildAction>Content</BuildAction>
+      </_PackageFiles>
+    </ItemGroup>
   </Target>
-  -->
 </Project>

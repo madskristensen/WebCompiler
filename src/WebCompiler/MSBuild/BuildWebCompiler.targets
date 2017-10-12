@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-
     <PropertyGroup>
-        <BuildDependsOn>
-            WebCompile;
-            $(BuildDependsOn)
-        </BuildDependsOn>
+        <_WebCompilerTaskAssembly Condition="'$(MSBuildRuntimeType)' == 'Core'">..\tools\netstandard2.0\WebCompiler.dll</_WebCompilerTaskAssembly>
+        <_WebCompilerTaskAssembly Condition="'$(MSBuildRuntimeType)' != 'Core'">..\tools\net46\WebCompiler.exe</_WebCompilerTaskAssembly>
     </PropertyGroup>
 
-    <UsingTask AssemblyFile="..\tools\WebCompiler.exe" TaskName="WebCompiler.CompilerBuildTask"/>
-    <UsingTask AssemblyFile="..\tools\WebCompiler.exe" TaskName="WebCompiler.CompilerCleanTask"/>
+    <UsingTask AssemblyFile="$(_WebCompilerTaskAssembly)" TaskName="WebCompiler.CompilerBuildTask"/>
+    <UsingTask AssemblyFile="$(_WebCompilerTaskAssembly)" TaskName="WebCompiler.CompilerCleanTask"/>
 
-    <Target Name="WebCompile" BeforeTargets="BundleMinify" Condition="'$(RunWebCompiler)' != 'False'">
+    <Target Name="WebCompile" BeforeTargets="BundleMinify;BeforeCompile" Condition="'$(RunWebCompiler)' != 'False'">
         <WebCompiler.CompilerBuildTask FileName="$(MSBuildProjectDirectory)\compilerconfig.json" />
     </Target>
     <Target Name="WebCompileClean" AfterTargets="CoreClean" Condition="'$(RunWebCompiler)' != 'False'">
         <WebCompiler.CompilerCleanTask FileName="$(MSBuildProjectDirectory)\compilerconfig.json" />
     </Target>
-
 </Project>

@@ -1,5 +1,6 @@
 ﻿using System;
-using Microsoft.Ajax.Utilities;
+using NUglify;
+using NUglify.JavaScript;
 
 namespace WebCompiler
 {
