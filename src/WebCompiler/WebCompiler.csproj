@@ -27,9 +27,7 @@
     <PackageReference Include="NUglify" Version="1.5.5" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="MSBuild\*.targets" PackagePath="build\">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <None Include="MSBuild\*.targets" PackagePath="build\" />
   </ItemGroup>
   <Target Name="PrepareNpmDependencies" AfterTargets="Restore">
     <Exec Command="..\..\build\build.cmd" />
