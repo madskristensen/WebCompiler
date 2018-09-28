@@ -61,7 +61,11 @@
     <Compile Include="Commands\Recompile.cs" />
     <Compile Include="Commands\CreateConfig.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="ContentType\HandlebarsContentTypeDefinition.cs" />
+    <Compile Include="ContentType\HBSContentTypeDefinition.cs" />
     <Compile Include="ContentType\SassContentTypeDefinition.cs" />
+    <Compile Include="ContentType\StylContentTypeDefinition.cs" />
+    <Compile Include="ContentType\StylusContentTypeDefinition.cs" />
     <Compile Include="ErrorList\ErrorListService.cs" />
     <Compile Include="ErrorList\SinkManager.cs" />
     <Compile Include="ErrorList\TableDataSource.cs" />
@@ -212,6 +216,9 @@
       <HintPath>..\..\packages\NuGet.VisualStudio.2.8.5\lib\net40\NuGet.VisualStudio.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="NUglify, Version=1.5.12.0, Culture=neutral, PublicKeyToken=15bc7810aec21b5e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NUglify.1.5.12\lib\net40\NUglify.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
@@ -222,12 +229,14 @@
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Design" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WebCompiler\WebCompiler.csproj">
       <Project>{b714b5b9-27c4-443c-9517-fe5c5ef46ea2}</Project>
       <Name>WebCompiler</Name>
+      <AdditionalProperties>TargetFramework=net46</AdditionalProperties>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

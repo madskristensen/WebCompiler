@@ -9,7 +9,7 @@ namespace WebCompiler
     class LessCompiler : ICompiler
     {
         private static Regex _errorRx = new Regex("(?<message>.+) on line (?<line>[0-9]+), column (?<column>[0-9]+)", RegexOptions.Compiled);
-        private string _path;
+        private readonly string _path;
         private string _output = string.Empty;
         private string _error = string.Empty;
 
@@ -125,7 +125,7 @@ namespace WebCompiler
                 arguments += " --strict-units=on";
 
             if (options.RelativeUrls)
-                arguments += " --relative-urls";
+                arguments += " --rewrite-urls=all";
 
             if (!string.IsNullOrEmpty(options.RootPath))
                 arguments += $" --rootpath=\"{options.RootPath}\"";

@@ -17,7 +17,6 @@ namespace WebCompilerVsix
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(PackageGuids.guidCompilerPackageString)]
     [ProvideAutoLoad(UIContextGuids80.SolutionExists)]
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
     public sealed class WebCompilerPackage : Package
     {
         public const string Version = "1.4.167";
