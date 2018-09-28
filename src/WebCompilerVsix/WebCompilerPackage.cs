@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Threading;
 using EnvDTE;
 using EnvDTE80;
@@ -12,12 +14,12 @@ using IServiceProvider = Microsoft.VisualStudio.OLE.Interop.IServiceProvider;
 
 namespace WebCompilerVsix
 {
-    [PackageRegistration(UseManagedResourcesOnly = true)]
+    [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [InstalledProductRegistration("#110", "#112", Version, IconResourceID = 400)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(PackageGuids.guidCompilerPackageString)]
-    [ProvideAutoLoad(UIContextGuids80.SolutionExists)]
-    public sealed class WebCompilerPackage : Package
+    [ProvideAutoLoad(UIContextGuids80.SolutionExists, PackageAutoLoadFlags.BackgroundLoad)]
+    public sealed class WebCompilerPackage : AsyncPackage
     {
         public const string Version = "1.4.167";
         public static DTE2 _dte;
@@ -25,8 +27,10 @@ namespace WebCompilerVsix
         private SolutionEvents _solutionEvents;
         private BuildEvents _buildEvents;
 
-        protected override void Initialize()
+        protected override async System.Threading.Tasks.Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+
             _dte = GetService(typeof(DTE)) as DTE2;
             Package = this;
 
@@ -46,8 +50,6 @@ namespace WebCompilerVsix
             RemoveConfig.Initialize(this);
             CompileAllFiles.Initialize(this);
             CleanOutputFiles.Initialize(this);
-
-            base.Initialize();
         }
 
         private void OnBuildBegin(vsBuildScope Scope, vsBuildAction Action)
@@ -74,15 +76,18 @@ namespace WebCompilerVsix
         }
     }
 
-    [ProvideAutoLoad(UIContextGuids80.SolutionExists)]
-    [ProvideAutoLoad(UIContextGuids80.NoSolution)]
-    public sealed class WebCompilerInitPackage : Package
+    [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
+    [ProvideAutoLoad(UIContextGuids80.SolutionExists, PackageAutoLoadFlags.BackgroundLoad)]
+    [ProvideAutoLoad(UIContextGuids80.NoSolution, PackageAutoLoadFlags.BackgroundLoad)]
+    public sealed class WebCompilerInitPackage : AsyncPackage
     {
         public static Dispatcher _dispatcher;
         public static DTE2 _dte;
 
-        protected override void Initialize()
+        protected override async System.Threading.Tasks.Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
+            await JoinableTaskFactory.SwitchToMainThreadAsync();
+
             _dispatcher = Dispatcher.CurrentDispatcher;
             _dte = GetService(typeof(DTE)) as DTE2;
 
