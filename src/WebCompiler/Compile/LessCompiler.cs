@@ -108,7 +108,7 @@ namespace WebCompiler
 
         private static string ConstructArguments(Config config)
         {
-            string arguments = " --no-color";
+            string arguments = " --no-color --js";
 
             LessOptions options = LessOptions.FromConfig(config);
 
