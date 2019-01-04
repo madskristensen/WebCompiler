@@ -12,7 +12,7 @@ namespace WebCompilerVsix
         private static IServiceProvider _provider;
         private static string _name;
 
-        public static void Initialize(IServiceProvider provider, string name)
+        public static void Initialize(Microsoft.VisualStudio.Shell.Package provider, string name)
         {
             _provider = provider;
             _name = name;

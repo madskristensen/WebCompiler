@@ -49,6 +49,10 @@ namespace WebCompiler
             var sourceMapRoot = GetValue(config, "sourceMapRoot");
             if (sourceMapRoot != null)
                 SourceMapRoot = sourceMapRoot;
+
+            var lineFeed = GetValue(config, "lineFeed");
+            if (lineFeed != null)
+                LineFeed = lineFeed;
         }
 
         /// <summary>
