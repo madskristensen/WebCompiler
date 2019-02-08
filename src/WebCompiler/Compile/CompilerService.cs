@@ -11,11 +11,18 @@ namespace WebCompiler
     public static class CompilerService
     {
         internal const string Version = "1.4.167";
-        private static readonly string _path = Path.Combine(Path.GetTempPath(), "WebCompiler" + Version);
+        internal const string WorkingDirectoryEnvVarName = "WEBCOMPILER_WORKING_DIRECTORY";
+        private static readonly string _path = GetWorkingDirectoryPath();
         private static object _syncRoot = new object(); // Used to lock on the initialize step
 
         /// <summary>A list of allowed file extensions.</summary>
         public static readonly string[] AllowedExtensions = new[] { ".LESS", ".SCSS", ".SASS", ".STYL", ".COFFEE", ".ICED", ".JS", ".JSX", ".ES6", ".HBS", ".HANDLEBARS" };
+
+        internal static string GetWorkingDirectoryPath()
+        {
+            var envValue = Environment.GetEnvironmentVariable(WorkingDirectoryEnvVarName);
+            return Path.Combine(envValue ?? Path.GetTempPath(), "WebCompiler" + Version);
+        }
 
         /// <summary>
         /// Test if a file type is supported by the compilers.
