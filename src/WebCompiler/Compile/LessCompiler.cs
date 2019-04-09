@@ -9,7 +9,7 @@ namespace WebCompiler
     class LessCompiler : ICompiler
     {
         private static Regex _errorRx = new Regex("(?<message>.+) on line (?<line>[0-9]+), column (?<column>[0-9]+)", RegexOptions.Compiled);
-        private string _path;
+        private readonly string _path;
         private string _output = string.Empty;
         private string _error = string.Empty;
 
@@ -108,7 +108,7 @@ namespace WebCompiler
 
         private static string ConstructArguments(Config config)
         {
-            string arguments = " --no-color";
+            string arguments = " --no-color --js";
 
             LessOptions options = LessOptions.FromConfig(config);
 
@@ -118,17 +118,14 @@ namespace WebCompiler
             if (options.StrictMath)
                 arguments += " --strict-math=on";
 
-            if (!options.IECompat)
-                arguments += " --no-ie-compat";
-
-            if (options.StrictMath)
-                arguments += " --strict-math=on";
+            if (options.IECompat)
+                arguments += " --ie-compat";
 
             if (options.StrictUnits)
                 arguments += " --strict-units=on";
 
             if (options.RelativeUrls)
-                arguments += " --relative-urls";
+                arguments += " --rewrite-urls=all";
 
             if (!string.IsNullOrEmpty(options.RootPath))
                 arguments += $" --rootpath=\"{options.RootPath}\"";

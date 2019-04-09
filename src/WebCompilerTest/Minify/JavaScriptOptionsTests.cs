@@ -1,7 +1,8 @@
 ﻿using System.IO;
 using System.Linq;
-using Microsoft.Ajax.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUglify;
+using NUglify.JavaScript;
 using WebCompiler;
 
 namespace WebCompilerTest.Minify

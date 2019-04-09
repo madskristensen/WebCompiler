@@ -2,19 +2,19 @@ image: Visual Studio 2017
 
 install:
   - ps: (new-object Net.WebClient).DownloadString("https://raw.github.com/madskristensen/ExtensionScripts/master/AppVeyor/vsix.ps1") | iex
-  - npm install npm@3.3.3 -g
-  - set PATH=%APPDATA%\npm;%PATH%
   - npm --version
 
 before_build:
   - ps: Vsix-IncrementVsixVersion | Vsix-UpdateBuildVersion
-  - ps: Vsix-IncrementNuspecVersion .\src\WebCompiler\MSBuild\*.nuspec
   - ps: Vsix-TokenReplacement src\WebCompilerVsix\WebCompilerPackage.cs 'Version = "([0-9\\.]+)"' 'Version = "{version}"'
   - ps: Vsix-TokenReplacement src\WebCompiler\Compile\CompilerService.cs 'Version = "([0-9\\.]+)"' 'Version = "{version}"'
 
 build_script:
   - nuget restore -Verbosity quiet
-  - msbuild /p:configuration=Release /p:DeployExtension=false /p:ZipPackageCompressionLevel=normal /v:m
+  - dotnet restore src\WebCompiler\
+  - msbuild .\src\WebCompilerVsix\WebCompilerVsix.csproj /p:configuration=Release /p:DeployExtension=false /p:ZipPackageCompressionLevel=normal /v:m
+  - msbuild .\src\WebCompilerTest\WebCompilerTest.csproj /p:configuration=Release /v:m
+  - ps: dotnet pack src\WebCompiler\ -c Release "/p:Version=${env:APPVEYOR_BUILD_VERSION}"
 
 after_test:
   - ps: Vsix-PushArtifacts
