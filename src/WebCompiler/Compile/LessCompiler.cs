@@ -116,7 +116,7 @@ namespace WebCompiler
                 arguments += " --source-map-map-inline";
 
             if (options.StrictMath)
-                arguments += " --strict-math=on";
+                arguments += " --math=strict";
 
             if (options.IECompat)
                 arguments += " --ie-compat";

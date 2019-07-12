@@ -31,6 +31,7 @@ namespace WebCompilerTest
         public void CompileLess()
         {
             var result = _processor.Process("../../artifacts/lessconfig.json");
+            Assert.IsTrue(result.All(r => !r.HasErrors));
             Assert.IsTrue(File.Exists("../../artifacts/less/test.css"));
             Assert.IsTrue(File.Exists("../../artifacts/less/test.min.css"));
             Assert.IsTrue(result.ElementAt(1).CompiledContent.Contains("url(foo.png)"));
@@ -51,6 +52,7 @@ namespace WebCompilerTest
         public void CompileLessWithError()
         {
             var result = _processor.Process("../../artifacts/lessconfigerror.json");
+            Assert.IsTrue(result.Any(r => r.HasErrors));
             Assert.IsTrue(result.Count() == 1);
             Assert.IsTrue(result.ElementAt(0).HasErrors);
         }
@@ -59,6 +61,7 @@ namespace WebCompilerTest
         public void CompileLessWithParsingExceptionError()
         {
             var result = _processor.Process("../../artifacts/lessconfigParseerror.json");
+            Assert.IsTrue(result.Any(r => r.HasErrors));
             Assert.IsTrue(result.Count() == 1);
             Assert.IsTrue(result.ElementAt(0).HasErrors);
             Assert.AreNotEqual(0, result.ElementAt(0).Errors.ElementAt(0).LineNumber, "LineNumber is set when engine.TransformToCss generate a ParsingException");
@@ -76,6 +79,7 @@ namespace WebCompilerTest
         public void AssociateExtensionSourceFileChangedTest()
         {
             var result = _processor.SourceFileChanged("../../artifacts/lessconfig.json", "less/test.less", null);
+            Assert.IsTrue(result.All(r => !r.HasErrors));
             Assert.AreEqual(2, result.Count<CompilerResult>());
         }
 
@@ -83,6 +87,7 @@ namespace WebCompilerTest
         public void OtherExtensionTypeSourceFileChangedTest()
         {
             var result = _processor.SourceFileChanged("../../artifacts/lessconfig.json", "scss/test.scss", null);
+            Assert.IsTrue(result.All(r => !r.HasErrors));
             Assert.AreEqual(0, result.Count<CompilerResult>());
         }
     }
