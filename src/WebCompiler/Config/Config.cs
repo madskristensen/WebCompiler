@@ -105,13 +105,21 @@ namespace WebCompiler
             return false;
         }
 
-        private bool CheckForNewerDependenciesRecursively(string key, Dictionary<string, Dependencies> dependencies, FileInfo output)
+        private bool CheckForNewerDependenciesRecursively(string key, Dictionary<string, Dependencies> dependencies, FileInfo output, HashSet<string> checkedDependencies = null)
         {
+            if (checkedDependencies == null)
+                checkedDependencies = new HashSet<string>();
+
+            checkedDependencies.Add(key);
+
             if (!dependencies.ContainsKey(key))
                 return false;
 
             foreach (var file in dependencies[key].DependentOn.ToArray())
             {
+                if (checkedDependencies.Contains(file))
+                    continue;
+
                 var fileInfo = new FileInfo(file);
 
                 if (!fileInfo.Exists)
@@ -120,7 +128,7 @@ namespace WebCompiler
                 if (fileInfo.LastWriteTimeUtc > output.LastWriteTimeUtc)
                     return true;
 
-                if (CheckForNewerDependenciesRecursively(file, dependencies, output))
+                if (CheckForNewerDependenciesRecursively(file, dependencies, output, checkedDependencies))
                     return true;
             }
 

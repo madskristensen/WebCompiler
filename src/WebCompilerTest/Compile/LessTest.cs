@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WebCompiler;
@@ -25,6 +26,8 @@ namespace WebCompilerTest
             File.Delete("../../artifacts/less/error.css");
             File.Delete("../../artifacts/less/relative.css");
             File.Delete("../../artifacts/less/relative.min.css");
+            File.Delete("../../artifacts/less/circrefa.css");
+            File.Delete("../../artifacts/less/circrefa.min.css");
         }
 
         [TestMethod, TestCategory("LESS")]
@@ -83,6 +86,20 @@ namespace WebCompilerTest
         public void OtherExtensionTypeSourceFileChangedTest()
         {
             var result = _processor.SourceFileChanged("../../artifacts/lessconfig.json", "scss/test.scss", null);
+            Assert.AreEqual(0, result.Count<CompilerResult>());
+        }
+
+        [TestMethod, TestCategory("LESS")]
+        public void CompileCircularReference()
+        {
+            // Set the last write time and create outputs in a way that Config.CheckForNewerDependenciesRecursively will be called
+            File.SetLastWriteTimeUtc("../../artifacts/less/circrefa.less", DateTime.UtcNow);
+            File.SetLastWriteTimeUtc("../../artifacts/less/circrefb.less", DateTime.UtcNow);
+            File.Create("../../artifacts/less/circrefa.css");
+            File.Create("../../artifacts/less/circrefa.min.css");
+
+            // Since the outputs were generated after the inputs, no compilation should have occurred
+            var result = _processor.Process("../../artifacts/lessconfigCircRef.json");
             Assert.AreEqual(0, result.Count<CompilerResult>());
         }
     }

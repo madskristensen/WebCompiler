@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "less/circrefa.css",
+    "inputFile": "less/circrefa.less",
+    "includeInProject": true,
+    "options": {
+      "relativeUrls": true
+    }
+  }
+]
