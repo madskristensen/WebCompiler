@@ -90,5 +90,12 @@ namespace WebCompilerTest
             Assert.IsTrue(result.All(r => !r.HasErrors));
             Assert.AreEqual(0, result.Count<CompilerResult>());
         }
+
+        [TestMethod, TestCategory("LESS")]
+        public void CompileLessLegacyStrictMath()
+        {
+            var result = _processor.Process("../../artifacts/lessconfigLegacyStrictMath.json");
+            Assert.IsTrue(result.All(r => !r.HasErrors || r.Errors.All(e => e.IsWarning)));
+        }
     }
 }

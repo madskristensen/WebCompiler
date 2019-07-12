@@ -32,6 +32,10 @@ namespace WebCompiler
             if (ieCompat != null)
                 IECompat = ieCompat.ToLowerInvariant() == trueStr;
 
+            var math = GetValue(config, "math");
+            if (math != null)
+                Math = math;
+
             var strictMath = GetValue(config, "strictMath");
             if (strictMath != null)
                 StrictMath = strictMath.ToLowerInvariant() == trueStr;
@@ -84,6 +88,12 @@ namespace WebCompiler
         /// </summary>
         [JsonProperty("ieCompat")]
         public bool IECompat { get; set; } = true;
+
+        /// <summary>
+        /// New option for math that replaces 'strictMath' option.
+        /// </summary>
+        [JsonProperty("math")]
+        public string Math { get; set; } = null;
 
         /// <summary>
         /// Without this option on Less will try and process all maths in your CSS.
