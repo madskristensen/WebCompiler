@@ -95,8 +95,8 @@ namespace WebCompilerTest
             // Set the last write time and create outputs in a way that Config.CheckForNewerDependenciesRecursively will be called
             File.SetLastWriteTimeUtc("../../artifacts/less/circrefa.less", DateTime.UtcNow);
             File.SetLastWriteTimeUtc("../../artifacts/less/circrefb.less", DateTime.UtcNow);
-            File.Create("../../artifacts/less/circrefa.css");
-            File.Create("../../artifacts/less/circrefa.min.css");
+            File.WriteAllText("../../artifacts/less/circrefa.css", string.Empty);
+            File.WriteAllText("../../artifacts/less/circrefa.min.css", string.Empty);
 
             // Since the outputs were generated after the inputs, no compilation should have occurred
             var result = _processor.Process("../../artifacts/lessconfigCircRef.json");
