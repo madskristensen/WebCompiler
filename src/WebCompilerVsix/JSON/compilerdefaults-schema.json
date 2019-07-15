@@ -33,13 +33,18 @@
           "type": "boolean",
           "default": true
         },
+        "math": {
+          "description": "LESS only. Specifies which mode Less will use to process the math in your CSS.",
+          "default": "none",
+          "enum": ["always", "parens-division", "parens", "strict", "strict-legacy"]
+        },
         "sourceMap": {
           "description": "Generates a base64 encoded source map at the bottom of the output.",
           "type": "boolean",
           "default": false
         },
         "strictMath": {
-          "description": "LESS only. Without this option on Less will try and process all maths in your CSS.",
+          "description": "(DEPRECATED: Use 'math' instead) LESS only. Without this option on Less will try and process all maths in your CSS.",
           "type": "boolean",
           "default": false
         },

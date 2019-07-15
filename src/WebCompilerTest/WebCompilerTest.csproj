@@ -89,6 +89,7 @@
     <None Include="artifacts\lessconfigCircRef.json" />
     <None Include="artifacts\less\circrefa.less" />
     <None Include="artifacts\less\circrefb.less" />
+    <None Include="artifacts\lessconfigLegacyStrictMath.json" />
     <None Include="artifacts\scss\sub\foo.scss" />
     <None Include="artifacts\stylusconfig.json" />
     <None Include="artifacts\less\sub\relative.less" />
