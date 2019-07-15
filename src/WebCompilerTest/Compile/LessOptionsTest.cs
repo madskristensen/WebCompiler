@@ -28,7 +28,7 @@ namespace WebCompilerTest
         {
             var configs = ConfigHandler.GetConfigs("../../artifacts/lessconfig.json");
             var result = LessOptions.FromConfig(configs.First());
-            Assert.AreEqual(true, result.StrictMath);
+            Assert.AreEqual("strict", result.Math);
         }
     }
 }
