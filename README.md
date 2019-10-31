@@ -1,6 +1,6 @@
 ## Web Compiler
 
-A Visual Studio extension that compiles LESS, Sass Stylus, JSX, ES6 and CoffeeScript
+A Visual Studio extension that compiles LESS, Sass Stylus, JSX, ES6, CoffeeScript and Handlebars
 files.
 
 [![Build status](https://ci.appveyor.com/api/projects/status/kyk8vpst641r2n0r?svg=true)](https://ci.appveyor.com/project/madskristensen/webcompiler)
@@ -16,7 +16,7 @@ for changes and roadmap.
 
 ### Features
 
-- Compilation of LESS, Scss, Stylus, JSX, ES6 and (Iced)CoffeeScript files
+- Compilation of LESS, Scss, Stylus, JSX, ES6, (Iced)CoffeeScript and HBS (Handlebars) files
 - Saving a source file triggers re-compilation automatically
 - Specify compiler options for each individual file
 - Error List integration
@@ -31,7 +31,7 @@ for changes and roadmap.
 
 ### Getting started
 
-Right-click any `.less`, `.scss`, `.styl`, `.jsx`, `.es6` or `.coffee` file in Solution Explorer to
+Right-click any `.less`, `.scss`, `.styl`, `.jsx`, `.es6`, `.coffee` or `.hbs` file in Solution Explorer to
 setup compilation.
 
 ![Compile file](art/contextmenu-compile.png)
@@ -46,7 +46,7 @@ run all the configured compilers.
 
 ### Compile on save
 
-Any time a `.less`, `.scss`, `.styl`, `.jsx`, `.es6` or `.coffee` file is modified within
+Any time a `.less`, `.scss`, `.styl`, `.jsx`, `.es6`, `.coffee` or `.hbs` file is modified within
 Visual Studio, the compiler runs automatically to produce the compiled output file.
 
 The same is true when saving the `compilerconfig.json` file where

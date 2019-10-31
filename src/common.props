@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Copyright>Copyright 2017</Copyright>
     <Authors>Mads Kristensen</Authors>
-    <Description>Compiles LESS, Sass, JSX and CoffeeScript files</Description>
+    <Description>Compiles LESS, Sass, JSX, CoffeeScript and Handlebars files</Description>
     <PackageTags>LESS;Sass;Scss;JSX;EcmaScript6;CoffeeScript</PackageTags>
     <PackageIconUrl>https://raw.githubusercontent.com/madskristensen/WebCompiler/master/src/WebCompilerVsix/Resources/icon.png</PackageIconUrl>
     <PackageLicenseUrl>https://github.com/madskristensen/WebCompiler/blob/master/LICENSE</PackageLicenseUrl>
