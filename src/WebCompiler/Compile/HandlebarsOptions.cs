@@ -63,7 +63,7 @@ namespace WebCompiler
         /// </summary>
         protected override string CompilerFileName
         {
-            get { return "hbs"; }
+            get { return "handlebars"; }
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace WebCompiler
         public string Name { get; set; } = "";
 
         /// <summary>
-        /// Template namespace 
+        /// Template namespace
         /// </summary>
         [JsonProperty("namespace")]
         public string TemplateNameSpace { get; set; } = "";
