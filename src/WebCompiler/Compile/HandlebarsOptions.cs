@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System.Linq;
 
 namespace WebCompiler
 {
@@ -54,8 +53,8 @@ namespace WebCompiler
                 KnownHelpersOnly = knownHelpersOnly.ToLowerInvariant() == trueStr;
 
             var knownHelpers = GetValue(config, "knownHelpers");
-            if (knownHelpers != null)            
-                KnownHelpers = knownHelpers.Split(',').Where(s => !string.IsNullOrWhiteSpace(s)).Select(s => s.Trim()).ToArray();
+            if (knownHelpers != null)
+                KnownHelpers = JsonConvert.DeserializeObject<string[]>(knownHelpers);
         }
 
         /// <summary>
