@@ -17,6 +17,7 @@ namespace WebCompilerVsix.Listeners
     [ContentType("Iced")]
     [ContentType("jsx")]
     [ContentType("javascript")]
+    [ContentType("TypeScript")]
     [ContentType(SassContentTypeDefinition.SassContentType)]
     [ContentType(HandlebarsContentTypeDefinition.HandleBarsContentType)]
     [ContentType(HBSContentTypeDefinition.HBSContentType)]
