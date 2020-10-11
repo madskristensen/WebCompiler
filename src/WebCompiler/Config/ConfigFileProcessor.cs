@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using WebCompiler.Helpers;
 
 namespace WebCompiler
 {
@@ -21,7 +22,7 @@ namespace WebCompiler
         /// <param name="configs">Optional configuration items in the config file</param>
         /// <param name="force">Forces compilation of all config items.</param>
         /// <returns>A list of compiler results.</returns>
-        public IEnumerable<CompilerResult> Process(string configFile, IEnumerable<Config> configs = null, bool force = false)
+        public IEnumerable<CompilerResult> Process(string configFile, Config[] configs = null, bool force = false)
         {
             if (_processing.Contains(configFile))
                 return Enumerable.Empty<CompilerResult>();
@@ -32,18 +33,30 @@ namespace WebCompiler
             try
             {
                 FileInfo info = new FileInfo(configFile);
+                string directory = info.Directory.FullName;
                 configs = configs ?? ConfigHandler.GetConfigs(configFile);
 
-                if (configs.Any())
-                    OnConfigProcessed(configs.First(), 0, configs.Count());
+                if (configs.Length > 0)
+                    OnConfigProcessed(configs.First(), 0, configs.Length);
 
+                int i = 0;
                 foreach (Config config in configs)
                 {
+                    ++i;
+
                     if (force || config.CompilationRequired())
                     {
-                        var result = ProcessConfig(info.Directory.FullName, config);
-                        list.Add(result);
-                        OnConfigProcessed(config, list.Count, configs.Count());
+                        if (GlobHelper.IsGlobPattern(config.InputFile))
+                        {
+                            foreach (Config matchedConfig in config.Match(directory))
+                                list.Add(ProcessConfig(directory, matchedConfig));
+                        }
+                        else
+                        {
+                            list.Add(ProcessConfig(directory, config));
+                        }
+
+                        OnConfigProcessed(config, i, configs.Length);
                     }
                 }
             }
@@ -112,12 +125,11 @@ namespace WebCompiler
                 // Compile if the file if it's referenced directly in compilerconfig.json
                 foreach (Config config in configs)
                 {
-                    string input = Path.Combine(folder, config.InputFile.Replace("/", "\\"));
-
-                    if (input.Equals(sourceFile, StringComparison.OrdinalIgnoreCase))
+                    Config matchingConfig = config.Match(folder, sourceFile);
+                    if (matchingConfig != null)
                     {
-                        list.Add(ProcessConfig(folder, config));
-                        compiledFiles.Add(input.ToLowerInvariant());
+                        list.Add(ProcessConfig(folder, matchingConfig));
+                        compiledFiles.Add(matchingConfig.InputFile.ToLowerInvariant());
                     }
                 }
 
@@ -191,7 +203,7 @@ namespace WebCompiler
 
             var result = compiler.Compile(config);
 
-            if (result.Errors.Any(e => !e.IsWarning))
+            if (result.Errors.Any(e => !e.IsWarning) || string.IsNullOrWhiteSpace(result.CompiledContent))
                 return result;
 
             if (Path.GetExtension(config.OutputFile).Equals(".css", StringComparison.OrdinalIgnoreCase) && AdjustRelativePaths(config))

@@ -33,6 +33,9 @@ namespace WebCompiler
                 OriginalContent = content,
             };
 
+            if (config.GlobalMatch && string.IsNullOrWhiteSpace(content) || Path.GetFileName(config.InputFile).StartsWith("_"))
+                return result;
+
             try
             {
                 RunCompilerProcess(config, info);

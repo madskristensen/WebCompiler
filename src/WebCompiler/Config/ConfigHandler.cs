@@ -95,16 +95,15 @@ namespace WebCompiler
         /// </summary>
         /// <param name="fileName">A relative or absolute file path to the configuration file.</param>
         /// <returns>A list of Config objects.</returns>
-        public static IEnumerable<Config> GetConfigs(string fileName)
+        public static Config[] GetConfigs(string fileName)
         {
             FileInfo file = new FileInfo(fileName);
 
             if (!file.Exists)
-                return Enumerable.Empty<Config>();
+                return new Config[0];
 
             string content = File.ReadAllText(fileName);
-            var configs = JsonConvert.DeserializeObject<IEnumerable<Config>>(content);
-            string folder = Path.GetDirectoryName(file.FullName);
+            Config[] configs = JsonConvert.DeserializeObject<Config[]>(content);
 
             foreach (Config config in configs)
             {

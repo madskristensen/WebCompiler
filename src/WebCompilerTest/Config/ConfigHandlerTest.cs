@@ -45,11 +45,9 @@ namespace WebCompilerTest.Config
         [TestMethod, TestCategory("Config")]
         public void NonExistingConfigFileShouldReturnEmptyList()
         {
-            var expectedResult = Enumerable.Empty<WebCompiler.Config>();
-
             var result = ConfigHandler.GetConfigs("../NonExistingFile.config");
 
-            Assert.AreEqual(expectedResult, result);
+            Assert.AreEqual(0, result.Length);
         }
     }
 }

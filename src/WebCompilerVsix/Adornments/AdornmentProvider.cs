@@ -9,6 +9,7 @@ using Microsoft.VisualStudio.Shell.Settings;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Utilities;
+using WebCompiler.Helpers;
 
 namespace WebCompilerVsix
 {
@@ -101,6 +102,11 @@ namespace WebCompilerVsix
 
                     foreach (Config config in configs)
                     {
+                        if (GlobHelper.IsGlobPattern(config.InputFile))
+                        {
+                            continue;
+                        }
+
                         if (config.GetAbsoluteOutputFile().FullName.Equals(normalizedFilePath, StringComparison.OrdinalIgnoreCase))
                         {
                             GeneratedAdornment generated = new GeneratedAdornment(textView, _isVisible, _initOpacity);
