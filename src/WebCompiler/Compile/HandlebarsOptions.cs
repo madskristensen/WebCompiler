@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System.Linq;
 
 namespace WebCompiler
 {
@@ -54,8 +53,8 @@ namespace WebCompiler
                 KnownHelpersOnly = knownHelpersOnly.ToLowerInvariant() == trueStr;
 
             var knownHelpers = GetValue(config, "knownHelpers");
-            if (knownHelpers != null)            
-                KnownHelpers = knownHelpers.Split(',').Where(s => !string.IsNullOrWhiteSpace(s)).Select(s => s.Trim()).ToArray();
+            if (knownHelpers != null)
+                KnownHelpers = JsonConvert.DeserializeObject<string[]>(knownHelpers);
         }
 
         /// <summary>
@@ -63,7 +62,7 @@ namespace WebCompiler
         /// </summary>
         protected override string CompilerFileName
         {
-            get { return "hbs"; }
+            get { return "handlebars"; }
         }
 
         /// <summary>
@@ -85,7 +84,7 @@ namespace WebCompiler
         public string Name { get; set; } = "";
 
         /// <summary>
-        /// Template namespace 
+        /// Template namespace
         /// </summary>
         [JsonProperty("namespace")]
         public string TemplateNameSpace { get; set; } = "";

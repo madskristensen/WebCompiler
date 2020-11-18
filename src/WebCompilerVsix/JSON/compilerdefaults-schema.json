@@ -157,7 +157,7 @@
         }
       }
     },
-    
+
     "handlebars": {
       "description": "Specify options for the compiler.",
       "type": "object",
@@ -182,8 +182,11 @@
         },
         "knownHelpers": {
           "description": "List of known helpers for a more optimized output (comma separated)",
-          "type": "string",
-          "default": ""
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "string"
+          }
         },
         "knownHelpersOnly": {
           "description": "Compile with known helpers only",
