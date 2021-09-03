@@ -3,11 +3,11 @@ using System.Runtime.InteropServices;
 using WebCompiler;
 
 [assembly: AssemblyTitle("Web Compiler")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Thanks to Mads Kristensen for his Web Compiler, this one is based on it.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Mads Kristensen")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Web Compiler")]
-[assembly: AssemblyCopyright("Copyright ©  2015")]
+[assembly: AssemblyCopyright("Copyright © 2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

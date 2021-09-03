@@ -12,6 +12,7 @@
     <NoPackageAnalysis>true</NoPackageAnalysis>
     <!-- forces SDK to copy dependencies into build output to make packing easier -->
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <Authors>Alex Garcia</Authors>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="Node\prepare.cmd" />
@@ -25,6 +26,7 @@
     <PackageReference Include="Microsoft.Build.Utilities.Core" Version="16.11.0" PrivateAssets="All" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" PrivateAssets="All" />
     <PackageReference Include="NUglify" Version="1.16.0" PrivateAssets="All" />
+    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="MSBuild\*.targets" PackagePath="build\" />
