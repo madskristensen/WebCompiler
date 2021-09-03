@@ -2,7 +2,7 @@
   <Import Project="..\common.props" />
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>net46;netstandard2.0;netcoreapp2.0</TargetFrameworks>
+    <TargetFrameworks>net48;netstandard2.0;netcoreapp2.0</TargetFrameworks>
     
     <Title>Web Compiler</Title>
     <PackageId>BuildWebCompiler</PackageId>
@@ -21,10 +21,10 @@
     <EmbeddedResource Include="Node\7z.exe" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Build.Framework" Version="15.1.0-*" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="15.1.0-*" PrivateAssets="All" />
-    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" PrivateAssets="All" />
-    <PackageReference Include="NUglify" Version="1.5.12" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Build.Framework" Version="16.11.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="16.11.0" PrivateAssets="All" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" PrivateAssets="All" />
+    <PackageReference Include="NUglify" Version="1.16.0" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="MSBuild\*.targets" PackagePath="build\" />

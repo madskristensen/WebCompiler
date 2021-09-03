@@ -37,6 +37,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="NUglify, Version=1.16.0.0, Culture=neutral, PublicKeyToken=15bc7810aec21b5e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NUglify.1.16.0\lib\net40\NUglify.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -160,6 +163,7 @@
     <None Include="Minify\artifacts\css\csscommentimportant.json" />
     <None Include="Minify\artifacts\css\csscommenthacksuppercase.json" />
     <None Include="Minify\artifacts\css\csscommenthacks.json" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WebCompiler\WebCompiler.csproj">
@@ -167,11 +171,7 @@
       <Name>WebCompiler</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="NUglify">
-      <Version>1.16.0</Version>
-    </PackageReference>
-  </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
