@@ -14,6 +14,14 @@ download in the
 These are the changes to each version that has been released
 on the official Visual Studio extension gallery.
 
+## 1.12
+
+**2021-09-06**
+
+- [x] Update .NET version to 4.8
+- [x] Update nuget packages
+- [x] Migrate `node-sass` to `sass` (dart-sass) to compile Sass files
+
 ## 1.11
 
 **2016-05-10**

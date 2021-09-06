@@ -88,14 +88,14 @@ namespace WebCompiler
                 WindowStyle = ProcessWindowStyle.Hidden,
                 CreateNoWindow = true,
                 FileName = "cmd.exe",
-                Arguments = $"/c \"\"{Path.Combine(_path, "node_modules\\.bin\\node-sass.cmd")}\" {arguments} \"{info.FullName}\" \"",
+                Arguments = $"/c \"\"{Path.Combine(_path, "node_modules\\.bin\\sass.cmd")}\" {arguments} \"{info.FullName}\" \"",
                 StandardOutputEncoding = Encoding.UTF8,
                 StandardErrorEncoding = Encoding.UTF8,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
             };
 
-            // Pipe output from node-sass to postcss if autoprefix option is set
+            // Pipe output from sass to postcss if autoprefix option is set
             SassOptions options = SassOptions.FromConfig(config);
             if (!string.IsNullOrEmpty(options.AutoPrefix))
             {
