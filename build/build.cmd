@@ -10,7 +10,7 @@ pushd "%~dp0..\src\WebCompiler\node"
 
 echo Installing packages...
 call npm install --quiet ^
-        babel@5.8.34 ^
+        babel-cli ^
         iced-coffee-script ^
         less ^
         less-plugin-autoprefix ^

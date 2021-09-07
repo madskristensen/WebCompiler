@@ -18,8 +18,7 @@
     <EmbeddedResource Include="Node\prepare.cmd" />
     <EmbeddedResource Include="Node\node.7z" />
     <EmbeddedResource Include="Node\node_modules.7z" />
-    <EmbeddedResource Include="Node\7z.dll" />
-    <EmbeddedResource Include="Node\7z.exe" />
+    <EmbeddedResource Include="Node\7za.exe" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Build.Framework" Version="16.11.0" PrivateAssets="All" />

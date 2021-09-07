@@ -10,7 +10,7 @@ namespace WebCompiler
     /// </summary>
     public static class CompilerService
     {
-        internal const string Version = "1.4.167";
+        internal const string Version = "1.12.0";
         private static readonly string _path = Path.Combine(Path.GetTempPath(), "WebCompiler" + Version);
         private static object _syncRoot = new object(); // Used to lock on the initialize step
 
@@ -77,9 +77,9 @@ namespace WebCompiler
         /// </summary>
         public static void Initialize()
         {
-            var node_modules = Path.Combine(_path, "node_modules");
-            var node_exe = Path.Combine(_path, "node.exe");
-            var log_file = Path.Combine(_path, "log.txt");
+            string node_modules = Path.Combine(_path, "node_modules");
+            string node_exe = Path.Combine(_path, "node.exe");
+            string log_file = Path.Combine(_path, "log.txt");
 
             lock (_syncRoot)
             {
@@ -93,8 +93,7 @@ namespace WebCompiler
                     Directory.CreateDirectory(_path);
                     SaveResourceFile(_path, "WebCompiler.Node.node.7z", "node.7z");
                     SaveResourceFile(_path, "WebCompiler.Node.node_modules.7z", "node_modules.7z");
-                    SaveResourceFile(_path, "WebCompiler.Node.7z.exe", "7z.exe");
-                    SaveResourceFile(_path, "WebCompiler.Node.7z.dll", "7z.dll");
+                    SaveResourceFile(_path, "WebCompiler.Node.7za.exe", "7za.exe");
                     SaveResourceFile(_path, "WebCompiler.Node.prepare.cmd", "prepare.cmd");
 
                     ProcessStartInfo start = new ProcessStartInfo
