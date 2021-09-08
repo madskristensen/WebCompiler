@@ -12,7 +12,7 @@ namespace WebCompilerTest
         {
             var configs = ConfigHandler.GetConfigs("../../artifacts/options/scss/scssconfignested.json");
             var result =  WebCompiler.SassOptions.FromConfig(configs.ElementAt(0));
-            Assert.AreEqual("nested", result.OutputStyle);
+            Assert.AreEqual("nested", result.Style);
         }
 
         [TestMethod, TestCategory("SCSSOptions")]
@@ -20,7 +20,7 @@ namespace WebCompilerTest
         {
             var configs = ConfigHandler.GetConfigs("../../artifacts/options/scss/scssconfigexpanded.json");
             var result = WebCompiler.SassOptions.FromConfig(configs.ElementAt(0));
-            Assert.AreEqual("expanded", result.OutputStyle);
+            Assert.AreEqual("expanded", result.Style);
         }
 
         [TestMethod, TestCategory("SCSSOptions")]
@@ -28,7 +28,7 @@ namespace WebCompilerTest
         {
             var configs = ConfigHandler.GetConfigs("../../artifacts/options/scss/scssconfigcompact.json");
             var result = WebCompiler.SassOptions.FromConfig(configs.ElementAt(0));
-            Assert.AreEqual("compact", result.OutputStyle);
+            Assert.AreEqual("compact", result.Style);
         }
 
         [TestMethod, TestCategory("SCSSOptions")]
@@ -36,7 +36,7 @@ namespace WebCompilerTest
         {
             var configs = ConfigHandler.GetConfigs("../../artifacts/options/scss/scssconfigcompressed.json");
             var result = WebCompiler.SassOptions.FromConfig(configs.ElementAt(0));
-            Assert.AreEqual("compressed", result.OutputStyle);
+            Assert.AreEqual("compressed", result.Style);
         }
 
         [TestMethod, TestCategory("SCSSOptions")]
