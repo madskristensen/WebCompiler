@@ -20,11 +20,11 @@ namespace WebCompiler
         {
             base.LoadSettings(config);
 
-            var bare = GetValue(config, "bare");
+            string bare = GetValue(config, "bare");
             if (bare != null)
                 Bare = bare.ToLowerInvariant() == trueStr;
 
-            var runtimeMode = GetValue(config, "runtimeMode");
+            string runtimeMode = GetValue(config, "runtimeMode");
             if (runtimeMode != null)
                 RuntimeMode = runtimeMode.ToLowerInvariant();
         }

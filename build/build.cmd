@@ -21,6 +21,7 @@ call npm install --quiet ^
         stylus ^
         handlebars ^
         > nul
+call npm install --quiet > nul
 
 ::if not exist "node_modules\node-sass\vendor\win32-ia32-48" (
 ::    echo Copying node binding...

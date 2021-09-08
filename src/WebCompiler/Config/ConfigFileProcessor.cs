@@ -41,7 +41,7 @@ namespace WebCompiler
                 {
                     if (force || config.CompilationRequired())
                     {
-                        var result = ProcessConfig(info.Directory.FullName, config);
+                        CompilerResult result = ProcessConfig(info.Directory.FullName, config);
                         list.Add(result);
                         OnConfigProcessed(config, list.Count, configs.Count());
                     }
@@ -61,13 +61,14 @@ namespace WebCompiler
         /// </summary>
         public void DeleteOutputFiles(string configFile)
         {
-            var configs = ConfigHandler.GetConfigs(configFile);
+            IEnumerable<Config> configs = ConfigHandler.GetConfigs(configFile);
+
             foreach (var item in configs)
             {
-                var outputFile = item.GetAbsoluteOutputFile().FullName;
-                var minFile = Path.ChangeExtension(outputFile, ".min" + Path.GetExtension(outputFile));
-                var mapFile = minFile + ".map";
-                var gzipFile = minFile + ".gz";
+                string outputFile = item.GetAbsoluteOutputFile().FullName;
+                string minFile = Path.ChangeExtension(outputFile, ".min" + Path.GetExtension(outputFile));
+                string mapFile = minFile + ".map";
+                string gzipFile = minFile + ".gz";
 
                 DeleteFile(outputFile);
                 DeleteFile(minFile);
@@ -107,7 +108,7 @@ namespace WebCompiler
             {
                 string folder = Path.GetDirectoryName(configFile);
                 List<CompilerResult> list = new List<CompilerResult>();
-                var configs = ConfigHandler.GetConfigs(configFile);
+                IEnumerable<Config> configs = ConfigHandler.GetConfigs(configFile);
 
                 // Compile if the file if it's referenced directly in compilerconfig.json
                 foreach (Config config in configs)
@@ -122,7 +123,7 @@ namespace WebCompiler
                 }
 
                 //compile files that are dependent on the current file
-                var dependencies = DependencyService.GetDependencies(projectPath, sourceFile);
+                Dictionary<string, Dependencies> dependencies = DependencyService.GetDependencies(projectPath, sourceFile);
                 if (dependencies != null)
                 {
                     string key = sourceFile.ToLowerInvariant();
@@ -130,7 +131,7 @@ namespace WebCompiler
                     if (dependencies.ContainsKey(key))
                     {
                         //compile all files that have references to the compiled file
-                        foreach (var file in dependencies[key].DependentFiles.ToArray())
+                        foreach (string file in dependencies[key].DependentFiles.ToArray())
                         {
                             if (!compiledFiles.Contains(file.ToLowerInvariant()))
                                 list.AddRange(SourceFileChanged(configFile, file, projectPath, compiledFiles));
@@ -165,7 +166,7 @@ namespace WebCompiler
         {
             try
             {
-                var configs = ConfigHandler.GetConfigs(configFile);
+                IEnumerable<Config> configs = ConfigHandler.GetConfigs(configFile);
                 string folder = Path.GetDirectoryName(configFile);
                 List<Config> list = new List<Config>();
 
@@ -189,7 +190,7 @@ namespace WebCompiler
         {
             ICompiler compiler = CompilerService.GetCompiler(config);
 
-            var result = compiler.Compile(config);
+            CompilerResult result = compiler.Compile(config);
 
             if (result.Errors.Any(e => !e.IsWarning))
                 return result;

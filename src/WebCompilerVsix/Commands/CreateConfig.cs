@@ -27,8 +27,8 @@ namespace WebCompilerVsix
 
             if (commandService != null)
             {
-                var menuCommandID = new CommandID(PackageGuids.guidCompilerCmdSet, PackageIds.CreateConfigFile);
-                var menuItem = new OleMenuCommand(AddConfig, menuCommandID);
+                CommandID menuCommandID = new CommandID(PackageGuids.guidCompilerCmdSet, PackageIds.CreateConfigFile);
+                OleMenuCommand menuItem = new OleMenuCommand(AddConfig, menuCommandID);
                 menuItem.BeforeQueryStatus += BeforeQueryStatus;
                 commandService.AddCommand(menuItem);
             }
@@ -39,7 +39,7 @@ namespace WebCompilerVsix
 
         private void BeforeQueryStatus(object sender, EventArgs e)
         {
-            var button = (OleMenuCommand)sender;
+            OleMenuCommand button = (OleMenuCommand)sender;
             button.Visible = button.Enabled = false;
 
             _item = GetProjectItem(WebCompilerPackage._dte);
@@ -56,7 +56,7 @@ namespace WebCompilerVsix
             if (!button.Visible)
                 return;
 
-            var configs = ConfigFileProcessor.IsFileConfigured(configFile, inputFile);
+            IEnumerable<Config> configs = ConfigFileProcessor.IsFileConfigured(configFile, inputFile);
 
             if (configs != null && configs.Any())
             {

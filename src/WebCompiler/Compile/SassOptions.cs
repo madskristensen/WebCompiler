@@ -8,6 +8,7 @@ namespace WebCompiler
     public class SassOptions : BaseOptions<SassOptions>
     {
         private const string trueStr = "true";
+        private readonly char[] separators = new char[] { ';', ',', '/' };
 
         /// <summary> Creates a new instance of the class.</summary>
         public SassOptions()
@@ -20,39 +21,28 @@ namespace WebCompiler
         {
             base.LoadSettings(config);
 
-            var autoPrefix = GetValue(config, "autoPrefix");
+            string autoPrefix = GetValue(config, "autoPrefix");
             if (autoPrefix != null)
                 AutoPrefix = autoPrefix;
 
-            if (config.Options.ContainsKey("outputStyle"))
-                OutputStyle = config.Options["outputStyle"].ToString();
-
-            if (config.Options.ContainsKey("indentType"))
-                IndentType = config.Options["indentType"].ToString();
+            if (config.Options.ContainsKey("style"))
+                Style = config.Options["style"].ToString();
 
             int precision = 5;
             if (int.TryParse(GetValue(config, "precision"), out precision))
                 Precision = precision;
 
-            int indentWidth = -1;
-            if (int.TryParse(GetValue(config, "indentWidth"), out indentWidth))
-                IndentWidth = indentWidth;
-
-            var relativeUrls = GetValue(config, "relativeUrls");
+            string relativeUrls = GetValue(config, "relativeUrls");
             if (relativeUrls != null)
-                RelativeUrls = relativeUrls.ToLowerInvariant() == trueStr;
+                RelativeUrls = relativeUrls.Trim().ToLowerInvariant() == trueStr;
 
-            var includePath = GetValue(config, "includePath");
-            if (includePath != null)
-                IncludePath = includePath;
+            string loadPaths = GetValue(config, "loadPaths");
+            if (loadPaths != null)
+                LoadPaths = loadPaths.Split(separators, System.StringSplitOptions.RemoveEmptyEntries);
 
-            var sourceMapRoot = GetValue(config, "sourceMapRoot");
+            string sourceMapRoot = GetValue(config, "sourceMapRoot");
             if (sourceMapRoot != null)
                 SourceMapRoot = sourceMapRoot;
-
-            var lineFeed = GetValue(config, "lineFeed");
-            if (lineFeed != null)
-                LineFeed = lineFeed;
         }
 
         /// <summary>
@@ -68,32 +58,19 @@ namespace WebCompiler
         /// property support to apply prefixes for you.
         /// </summary>
         [JsonProperty("autoPrefix")]
-        public string AutoPrefix { get; set; } = "";
+        public string AutoPrefix { get; set; } = string.Empty;
 
         /// <summary>
         /// Path to look for imported files
         /// </summary>
-        [JsonProperty("includePath")]
-        public string IncludePath { get; set; } = string.Empty;
-
-        /// <summary>
-        /// Indent type for output CSS.
-        /// </summary>
-        [JsonProperty("indentType")]
-        public string IndentType { get; set; } = "space";
-
-        /// <summary>
-        /// Number of spaces or tabs (maximum value: 10)
-        /// </summary>
-        [JsonProperty("indentWidth")]
-        public int IndentWidth { get; set; } = 2;
+        [JsonProperty("loadPath")]
+        public string[] LoadPaths { get; set; } = new string[0];
 
         /// <summary>
         /// Type of output style
         /// </summary>
-        [JsonProperty("outputStyle")]
-        public string OutputStyle { get; set; } = "nested";
-
+        [JsonProperty("style")]
+        public string Style { get; set; } = "expanded"; //"compressed"
 
         /// <summary>
         /// Precision
@@ -112,13 +89,5 @@ namespace WebCompiler
         /// </summary>
         [JsonProperty("sourceMapRoot")]
         public string SourceMapRoot { get; set; } = string.Empty;
-
-        /// <summary>
-        /// Linefeed style (cr | crlf | lf | lfcr)
-        /// </summary>
-        [JsonProperty("lineFeed")]
-        public string LineFeed { get; set; } = string.Empty;
-
-
     }
 }

@@ -20,43 +20,43 @@ namespace WebCompiler
         {
             base.LoadSettings(config);
 
-            var autoPrefix = GetValue(config, "autoPrefix");
+            string autoPrefix = GetValue(config, "autoPrefix");
             if (autoPrefix != null)
                 AutoPrefix = autoPrefix;
 
-            var cssComb = GetValue(config, "cssComb");
+            string cssComb = GetValue(config, "cssComb");
             if (cssComb != null)
                 CssComb = cssComb;
 
-            var ieCompat = GetValue(config, "ieCompat");
+            string ieCompat = GetValue(config, "ieCompat");
             if (ieCompat != null)
                 IECompat = ieCompat.ToLowerInvariant() == trueStr;
 
-            var math = GetValue(config, "math");
+            string math = GetValue(config, "math");
             if (math != null)
                 Math = math;
 
-            var strictMath = GetValue(config, "strictMath");
+            string strictMath = GetValue(config, "strictMath");
             if (strictMath != null)
                 StrictMath = strictMath.ToLowerInvariant() == trueStr;
 
-            var strictUnits = GetValue(config, "strictUnits");
+            string strictUnits = GetValue(config, "strictUnits");
             if (strictUnits != null)
                 StrictUnits = strictUnits.ToLowerInvariant() == trueStr;
 
-            var rootPath = GetValue(config, "rootPath");
+            string rootPath = GetValue(config, "rootPath");
             if (rootPath != null)
                 RootPath = rootPath;
 
-            var relativeUrls = GetValue(config, "relativeUrls");
+            string relativeUrls = GetValue(config, "relativeUrls");
             if (relativeUrls != null)
                 RelativeUrls = relativeUrls.ToLowerInvariant() == trueStr;
 
-            var sourceMapRoot = GetValue(config, "sourceMapRoot");
+            string sourceMapRoot = GetValue(config, "sourceMapRoot");
             if (sourceMapRoot != null)
                 SourceMapRoot = sourceMapRoot;
 
-            var sourceMapBasePath = GetValue(config, "sourceMapBasePath");
+            string sourceMapBasePath = GetValue(config, "sourceMapBasePath");
             if (sourceMapBasePath != null)
                 SourceMapBasePath = sourceMapBasePath;
         }

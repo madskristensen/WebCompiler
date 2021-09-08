@@ -21,7 +21,7 @@ namespace WebCompiler
             if (File.Exists(defaultFile))
             {
                 JObject json = JObject.Parse(File.ReadAllText(defaultFile));
-                var jsonOptions = json["compilers"][options.CompilerFileName];
+                JToken jsonOptions = json["compilers"][options.CompilerFileName];
 
                 if (jsonOptions != null)
                     options = JsonConvert.DeserializeObject<T>(jsonOptions.ToString());
@@ -42,7 +42,7 @@ namespace WebCompiler
         /// </summary>
         protected virtual void LoadSettings(Config config)
         {
-            var sourceMap = GetValue(config, "sourceMap");
+            string sourceMap = GetValue(config, "sourceMap");
             if (sourceMap != null)
                 SourceMap = sourceMap.ToLowerInvariant() == "true";
         }

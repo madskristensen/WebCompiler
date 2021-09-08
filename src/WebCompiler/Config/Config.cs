@@ -188,7 +188,7 @@ namespace WebCompiler
 
             valueComparer = valueComparer ?? EqualityComparer<TValue>.Default;
 
-            foreach (var kvp in first)
+            foreach (KeyValuePair<TKey, TValue> kvp in first)
             {
                 TValue secondValue;
                 if (!second.TryGetValue(kvp.Key, out secondValue)) return false;

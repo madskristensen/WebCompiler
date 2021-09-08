@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace WebCompiler
 {
@@ -112,8 +113,8 @@ namespace WebCompiler
 
             using (Process p = Process.Start(start))
             {
-                var stdout = p.StandardOutput.ReadToEndAsync();
-                var stderr = p.StandardError.ReadToEndAsync();
+                Task<string> stdout = p.StandardOutput.ReadToEndAsync();
+                Task<string> stderr = p.StandardError.ReadToEndAsync();
                 p.WaitForExit();
 
                 _output = stdout.Result;
@@ -130,27 +131,19 @@ namespace WebCompiler
             SassOptions options = SassOptions.FromConfig(config);
 
             if (options.SourceMap || config.SourceMap)
-                arguments += " --source-map-embed=true";
+                arguments += " --embed-source-map";
 
             arguments += " --precision=" + options.Precision;
 
-            if (!string.IsNullOrEmpty(options.OutputStyle))
-                arguments += " --output-style=" + options.OutputStyle;
+            if (!string.IsNullOrEmpty(options.Style))
+                arguments += " --style=" + options.Style;
 
-            if (!string.IsNullOrEmpty(options.IndentType))
-                arguments += " --indent-type=" + options.IndentType;
-
-            if (options.IndentWidth > -1)
-                arguments += " --indent-width=" + options.IndentWidth;
-
-            if (!string.IsNullOrEmpty(options.IncludePath))
-                arguments += " --include-path=" + options.IncludePath;
+            if (options.LoadPaths != null)
+                foreach (string loadPath in options.LoadPaths)
+                    arguments += " --load-path=" + loadPath;
 
             if (!string.IsNullOrEmpty(options.SourceMapRoot))
-                arguments += " --source-map-root=" + options.SourceMapRoot;
-
-            if (!string.IsNullOrEmpty(options.LineFeed))
-                arguments += " --linefeed=" + options.LineFeed;
+                arguments += " --source-map-urls=" + options.SourceMapRoot;
 
             return arguments;
         }
