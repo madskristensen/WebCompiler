@@ -118,8 +118,8 @@ namespace WebCompiler
                 p.WaitForExit();
 
                 _output = stdout.Result;
-                // postcss outputs "√ Finished stdin (##ms)" to stderr for some reason
-                if (!stderr.Result.StartsWith("√"))
+
+                if (!string.IsNullOrEmpty(stderr.Result)) 
                     _error = stderr.Result;
             }
         }

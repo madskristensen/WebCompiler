@@ -103,7 +103,7 @@ namespace WebCompiler
                 return Enumerable.Empty<Config>();
 
             string content = File.ReadAllText(fileName);
-            var configs = JsonConvert.DeserializeObject<IEnumerable<Config>>(content);
+            IEnumerable<Config> configs = JsonConvert.DeserializeObject<IEnumerable<Config>>(content);
             string folder = Path.GetDirectoryName(file.FullName);
 
             foreach (Config config in configs)
