@@ -84,7 +84,7 @@
         "style": {
           "description": "Scss only. Determines the output format of the final CSS style.",
           "enum": [ "expanded", "compressed" ],
-          "default": "compressed"
+          "default": "expanded"
         },
         "precision": {
           "description": "Scss only. Used to determine how many digits after the decimal will be allowed. For instance, if you had a decimal number of 1.23456789 and a precision of 5, the result will be 1.23457 in the final CSS.",
@@ -95,11 +95,11 @@
           "description": "Scss only. Used to determine the paths to import files from. Multiple paths can be added, separeted by a coma or a semi-colon.",
           "type": "string"
         },
-        "sourceMapUrls": {
-          "description": "Scss only. This option allows you to re-write URL's to make them relative to the output file. This doesn't work for imported .scss files.",
-          "enum": [ "relative", "absolute" ],
-          "default": "relative"
-        },
+        //"sourceMapUrls": {
+        //  "description": "Scss only. This option allows you to re-write URL's to make them relative to the output file. This doesn't work for imported .scss files.",
+        //  "enum": [ "relative", "absolute" ],
+        //  "default": "relative"
+        //},
         "sourceMap": {
           "description": "Generates a base64 encoded source map at the bottom of the output.",
           "type": "boolean",

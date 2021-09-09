@@ -36,9 +36,9 @@ namespace WebCompiler
             if (int.TryParse(GetValue(config, "precision"), out int precision))
                 Precision = precision;
 
-            string sourceMapUrls = GetValue(config, "sourceMapUrls");
-            if (sourceMapUrls != null && Enum.TryParse(sourceMapUrls.ToString(), true, out SassSourceMapUrls sourceMapUrlsValue))
-                SourceMapUrls = sourceMapUrlsValue;
+            //string sourceMapUrls = GetValue(config, "sourceMapUrls");
+            //if (sourceMapUrls != null && Enum.TryParse(sourceMapUrls.ToString(), true, out SassSourceMapUrls sourceMapUrlsValue))
+            //    SourceMapUrls = sourceMapUrlsValue;
         }
 
         /// <summary>
@@ -66,19 +66,19 @@ namespace WebCompiler
         /// Type of output style
         /// </summary>
         [JsonProperty("style")]
-        public SassStyle Style { get; set; } = SassStyle.Compressed;
+        public SassStyle Style { get; set; } = SassStyle.Expanded;
 
         /// <summary>
         /// Precision
         /// </summary>
         public int Precision { get; set; } = 5;
 
-        /// <summary>
-        /// This option allows you to re-write URL's in imported files so that the URL is always
-        /// relative to the base imported file.
-        /// </summary>
-        [JsonProperty("sourceMapUrls")]
-        public SassSourceMapUrls SourceMapUrls { get; set; } = SassSourceMapUrls.Relative;
+        ///// <summary>
+        ///// This option allows you to re-write URL's in imported files so that the URL is always
+        ///// relative to the base imported file.
+        ///// </summary>
+        //[JsonProperty("sourceMapUrls")]
+        //public SassSourceMapUrls SourceMapUrls { get; set; } = SassSourceMapUrls.Relative;
     }
 
     public enum SassStyle
@@ -87,9 +87,9 @@ namespace WebCompiler
         Compressed
     }
 
-    public enum SassSourceMapUrls
-    {
-        Relative,
-        Absolute
-    }
+    //public enum SassSourceMapUrls
+    //{
+    //    Relative,
+    //    Absolute
+    //}
 }

@@ -138,7 +138,7 @@ namespace WebCompiler
                 foreach (string loadPath in options.LoadPaths)
                     arguments += " --load-path=" + loadPath;
 
-            arguments += " --source-map-urls=" + options.SourceMapUrls.ToString().ToLowerInvariant();
+            //arguments += " --source-map-urls=" + options.SourceMapUrls.ToString().ToLowerInvariant(); // does not work with stdout
 
             return arguments;
         }
