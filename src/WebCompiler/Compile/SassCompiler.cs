@@ -102,9 +102,6 @@ namespace WebCompiler
             {
                 string postCssArguments = "--use autoprefixer";
 
-                if (!options.SourceMap && !config.SourceMap)
-                    postCssArguments += " --no-map";
-
                 start.Arguments = start.Arguments.TrimEnd('"') + $" | \"{Path.Combine(_path, "node_modules\\.bin\\postcss.cmd")}\" {postCssArguments}\"";
                 start.EnvironmentVariables.Add("BROWSERSLIST", options.AutoPrefix);
             }
@@ -119,7 +116,7 @@ namespace WebCompiler
 
                 _output = stdout.Result;
 
-                if (!string.IsNullOrEmpty(stderr.Result)) 
+                if (!string.IsNullOrEmpty(stderr.Result))
                     _error = stderr.Result;
             }
         }
@@ -135,15 +132,13 @@ namespace WebCompiler
 
             arguments += " --precision=" + options.Precision;
 
-            if (!string.IsNullOrEmpty(options.Style))
-                arguments += " --style=" + options.Style;
+            arguments += " --style=" + options.Style.ToString().ToLowerInvariant();
 
             if (options.LoadPaths != null)
                 foreach (string loadPath in options.LoadPaths)
                     arguments += " --load-path=" + loadPath;
 
-            if (!string.IsNullOrEmpty(options.SourceMapRoot))
-                arguments += " --source-map-urls=" + options.SourceMapRoot;
+            arguments += " --source-map-urls=" + options.SourceMapUrls.ToString().ToLowerInvariant();
 
             return arguments;
         }
