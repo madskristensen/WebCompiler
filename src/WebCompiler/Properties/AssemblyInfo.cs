@@ -2,12 +2,12 @@
 using System.Runtime.InteropServices;
 using WebCompiler;
 
-[assembly: AssemblyTitle("Web Compiler")]
-[assembly: AssemblyDescription("Thanks to Mads Kristensen for his Web Compiler, this one is based on it.")]
+[assembly: AssemblyTitle("New Web Compiler")]
+[assembly: AssemblyDescription("Thanks to Mads Kristensen for his Web Compiler, this one is based on it, but uses dart-sass instead of node-sass (deprecated).")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Web Compiler")]
-[assembly: AssemblyCopyright("Copyright © 2021")]
+[assembly: AssemblyProduct("New Web Compiler")]
+[assembly: AssemblyCopyright("Copyright © 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

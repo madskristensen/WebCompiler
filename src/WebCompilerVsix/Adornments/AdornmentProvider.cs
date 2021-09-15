@@ -9,6 +9,7 @@ using Microsoft.VisualStudio.Shell.Settings;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Utilities;
+using EnvDTE;
 
 namespace WebCompilerVsix
 {
@@ -84,7 +85,7 @@ namespace WebCompilerVsix
             {
                 try
                 {
-                    var item = WebCompilerPackage._dte.Solution.FindProjectItem(fileName);
+                    ProjectItem item = WebCompilerPackage._dte.Solution.FindProjectItem(fileName);
 
                     if (item == null || item.ContainingProject == null)
                         return;
@@ -97,7 +98,7 @@ namespace WebCompilerVsix
                     string extension = Path.GetExtension(fileName.Replace(".map", ""));
                     string normalizedFilePath = fileName.Replace(".map", "").Replace(".min" + extension, extension);
 
-                    var configs = ConfigHandler.GetConfigs(configFile);
+                    IEnumerable<Config> configs = ConfigHandler.GetConfigs(configFile);
 
                     foreach (Config config in configs)
                     {

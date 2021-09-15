@@ -1,15 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="148ffa77-d70a-407f-892b-9ee542346862" Version="1.12.1" Language="en-US" Publisher="Mads Kristensen" />
-        <DisplayName>Web Compiler</DisplayName>
-        <Description xml:space="preserve">The easiest and most powerful way to compile LESS, Scss, Stylus, JSX, CoffeeScript and Handlebars files directly within Visual Studio or through MSBuild.</Description>
-        <MoreInfo>https://github.com/madskristensen/WebCompiler</MoreInfo>
+        <Identity Id="148ffa77-d70a-407f-892b-9ee542346862" Version="1.13.2" Language="en-US" Publisher="Alex Garcia" />
+        <DisplayName>New Web Compiler</DisplayName>
+        <Description xml:space="preserve">The easiest and most powerful way to compile LESS, Scss, Stylus, JSX, CoffeeScript and Handlebars files directly within Visual Studio or through MSBuild. Based on Mads Kristensen WebCompile (https://github.com/madskristensen/WebCompiler), but this one uses dart-sass instead of node-sass.</Description>
+        <MoreInfo>https://github.com/garcia-alexandre-pro/WebCompiler</MoreInfo>
         <License>Resources\LICENSE</License>
-        <ReleaseNotes>https://github.com/madskristensen/WebCompiler/blob/master/CHANGELOG.md</ReleaseNotes>
+        <ReleaseNotes>https://github.com/garcia-alexandre-pro/WebCompiler/blob/master/CHANGELOG.md</ReleaseNotes>
         <Icon>Resources\icon.png</Icon>
         <PreviewImage>Resources\preview.png</PreviewImage>
-        <Tags>Compile, LESS, Sass, Scss, CoffeeScript, JavaScript, JSX, ES6, Stylus, Handlebars</Tags>
+        <Tags>Compile, LESS, Sass, Scss, CoffeeScript, JavaScript, JSX, ES6, Stylus, Handlebars, dart-sass</Tags>
+        <Preview>true</Preview>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[14.0,17.0)" />
