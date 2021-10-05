@@ -1,0 +1,11 @@
+﻿[
+	{
+		"outputFile": "scss/test.css",
+		"inputFile": "scss/test.scss",
+		"minify": { },
+		"includeInProject": true,
+		"options": {
+			"loadPaths": "/test/test.scss;/test/test2.scss"
+		}
+	}
+]

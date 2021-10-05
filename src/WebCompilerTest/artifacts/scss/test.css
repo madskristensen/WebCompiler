@@ -1,0 +1,27 @@
+﻿@charset "UTF-8";
+div {
+  background: url(../foo.png);
+}
+
+body {
+  background-color: blue;
+  content: "✔ æøå";
+}
+
+#test1 {
+  color: red;
+}
+
+/*#test2{
+    color: blue;
+}*/
+#test3 {
+  color: green;
+}
+
+.parent .child {
+  width: 64px;
+  height: 24px;
+}
+
+/*# sourceMappingURL=data:application/json;charset=utf-8,%7B%22version%22:3,%22sourceRoot%22:%22%22,%22sources%22:%5B%22file:///C:/Users/agarcia/Documents/GitHub/WebCompiler/src/WebCompilerTest/artifacts/scss/sub/foo.scss%22,%22file:///C:/Users/agarcia/Documents/GitHub/WebCompiler/src/WebCompilerTest/artifacts/scss/test.scss%22,%22file:///C:/Users/agarcia/Documents/GitHub/WebCompiler/src/WebCompilerTest/artifacts/scss/_variables.scss%22%5D,%22names%22:%5B%5D,%22mappings%22:%22;AAAA;EACI;;;ACCJ;EACI,kBCHU;EDIV;;;AAGJ;EACI;;;AAGJ;AAAA;AAAA;AAIA;EACI;;;AAKA;EAEI;EACA%22%7D */

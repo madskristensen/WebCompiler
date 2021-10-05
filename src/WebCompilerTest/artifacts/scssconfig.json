@@ -14,7 +14,7 @@
     "outputFile": "scss/relative.css",
     "inputFile": "scss/sub/relative.scss",
     "options": {
-      "autoPrefix": "last 2 versions, > 5%",
+      "autoPrefix": "last 2 versions, > 5%"
     }
   }
 ]
