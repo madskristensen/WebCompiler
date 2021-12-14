@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>235df374-3c14-411c-b561-7738cfbd9f44</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>WebCompilerVsixShared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Adornments\AdornmentLayer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Adornments\AdornmentProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Adornments\GeneratedAdornment.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Adornments\LogoAdornment.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\CleanOutputFiles.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\CompileAllFiles.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\CompileOnBuild.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\CreateConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\Recompile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\RemoveConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CompilerService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Constants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ContentType\HandlebarsContentTypeDefinition.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ContentType\HBSContentTypeDefinition.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ContentType\SassContentTypeDefinition.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ContentType\StylContentTypeDefinition.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ContentType\StylusContentTypeDefinition.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ErrorList\ErrorListService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ErrorList\SinkManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ErrorList\TableDataSource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ErrorList\TableEntriesSnapshot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FileListeners\JsonCreationListener.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FileListeners\SourceFileCreationListener.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ProjectHelpers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)JSON\CompilerConfigSchemaSelector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)JSON\RelativeFilePathFormatProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TaskRunner\TaskRunnerConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TaskRunner\WebCompilerTaskRunner.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VSPackage.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)WebCompilerPackage.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)JSON\compilerconfig-schema.json" />
+    <Content Include="$(MSBuildThisFileDirectory)JSON\compilerdefaults-schema.json" />
+    <Content Include="$(MSBuildThisFileDirectory)registry.pkgdef">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Resources\icon.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\logo.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Package.ico" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\preview.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)App.config" />
+    <None Include="$(MSBuildThisFileDirectory)JSON\compilerconfig.json" />
+    <None Include="$(MSBuildThisFileDirectory)JSON\compilerdefaults.json" />
+    <None Include="$(MSBuildThisFileDirectory)VSPackage.vsct" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)VSPackage.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>VSPackage.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>

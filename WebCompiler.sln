@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 17
-VisualStudioVersion = 17.0.0.0
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 14.0.24720.0
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebCompilerVsix", "src\WebCompilerVsix\WebCompilerVsix.csproj", "{49C270BE-9645-40D5-BE08-91ADE243D394}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebCompiler", "src\WebCompiler\WebCompiler.csproj", "{B714B5B9-27C4-443C-9517-FE5C5EF46EA2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebCompiler", "src\WebCompiler\WebCompiler.csproj", "{B714B5B9-27C4-443C-9517-FE5C5EF46EA2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebCompilerTest", "src\WebCompilerTest\WebCompilerTest.csproj", "{43AAA3AD-A806-45A0-99A3-F0E7E3B81AEB}"
 EndProject
@@ -17,26 +17,58 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "WebCompilerVsixShared", "src\WebCompilerVsixShared\WebCompilerVsixShared\WebCompilerVsixShared.shproj", "{235DF374-3C14-411C-B561-7738CFBD9F44}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebCompilerVsix2022", "src\WebCompilerVsix2022\WebCompilerVsix2022.csproj", "{418FB1DB-E7F6-421D-A9B1-20D5DF2842AB}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		src\WebCompilerVsixShared\WebCompilerVsixShared\WebCompilerVsixShared.projitems*{235df374-3c14-411c-b561-7738cfbd9f44}*SharedItemsImports = 13
+		src\WebCompilerVsixShared\WebCompilerVsixShared\WebCompilerVsixShared.projitems*{418fb1db-e7f6-421d-a9b1-20d5df2842ab}*SharedItemsImports = 4
+		src\WebCompilerVsixShared\WebCompilerVsixShared\WebCompilerVsixShared.projitems*{49c270be-9645-40d5-be08-91ade243d394}*SharedItemsImports = 4
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{49C270BE-9645-40D5-BE08-91ADE243D394}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{49C270BE-9645-40D5-BE08-91ADE243D394}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49C270BE-9645-40D5-BE08-91ADE243D394}.Debug|x86.ActiveCfg = Debug|x86
+		{49C270BE-9645-40D5-BE08-91ADE243D394}.Debug|x86.Build.0 = Debug|x86
 		{49C270BE-9645-40D5-BE08-91ADE243D394}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49C270BE-9645-40D5-BE08-91ADE243D394}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49C270BE-9645-40D5-BE08-91ADE243D394}.Release|x86.ActiveCfg = Release|x86
+		{49C270BE-9645-40D5-BE08-91ADE243D394}.Release|x86.Build.0 = Release|x86
 		{B714B5B9-27C4-443C-9517-FE5C5EF46EA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B714B5B9-27C4-443C-9517-FE5C5EF46EA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B714B5B9-27C4-443C-9517-FE5C5EF46EA2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B714B5B9-27C4-443C-9517-FE5C5EF46EA2}.Debug|x86.Build.0 = Debug|Any CPU
 		{B714B5B9-27C4-443C-9517-FE5C5EF46EA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B714B5B9-27C4-443C-9517-FE5C5EF46EA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B714B5B9-27C4-443C-9517-FE5C5EF46EA2}.Release|x86.ActiveCfg = Release|Any CPU
+		{B714B5B9-27C4-443C-9517-FE5C5EF46EA2}.Release|x86.Build.0 = Release|Any CPU
 		{43AAA3AD-A806-45A0-99A3-F0E7E3B81AEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{43AAA3AD-A806-45A0-99A3-F0E7E3B81AEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43AAA3AD-A806-45A0-99A3-F0E7E3B81AEB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{43AAA3AD-A806-45A0-99A3-F0E7E3B81AEB}.Debug|x86.Build.0 = Debug|Any CPU
 		{43AAA3AD-A806-45A0-99A3-F0E7E3B81AEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43AAA3AD-A806-45A0-99A3-F0E7E3B81AEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43AAA3AD-A806-45A0-99A3-F0E7E3B81AEB}.Release|x86.ActiveCfg = Release|Any CPU
+		{43AAA3AD-A806-45A0-99A3-F0E7E3B81AEB}.Release|x86.Build.0 = Release|Any CPU
+		{418FB1DB-E7F6-421D-A9B1-20D5DF2842AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{418FB1DB-E7F6-421D-A9B1-20D5DF2842AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{418FB1DB-E7F6-421D-A9B1-20D5DF2842AB}.Debug|x86.ActiveCfg = Debug|x86
+		{418FB1DB-E7F6-421D-A9B1-20D5DF2842AB}.Debug|x86.Build.0 = Debug|x86
+		{418FB1DB-E7F6-421D-A9B1-20D5DF2842AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{418FB1DB-E7F6-421D-A9B1-20D5DF2842AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{418FB1DB-E7F6-421D-A9B1-20D5DF2842AB}.Release|x86.ActiveCfg = Release|x86
+		{418FB1DB-E7F6-421D-A9B1-20D5DF2842AB}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B0CBB4DA-2C9F-4B7F-A03C-ED9305519F1B}
 	EndGlobalSection
 EndGlobal
