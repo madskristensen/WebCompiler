@@ -50,16 +50,22 @@
     <Content Include="$(MSBuildThisFileDirectory)registry.pkgdef">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="$(MSBuildThisFileDirectory)Resources\icon.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Resources\logo.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Resources\Package.ico" />
-    <Content Include="$(MSBuildThisFileDirectory)Resources\preview.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Resources\logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Package.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Resources\preview.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)App.config" />
     <None Include="$(MSBuildThisFileDirectory)JSON\compilerconfig.json" />
     <None Include="$(MSBuildThisFileDirectory)JSON\compilerdefaults.json" />
-    <None Include="$(MSBuildThisFileDirectory)VSPackage.vsct" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)VSPackage.resx">
