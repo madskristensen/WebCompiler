@@ -87,6 +87,26 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Content Include="..\SharedFiles\Resources\icon.png">
+      <Link>Resources\icon.png</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="..\SharedFiles\Resources\logo.png">
+      <Link>Resources\logo.png</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="..\SharedFiles\Resources\Package.ico">
+      <Link>Resources\Package.ico</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="..\SharedFiles\Resources\preview.png">
+      <Link>Resources\preview.png</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <VSCTCompile Include="..\SharedFiles\VSPackage.vsct">
       <Link>VSPackage.vsct</Link>
       <ResourceName>Menus.ctmenu</ResourceName>
@@ -101,7 +121,7 @@
       <Name>WebCompiler</Name>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="..\WebCompilerVsixShared\WebCompilerVsixShared\WebCompilerVsixShared.projitems" Label="Shared" />
+  <Import Project="..\WebCompilerVsixShared\WebCompilerVsixShared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
